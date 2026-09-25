@@ -327,7 +327,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               </span>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 10 }}>
               <div
                 onClick={() => setPaymentMethod('RAZORPAY_UPI')}
                 style={{
@@ -337,7 +337,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   background: paymentMethod === 'RAZORPAY_UPI' ? 'rgba(0, 210, 255, 0.18)' : 'rgba(255, 255, 255, 0.04)',
                   border: paymentMethod === 'RAZORPAY_UPI' ? '1px solid #00d2ff' : '1px solid rgba(255, 255, 255, 0.1)',
                   cursor: 'pointer',
-                  transition: 'all 0.2s'
+                  transition: 'all 0.2s',
+                  userSelect: 'none'
                 }}
               >
                 <QrCode size={20} color={paymentMethod === 'RAZORPAY_UPI' ? '#00d2ff' : '#cbd5e1'} style={{ margin: '0 auto 6px auto' }} />
@@ -354,7 +355,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   background: paymentMethod === 'RAZORPAY_CARD' ? 'rgba(0, 82, 204, 0.2)' : 'rgba(255, 255, 255, 0.04)',
                   border: paymentMethod === 'RAZORPAY_CARD' ? '1px solid #0052cc' : '1px solid rgba(255, 255, 255, 0.1)',
                   cursor: 'pointer',
-                  transition: 'all 0.2s'
+                  transition: 'all 0.2s',
+                  userSelect: 'none'
                 }}
               >
                 <CreditCard size={20} color={paymentMethod === 'RAZORPAY_CARD' ? '#00d2ff' : '#cbd5e1'} style={{ margin: '0 auto 6px auto' }} />
@@ -371,7 +373,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   background: paymentMethod === 'RAZORPAY_NETBANKING' ? 'rgba(0, 230, 118, 0.15)' : 'rgba(255, 255, 255, 0.04)',
                   border: paymentMethod === 'RAZORPAY_NETBANKING' ? '1px solid #00e676' : '1px solid rgba(255, 255, 255, 0.1)',
                   cursor: 'pointer',
-                  transition: 'all 0.2s'
+                  transition: 'all 0.2s',
+                  userSelect: 'none'
                 }}
               >
                 <Building2 size={20} color={paymentMethod === 'RAZORPAY_NETBANKING' ? '#00e676' : '#cbd5e1'} style={{ margin: '0 auto 6px auto' }} />
@@ -388,7 +391,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   background: paymentMethod === 'RAZORPAY_WALLET' ? 'rgba(245, 175, 25, 0.15)' : 'rgba(255, 255, 255, 0.04)',
                   border: paymentMethod === 'RAZORPAY_WALLET' ? '1px solid #f5af19' : '1px solid rgba(255, 255, 255, 0.1)',
                   cursor: 'pointer',
-                  transition: 'all 0.2s'
+                  transition: 'all 0.2s',
+                  userSelect: 'none'
                 }}
               >
                 <Wallet size={20} color={paymentMethod === 'RAZORPAY_WALLET' ? '#f5af19' : '#cbd5e1'} style={{ margin: '0 auto 6px auto' }} />
@@ -404,10 +408,10 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               background: 'rgba(0, 210, 255, 0.06)',
               border: '1px solid rgba(0, 210, 255, 0.3)',
               borderRadius: 12,
-              padding: '18px 20px',
+              padding: 'clamp(12px, 2vw, 18px)',
               marginBottom: 20
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, flexWrap: 'wrap', gap: 6 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <Smartphone size={16} color="#00d2ff" />
                   <span style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>
@@ -447,14 +451,14 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                 ))}
               </div>
 
-              <div style={{ display: 'flex', gap: 10 }}>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 <input
                   type="text"
                   value={upiId}
                   onChange={(e) => setUpiId(e.target.value)}
                   placeholder="Enter Virtual Payment Address (e.g. mobile@upi)"
                   style={{
-                    flex: 1,
+                    flex: '1 1 200px',
                     background: 'rgba(0, 0, 0, 0.3)',
                     border: '1px solid rgba(0, 210, 255, 0.35)',
                     borderRadius: 6,
@@ -491,10 +495,10 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               background: 'rgba(0, 82, 204, 0.08)',
               border: '1px solid rgba(0, 82, 204, 0.35)',
               borderRadius: 12,
-              padding: '18px 20px',
+              padding: 'clamp(12px, 2vw, 18px)',
               marginBottom: 20
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14, flexWrap: 'wrap', gap: 6 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <Lock size={16} color="#00d2ff" />
                   <span style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>
@@ -507,8 +511,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               </div>
 
               {/* Card Inputs Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 10, marginBottom: 12 }}>
-                <div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 10, marginBottom: 12 }}>
+                <div style={{ gridColumn: 'span 2' }}>
                   <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Card Number</label>
                   <input
                     type="text"
@@ -577,13 +581,13 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               background: 'rgba(0, 230, 118, 0.06)',
               border: '1px solid rgba(0, 230, 118, 0.3)',
               borderRadius: 12,
-              padding: '16px 20px',
+              padding: 'clamp(12px, 2vw, 18px)',
               marginBottom: 20
             }}>
               <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#fff', marginBottom: 10 }}>
                 Select NetBanking Bank
               </label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: 8 }}>
                 {['HDFC', 'SBI', 'ICICI', 'AXIS', 'KOTAK', 'PNB', 'BOB', 'OTHER'].map((bank) => (
                   <button
                     key={bank}

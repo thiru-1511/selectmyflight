@@ -25,7 +25,8 @@ export const FEATURES_LIST = [
     color: '#00d2ff',
     description: 'Compare 50+ multi-airline fares across One-Way, Round-Trip & Multi-City with flexible date matrix.',
     actionLabel: 'Search Flights',
-    isPrimary: true
+    isPrimary: true,
+    bgImage: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80'
   },
   {
     id: 'hotels',
@@ -37,7 +38,8 @@ export const FEATURES_LIST = [
     color: '#f5af19',
     description: 'Explore 5-star oceanfront suites, boutique retreats, and luxury city hotels with instant e-vouchers.',
     actionLabel: 'Explore Hotels',
-    isPrimary: true
+    isPrimary: true,
+    bgImage: '/assets/images/hotel_burj_al_arab.jpg'
   },
   {
     id: 'itinerary',
@@ -49,7 +51,8 @@ export const FEATURES_LIST = [
     color: '#c084fc',
     description: 'AI-generated personalized day-by-day itineraries with morning/afternoon/evening blocks & 1-click bundle booking.',
     actionLabel: 'Generate Itinerary',
-    isPrimary: true
+    isPrimary: true,
+    bgImage: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80'
   },
   {
     id: 'status',
@@ -61,7 +64,8 @@ export const FEATURES_LIST = [
     color: '#00e676',
     description: 'Real-time telemetry tracking delays, terminal gates, baggage belts, and live airborne flights.',
     actionLabel: 'Track Flight',
-    isPrimary: false
+    isPrimary: false,
+    bgImage: 'https://images.unsplash.com/photo-1519074069444-1ba4fff16def?w=800&q=80'
   },
   {
     id: 'refund',
@@ -73,7 +77,8 @@ export const FEATURES_LIST = [
     color: '#f5af19',
     description: 'Enter your PNR to track step-by-step refund dispatch directly to your bank account or card.',
     actionLabel: 'Track Refund',
-    isPrimary: false
+    isPrimary: false,
+    bgImage: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80'
   },
   {
     id: 'ai',
@@ -85,7 +90,8 @@ export const FEATURES_LIST = [
     color: '#c084fc',
     description: 'Neural travel assistant for complex itinerary queries, budget searches, and 1-click bookings.',
     actionLabel: 'Ask SkyGenie',
-    isPrimary: false
+    isPrimary: false,
+    bgImage: 'https://images.unsplash.com/photo-1506015391300-4802dc74de2e?w=800&q=80'
   },
   {
     id: 'cabin',
@@ -97,7 +103,8 @@ export const FEATURES_LIST = [
     color: '#38bdf8',
     description: 'Explore interactive seat pitch, extra legroom rows, and gourmet in-flight meal options.',
     actionLabel: 'Explore Seats',
-    isPrimary: false
+    isPrimary: false,
+    bgImage: 'https://images.unsplash.com/photo-1540339832862-474599807836?w=800&q=80'
   },
   {
     id: 'alerts',
@@ -109,7 +116,8 @@ export const FEATURES_LIST = [
     color: '#fb923c',
     description: 'Track price drops on your favorite routes and receive instant notifications when fares dip.',
     actionLabel: 'Set Price Alert',
-    isPrimary: false
+    isPrimary: false,
+    bgImage: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80'
   },
   {
     id: 'trips',
@@ -121,7 +129,8 @@ export const FEATURES_LIST = [
     color: '#00d2ff',
     description: 'Manage upcoming travel, reprint electronic boarding passes with QR code, or cancel tickets.',
     actionLabel: 'View My Trips',
-    isPrimary: false
+    isPrimary: false,
+    bgImage: 'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=800&q=80'
   },
   {
     id: 'deals',
@@ -133,7 +142,8 @@ export const FEATURES_LIST = [
     color: '#f43f5e',
     description: 'Apply instant discount coupon codes (FLYSMF10, STUDENT, FESTIVE) at checkout.',
     actionLabel: 'View Deals',
-    isPrimary: false
+    isPrimary: false,
+    bgImage: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80'
   },
   {
     id: 'map',
@@ -145,7 +155,8 @@ export const FEATURES_LIST = [
     color: '#00e676',
     description: 'Visual vector map showcasing international flight routes with animated flight paths.',
     actionLabel: 'Open Route Map',
-    isPrimary: false
+    isPrimary: false,
+    bgImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80'
   },
   {
     id: 'explore',
@@ -157,7 +168,8 @@ export const FEATURES_LIST = [
     color: '#a78bfa',
     description: 'Discover Dubai, London, Singapore, and Paris with live weather and average fare indicators.',
     actionLabel: 'Explore Hubs',
-    isPrimary: false
+    isPrimary: false,
+    bgImage: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80'
   },
   {
     id: 'help',
@@ -169,6 +181,7 @@ export const FEATURES_LIST = [
     color: '#94a3b8',
     description: 'Comprehensive FAQ knowledge base, refund policy guidelines, and 24/7 support ticketing.',
     actionLabel: 'Open Help Desk',
-    isPrimary: false
+    isPrimary: false,
+    bgImage: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80'
   }
 ];

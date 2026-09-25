@@ -160,35 +160,53 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
                 left: 0,
                 right: 0,
                 height: 3,
-                background: `linear-gradient(90deg, ${feat.color}, transparent)`
+                background: `linear-gradient(90deg, ${feat.color}, transparent)`,
+                zIndex: 2
               }} />
 
-              <div>
+              {/* Background flight image overlay */}
+              {feat.bgImage && (
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  backgroundImage: `linear-gradient(180deg, rgba(13, 22, 43, 0.72) 0%, rgba(9, 15, 29, 0.94) 100%), url('${feat.bgImage}')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  opacity: isActive ? 0.95 : 0.82,
+                  transition: 'opacity 0.3s ease',
+                  zIndex: 0
+                }} />
+              )}
+
+              <div style={{ position: 'relative', zIndex: 1 }}>
                 {/* Header row: Icon & Badge */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
                   <div style={{
-                    width: 36,
-                    height: 36,
+                    width: 38,
+                    height: 38,
                     borderRadius: 10,
-                    background: `${feat.color}22`,
-                    border: `1px solid ${feat.color}44`,
+                    background: `${feat.color}25`,
+                    border: `1px solid ${feat.color}66`,
+                    backdropFilter: 'blur(8px)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: feat.color,
-                    flexShrink: 0
+                    flexShrink: 0,
+                    boxShadow: `0 4px 12px ${feat.color}33`
                   }}>
-                    <IconComp size={18} />
+                    <IconComp size={19} />
                   </div>
 
                   <span style={{
                     fontSize: 9,
                     fontWeight: 800,
-                    padding: '2px 7px',
-                    borderRadius: 10,
-                    background: `${feat.badgeColor || feat.color}20`,
+                    padding: '3px 8px',
+                    borderRadius: 12,
+                    background: 'rgba(9, 15, 29, 0.85)',
+                    backdropFilter: 'blur(6px)',
                     color: feat.badgeColor || feat.color,
-                    border: `1px solid ${feat.badgeColor || feat.color}40`,
+                    border: `1px solid ${feat.badgeColor || feat.color}60`,
                     letterSpacing: 0.5
                   }}>
                     {feat.badge}
@@ -198,10 +216,11 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
                 {/* Title */}
                 <h3 style={{
                   fontSize: 15,
-                  fontWeight: 700,
+                  fontWeight: 800,
                   color: '#fff',
                   marginBottom: 4,
-                  lineHeight: 1.2
+                  lineHeight: 1.2,
+                  textShadow: '0 2px 4px rgba(0,0,0,0.6)'
                 }}>
                   {feat.title}
                 </h3>
@@ -209,9 +228,10 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
                 {/* Description */}
                 <p style={{
                   fontSize: 12,
-                  color: '#94a3b8',
+                  color: '#cbd5e1',
                   lineHeight: 1.4,
-                  marginBottom: 12
+                  marginBottom: 12,
+                  textShadow: '0 1px 3px rgba(0,0,0,0.8)'
                 }}>
                   {feat.description}
                 </p>
@@ -219,15 +239,17 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
 
               {/* Action Link Button */}
               <div style={{
+                position: 'relative',
+                zIndex: 1,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                paddingTop: 8,
-                borderTop: '1px solid rgba(255, 255, 255, 0.06)'
+                paddingTop: 10,
+                borderTop: '1px solid rgba(255, 255, 255, 0.12)'
               }}>
                 <span style={{
                   fontSize: 12,
-                  fontWeight: 700,
+                  fontWeight: 800,
                   color: feat.color,
                   display: 'flex',
                   alignItems: 'center',
@@ -235,7 +257,17 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
                 }}>
                   {feat.actionLabel || 'Launch Feature'}
                 </span>
-                <ArrowRight size={14} color={feat.color} />
+                <div style={{
+                  background: `${feat.color}22`,
+                  borderRadius: '50%',
+                  width: 24,
+                  height: 24,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <ArrowRight size={13} color={feat.color} />
+                </div>
               </div>
             </div>
           );
