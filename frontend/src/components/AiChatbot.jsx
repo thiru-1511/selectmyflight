@@ -66,12 +66,12 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
   return (
     <div style={{
       position: 'fixed',
-      bottom: 24,
-      right: 24,
-      width: 420,
-      maxWidth: 'calc(100vw - 32px)',
-      height: 600,
-      maxHeight: 'calc(100vh - 100px)',
+      bottom: 16,
+      right: 16,
+      width: '100%',
+      maxWidth: 420,
+      height: 560,
+      maxHeight: 'calc(100vh - 80px)',
       background: '#111a33',
       border: '1px solid rgba(0, 210, 255, 0.3)',
       borderRadius: 18,

@@ -176,9 +176,9 @@ export default function SeatMapModal({ flight: initialFlight, currency, onClose,
         {/* Modal Body */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-          gap: 28,
-          padding: '24px 28px'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: 20,
+          padding: '16px 18px'
         }}>
           {/* Left: Aircraft Visual Seat Grid */}
           <div>

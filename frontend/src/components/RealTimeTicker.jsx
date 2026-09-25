@@ -8,7 +8,7 @@ const LIVE_EVENTS = [
     icon: Plane,
     color: '#00d2ff',
     badge: 'LIVE RADAR',
-    text: 'Flight 6E-2041 (DEL ➔ BOM) reached FL360 cruising altitude • Ground Speed 840 km/h • On-Time'
+    text: 'Flight 6E-2041 (DEL ➔ BOM) FL360 • Speed 840 km/h • On-Time'
   },
   {
     id: 2,
@@ -16,15 +16,15 @@ const LIVE_EVENTS = [
     icon: TrendingDown,
     color: '#00e676',
     badge: 'PRICE DROP',
-    text: 'Flash Fare: New Delhi (DEL) ➔ Dubai (DXB) dropped to ₹14,890 (Save ₹1,400 today)'
+    text: 'DEL ➔ DXB dropped to ₹14,890 (Save ₹1,400 today)'
   },
   {
     id: 3,
     type: 'refund',
     icon: RefreshCw,
     color: '#f5af19',
-    badge: 'INSTANT REFUNDS',
-    text: '₹4,82,500 refunded today across 42 PNRs via RBI NACH/IMPS automated clearing'
+    badge: 'REFUNDS',
+    text: '₹4.8L+ refunded today via RBI NACH/IMPS automated clearing'
   },
   {
     id: 4,
@@ -32,7 +32,7 @@ const LIVE_EVENTS = [
     icon: Radio,
     color: '#00d2ff',
     badge: 'GATE CALL',
-    text: 'AI-865 (DEL ➔ BOM): Boarding Commenced at Gate B14, Terminal T3 • Final Call in 15m'
+    text: 'AI-865 (DEL ➔ BOM): Boarding Gate B14, Terminal T3'
   },
   {
     id: 5,
@@ -40,7 +40,7 @@ const LIVE_EVENTS = [
     icon: Plane,
     color: '#a855f7',
     badge: 'GLOBAL RADAR',
-    text: 'Air India B787 Dreamliner AI-161 (DEL ➔ LHR) entering European Airspace corridor'
+    text: 'AI-161 (DEL ➔ LHR) entering European Airspace corridor'
   }
 ];
 
@@ -59,7 +59,6 @@ export default function RealTimeTicker({ onOpenFeature }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % LIVE_EVENTS.length);
-      // Subtle realistic flight count jitter
       setActiveFlightsCount((prev) => Math.min(265, Math.max(235, prev + (Math.random() > 0.5 ? 1 : -1))));
     }, 4500);
     return () => clearInterval(interval);
@@ -70,34 +69,29 @@ export default function RealTimeTicker({ onOpenFeature }) {
 
   return (
     <div style={{
-      background: 'rgba(6, 11, 22, 0.95)',
+      background: 'rgba(6, 11, 22, 0.96)',
       borderBottom: '1px solid rgba(0, 210, 255, 0.15)',
       color: '#cbd5e1',
       fontSize: 12,
-      padding: '6px 20px',
+      padding: '5px 12px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      gap: 16,
+      gap: 10,
       overflow: 'hidden',
       userSelect: 'none',
       zIndex: 99
     }}>
       {/* Left: System Status & Live Stats */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexShrink: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700 }}>
-          <span className="live-dot" />
-          <span style={{ color: '#00e676', letterSpacing: 0.5, fontSize: 11 }}>LIVE AIR NETWORK</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontWeight: 700 }}>
+          <span className="live-dot" style={{ width: 6, height: 6 }} />
+          <span style={{ color: '#00e676', letterSpacing: 0.5, fontSize: 10 }}>AIR NETWORK</span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255, 255, 255, 0.05)', padding: '2px 8px', borderRadius: 4, color: '#94a3b8' }}>
-          <Plane size={13} color="#00d2ff" />
+        <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(255, 255, 255, 0.05)', padding: '2px 6px', borderRadius: 4, color: '#94a3b8', fontSize: 11 }}>
+          <Plane size={11} color="#00d2ff" />
           <span><strong>{activeFlightsCount}</strong> Airborne</span>
-        </div>
-
-        <div style={{ display: 'none', alignItems: 'center', gap: 4, color: '#64748b' }} className="desktop-time">
-          <Clock size={12} />
-          <span>{liveTime} IST</span>
         </div>
       </div>
 
@@ -107,7 +101,7 @@ export default function RealTimeTicker({ onOpenFeature }) {
           flex: 1,
           display: 'flex',
           alignItems: 'center',
-          gap: 10,
+          gap: 8,
           minWidth: 0,
           cursor: onOpenFeature ? 'pointer' : 'default',
           transition: 'all 0.3s ease'
@@ -125,10 +119,10 @@ export default function RealTimeTicker({ onOpenFeature }) {
           background: `${activeEvent.color}22`,
           color: activeEvent.color,
           border: `1px solid ${activeEvent.color}44`,
-          padding: '1px 6px',
+          padding: '1px 5px',
           borderRadius: 4,
           fontWeight: 800,
-          fontSize: 10,
+          fontSize: 9,
           letterSpacing: 0.5,
           flexShrink: 0
         }}>
@@ -138,40 +132,38 @@ export default function RealTimeTicker({ onOpenFeature }) {
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 8,
+          gap: 6,
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           color: '#e2e8f0',
-          fontWeight: 500
+          fontSize: 11,
+          fontWeight: 500,
+          minWidth: 0
         }}>
-          <IconComponent size={14} color={activeEvent.color} style={{ flexShrink: 0 }} />
+          <IconComponent size={12} color={activeEvent.color} style={{ flexShrink: 0 }} />
           <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {activeEvent.text}
           </span>
         </div>
       </div>
 
-      {/* Right: Quick Real-Time Controls */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+      {/* Right: Quick Real-Time Controls (Desktop Only) */}
+      <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
         <button
           type="button"
           onClick={() => setCurrentIndex((prev) => (prev + 1) % LIVE_EVENTS.length)}
           style={{
-            background: 'transparent',
-            border: 'none',
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             color: '#94a3b8',
-            cursor: 'pointer',
-            fontSize: 11,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4,
-            padding: '2px 6px'
+            fontSize: 10,
+            padding: '2px 8px',
+            borderRadius: 4,
+            cursor: 'pointer'
           }}
-          title="Cycle next live alert"
         >
-          <RefreshCw size={11} />
-          <span>Next Stream ({currentIndex + 1}/{LIVE_EVENTS.length})</span>
+          Next ({currentIndex + 1}/{LIVE_EVENTS.length})
         </button>
       </div>
     </div>

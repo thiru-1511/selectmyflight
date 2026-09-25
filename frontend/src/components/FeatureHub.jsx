@@ -26,39 +26,39 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
     <section style={{
       maxWidth: 1360,
       margin: '0 auto',
-      padding: '32px 24px 16px 24px'
+      padding: '24px 16px 16px 16px'
     }}>
       {/* Header & Feature Picker Bar */}
       <div style={{
         display: 'flex',
-        alignItems: 'flex-end',
+        alignItems: 'flex-start',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        gap: 16,
-        marginBottom: 20
+        gap: 12,
+        marginBottom: 16
       }}>
-        <div>
+        <div style={{ flex: '1 1 280px' }}>
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: 6,
             background: 'rgba(0, 210, 255, 0.12)',
             border: '1px solid rgba(0, 210, 255, 0.3)',
-            padding: '4px 12px',
+            padding: '3px 10px',
             borderRadius: 20,
-            fontSize: 12,
+            fontSize: 11,
             fontWeight: 700,
             color: '#00d2ff',
-            marginBottom: 8
+            marginBottom: 6
           }}>
-            <Sparkles size={14} />
-            <span>ALL-IN-ONE TRAVELER FEATURE DOCK</span>
+            <Sparkles size={13} />
+            <span>TRAVELER FEATURE DOCK</span>
           </div>
-          <h2 style={{ fontSize: 26, fontWeight: 800, color: '#fff', letterSpacing: -0.5 }}>
+          <h2 style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, color: '#fff', letterSpacing: -0.5 }}>
             Pick Any Feature & Launch Instantly
           </h2>
-          <p style={{ fontSize: 13, color: '#94a3b8', marginTop: 4 }}>
-            Explore real-time telemetry, direct PNR refunds, 3D cabin layouts, AI concierge, or instant deals with 1-click.
+          <p style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+            Real-time telemetry, direct refunds, 3D cabin layouts, AI concierge, or instant deals.
           </p>
         </div>
 
@@ -70,10 +70,11 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
           background: 'rgba(255, 255, 255, 0.05)',
           border: '1px solid rgba(255, 255, 255, 0.12)',
           borderRadius: 10,
-          padding: '8px 14px',
-          width: 260
+          padding: '8px 12px',
+          width: '100%',
+          maxWidth: 280
         }}>
-          <Search size={15} color="#94a3b8" />
+          <Search size={14} color="#94a3b8" />
           <input
             type="text"
             placeholder="Filter features..."
@@ -85,21 +86,18 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
               outline: 'none',
               color: '#fff',
               fontSize: 13,
-              width: '100%'
+              width: '100%',
+              padding: 0,
+              minHeight: 'auto'
             }}
           />
         </div>
       </div>
 
-      {/* Category Pills */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
-        overflowX: 'auto',
+      {/* Category Pills (Horizontal Touch Swipe) */}
+      <div className="scroll-touch-x" style={{
         paddingBottom: 8,
-        marginBottom: 20,
-        scrollbarWidth: 'none'
+        marginBottom: 16
       }}>
         {categories.map((cat) => (
           <button
@@ -110,17 +108,18 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
               background: selectedCategory === cat ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'rgba(255, 255, 255, 0.04)',
               color: selectedCategory === cat ? '#fff' : '#cbd5e1',
               border: selectedCategory === cat ? 'none' : '1px solid rgba(255, 255, 255, 0.08)',
-              padding: '6px 14px',
+              padding: '6px 12px',
               borderRadius: 20,
               fontSize: 12,
               fontWeight: 700,
               cursor: 'pointer',
               whiteSpace: 'nowrap',
+              flexShrink: 0,
               transition: 'all 0.2s',
               boxShadow: selectedCategory === cat ? '0 4px 15px rgba(0, 210, 255, 0.3)' : 'none'
             }}
           >
-            {cat === 'All' ? '⚡ All Features (11)' : cat}
+            {cat === 'All' ? '⚡ All (11)' : cat}
           </button>
         ))}
       </div>
@@ -128,8 +127,8 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
       {/* Feature Cards Grid */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: 16
+        gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+        gap: 12
       }}>
         {filteredFeatures.map((feat) => {
           const IconComp = feat.icon;
@@ -141,8 +140,8 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
               onClick={() => onSelectFeature(feat.id)}
               className="glass-card"
               style={{
-                padding: '20px',
-                borderRadius: 14,
+                padding: '16px',
+                borderRadius: 12,
                 cursor: 'pointer',
                 border: isActive ? `1px solid ${feat.color}` : '1px solid rgba(255, 255, 255, 0.08)',
                 background: isActive ? 'rgba(18, 28, 54, 0.95)' : 'rgba(18, 28, 54, 0.65)',
@@ -151,15 +150,7 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
                 justifyContent: 'space-between',
                 position: 'relative',
                 overflow: 'hidden',
-                transition: 'all 0.25s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-3px)';
-                e.currentTarget.style.borderColor = feat.color;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = isActive ? feat.color : 'rgba(255, 255, 255, 0.08)';
+                transition: 'all 0.2s ease'
               }}
             >
               {/* Top Accent glow bar */}
@@ -174,50 +165,64 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
 
               <div>
                 {/* Header row: Icon & Badge */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
                   <div style={{
-                    width: 40,
-                    height: 40,
+                    width: 36,
+                    height: 36,
                     borderRadius: 10,
-                    background: `${feat.color}20`,
-                    border: `1px solid ${feat.color}40`,
+                    background: `${feat.color}22`,
+                    border: `1px solid ${feat.color}44`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: feat.color
+                    color: feat.color,
+                    flexShrink: 0
                   }}>
-                    <IconComp size={20} />
+                    <IconComp size={18} />
                   </div>
 
                   <span style={{
-                    background: `${feat.badgeColor}18`,
-                    color: feat.badgeColor,
-                    border: `1px solid ${feat.badgeColor}35`,
-                    fontSize: 10,
+                    fontSize: 9,
                     fontWeight: 800,
-                    padding: '3px 8px',
-                    borderRadius: 6,
+                    padding: '2px 7px',
+                    borderRadius: 10,
+                    background: `${feat.badgeColor || feat.color}20`,
+                    color: feat.badgeColor || feat.color,
+                    border: `1px solid ${feat.badgeColor || feat.color}40`,
                     letterSpacing: 0.5
                   }}>
                     {feat.badge}
                   </span>
                 </div>
 
-                {/* Title & Description */}
-                <h3 style={{ fontSize: 16, fontWeight: 800, color: '#fff', marginBottom: 6 }}>
+                {/* Title */}
+                <h3 style={{
+                  fontSize: 15,
+                  fontWeight: 700,
+                  color: '#fff',
+                  marginBottom: 4,
+                  lineHeight: 1.2
+                }}>
                   {feat.title}
                 </h3>
-                <p style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.5, marginBottom: 16 }}>
+
+                {/* Description */}
+                <p style={{
+                  fontSize: 12,
+                  color: '#94a3b8',
+                  lineHeight: 1.4,
+                  marginBottom: 12
+                }}>
                   {feat.description}
                 </p>
               </div>
 
-              {/* Action Button */}
+              {/* Action Link Button */}
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                paddingTop: 12,
+                paddingTop: 8,
                 borderTop: '1px solid rgba(255, 255, 255, 0.06)'
               }}>
                 <span style={{
@@ -226,15 +231,11 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
                   color: feat.color,
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 6
+                  gap: 4
                 }}>
-                  {feat.actionLabel}
-                  <ArrowRight size={14} />
+                  {feat.actionLabel || 'Launch Feature'}
                 </span>
-
-                <span style={{ fontSize: 11, color: '#64748b' }}>
-                  Click to launch
-                </span>
+                <ArrowRight size={14} color={feat.color} />
               </div>
             </div>
           );

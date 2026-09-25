@@ -253,7 +253,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
             <h4 style={{ fontSize: 15, fontWeight: 700, color: '#fff', marginBottom: 12 }}>
               1. Passenger Contact & Identification
             </h4>
-            <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr 1fr', gap: 10, marginBottom: 10 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: 8, marginBottom: 10 }}>
               <div>
                 <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Title</label>
                 <select
@@ -291,7 +291,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
               <div>
                 <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Email (for PDF E-Ticket & Invoice) *</label>
                 <input
@@ -420,7 +420,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               </div>
 
               {/* UPI Apps Row */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginBottom: 14 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 8, marginBottom: 14 }}>
                 {[
                   { id: 'GPAY', label: 'Google Pay', sub: 'okaxis / okhdfc' },
                   { id: 'PHONEPE', label: 'PhonePe', sub: '@ybl / @ibl' },
