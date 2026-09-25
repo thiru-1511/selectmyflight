@@ -1,0 +1,25 @@
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Java / Maven / Backend
+backend/target/
+backend/*.jar
+backend/*.war
+backend/.idea/
+backend/*.iml
+backend/.classpath
+backend/.project
+backend/.settings/
+
+# General / OS
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
