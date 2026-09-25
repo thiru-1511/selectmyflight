@@ -96,18 +96,22 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
             }}>
               {/* Header Bar */}
               <div style={{
-                background: 'linear-gradient(90deg, #00d2ff, #3a7bd5)',
-                padding: '14px 20px',
+                background: '#ffffff',
+                padding: '12px 20px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 color: '#090f1d'
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800 }}>
-                  <Plane size={18} style={{ transform: 'rotate(-45deg)' }} />
-                  <span>SelectMyFlight FastTrack Pass</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <img 
+                    src="/assets/images/selectmyflight_logo.png" 
+                    alt="SelectMyFlight.com" 
+                    style={{ height: 28, width: 'auto', objectFit: 'contain' }}
+                  />
+                  <span style={{ fontSize: 13, fontWeight: 800, color: '#090f1d', letterSpacing: 0.5 }}>FastTrack Pass</span>
                 </div>
-                <div style={{ fontWeight: 800, fontSize: 14, letterSpacing: 1 }}>
+                <div style={{ fontWeight: 800, fontSize: 14, letterSpacing: 1, color: '#090f1d' }}>
                   PNR: {pnr}
                 </div>
               </div>
@@ -178,13 +182,26 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
               borderRadius: 12,
               padding: '24px'
             }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: 16, marginBottom: 16 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: 16, marginBottom: 16 }}>
                 <div>
-                  <h4 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: 0 }}>TAX INVOICE / RECEIPT</h4>
+                  <div style={{
+                    background: '#ffffff',
+                    padding: '4px 10px',
+                    borderRadius: 6,
+                    display: 'inline-block',
+                    marginBottom: 8
+                  }}>
+                    <img 
+                      src="/assets/images/selectmyflight_logo.png" 
+                      alt="SelectMyFlight.com" 
+                      style={{ height: 26, width: 'auto', objectFit: 'contain', display: 'block' }}
+                    />
+                  </div>
+                  <h4 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: '4px 0 2px 0' }}>TAX INVOICE / RECEIPT</h4>
                   <div style={{ fontSize: 11, color: '#94a3b8' }}>Invoice No: INV-2026-{pnr} • GSTIN: 07AAACS9821L1Z4</div>
                 </div>
                 <div style={{ textAlign: 'right', fontSize: 12, color: '#cbd5e1' }}>
-                  <div>SelectMyFlight Technologies Ltd.</div>
+                  <div style={{ fontWeight: 700, color: '#fff' }}>SelectMyFlight Technologies Ltd.</div>
                   <div style={{ color: '#94a3b8', fontSize: 11 }}>Date: {new Date().toLocaleDateString()}</div>
                 </div>
               </div>

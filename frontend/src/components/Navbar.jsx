@@ -86,31 +86,24 @@ export default function Navbar({
             style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', userSelect: 'none' }}
           >
             <div style={{
-              width: 38,
-              height: 38,
-              borderRadius: 10,
-              background: 'linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%)',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 4px 15px rgba(0, 210, 255, 0.35)',
+              background: '#ffffff',
+              padding: '3px 8px',
+              borderRadius: 8,
+              boxShadow: '0 2px 12px rgba(0, 210, 255, 0.28)',
               flexShrink: 0
             }}>
-              <Plane size={20} color="#ffffff" style={{ transform: 'rotate(-45deg)' }} />
+              <img 
+                src="/assets/images/selectmyflight_logo.png" 
+                alt="SelectMyFlight.com" 
+                style={{ height: 32, width: 'auto', objectFit: 'contain', display: 'block' }} 
+              />
             </div>
-            <div>
-              <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.5, display: 'flex', alignItems: 'center', gap: 3, lineHeight: 1.1 }}>
-                <span style={{ color: '#fff' }}>SelectMy</span>
-                <span style={{ 
-                  background: 'linear-gradient(135deg, #00d2ff, #f5af19)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  fontWeight: 800
-                }}>Flight</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 2 }}>
-                <span className="live-dot" style={{ width: 5, height: 5 }} />
-                <span style={{ fontSize: 8, color: '#00e676', letterSpacing: 0.8, textTransform: 'uppercase', fontWeight: 800 }}>
+            <div className="desktop-only">
+              <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                <span className="live-dot" style={{ width: 6, height: 6 }} />
+                <span style={{ fontSize: 9, color: '#00e676', letterSpacing: 0.8, textTransform: 'uppercase', fontWeight: 800 }}>
                   LIVE OPERATIONS
                 </span>
               </div>

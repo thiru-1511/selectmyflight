@@ -68,9 +68,21 @@ export default function Footer({ onQuickPrompt, onNavigate }) {
           marginBottom: 40
         }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-              <Plane size={20} color="#00d2ff" style={{ transform: 'rotate(-45deg)' }} />
-              <span style={{ fontSize: 18, fontWeight: 800, color: '#fff' }}>SelectMyFlight</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                background: '#ffffff',
+                padding: '4px 10px',
+                borderRadius: 8,
+                boxShadow: '0 2px 10px rgba(0, 210, 255, 0.2)'
+              }}>
+                <img 
+                  src="/assets/images/selectmyflight_logo.png" 
+                  alt="SelectMyFlight.com" 
+                  style={{ height: 34, width: 'auto', objectFit: 'contain', display: 'block' }} 
+                />
+              </div>
             </div>
             <p style={{ fontSize: 13, lineHeight: 1.6 }}>
               The premium flight comparison and smart travel booking platform connecting millions of travelers with the world’s leading airlines.

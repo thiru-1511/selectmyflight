@@ -232,29 +232,18 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
               }}
             >
               <div style={{
-                width: 46,
-                height: 46,
-                borderRadius: 12,
-                background: 'linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%)',
-                display: 'flex',
+                background: '#ffffff',
+                padding: '5px 12px',
+                borderRadius: 10,
+                display: 'inline-flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 4px 20px rgba(0, 210, 255, 0.35)'
+                boxShadow: '0 4px 20px rgba(0, 210, 255, 0.25)'
               }}>
-                <Plane size={24} color="#ffffff" style={{ transform: 'rotate(-45deg)' }} />
-              </div>
-              <div>
-                <div style={{ fontSize: 23, fontWeight: 800, letterSpacing: -0.5, lineHeight: 1 }}>
-                  <span style={{ color: '#fff' }}>SelectMy</span>
-                  <span style={{ 
-                    background: 'linear-gradient(135deg, #00d2ff, #f5af19)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
-                  }}>Flight</span>
-                </div>
-                <div style={{ fontSize: 10, color: '#94a3b8', letterSpacing: 1.2, textTransform: 'uppercase', fontWeight: 700, marginTop: 3 }}>
-                  Official Travel Portal
-                </div>
+                <img 
+                  src="/assets/images/selectmyflight_logo.png" 
+                  alt="SelectMyFlight.com" 
+                  style={{ height: 38, width: 'auto', objectFit: 'contain', display: 'block' }}
+                />
               </div>
             </div>
 
