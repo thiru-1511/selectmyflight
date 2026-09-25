@@ -294,10 +294,81 @@ select option {
   gap: 20px;
 }
 
+/* Hotel Portal Layouts */
+.hotel-portal-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.hotel-card-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  background: #0d1527;
+  border: 1px solid rgba(0, 210, 255, 0.18);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hotel-card-layout:hover {
+  border-color: rgba(0, 210, 255, 0.45);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6), var(--glow-cyan);
+}
+
+.hotel-action-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+  margin-top: 12px;
+  gap: 12px;
+}
+
+.hotel-modal-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+}
+
+/* AI TripCraft Layout */
+.itinerary-main-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* SkyGenie Chatbot Window */
+.skygenie-chat-window {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 420px;
+  max-width: calc(100vw - 32px);
+  height: 580px;
+  max-height: calc(100vh - 100px);
+  background: #111a33;
+  border: 1px solid rgba(0, 210, 255, 0.35);
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 30px rgba(0, 210, 255, 0.25);
+  display: flex;
+  flex-direction: column;
+  z-index: 1200;
+  overflow: hidden;
+}
+
 /* Mobile Breakpoints */
 @media (max-width: 992px) {
-  .responsive-flight-layout {
+  .responsive-flight-layout,
+  .hotel-portal-layout,
+  .itinerary-main-grid,
+  .hotel-modal-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
   
   .desktop-nav-links {
@@ -316,6 +387,10 @@ select option {
   .hero-search-grid {
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+
+  .hotel-card-layout {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -338,6 +413,7 @@ select option {
     max-height: 94vh;
     border-radius: 18px 18px 0 0;
     max-width: 100% !important;
+    padding: 16px !important;
   }
 
   .btn-primary, .btn-secondary, .btn-gold {
@@ -349,6 +425,35 @@ select option {
   .responsive-card-grid {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  /* Hotel Mobile Overhauls */
+  .hotel-card-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .hotel-action-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .hotel-action-footer button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* SkyGenie Chatbot on Mobile */
+  .skygenie-chat-window {
+    bottom: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 85vh !important;
+    max-height: 85vh !important;
+    border-radius: 20px 20px 0 0 !important;
+    border-bottom: none !important;
   }
 
   /* Mobile Flight Card */
@@ -373,17 +478,21 @@ select option {
   .desktop-only {
     display: none !important;
   }
+
+  /* Mobile Refund Step */
+  .refund-step-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
 }
 
 @media (max-width: 480px) {
   .hero-heading {
-    font-size: 28px !important;
+    font-size: 26px !important;
   }
   
   .hero-subheading {
     font-size: 13px !important;
   }
 }
-
-
-

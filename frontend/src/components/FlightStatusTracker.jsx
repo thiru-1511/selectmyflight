@@ -201,15 +201,15 @@ export default function FlightStatusTracker() {
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0, 210, 255, 0.1)', color: '#00d2ff', padding: '6px 16px', borderRadius: 20, fontSize: 13, fontWeight: 700, marginBottom: 12 }}>
           <Radio size={16} color="#00e676" /> REAL-TIME FLIGHT RADAR & TELEMETRY
         </div>
-        <h2 style={{ fontSize: 32, fontWeight: 800, color: '#fff' }}>
+        <h2 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 800, color: '#fff' }}>
           Real-Time Flight Tracker
         </h2>
-        <p style={{ color: '#94a3b8', fontSize: 14, maxWidth: 580, margin: '4px auto 0 auto' }}>
+        <p style={{ color: '#94a3b8', fontSize: 'clamp(13px, 2vw, 14px)', maxWidth: 580, margin: '4px auto 0 auto' }}>
           Track real-time flight gates, delays, and baggage carousels, connect your own <strong>Live Flight API Key</strong>, or monitor live aircraft transmitting ADS-B transponder telemetry in the sky right now.
         </p>
 
         {/* Mode Switcher */}
-        <div style={{ display: 'inline-flex', background: 'rgba(255, 255, 255, 0.05)', padding: 4, borderRadius: 10, marginTop: 18 }}>
+        <div style={{ display: 'inline-flex', flexWrap: 'wrap', gap: 6, background: 'rgba(255, 255, 255, 0.05)', padding: 4, borderRadius: 12, marginTop: 18, maxWidth: '100%' }}>
           <button
             type="button"
             onClick={() => setTrackerMode('airline')}
@@ -217,14 +217,16 @@ export default function FlightStatusTracker() {
               background: trackerMode === 'airline' ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'transparent',
               color: trackerMode === 'airline' ? '#fff' : '#94a3b8',
               border: 'none',
-              padding: '8px 18px',
+              padding: '10px 16px',
               borderRadius: 8,
               fontSize: 13,
               fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: 6
+              justifyContent: 'center',
+              gap: 6,
+              flex: '1 1 auto'
             }}
           >
             <Plane size={15} /> Commercial Flight Status
@@ -236,14 +238,16 @@ export default function FlightStatusTracker() {
               background: trackerMode === 'live_radar' ? 'linear-gradient(135deg, #00e676, #00b0ff)' : 'transparent',
               color: trackerMode === 'live_radar' ? '#090f1d' : '#94a3b8',
               border: 'none',
-              padding: '8px 18px',
+              padding: '10px 16px',
               borderRadius: 8,
               fontSize: 13,
               fontWeight: 800,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: 6
+              justifyContent: 'center',
+              gap: 6,
+              flex: '1 1 auto'
             }}
           >
             <Radio size={15} /> Live Sky Radar (ADS-B)
@@ -382,12 +386,12 @@ export default function FlightStatusTracker() {
       {trackerMode === 'airline' && (
         <>
           {/* Search Bar */}
-          <form onSubmit={handleSearch} className="glass-card" style={{ padding: '12px 16px', display: 'flex', gap: 12, marginBottom: 16, maxWidth: 680, margin: '0 auto 16px auto' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, padding: '0 8px' }}>
-              <Search size={20} color="#00d2ff" />
+          <form onSubmit={handleSearch} className="glass-card" style={{ padding: '10px 14px', display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 16, maxWidth: 680, margin: '0 auto 16px auto', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: '1 1 240px', padding: '4px 6px' }}>
+              <Search size={20} color="#00d2ff" style={{ flexShrink: 0 }} />
               <input
                 type="text"
-                placeholder="Enter flight number (e.g. 6E-2041, AI-865, EK-511, AA-100, DL-123)..."
+                placeholder="Enter flight number (e.g. 6E-2041, AI-865, EK-511)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
@@ -395,9 +399,11 @@ export default function FlightStatusTracker() {
                   border: 'none',
                   outline: 'none',
                   color: '#fff',
-                  fontSize: 15,
+                  fontSize: 14,
                   fontWeight: 600,
-                  width: '100%'
+                  width: '100%',
+                  padding: '6px 0',
+                  minHeight: 'auto'
                 }}
               />
             </div>
@@ -405,7 +411,7 @@ export default function FlightStatusTracker() {
               type="submit"
               disabled={isFetchingLiveApi}
               className="btn-primary"
-              style={{ padding: '10px 24px', fontSize: 14, display: 'flex', alignItems: 'center', gap: 8 }}
+              style={{ padding: '10px 20px', fontSize: 13, display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 auto', justifyContent: 'center' }}
             >
               {isFetchingLiveApi && <RefreshCw size={14} className="spin-anim" />}
               {isFetchingLiveApi ? 'Querying Live API...' : 'Track Flight'}

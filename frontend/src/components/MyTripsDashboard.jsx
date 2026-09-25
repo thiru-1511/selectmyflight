@@ -40,8 +40,8 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
   return (
     <div style={{
       maxWidth: 1240,
-      margin: '24px auto 80px auto',
-      padding: '36px 32px 60px 32px',
+      margin: '16px auto 80px auto',
+      padding: 'clamp(14px, 2.5vw, 28px) clamp(12px, 2.5vw, 28px) 60px clamp(12px, 2.5vw, 28px)',
       borderRadius: 24,
       background: "linear-gradient(135deg, rgba(9, 15, 29, 0.90), rgba(15, 23, 42, 0.95)), url('/assets/images/cabin_luxury_suite.jpg')",
       backgroundSize: 'cover',
@@ -51,30 +51,31 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
       border: '1px solid rgba(0, 210, 255, 0.25)'
     }}>
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, marginBottom: 28 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14, marginBottom: 24 }}>
         <div>
-          <h2 style={{ fontSize: 28, fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Luggage size={28} color="#00d2ff" />
-            My Trips & Multi-Modal Travel Dashboard
+          <h2 style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Luggage size={26} color="#00d2ff" />
+            My Trips & Travel Dashboard
           </h2>
-          <p style={{ fontSize: 14, color: '#94a3b8', marginTop: 4 }}>
+          <p style={{ fontSize: 'clamp(13px, 2vw, 14px)', color: '#94a3b8', marginTop: 4 }}>
             Manage your flights, hotel vouchers, train/bus transit tickets, and AI trip packages in one place.
           </p>
         </div>
 
         {/* Tab Switcher */}
-        <div style={{ display: 'flex', background: 'rgba(255, 255, 255, 0.05)', padding: 4, borderRadius: 10 }}>
+        <div style={{ display: 'flex', background: 'rgba(255, 255, 255, 0.05)', padding: 4, borderRadius: 10, flexWrap: 'wrap', gap: 4 }}>
           <button
             onClick={() => setActiveTab('upcoming')}
             style={{
               background: activeTab === 'upcoming' ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'transparent',
               color: activeTab === 'upcoming' ? '#fff' : '#94a3b8',
               border: 'none',
-              padding: '8px 20px',
+              padding: '8px 16px',
               borderRadius: 8,
               fontSize: 13,
               fontWeight: 700,
-              cursor: 'pointer'
+              cursor: 'pointer',
+              flex: '1 1 auto'
             }}
           >
             Active Bookings ({upcomingTrips.length})
@@ -85,11 +86,12 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
               background: activeTab === 'past' ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'transparent',
               color: activeTab === 'past' ? '#fff' : '#94a3b8',
               border: 'none',
-              padding: '8px 20px',
+              padding: '8px 16px',
               borderRadius: 8,
               fontSize: 13,
               fontWeight: 700,
-              cursor: 'pointer'
+              cursor: 'pointer',
+              flex: '1 1 auto'
             }}
           >
             Past / Cancelled ({pastTrips.length})

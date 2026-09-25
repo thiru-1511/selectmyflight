@@ -299,7 +299,7 @@ export default function HotelDetailsModal({
           </div>
         ) : (
           /* Booking Body */
-          <div style={{ padding: '24px', display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 24 }}>
+          <div className="hotel-modal-grid" style={{ padding: 'clamp(14px, 3vw, 24px)' }}>
             {/* Left: Rooms & Amenities */}
             <div>
               <h4 style={{ fontSize: 16, fontWeight: 800, color: '#fff', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -339,7 +339,7 @@ export default function HotelDetailsModal({
                         </div>
                       </div>
 
-                      <div style={{ display: 'flex', gap: 12, fontSize: 11, color: '#38bdf8', marginTop: 8 }}>
+                      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', fontSize: 11, color: '#38bdf8', marginTop: 8 }}>
                         <span>🌅 {rm.view}</span>
                         <span>☕ Free Gourmet Breakfast</span>
                         <span>🛡️ Free Cancellation</span>
@@ -353,7 +353,7 @@ export default function HotelDetailsModal({
               <h4 style={{ fontSize: 15, fontWeight: 700, color: '#fff', marginBottom: 10 }}>
                 Included Resort Perks
               </h4>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 8, marginBottom: 16 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8, marginBottom: 16 }}>
                 {hotel.amenities.map((am, idx) => (
                   <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#cbd5e1', background: 'rgba(255,255,255,0.03)', padding: '6px 10px', borderRadius: 6 }}>
                     <Check size={14} color="#00e676" />
@@ -368,7 +368,7 @@ export default function HotelDetailsModal({
               background: 'rgba(255, 255, 255, 0.03)',
               border: '1px solid rgba(255, 255, 255, 0.08)',
               borderRadius: 16,
-              padding: '20px'
+              padding: 'clamp(14px, 2vw, 20px)'
             }}>
               <form onSubmit={handleBookingSubmit}>
                 <h4 style={{ fontSize: 15, fontWeight: 800, color: '#fff', marginBottom: 14 }}>
@@ -396,7 +396,7 @@ export default function HotelDetailsModal({
                     />
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 10 }}>
                     <div>
                       <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Email ID</label>
                       <input

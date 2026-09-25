@@ -64,36 +64,20 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
   if (!isOpen) return null;
 
   return (
-    <div style={{
-      position: 'fixed',
-      bottom: 16,
-      right: 16,
-      width: '100%',
-      maxWidth: 420,
-      height: 560,
-      maxHeight: 'calc(100vh - 80px)',
-      background: '#111a33',
-      border: '1px solid rgba(0, 210, 255, 0.3)',
-      borderRadius: 18,
-      boxShadow: '0 25px 50px rgba(0,0,0,0.7), 0 0 30px rgba(0, 210, 255, 0.2)',
-      display: 'flex',
-      flexDirection: 'column',
-      zIndex: 1000,
-      overflow: 'hidden'
-    }}>
+    <div className="skygenie-chat-window">
       {/* Chatbot Header */}
       <div style={{
         background: 'linear-gradient(135deg, #16223f, #0d1527)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-        padding: '16px 20px',
+        padding: '14px 18px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{
-            width: 38,
-            height: 38,
+            width: 36,
+            height: 36,
             borderRadius: 10,
             background: 'linear-gradient(135deg, #00d2ff, #3a7bd5)',
             display: 'flex',
@@ -101,10 +85,10 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
             justifyContent: 'center',
             boxShadow: '0 0 15px rgba(0, 210, 255, 0.4)'
           }}>
-            <Bot size={22} color="#fff" />
+            <Bot size={20} color="#fff" />
           </div>
           <div>
-            <div style={{ fontSize: 16, fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ fontSize: 15, fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: 6 }}>
               SkyGenie AI
               <span className="live-dot" />
             </div>
@@ -135,7 +119,7 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
       {/* Chat Messages Body */}
       <div style={{
         flex: 1,
-        padding: '16px',
+        padding: '14px 16px',
         overflowY: 'auto',
         display: 'flex',
         flexDirection: 'column',
@@ -146,7 +130,7 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
             key={idx}
             style={{
               alignSelf: m.sender === 'user' ? 'flex-end' : 'flex-start',
-              maxWidth: '85%'
+              maxWidth: '88%'
             }}
           >
             <div style={{
@@ -156,7 +140,7 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
               color: '#fff',
               border: m.sender === 'user' ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
               borderRadius: m.sender === 'user' ? '14px 14px 2px 14px' : '14px 14px 14px 2px',
-              padding: '12px 14px',
+              padding: '10px 14px',
               fontSize: 13,
               lineHeight: 1.5,
               whiteSpace: 'pre-wrap'
@@ -171,13 +155,14 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
                   <div
                     key={flight.id}
                     style={{
-                      background: 'rgba(18, 28, 54, 0.9)',
+                      background: 'rgba(18, 28, 54, 0.95)',
                       border: '1px solid rgba(0, 210, 255, 0.3)',
                       borderRadius: 10,
                       padding: '10px 12px',
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'space-between'
+                      justifyContent: 'space-between',
+                      gap: 10
                     }}
                   >
                     <div>
@@ -197,7 +182,7 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
                         onClose();
                       }}
                       className="btn-primary"
-                      style={{ padding: '6px 12px', fontSize: 12 }}
+                      style={{ padding: '6px 12px', fontSize: 12, minHeight: 36, whiteSpace: 'nowrap' }}
                     >
                       Book <ArrowRight size={12} />
                     </button>
@@ -210,21 +195,18 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
 
         {loading && (
           <div style={{ alignSelf: 'flex-start', color: '#00d2ff', fontSize: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Sparkles size={14} /> SkyGenie is searching flight databases...
+            <Sparkles size={14} className="spin-slow" /> SkyGenie is searching flight databases...
           </div>
         )}
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Suggested Prompts (Directly from User Requirements) */}
-      <div style={{
+      {/* Suggested Prompts */}
+      <div className="scroll-touch-x" style={{
         padding: '8px 14px',
         borderTop: '1px solid rgba(255, 255, 255, 0.08)',
         background: 'rgba(255, 255, 255, 0.02)',
-        display: 'flex',
-        gap: 6,
-        overflowX: 'auto',
-        whiteSpace: 'nowrap'
+        gap: 6
       }}>
         {[
           "Find me a cheap flight to Dubai.",
@@ -239,11 +221,12 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
               background: 'rgba(255, 255, 255, 0.05)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
               color: '#cbd5e1',
-              padding: '4px 10px',
+              padding: '6px 12px',
               borderRadius: 14,
               fontSize: 11,
               cursor: 'pointer',
-              flexShrink: 0
+              flexShrink: 0,
+              whiteSpace: 'nowrap'
             }}
           >
             💡 {prompt}
@@ -258,16 +241,17 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
           handleSend();
         }}
         style={{
-          padding: '12px 16px',
+          padding: '10px 14px',
           borderTop: '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
           gap: 8,
-          background: '#0d1527'
+          background: '#0d1527',
+          alignItems: 'center'
         }}
       >
         <input
           type="text"
-          placeholder="Ask SkyGenie anything about flights, fares, baggage..."
+          placeholder="Ask SkyGenie about flights, fares..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           style={{
@@ -276,15 +260,16 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
             border: '1px solid rgba(255, 255, 255, 0.15)',
             borderRadius: 8,
             color: '#fff',
-            padding: '10px 12px',
+            padding: '8px 12px',
             fontSize: 13,
-            outline: 'none'
+            outline: 'none',
+            minHeight: 'auto'
           }}
         />
         <button
           type="submit"
           className="btn-primary"
-          style={{ padding: '0 14px', borderRadius: 8 }}
+          style={{ padding: '0 16px', borderRadius: 8, height: 40, minHeight: 40 }}
         >
           <Send size={16} />
         </button>

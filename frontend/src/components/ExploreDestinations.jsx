@@ -87,8 +87,8 @@ export default function ExploreDestinations({ currency, onSelectDestination }) {
   return (
     <div style={{
       maxWidth: 1320,
-      margin: '24px auto 70px auto',
-      padding: '32px 32px 60px 32px',
+      margin: '16px auto 70px auto',
+      padding: 'clamp(14px, 2.5vw, 28px) clamp(12px, 2.5vw, 28px) 60px clamp(12px, 2.5vw, 28px)',
       borderRadius: 24,
       background: "linear-gradient(135deg, rgba(9, 15, 29, 0.88), rgba(15, 23, 42, 0.94)), url('/assets/images/destination_paris.jpg')",
       backgroundSize: 'cover',
@@ -97,15 +97,15 @@ export default function ExploreDestinations({ currency, onSelectDestination }) {
       boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
       border: '1px solid rgba(0, 210, 255, 0.2)'
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, marginBottom: 28 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14, marginBottom: 24 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <Compass size={28} color="#00d2ff" />
-            <h2 style={{ fontSize: 28, fontWeight: 800, color: '#fff' }}>
+            <h2 style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, color: '#fff' }}>
               Explore Global Destinations
             </h2>
           </div>
-          <p style={{ fontSize: 14, color: '#94a3b8', marginTop: 4 }}>
+          <p style={{ fontSize: 'clamp(13px, 2vw, 14px)', color: '#94a3b8', marginTop: 4 }}>
             Click on any photo to launch HD Interactive Lightbox. Discover live weather, top attractions, and instant flight bookings.
           </p>
         </div>
