@@ -1,15 +1,16 @@
 import React, { useState, useMemo } from 'react';
-import { SlidersHorizontal, ArrowUpDown, Tag, Zap, Filter, Check } from 'lucide-react';
+import { SlidersHorizontal, ArrowUpDown, Tag, Zap, Filter, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import FlightCard from './FlightCard';
 
 export default function FlightList({ flights = [], currency, onSelectFlight, onViewRules, wishlist = [], onToggleWishlist }) {
-  // Advanced Filter States (Feature 5)
+  // Advanced Filter States
   const [maxPrice, setMaxPrice] = useState(100000);
   const [selectedStops, setSelectedStops] = useState('all'); // 'all', '0', '1'
   const [selectedAirlines, setSelectedAirlines] = useState([]);
   const [refundableOnly, setRefundableOnly] = useState(false);
   const [departureSlot, setDepartureSlot] = useState('all'); // 'all', 'morning', 'afternoon', 'evening'
   const [sortBy, setSortBy] = useState('price_asc'); // 'price_asc', 'duration_asc', 'departure_asc'
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const safeFlights = useMemo(() => Array.isArray(flights) ? flights : [], [flights]);
 
@@ -22,7 +23,7 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
     return Array.from(map.entries()).map(([name, count]) => ({ name, count }));
   }, [safeFlights]);
 
-  // Identify Cheapest and Fastest flights (Feature 2)
+  // Identify Cheapest and Fastest flights
   const cheapestFlight = useMemo(() => {
     if (safeFlights.length === 0) return null;
     return [...safeFlights].sort((a, b) => a.basePrice - b.basePrice)[0];
@@ -36,26 +37,16 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
   // Filtered and Sorted Flights
   const filteredFlights = useMemo(() => {
     return safeFlights.filter(f => {
-      // Price filter
       if (f.basePrice > maxPrice) return false;
-
-      // Stops filter
       if (selectedStops !== 'all' && f.stops !== parseInt(selectedStops)) return false;
-
-      // Airline filter
       if (selectedAirlines.length > 0 && !selectedAirlines.includes(f.airlineName)) return false;
-
-      // Refundable filter
       if (refundableOnly && !f.refundable) return false;
-
-      // Departure time slot filter
       if (departureSlot !== 'all') {
         const hour = parseInt(f.departureTime.split(':')[0]);
         if (departureSlot === 'morning' && (hour < 6 || hour >= 12)) return false;
         if (departureSlot === 'afternoon' && (hour < 12 || hour >= 18)) return false;
         if (departureSlot === 'evening' && hour < 18) return false;
       }
-
       return true;
     }).sort((a, b) => {
       if (sortBy === 'price_asc') return a.basePrice - b.basePrice;
@@ -76,56 +67,64 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
   };
   const currencySymbol = currency === 'USD' ? '$' : '₹';
 
+  const activeFiltersCount = (selectedStops !== 'all' ? 1 : 0) + 
+    selectedAirlines.length + 
+    (refundableOnly ? 1 : 0) + 
+    (departureSlot !== 'all' ? 1 : 0) + 
+    (maxPrice < 100000 ? 1 : 0);
+
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 60px 24px' }}>
-      {/* Flight Comparison Header Banner (Feature 2) */}
+    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 16px 60px 16px' }}>
+      {/* Flight Comparison Header Banner */}
       <div className="glass-card" style={{
-        padding: '18px 24px',
-        marginBottom: 24,
+        padding: '14px 18px',
+        marginBottom: 18,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        gap: 16,
+        gap: 12,
         background: 'linear-gradient(135deg, rgba(17, 26, 51, 0.8), rgba(0, 210, 255, 0.08))',
         border: '1px solid rgba(0, 210, 255, 0.25)'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{
             background: 'rgba(0, 210, 255, 0.15)',
             color: '#00d2ff',
-            padding: '8px 12px',
+            padding: '6px 10px',
             borderRadius: 8,
             fontWeight: 800,
-            fontSize: 16
+            fontSize: 14
           }}>
-            {filteredFlights.length} Flights Found
+            ⚡ Comparison
           </div>
-          <span style={{ fontSize: 13, color: '#94a3b8' }}>
-            Instant comparison across all airlines with live baggage and refund terms.
+          <span style={{ fontSize: 13, color: '#f8fafc', fontWeight: 600 }}>
+            Best Deals Found Across 5+ Airlines
           </span>
         </div>
 
-        {/* Quick Highlights */}
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           {cheapestFlight && (
             <div style={{
               background: 'rgba(0, 230, 118, 0.1)',
               border: '1px solid rgba(0, 230, 118, 0.3)',
-              padding: '6px 14px',
+              padding: '4px 10px',
               borderRadius: 8,
               fontSize: 12
             }}>
               <span style={{ color: '#94a3b8' }}>Cheapest: </span>
-              <strong style={{ color: '#00e676' }}>{currencySymbol}{convertPrice(cheapestFlight.basePrice).toLocaleString()}</strong>
+              <strong style={{ color: '#00e676' }}>
+                {currencySymbol}{convertPrice(cheapestFlight.basePrice).toLocaleString()}
+              </strong>
               <span style={{ color: '#cbd5e1' }}> ({cheapestFlight.airlineName})</span>
             </div>
           )}
+
           {fastestFlight && (
             <div style={{
               background: 'rgba(0, 210, 255, 0.1)',
               border: '1px solid rgba(0, 210, 255, 0.3)',
-              padding: '6px 14px',
+              padding: '4px 10px',
               borderRadius: 8,
               fontSize: 12
             }}>
@@ -139,18 +138,60 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
         </div>
       </div>
 
+      {/* Mobile Filter Toggle Button */}
+      <div style={{ display: 'none', marginBottom: 14 }} className="mobile-menu-btn">
+        <button
+          type="button"
+          onClick={() => setShowMobileFilters(prev => !prev)}
+          style={{
+            width: '100%',
+            minHeight: 44,
+            background: 'rgba(0, 210, 255, 0.12)',
+            border: '1px solid rgba(0, 210, 255, 0.35)',
+            color: '#00d2ff',
+            borderRadius: 10,
+            padding: '10px 16px',
+            fontSize: 14,
+            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            cursor: 'pointer'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <SlidersHorizontal size={16} />
+            <span>Filter & Sort Flights</span>
+            {activeFiltersCount > 0 && (
+              <span style={{ background: '#00d2ff', color: '#090f1d', fontSize: 11, padding: '1px 6px', borderRadius: 10, fontWeight: 900 }}>
+                {activeFiltersCount}
+              </span>
+            )}
+          </div>
+          {showMobileFilters ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+        </button>
+      </div>
+
       {/* Filter and Sorting Layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: 24, alignItems: 'start' }}>
-        {/* Left Filter Sidebar (Feature 5) */}
-        <div className="glass-card" style={{ padding: '20px', position: 'sticky', top: 90 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
+      <div className="responsive-flight-layout">
+        {/* Filter Sidebar (Desktop or when toggled on Mobile) */}
+        <div 
+          className="glass-card" 
+          style={{ 
+            padding: '18px', 
+            position: 'sticky', 
+            top: 90,
+            display: (typeof window !== 'undefined' && window.innerWidth < 992 && !showMobileFilters) ? 'none' : 'block'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <SlidersHorizontal size={18} color="#00d2ff" />
-              <h3 style={{ fontSize: 16, fontWeight: 700, color: '#fff' }}>Filter Flights</h3>
+              <SlidersHorizontal size={16} color="#00d2ff" />
+              <h3 style={{ fontSize: 15, fontWeight: 700, color: '#fff' }}>Filter Flights</h3>
             </div>
             <button
               onClick={() => {
-                setMaxPrice(50000);
+                setMaxPrice(100000);
                 setSelectedStops('all');
                 setSelectedAirlines([]);
                 setRefundableOnly(false);
@@ -163,8 +204,8 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
           </div>
 
           {/* 1. Max Price Range Slider */}
-          <div style={{ marginBottom: 22 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 8 }}>
+          <div style={{ marginBottom: 18 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 6 }}>
               <span style={{ color: '#94a3b8', fontWeight: 600 }}>Max Price</span>
               <span style={{ color: '#00d2ff', fontWeight: 700 }}>
                 {currencySymbol}{convertPrice(maxPrice).toLocaleString()}
@@ -182,8 +223,8 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
           </div>
 
           {/* 2. Flight Stops */}
-          <div style={{ marginBottom: 22 }}>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 8 }}>
+          <div style={{ marginBottom: 18 }}>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 6 }}>
               Stops
             </label>
             <div style={{ display: 'flex', gap: 6 }}>
@@ -214,8 +255,8 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
           </div>
 
           {/* 3. Departure Time Slots */}
-          <div style={{ marginBottom: 22 }}>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 8 }}>
+          <div style={{ marginBottom: 18 }}>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 6 }}>
               Departure Time
             </label>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
@@ -246,57 +287,69 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
           </div>
 
           {/* 4. Airlines Checkbox List */}
-          <div style={{ marginBottom: 22 }}>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 8 }}>
+          <div style={{ marginBottom: 18 }}>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 6 }}>
               Airlines
             </label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {airlines.map(a => {
-                const checked = selectedAirlines.includes(a.name);
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {airlines.map(airline => {
+                const isSelected = selectedAirlines.includes(airline.name);
                 return (
                   <label
-                    key={a.name}
+                    key={airline.name}
+                    onClick={() => toggleAirline(airline.name)}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      fontSize: 13,
+                      background: isSelected ? 'rgba(0, 210, 255, 0.1)' : 'rgba(255, 255, 255, 0.03)',
+                      border: isSelected ? '1px solid rgba(0, 210, 255, 0.3)' : '1px solid transparent',
+                      padding: '6px 10px',
+                      borderRadius: 6,
+                      fontSize: 12,
                       cursor: 'pointer',
-                      color: checked ? '#00d2ff' : '#cbd5e1'
+                      color: isSelected ? '#fff' : '#cbd5e1',
+                      transition: 'all 0.2s'
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={() => toggleAirline(a.name)}
-                        style={{ accentColor: '#00d2ff', cursor: 'pointer' }}
-                      />
-                      <span>{a.name}</span>
+                      <div style={{
+                        width: 14,
+                        height: 14,
+                        borderRadius: 3,
+                        border: isSelected ? '1px solid #00d2ff' : '1px solid #64748b',
+                        background: isSelected ? '#00d2ff' : 'transparent',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}>
+                        {isSelected && <Check size={10} color="#090f1d" strokeWidth={4} />}
+                      </div>
+                      <span>{airline.name}</span>
                     </div>
-                    <span style={{ fontSize: 11, color: '#94a3b8' }}>({a.count})</span>
+                    <span style={{ fontSize: 11, color: '#64748b' }}>({airline.count})</span>
                   </label>
                 );
               })}
             </div>
           </div>
 
-          {/* 5. Free Cancellation Toggle */}
+          {/* 5. Refundable Toggle */}
           <div style={{
-            paddingTop: 14,
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            paddingTop: 12,
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)'
           }}>
             <span style={{ fontSize: 12, color: '#cbd5e1', fontWeight: 600 }}>
-              Refundable Only
+              Refundable Flights Only
             </span>
             <input
               type="checkbox"
               checked={refundableOnly}
               onChange={(e) => setRefundableOnly(e.target.checked)}
-              style={{ accentColor: '#00e676', width: 16, height: 16, cursor: 'pointer' }}
+              style={{ width: 16, height: 16, accentColor: '#00d2ff', cursor: 'pointer' }}
             />
           </div>
         </div>
@@ -308,19 +361,21 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginBottom: 16,
+            flexWrap: 'wrap',
+            gap: 10,
+            marginBottom: 14,
             background: 'rgba(255, 255, 255, 0.03)',
-            padding: '10px 16px',
+            padding: '8px 14px',
             borderRadius: 10,
             border: '1px solid rgba(255, 255, 255, 0.08)'
           }}>
-            <span style={{ fontSize: 13, color: '#94a3b8' }}>
-              Showing <strong>{filteredFlights.length}</strong> available options
+            <span style={{ fontSize: 12, color: '#94a3b8' }}>
+              Showing <strong>{filteredFlights.length}</strong> flights
             </span>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <ArrowUpDown size={16} color="#00d2ff" />
-              <span style={{ fontSize: 13, color: '#94a3b8', fontWeight: 600 }}>Sort by:</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <ArrowUpDown size={14} color="#00d2ff" />
+              <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
@@ -328,16 +383,17 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
                   background: 'rgba(255, 255, 255, 0.08)',
                   color: '#fff',
                   border: '1px solid rgba(255, 255, 255, 0.15)',
-                  padding: '6px 12px',
+                  padding: '4px 10px',
                   borderRadius: 6,
-                  fontSize: 13,
+                  fontSize: 12,
                   fontWeight: 600,
                   outline: 'none',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  minHeight: 32
                 }}
               >
                 <option value="price_asc" style={{ background: '#111a33' }}>Cheapest First</option>
-                <option value="duration_asc" style={{ background: '#111a33' }}>Fastest (Shortest Duration)</option>
+                <option value="duration_asc" style={{ background: '#111a33' }}>Fastest (Shortest)</option>
                 <option value="departure_asc" style={{ background: '#111a33' }}>Earliest Departure</option>
               </select>
             </div>
@@ -345,11 +401,11 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
 
           {/* Cards List */}
           {filteredFlights.length === 0 ? (
-            <div className="glass-card" style={{ padding: '60px 24px', textAlign: 'center' }}>
-              <div style={{ fontSize: 48, marginBottom: 12 }}>🛫</div>
-              <h3 style={{ fontSize: 20, color: '#fff', marginBottom: 8 }}>No Flights Match Your Filters</h3>
-              <p style={{ color: '#94a3b8', fontSize: 14, maxWidth: 400, margin: '0 auto 20px auto' }}>
-                Try relaxing the price slider or clearing the airline filters to see available flights.
+            <div className="glass-card" style={{ padding: '40px 20px', textAlign: 'center' }}>
+              <div style={{ fontSize: 40, marginBottom: 10 }}>🛫</div>
+              <h3 style={{ fontSize: 18, color: '#fff', marginBottom: 6 }}>No Flights Match Your Filters</h3>
+              <p style={{ color: '#94a3b8', fontSize: 13, maxWidth: 360, margin: '0 auto 16px auto' }}>
+                Try relaxing the price slider or clearing filters to see flights.
               </p>
               <button
                 type="button"
@@ -361,6 +417,7 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
                   setDepartureSlot('all');
                 }}
                 className="btn-primary"
+                style={{ padding: '8px 16px', fontSize: 13 }}
               >
                 Reset Filters
               </button>

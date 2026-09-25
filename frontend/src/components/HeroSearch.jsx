@@ -27,20 +27,20 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
       {/* Background Hero Banner */}
       <div style={{
         position: 'relative',
-        minHeight: 480,
+        minHeight: 460,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '50px 24px 100px 24px',
+        padding: '36px 16px 80px 16px',
         backgroundImage: `linear-gradient(to bottom, rgba(9, 15, 29, 0.45), rgba(9, 15, 29, 0.95)), url('${heroBg}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         transition: 'background-image 0.6s ease-in-out'
       }}>
         <div style={{ maxWidth: 1200, width: '100%', margin: '0 auto', textAlign: 'center' }}>
-          {/* Interactive Scene Switcher Dock */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(0, 0, 0, 0.55)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.15)', padding: '5px 12px', borderRadius: 25, marginBottom: 16 }}>
-            <span style={{ fontSize: 11, fontWeight: 800, color: '#00d2ff', textTransform: 'uppercase', marginRight: 4 }}>Interactive Scene:</span>
+          {/* Interactive Scene Switcher Dock (Swipeable on Mobile) */}
+          <div className="scroll-touch-x" style={{ display: 'inline-flex', alignItems: 'center', maxWidth: '100%', background: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255, 255, 255, 0.15)', padding: '5px 10px', borderRadius: 25, marginBottom: 14 }}>
+            <span style={{ fontSize: 10, fontWeight: 800, color: '#00d2ff', textTransform: 'uppercase', marginRight: 4, whiteSpace: 'nowrap' }}>Scene:</span>
             {SCENES.map((sc) => (
               <button
                 key={sc.label}
@@ -50,11 +50,13 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                   background: heroBg === sc.image ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'rgba(255, 255, 255, 0.08)',
                   color: heroBg === sc.image ? '#fff' : '#cbd5e1',
                   border: heroBg === sc.image ? '1px solid #00d2ff' : '1px solid rgba(255, 255, 255, 0.1)',
-                  padding: '3px 10px',
+                  padding: '3px 9px',
                   borderRadius: 16,
                   fontSize: 11,
                   fontWeight: 700,
                   cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
                   transition: 'all 0.2s'
                 }}
               >
@@ -63,31 +65,12 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
             ))}
           </div>
 
-          {/* Executive Tag */}
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            background: 'rgba(0, 210, 255, 0.15)',
-            border: '1px solid rgba(0, 210, 255, 0.35)',
-            padding: '6px 16px',
-            borderRadius: 30,
-            marginBottom: 20,
-            backdropFilter: 'blur(10px)',
-            marginLeft: 12
-          }}>
-            <Sparkles size={16} color="#00d2ff" />
-            <span style={{ fontSize: 13, fontWeight: 700, color: '#00d2ff', letterSpacing: 0.5 }}>
-              NEXT-GEN SMART FLIGHT BOOKING PLATFORM
-            </span>
-          </div>
-
-          <h1 style={{
-            fontSize: 'clamp(32px, 5vw, 56px)',
+          <h1 className="hero-heading" style={{
+            fontSize: 'clamp(28px, 5vw, 54px)',
             fontWeight: 800,
             lineHeight: 1.15,
-            marginBottom: 16,
-            letterSpacing: -1,
+            marginBottom: 12,
+            letterSpacing: -0.5,
             textShadow: '0 4px 20px rgba(0,0,0,0.6)'
           }}>
             Fly Smarter. Compare Faster. <br />
@@ -100,27 +83,27 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
             </span>
           </h1>
 
-          <p style={{
-            fontSize: 'clamp(15px, 2vw, 18px)',
+          <p className="hero-subheading" style={{
+            fontSize: 'clamp(13px, 2vw, 16px)',
             color: '#cbd5e1',
             maxWidth: 680,
-            margin: '0 auto 36px auto',
-            lineHeight: 1.6
+            margin: '0 auto 24px auto',
+            lineHeight: 1.5
           }}>
-            Real-time multi-airline flight comparison, flexible date matrices, transparent baggage rules, and AI-powered recommendations.
+            Real-time multi-airline flight comparison, flexible date matrices, and AI travel concierge.
           </p>
 
           {/* Search Card Container */}
           <div className="glass-card" style={{
             maxWidth: 1100,
             margin: '0 auto',
-            padding: '28px',
+            padding: '20px',
             textAlign: 'left',
             boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 210, 255, 0.15)'
           }}>
-            {/* Trip Type Tabs */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, marginBottom: 24 }}>
-              <div style={{ display: 'flex', gap: 8, background: 'rgba(255, 255, 255, 0.05)', padding: 4, borderRadius: 10 }}>
+            {/* Trip Type Tabs & Cabin Class Selector */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 18 }}>
+              <div className="scroll-touch-x" style={{ display: 'flex', gap: 6, background: 'rgba(255, 255, 255, 0.05)', padding: 3, borderRadius: 10 }}>
                 {['one-way', 'round-trip', 'multi-city'].map((type) => (
                   <button
                     key={type}
@@ -129,12 +112,13 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                       background: tripType === type ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'transparent',
                       color: tripType === type ? '#fff' : '#94a3b8',
                       border: 'none',
-                      padding: '8px 18px',
+                      padding: '7px 14px',
                       borderRadius: 8,
-                      fontSize: 13,
+                      fontSize: 12,
                       fontWeight: 700,
                       cursor: 'pointer',
                       textTransform: 'capitalize',
+                      whiteSpace: 'nowrap',
                       transition: 'all 0.2s'
                     }}
                   >
@@ -144,8 +128,8 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               </div>
 
               {/* Cabin Class Selector */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 13, color: '#94a3b8', fontWeight: 600 }}>Class:</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>Class:</span>
                 <select
                   value={searchParams.cabinClass}
                   onChange={(e) => setSearchParams(prev => ({ ...prev, cabinClass: e.target.value }))}
@@ -153,12 +137,13 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                     background: 'rgba(255, 255, 255, 0.08)',
                     color: '#fff',
                     border: '1px solid rgba(255, 255, 255, 0.15)',
-                    padding: '8px 14px',
+                    padding: '6px 12px',
                     borderRadius: 8,
-                    fontSize: 13,
+                    fontSize: 12,
                     fontWeight: 600,
                     outline: 'none',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    minHeight: 36
                   }}
                 >
                   <option value="All" style={{ background: '#111a33' }}>All Classes (Economy, Business...)</option>
@@ -170,16 +155,16 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               </div>
             </div>
 
-            {/* Main Search Inputs Grid */}
+            {/* Main Search Inputs Grid (Responsive) */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap: 16,
+              gap: 12,
               alignItems: 'center'
             }}>
               {/* Origin Dropdown */}
               <div style={{ position: 'relative' }}>
-                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 6, textTransform: 'uppercase' }}>
+                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
                   From (Origin)
                 </label>
                 <div style={{
@@ -188,7 +173,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                   background: 'rgba(255, 255, 255, 0.06)',
                   border: '1px solid rgba(255, 255, 255, 0.15)',
                   borderRadius: 10,
-                  padding: '10px 14px'
+                  padding: '8px 12px'
                 }}>
                   <select
                     value={searchParams.origin}
@@ -199,9 +184,10 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                       border: 'none',
                       outline: 'none',
                       width: '100%',
-                      fontSize: 15,
+                      fontSize: 14,
                       fontWeight: 700,
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      minHeight: 32
                     }}
                   >
                     {AIRPORTS.map(a => (
@@ -214,7 +200,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               </div>
 
               {/* Swap Button */}
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', margin: '2px 0' }}>
                 <button
                   type="button"
                   onClick={handleSwap}
@@ -223,26 +209,26 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                     background: 'rgba(0, 210, 255, 0.15)',
                     border: '1px solid rgba(0, 210, 255, 0.3)',
                     color: '#00d2ff',
-                    width: 42,
-                    height: 42,
+                    width: 38,
+                    height: 38,
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
                     transition: 'transform 0.2s',
-                    marginTop: 18
+                    flexShrink: 0
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(180deg)'}
                   onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(0deg)'}
                 >
-                  <ArrowRightLeft size={18} />
+                  <ArrowRightLeft size={16} />
                 </button>
               </div>
 
               {/* Destination Dropdown */}
               <div style={{ position: 'relative' }}>
-                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 6, textTransform: 'uppercase' }}>
+                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
                   To (Destination)
                 </label>
                 <div style={{
@@ -251,7 +237,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                   background: 'rgba(255, 255, 255, 0.06)',
                   border: '1px solid rgba(255, 255, 255, 0.15)',
                   borderRadius: 10,
-                  padding: '10px 14px'
+                  padding: '8px 12px'
                 }}>
                   <select
                     value={searchParams.destination}
@@ -262,9 +248,10 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                       border: 'none',
                       outline: 'none',
                       width: '100%',
-                      fontSize: 15,
+                      fontSize: 14,
                       fontWeight: 700,
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      minHeight: 32
                     }}
                   >
                     {AIRPORTS.map(a => (
@@ -278,7 +265,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
 
               {/* Departure Date */}
               <div>
-                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 6, textTransform: 'uppercase' }}>
+                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
                   Departure Date
                 </label>
                 <div style={{
@@ -287,10 +274,10 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                   background: 'rgba(255, 255, 255, 0.06)',
                   border: '1px solid rgba(255, 255, 255, 0.15)',
                   borderRadius: 10,
-                  padding: '10px 14px',
+                  padding: '8px 12px',
                   gap: 8
                 }}>
-                  <Calendar size={18} color="#00d2ff" />
+                  <Calendar size={16} color="#00d2ff" />
                   <input
                     type="date"
                     value={searchParams.departureDate}
@@ -303,7 +290,9 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                       width: '100%',
                       fontSize: 14,
                       fontWeight: 600,
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      padding: 0,
+                      minHeight: 'auto'
                     }}
                   />
                 </div>
@@ -312,7 +301,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               {/* Return Date (Shown for Round-Trip) */}
               {tripType === 'round-trip' && (
                 <div>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 6, textTransform: 'uppercase' }}>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
                     Return Date
                   </label>
                   <div style={{
@@ -321,10 +310,10 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                     background: 'rgba(255, 255, 255, 0.06)',
                     border: '1px solid rgba(255, 255, 255, 0.15)',
                     borderRadius: 10,
-                    padding: '10px 14px',
+                    padding: '8px 12px',
                     gap: 8
                   }}>
-                    <Calendar size={18} color="#f5af19" />
+                    <Calendar size={16} color="#f5af19" />
                     <input
                       type="date"
                       value={searchParams.returnDate || new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0]}
@@ -337,7 +326,9 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                         width: '100%',
                         fontSize: 14,
                         fontWeight: 600,
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        padding: 0,
+                        minHeight: 'auto'
                       }}
                     />
                   </div>
@@ -346,7 +337,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
 
               {/* Passengers Count */}
               <div>
-                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 6, textTransform: 'uppercase' }}>
+                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
                   Travelers
                 </label>
                 <div style={{
@@ -355,10 +346,10 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                   background: 'rgba(255, 255, 255, 0.06)',
                   border: '1px solid rgba(255, 255, 255, 0.15)',
                   borderRadius: 10,
-                  padding: '10px 14px',
+                  padding: '8px 12px',
                   gap: 8
                 }}>
-                  <Users size={18} color="#f5af19" />
+                  <Users size={16} color="#f5af19" />
                   <select
                     value={searchParams.passengers}
                     onChange={(e) => setSearchParams(prev => ({ ...prev, passengers: parseInt(e.target.value) }))}
@@ -370,7 +361,8 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                       width: '100%',
                       fontSize: 14,
                       fontWeight: 700,
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      minHeight: 32
                     }}
                   >
                     <option value={1} style={{ background: '#111a33' }}>1 Adult (12+ yrs)</option>
@@ -382,7 +374,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               </div>
 
               {/* Search Button */}
-              <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: 6 }}>
                 <button
                   type="button"
                   id="hero-search-flights-btn"
@@ -396,9 +388,9 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                   className="btn-primary"
                   style={{
                     width: '100%',
-                    height: 48,
-                    fontSize: 16,
-                    marginTop: 22,
+                    minHeight: 48,
+                    fontSize: 15,
+                    fontWeight: 700,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -408,105 +400,52 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                   }}
                 >
                   {loading ? <RefreshCw size={18} className="spin-anim" /> : <Search size={18} />}
-                  {loading ? 'Searching Flights...' : 'Search Flights'}
+                  <span>{loading ? 'Searching Flights...' : 'Search Flights'}</span>
                 </button>
               </div>
             </div>
 
-            {/* Multi-City Leg 2 Row (Shown if tripType === 'multi-city') */}
-            {tripType === 'multi-city' && (
-              <div style={{
-                marginTop: 16,
-                padding: '16px',
-                background: 'rgba(0, 210, 255, 0.05)',
-                border: '1px dashed rgba(0, 210, 255, 0.3)',
-                borderRadius: 10
-              }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: '#00d2ff', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span>Flight Leg 2</span>
-                  <span style={{ fontSize: 11, color: '#94a3b8' }}>• Multi-City Segment</span>
-                </div>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                  gap: 12,
-                  alignItems: 'center'
-                }}>
-                  <div>
-                    <label style={{ fontSize: 11, color: '#94a3b8' }}>Depart From</label>
-                    <div style={{ background: 'rgba(255, 255, 255, 0.06)', borderRadius: 8, padding: '8px 12px', color: '#fff', fontWeight: 600, fontSize: 13 }}>
-                      {searchParams.destination} (CSMIA Mumbai)
-                    </div>
-                  </div>
-                  <div>
-                    <label style={{ fontSize: 11, color: '#94a3b8' }}>Final Destination</label>
-                    <div style={{ background: 'rgba(255, 255, 255, 0.06)', borderRadius: 8, padding: '8px 12px', color: '#fff', fontWeight: 600, fontSize: 13 }}>
-                      DXB (Dubai Intl)
-                    </div>
-                  </div>
-                  <div>
-                    <label style={{ fontSize: 11, color: '#94a3b8' }}>Date</label>
-                    <div style={{ background: 'rgba(255, 255, 255, 0.06)', borderRadius: 8, padding: '8px 12px', color: '#00d2ff', fontWeight: 600, fontSize: 13 }}>
-                      +4 Days from Leg 1
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <button
-                      type="button"
-                      onClick={() => onQuickPrompt(searchParams.destination, 'DXB')}
-                      className="btn-secondary"
-                      style={{ width: '100%', padding: '8px 12px', fontSize: 12, justifyContent: 'center' }}
-                    >
-                      + Search Leg 2
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Quick Inspiration Chips */}
+            {/* Quick Inspiration Chips (Swipeable on Mobile) */}
             <div style={{
-              marginTop: 20,
-              paddingTop: 16,
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-              display: 'flex',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: 10
+              marginTop: 16,
+              paddingTop: 12,
+              borderTop: '1px solid rgba(255, 255, 255, 0.08)'
             }}>
-              <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>Quick Searches:</span>
-              <button
-                type="button"
-                onClick={() => onQuickPrompt('DEL', 'DXB')}
-                className="btn-secondary"
-                style={{ fontSize: 12, padding: '5px 12px', borderRadius: 20 }}
-              >
-                ✈️ Delhi to Dubai (DXB)
-              </button>
-              <button
-                type="button"
-                onClick={() => onQuickPrompt('DEL', 'BOM')}
-                className="btn-secondary"
-                style={{ fontSize: 12, padding: '5px 12px', borderRadius: 20 }}
-              >
-                ⚡ Delhi to Mumbai (Express)
-              </button>
-              <button
-                type="button"
-                onClick={() => onQuickPrompt('DEL', 'LHR')}
-                className="btn-secondary"
-                style={{ fontSize: 12, padding: '5px 12px', borderRadius: 20 }}
-              >
-                🇬🇧 London Direct (LHR)
-              </button>
-              <button
-                type="button"
-                onClick={() => onQuickPrompt('BLR', 'SIN')}
-                className="btn-secondary"
-                style={{ fontSize: 12, padding: '5px 12px', borderRadius: 20 }}
-              >
-                🇸🇬 Bengaluru to Singapore
-              </button>
+              <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, display: 'block', marginBottom: 6 }}>Quick Searches:</span>
+              <div className="scroll-touch-x" style={{ paddingBottom: 4 }}>
+                <button
+                  type="button"
+                  onClick={() => onQuickPrompt('DEL', 'DXB')}
+                  className="btn-secondary"
+                  style={{ fontSize: 11, padding: '5px 12px', borderRadius: 20, whiteSpace: 'nowrap', flexShrink: 0 }}
+                >
+                  ✈️ Delhi to Dubai (DXB)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onQuickPrompt('DEL', 'BOM')}
+                  className="btn-secondary"
+                  style={{ fontSize: 11, padding: '5px 12px', borderRadius: 20, whiteSpace: 'nowrap', flexShrink: 0 }}
+                >
+                  ⚡ Delhi to Mumbai (Express)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onQuickPrompt('DEL', 'LHR')}
+                  className="btn-secondary"
+                  style={{ fontSize: 11, padding: '5px 12px', borderRadius: 20, whiteSpace: 'nowrap', flexShrink: 0 }}
+                >
+                  🇬🇧 London Direct (LHR)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onQuickPrompt('BLR', 'SIN')}
+                  className="btn-secondary"
+                  style={{ fontSize: 11, padding: '5px 12px', borderRadius: 20, whiteSpace: 'nowrap', flexShrink: 0 }}
+                >
+                  🇸🇬 Bengaluru to Singapore
+                </button>
+              </div>
             </div>
           </div>
         </div>
