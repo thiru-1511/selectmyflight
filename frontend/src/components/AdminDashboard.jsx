@@ -316,7 +316,15 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
   const vipCustomersCount = customers.filter(c => c.tier.includes('Gold') || c.tier.includes('Platinum') || c.tier.includes('Diamond')).length;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#070c18', color: '#f8fafc', paddingBottom: 60 }}>
+    <div style={{
+      minHeight: '100vh',
+      background: "linear-gradient(135deg, rgba(6, 10, 20, 0.92) 0%, rgba(10, 16, 32, 0.96) 100%), url('/assets/images/admin_ops_bg.jpg')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundAttachment: 'fixed',
+      color: '#f8fafc',
+      paddingBottom: 60
+    }}>
       {/* Top Operations Header */}
       <header style={{
         background: 'rgba(13, 22, 43, 0.95)',

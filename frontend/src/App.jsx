@@ -763,28 +763,29 @@ export default function App() {
           onClick={() => setIsChatbotOpen(true)}
           style={{
             position: 'fixed',
-            bottom: 24,
-            right: 24,
+            bottom: 'clamp(16px, 3vw, 24px)',
+            right: 'clamp(14px, 3vw, 24px)',
             background: 'linear-gradient(135deg, #00d2ff, #3a7bd5)',
             border: 'none',
             borderRadius: 30,
-            padding: '12px 20px',
+            padding: '10px 18px',
             color: '#fff',
             fontWeight: 800,
-            fontSize: 14,
+            fontSize: 13,
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            boxShadow: '0 10px 30px rgba(0, 210, 255, 0.4), 0 0 20px rgba(0, 210, 255, 0.3)',
+            boxShadow: '0 10px 30px rgba(0, 210, 255, 0.45), 0 0 20px rgba(0, 210, 255, 0.3)',
             cursor: 'pointer',
-            zIndex: 900,
-            transition: 'transform 0.2s'
+            zIndex: 800,
+            transition: 'transform 0.2s',
+            backdropFilter: 'blur(8px)'
           }}
           onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
           onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
         >
-          <Bot size={20} />
-          Ask SkyGenie AI
+          <Bot size={18} />
+          <span>Ask SkyGenie AI</span>
           <span className="live-dot" />
         </button>
       )}
@@ -808,6 +809,7 @@ export default function App() {
         <SeatMapModal
           flight={selectedFlightForBooking}
           currency={currency}
+          initialPassengerCount={searchParams?.passengers || 1}
           onClose={() => setSelectedFlightForBooking(null)}
           onProceedToCheckout={handleProceedToCheckout}
           isPreviewMode={false}
@@ -819,6 +821,7 @@ export default function App() {
         <SeatMapModal
           flight={flights[0] || INITIAL_FLIGHTS[0]}
           currency={currency}
+          initialPassengerCount={searchParams?.passengers || 1}
           onClose={() => setIsCabinExplorerOpen(false)}
           onProceedToCheckout={handleProceedToCheckout}
           isPreviewMode={true}

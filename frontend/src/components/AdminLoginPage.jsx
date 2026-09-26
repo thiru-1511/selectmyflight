@@ -84,7 +84,7 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
   return (
     <div style={{
       minHeight: '100vh',
-      background: "linear-gradient(135deg, rgba(20, 28, 46, 0.88) 0%, rgba(8, 13, 26, 0.94) 60%, rgba(3, 6, 12, 0.97) 100%), url('/assets/images/hero_flight_banner.jpg')",
+      background: "linear-gradient(135deg, rgba(20, 28, 46, 0.88) 0%, rgba(8, 13, 26, 0.94) 60%, rgba(3, 6, 12, 0.97) 100%), url('/assets/images/admin_ops_bg.jpg')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed',

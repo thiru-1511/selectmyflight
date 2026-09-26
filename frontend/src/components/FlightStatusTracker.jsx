@@ -187,9 +187,9 @@ export default function FlightStatusTracker() {
     <div style={{
       maxWidth: 1100,
       margin: '24px auto 70px auto',
-      padding: '36px 32px 60px 32px',
+      padding: 'clamp(18px, 3vw, 36px) clamp(16px, 3vw, 32px) 60px clamp(16px, 3vw, 32px)',
       borderRadius: 24,
-      background: "linear-gradient(135deg, rgba(9, 15, 29, 0.90), rgba(15, 23, 42, 0.95)), url('/assets/images/hero_flight_banner.jpg')",
+      background: "linear-gradient(135deg, rgba(7, 12, 24, 0.88), rgba(11, 18, 36, 0.94)), url('/assets/images/flight_radar_bg.jpg')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed',

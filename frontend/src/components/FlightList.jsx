@@ -176,11 +176,9 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
       <div className="responsive-flight-layout">
         {/* Filter Sidebar (Desktop or when toggled on Mobile) */}
         <div 
-          className="glass-card" 
+          className="glass-card sticky-sidebar" 
           style={{ 
             padding: '18px', 
-            position: 'sticky', 
-            top: 90,
             display: (typeof window !== 'undefined' && window.innerWidth < 992 && !showMobileFilters) ? 'none' : 'block'
           }}
         >

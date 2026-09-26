@@ -382,7 +382,7 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
             justifyContent: 'center',
             padding: '12px 18px',
             borderRadius: 12,
-            background: showMobileFilters ? 'rgba(0, 210, 255, 0.15)' : 'rgba(255, 255, 255, 0.06)',
+            background: showMobileFilters ? 'rgba(0, 210, 255, 0.18)' : 'rgba(255, 255, 255, 0.06)',
             borderColor: showMobileFilters ? '#00d2ff' : 'rgba(255, 255, 255, 0.15)',
             color: showMobileFilters ? '#00d2ff' : '#fff',
             fontWeight: 800,
@@ -390,23 +390,24 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
           }}
         >
           <SlidersHorizontal size={16} />
-          <span>{showMobileFilters ? 'Hide Hotel Filters' : `Filter Stays (${starFilter !== 'All' ? '1+' : 'All'} Active)`}</span>
+          <span>{showMobileFilters ? 'Hide Hotel Filters' : `Filter Stays (${starFilter !== 'All' || selectedAmenity !== 'All' || freeCancelOnly ? 'Active' : 'All'})`}</span>
         </button>
       </div>
 
       {/* Main Content Layout */}
       <div className="hotel-portal-layout">
-        {/* Left Filter Sidebar */}
-        <div style={{
-          background: '#0d1527',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          borderRadius: 18,
-          padding: '22px',
-          color: '#f8fafc',
-          position: 'sticky',
-          top: 90,
-          display: showMobileFilters ? 'block' : undefined
-        }}>
+        {/* Left Filter Sidebar (Sticky on desktop, toggleable on mobile) */}
+        <div 
+          className="sticky-sidebar"
+          style={{
+            background: '#0d1527',
+            border: '1px solid rgba(0, 210, 255, 0.2)',
+            borderRadius: 18,
+            padding: '22px',
+            color: '#f8fafc',
+            display: (typeof window !== 'undefined' && window.innerWidth < 992 && !showMobileFilters) ? 'none' : 'block'
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18, borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: 12 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 15, fontWeight: 800 }}>
               <SlidersHorizontal size={16} color="#00d2ff" />
@@ -422,7 +423,7 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
               }}
               style={{ background: 'none', border: 'none', color: '#38bdf8', fontSize: 12, cursor: 'pointer', fontWeight: 600 }}
             >
-              Reset
+              Reset All
             </button>
           </div>
 
@@ -536,7 +537,7 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
               }} />
               <div>
                 <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>
-                  {isLiveConnected ? '🟢 Live Booking.com API Connected' : '⚡ Local Catalog Active'}
+                  {isLiveConnected ? '🟢 Live Booking.com API Connected' : '⚡ Local Verified Catalog Active'}
                 </div>
                 <div style={{ fontSize: 11, color: '#94a3b8' }}>
                   {isLiveConnected 
@@ -656,23 +657,27 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
               {filteredHotels.slice(0, visibleLimit).map((hotel) => (
                 <div key={hotel.id} className="hotel-card-layout">
                   {/* Photo & Badge */}
-                  <div style={{ position: 'relative', minHeight: 200 }}>
+                  <div className="hotel-card-image-wrap">
                     <img
                       src={hotel.image}
                       alt={hotel.name}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = '/assets/images/hotel_marina_bay_sands.jpg';
+                      }}
                     />
                     <div style={{
                       position: 'absolute',
                       top: 12,
                       left: 12,
-                      background: 'rgba(9, 15, 29, 0.85)',
+                      background: 'rgba(9, 15, 29, 0.88)',
                       backdropFilter: 'blur(8px)',
                       color: '#f5af19',
                       padding: '4px 10px',
                       borderRadius: 6,
                       fontSize: 11,
-                      fontWeight: 800
+                      fontWeight: 800,
+                      boxShadow: '0 2px 10px rgba(0,0,0,0.5)'
                     }}>
                       ⭐ {hotel.starRating} STARS
                     </div>
@@ -684,10 +689,12 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                         left: 12,
                         background: 'linear-gradient(135deg, #00d2ff, #0052cc)',
                         color: '#fff',
-                        padding: '3px 8px',
-                        borderRadius: 4,
+                        padding: '4px 10px',
+                        borderRadius: 6,
                         fontSize: 10,
-                        fontWeight: 900
+                        fontWeight: 900,
+                        letterSpacing: 0.5,
+                        boxShadow: '0 4px 12px rgba(0, 210, 255, 0.4)'
                       }}>
                         {hotel.discountBadge}
                       </div>
@@ -770,14 +777,15 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                         onClick={() => setActiveHotelModal(hotel)}
                         className="btn-primary"
                         style={{
-                          padding: '11px 20px',
+                          padding: '12px 22px',
                           fontSize: 13,
                           fontWeight: 800,
                           cursor: 'pointer',
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: 6,
-                          boxShadow: '0 4px 15px rgba(0, 210, 255, 0.25)'
+                          boxShadow: '0 4px 15px rgba(0, 210, 255, 0.35)',
+                          minHeight: 44
                         }}
                       >
                         <span>View Rooms & Reserve</span>

@@ -267,11 +267,18 @@ select option {
 }
 
 /* Responsive Grids & Layouts */
+/* Responsive Grids & Layouts */
 .responsive-flight-layout {
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 24px;
   align-items: start;
+}
+
+.sticky-sidebar {
+  position: sticky;
+  top: 90px;
+  z-index: 10;
 }
 
 .flight-card-inner {
@@ -309,13 +316,34 @@ select option {
   border: 1px solid rgba(0, 210, 255, 0.18);
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .hotel-card-layout:hover {
   border-color: rgba(0, 210, 255, 0.45);
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6), var(--glow-cyan);
+  transform: translateY(-2px);
+}
+
+.hotel-card-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  overflow: hidden;
+}
+
+.hotel-card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.hotel-card-layout:hover .hotel-card-image-wrap img {
+  transform: scale(1.04);
 }
 
 .hotel-action-footer {
@@ -323,8 +351,8 @@ select option {
   align-items: flex-end;
   justify-content: space-between;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 12px;
-  margin-top: 12px;
+  padding-top: 14px;
+  margin-top: 14px;
   gap: 12px;
 }
 
@@ -361,6 +389,35 @@ select option {
   overflow: hidden;
 }
 
+/* Page Background Wrapper Helper */
+.page-bg-container {
+  border-radius: 24px;
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* Button Refinements & Touch Friendliness */
+button, .btn-primary, .btn-secondary, .btn-gold {
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  font-family: var(--font-body);
+}
+
+button:active, .btn-primary:active, .btn-secondary:active, .btn-gold:active {
+  transform: scale(0.98);
+}
+
+button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
 /* Mobile Breakpoints */
 @media (max-width: 992px) {
   .responsive-flight-layout,
@@ -369,6 +426,11 @@ select option {
   .hotel-modal-grid {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+
+  .sticky-sidebar {
+    position: static !important;
+    top: auto !important;
   }
   
   .desktop-nav-links {
@@ -392,11 +454,11 @@ select option {
   .hotel-card-layout {
     grid-template-columns: 1fr;
   }
-}
 
-button, input, select, textarea, .btn-primary, .btn-secondary, .btn-gold {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  .hotel-card-image-wrap {
+    height: 220px;
+    min-height: 220px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -405,12 +467,12 @@ button, input, select, textarea, .btn-primary, .btn-secondary, .btn-gold {
   }
 
   .glass-card {
-    padding: 14px !important;
+    padding: 16px !important;
     border-radius: var(--radius-sm);
   }
 
   .modal-overlay {
-    padding: 8px;
+    padding: 10px;
     align-items: center;
   }
 
@@ -425,7 +487,7 @@ button, input, select, textarea, .btn-primary, .btn-secondary, .btn-gold {
 
   .btn-primary, .btn-secondary, .btn-gold {
     min-height: 44px;
-    padding: 10px 16px;
+    padding: 11px 18px;
     font-size: 14px;
   }
 
@@ -439,6 +501,11 @@ button, input, select, textarea, .btn-primary, .btn-secondary, .btn-gold {
     grid-template-columns: 1fr;
   }
 
+  .hotel-card-image-wrap {
+    height: 200px;
+    min-height: 200px;
+  }
+
   .hotel-action-footer {
     flex-direction: column;
     align-items: stretch;
@@ -448,6 +515,7 @@ button, input, select, textarea, .btn-primary, .btn-secondary, .btn-gold {
   .hotel-action-footer button {
     width: 100%;
     justify-content: center;
+    min-height: 44px;
   }
 
   /* SkyGenie Chatbot on Mobile */
