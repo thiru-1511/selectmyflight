@@ -156,19 +156,21 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 28 }}>
           <div style={{
-            background: '#ffffff',
-            padding: '6px 14px',
-            borderRadius: 12,
+            background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
+            padding: '12px 24px',
+            borderRadius: 16,
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 auto 16px auto',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+            boxShadow: '0 10px 30px rgba(245, 175, 25, 0.35), 0 0 20px rgba(0, 210, 255, 0.2)',
+            border: '2px solid rgba(245, 175, 25, 0.55)',
+            transition: 'transform 0.2s ease'
           }}>
             <img 
               src="/assets/images/selectmyflight_logo.png" 
               alt="SelectMyFlight.com" 
-              style={{ height: 38, width: 'auto', objectFit: 'contain', display: 'block' }}
+              style={{ height: 56, width: 'auto', objectFit: 'contain', display: 'block' }}
             />
           </div>
 

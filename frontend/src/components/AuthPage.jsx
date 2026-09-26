@@ -218,32 +218,56 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
           justifyContent: 'space-between'
         }}>
           <div>
-            {/* Logo - click to return home */}
+            {/* Logo - click to return home (Big & Prominent Presentation) */}
             <div 
               onClick={onNavigateToHome}
               title={onNavigateToHome ? "Return to Flight Search" : undefined}
               style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: 12, 
-                marginBottom: 32,
+                marginBottom: 28,
                 cursor: onNavigateToHome ? 'pointer' : 'default',
                 userSelect: 'none'
               }}
             >
               <div style={{
-                background: '#ffffff',
-                padding: '5px 12px',
-                borderRadius: 10,
+                background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
+                padding: '12px 24px',
+                borderRadius: 18,
                 display: 'inline-flex',
                 alignItems: 'center',
-                boxShadow: '0 4px 20px rgba(0, 210, 255, 0.25)'
-              }}>
+                justifyContent: 'center',
+                boxShadow: '0 12px 35px rgba(0, 210, 255, 0.35), 0 0 25px rgba(0, 210, 255, 0.2)',
+                border: '2px solid rgba(0, 210, 255, 0.55)',
+                transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                maxWidth: '100%'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
+                e.currentTarget.style.boxShadow = '0 16px 45px rgba(0, 210, 255, 0.5), 0 0 30px rgba(0, 210, 255, 0.35)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 210, 255, 0.35), 0 0 25px rgba(0, 210, 255, 0.2)';
+              }}
+              >
                 <img 
                   src="/assets/images/selectmyflight_logo.png" 
                   alt="SelectMyFlight.com" 
-                  style={{ height: 38, width: 'auto', objectFit: 'contain', display: 'block' }}
+                  style={{ height: 60, width: 'auto', maxWidth: '100%', objectFit: 'contain', display: 'block' }}
                 />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 10 }}>
+                <span style={{
+                  background: 'rgba(0, 210, 255, 0.15)',
+                  border: '1px solid rgba(0, 210, 255, 0.35)',
+                  color: '#00d2ff',
+                  fontSize: 11,
+                  fontWeight: 800,
+                  padding: '3px 10px',
+                  borderRadius: 20,
+                  letterSpacing: 0.5
+                }}>
+                  ✈️ Official Commercial Aviation Portal
+                </span>
               </div>
             </div>
 
@@ -295,13 +319,51 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
 
         {/* RIGHT COLUMN: Sign In / Register Form */}
         <div style={{ padding: '44px 38px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          {/* Prominent Logo Banner above Sign In Form for High Visibility */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 22 }}>
+            <div 
+              onClick={onNavigateToHome}
+              title={onNavigateToHome ? "Click to return to homepage" : undefined}
+              style={{
+                background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
+                padding: '10px 22px',
+                borderRadius: 14,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 8px 30px rgba(0, 210, 255, 0.3), 0 0 15px rgba(0, 210, 255, 0.15)',
+                border: '1.5px solid rgba(0, 210, 255, 0.45)',
+                cursor: onNavigateToHome ? 'pointer' : 'default',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                if (onNavigateToHome) {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 210, 255, 0.45)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (onNavigateToHome) {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 210, 255, 0.3), 0 0 15px rgba(0, 210, 255, 0.15)';
+                }
+              }}
+            >
+              <img 
+                src="/assets/images/selectmyflight_logo.png" 
+                alt="SelectMyFlight.com" 
+                style={{ height: 50, width: 'auto', objectFit: 'contain', display: 'block' }}
+              />
+            </div>
+          </div>
+
           {/* Main Mode Toggle: Sign In vs Register */}
           <div style={{
             display: 'flex',
             background: 'rgba(255, 255, 255, 0.05)',
             padding: 4,
             borderRadius: 12,
-            marginBottom: 26,
+            marginBottom: 24,
             border: '1px solid rgba(255, 255, 255, 0.08)'
           }}>
             <button
