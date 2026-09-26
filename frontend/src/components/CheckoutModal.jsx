@@ -15,10 +15,27 @@ import {
   Check,
   Smartphone,
   ExternalLink,
-  Users,
-  UserCheck
+  Users
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { 
+  GPayLogo, 
+  PhonePeLogo, 
+  PaytmLogo, 
+  UpiLogo, 
+  VisaLogo, 
+  MastercardLogo, 
+  RupayLogo, 
+  AmexLogo, 
+  HdfcBankLogo, 
+  SbiBankLogo, 
+  IciciBankLogo, 
+  AxisBankLogo, 
+  KotakBankLogo, 
+  AmazonPayLogo, 
+  MobiKwikLogo, 
+  RazorpayLogo 
+} from './PaymentLogos';
 
 const RAZORPAY_KEY_ID = 'rzp_test_1DP5mmOlF5G5ag';
 
@@ -150,6 +167,15 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
     });
   };
 
+  // Switch UPI App and update default handle
+  const handleSelectUpiApp = (appId) => {
+    setSelectedUpiApp(appId);
+    if (appId === 'GPAY') setUpiId('rahul@okaxis');
+    else if (appId === 'PHONEPE') setUpiId('rahul@ybl');
+    else if (appId === 'PAYTM') setUpiId('9876543210@paytm');
+    else if (appId === 'QR') setUpiId('selectmyflight@upi');
+  };
+
   // Launch official Razorpay Popup or in-app checkout
   const handleLaunchRazorpayPopup = () => {
     const primaryPax = passengers[0] || { firstName: 'Rahul', lastName: 'Sharma' };
@@ -217,7 +243,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
         totalAmount: finalPayable,
         passengerCount,
         paymentMethod: paymentMethod === 'RAZORPAY_UPI' 
-          ? `Razorpay UPI (${selectedUpiApp})` 
+          ? `Razorpay UPI (${selectedUpiApp === 'GPAY' ? 'Google Pay' : selectedUpiApp === 'PHONEPE' ? 'PhonePe' : selectedUpiApp === 'PAYTM' ? 'Paytm' : 'BHIM QR'})` 
           : paymentMethod === 'RAZORPAY_CARD' 
             ? 'Razorpay (Credit/Debit Card)' 
             : paymentMethod === 'RAZORPAY_NETBANKING'
@@ -253,28 +279,33 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: 'rgba(255, 255, 255, 0.02)',
+          background: 'linear-gradient(135deg, rgba(0, 210, 255, 0.08), rgba(0, 82, 204, 0.06))',
           position: 'sticky',
           top: 0,
           zIndex: 10,
           backdropFilter: 'blur(16px)'
         }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
               <h3 style={{ fontSize: 20, fontWeight: 800, color: '#fff', margin: 0 }}>
                 💳 Passenger Checkout & Razorpay Gateway
               </h3>
-              <span style={{
-                background: 'linear-gradient(135deg, #00d2ff, #0052cc)',
-                color: '#fff',
-                fontSize: 10,
-                fontWeight: 900,
-                padding: '3px 8px',
-                borderRadius: 4,
-                letterSpacing: 0.5
-              }}>
-                RAZORPAY SECURE
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{
+                  background: 'linear-gradient(135deg, #00d2ff, #0052cc)',
+                  color: '#fff',
+                  fontSize: 10,
+                  fontWeight: 900,
+                  padding: '3px 8px',
+                  borderRadius: 4,
+                  letterSpacing: 0.5,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 4
+                }}>
+                  <RazorpayLogo size={14} /> RAZORPAY SECURE
+                </span>
+              </div>
             </div>
             <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0 0' }}>
               Flight {flight.flightNumber} • {flight.originCode} ➔ {flight.destinationCode} | {passengerCount} {passengerCount === 1 ? 'Traveler' : 'Travelers'} • Seats: <strong style={{ color: '#00d2ff' }}>{selectedSeatsList.join(', ')}</strong>
@@ -312,7 +343,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                 </h4>
               </div>
               <span style={{ fontSize: 12, color: '#00e676', fontWeight: 700 }}>
-                ✓ {passengerCount} Seats Allocated
+                ✓ {passengerCount} Seats Allocated ({selectedSeatsList.join(', ')})
               </span>
             </div>
 
@@ -444,212 +475,373 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
             </div>
           </div>
 
-          {/* Payment Method Selector */}
+          {/* Payment Method Selector with Official Brand Logos */}
           <div style={{ marginBottom: 20 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, flexWrap: 'wrap', gap: 6 }}>
               <h4 style={{ fontSize: 15, fontWeight: 700, color: '#fff', margin: 0 }}>
-                2. Select Razorpay Payment Method
+                2. Select Payment Method
               </h4>
-              <span style={{ fontSize: 11, color: '#00d2ff', fontWeight: 800 }}>
-                ⚡ Powered by Razorpay Secure
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 11, color: '#00d2ff', fontWeight: 800 }}>
+                  ⚡ Instant Razorpay Gateway
+                </span>
+              </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: 8 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 10 }}>
+              {/* UPI Tab */}
               <div
                 onClick={() => setPaymentMethod('RAZORPAY_UPI')}
                 style={{
-                  padding: '12px 8px',
-                  borderRadius: 10,
+                  padding: '12px 10px',
+                  borderRadius: 12,
                   textAlign: 'center',
-                  background: paymentMethod === 'RAZORPAY_UPI' ? 'rgba(0, 210, 255, 0.2)' : 'rgba(255, 255, 255, 0.04)',
-                  border: paymentMethod === 'RAZORPAY_UPI' ? '1.5px solid #00d2ff' : '1px solid rgba(255, 255, 255, 0.1)',
+                  background: paymentMethod === 'RAZORPAY_UPI' ? 'rgba(0, 210, 255, 0.18)' : 'rgba(255, 255, 255, 0.04)',
+                  border: paymentMethod === 'RAZORPAY_UPI' ? '2px solid #00d2ff' : '1px solid rgba(255, 255, 255, 0.1)',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   userSelect: 'none',
-                  minHeight: 74,
+                  minHeight: 88,
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 4,
+                  boxShadow: paymentMethod === 'RAZORPAY_UPI' ? '0 0 16px rgba(0, 210, 255, 0.25)' : 'none'
                 }}
               >
-                <QrCode size={20} color={paymentMethod === 'RAZORPAY_UPI' ? '#00d2ff' : '#cbd5e1'} style={{ margin: '0 auto 4px auto' }} />
-                <div style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>UPI / QR</div>
-                <div style={{ fontSize: 10, color: '#00e676', fontWeight: 800 }}>⚡ 0% Fee</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <GPayLogo size={18} />
+                  <PhonePeLogo size={18} />
+                  <PaytmLogo size={18} />
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>UPI / QR</div>
+                <div style={{ fontSize: 10, color: '#00e676', fontWeight: 800 }}>⚡ 0% Fee • Instant</div>
               </div>
 
+              {/* Cards Tab */}
               <div
                 onClick={() => setPaymentMethod('RAZORPAY_CARD')}
                 style={{
-                  padding: '12px 8px',
-                  borderRadius: 10,
+                  padding: '12px 10px',
+                  borderRadius: 12,
                   textAlign: 'center',
                   background: paymentMethod === 'RAZORPAY_CARD' ? 'rgba(0, 82, 204, 0.22)' : 'rgba(255, 255, 255, 0.04)',
-                  border: paymentMethod === 'RAZORPAY_CARD' ? '1.5px solid #0052cc' : '1px solid rgba(255, 255, 255, 0.1)',
+                  border: paymentMethod === 'RAZORPAY_CARD' ? '2px solid #0052cc' : '1px solid rgba(255, 255, 255, 0.1)',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   userSelect: 'none',
-                  minHeight: 74,
+                  minHeight: 88,
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 4,
+                  boxShadow: paymentMethod === 'RAZORPAY_CARD' ? '0 0 16px rgba(0, 82, 204, 0.3)' : 'none'
                 }}
               >
-                <CreditCard size={20} color={paymentMethod === 'RAZORPAY_CARD' ? '#00d2ff' : '#cbd5e1'} style={{ margin: '0 auto 4px auto' }} />
-                <div style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>Cards</div>
-                <div style={{ fontSize: 10, color: '#cbd5e1' }}>RuPay / Visa</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <VisaLogo size={14} />
+                  <MastercardLogo size={14} />
+                  <RupayLogo size={14} />
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>Cards</div>
+                <div style={{ fontSize: 10, color: '#cbd5e1' }}>RuPay / Visa / MC</div>
               </div>
 
+              {/* NetBanking Tab */}
               <div
                 onClick={() => setPaymentMethod('RAZORPAY_NETBANKING')}
                 style={{
-                  padding: '12px 8px',
-                  borderRadius: 10,
+                  padding: '12px 10px',
+                  borderRadius: 12,
                   textAlign: 'center',
                   background: paymentMethod === 'RAZORPAY_NETBANKING' ? 'rgba(0, 230, 118, 0.18)' : 'rgba(255, 255, 255, 0.04)',
-                  border: paymentMethod === 'RAZORPAY_NETBANKING' ? '1.5px solid #00e676' : '1px solid rgba(255, 255, 255, 0.1)',
+                  border: paymentMethod === 'RAZORPAY_NETBANKING' ? '2px solid #00e676' : '1px solid rgba(255, 255, 255, 0.1)',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   userSelect: 'none',
-                  minHeight: 74,
+                  minHeight: 88,
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 4,
+                  boxShadow: paymentMethod === 'RAZORPAY_NETBANKING' ? '0 0 16px rgba(0, 230, 118, 0.25)' : 'none'
                 }}
               >
-                <Building2 size={20} color={paymentMethod === 'RAZORPAY_NETBANKING' ? '#00e676' : '#cbd5e1'} style={{ margin: '0 auto 4px auto' }} />
-                <div style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>NetBanking</div>
-                <div style={{ fontSize: 10, color: '#94a3b8' }}>50+ Banks</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <HdfcBankLogo size={16} />
+                  <SbiBankLogo size={16} />
+                  <IciciBankLogo size={16} />
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>NetBanking</div>
+                <div style={{ fontSize: 10, color: '#94a3b8' }}>50+ Indian Banks</div>
               </div>
 
+              {/* Wallets & EMI Tab */}
               <div
                 onClick={() => setPaymentMethod('RAZORPAY_WALLET')}
                 style={{
-                  padding: '12px 8px',
-                  borderRadius: 10,
+                  padding: '12px 10px',
+                  borderRadius: 12,
                   textAlign: 'center',
                   background: paymentMethod === 'RAZORPAY_WALLET' ? 'rgba(245, 175, 25, 0.18)' : 'rgba(255, 255, 255, 0.04)',
-                  border: paymentMethod === 'RAZORPAY_WALLET' ? '1.5px solid #f5af19' : '1px solid rgba(255, 255, 255, 0.1)',
+                  border: paymentMethod === 'RAZORPAY_WALLET' ? '2px solid #f5af19' : '1px solid rgba(255, 255, 255, 0.1)',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   userSelect: 'none',
-                  minHeight: 74,
+                  minHeight: 88,
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 4,
+                  boxShadow: paymentMethod === 'RAZORPAY_WALLET' ? '0 0 16px rgba(245, 175, 25, 0.25)' : 'none'
                 }}
               >
-                <Wallet size={20} color={paymentMethod === 'RAZORPAY_WALLET' ? '#f5af19' : '#cbd5e1'} style={{ margin: '0 auto 4px auto' }} />
-                <div style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>Wallets & EMI</div>
-                <div style={{ fontSize: 10, color: '#94a3b8' }}>Paytm/Amazon</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <AmazonPayLogo size={14} />
+                  <PaytmLogo size={14} />
+                  <MobiKwikLogo size={14} />
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>Wallets & EMI</div>
+                <div style={{ fontSize: 10, color: '#f5af19' }}>Amazon/Paytm/EMI</div>
               </div>
             </div>
           </div>
 
-          {/* 1. RAZORPAY UPI VIEW */}
+          {/* 1. RAZORPAY UPI VIEW WITH LOGOS */}
           {paymentMethod === 'RAZORPAY_UPI' && (
             <div style={{
               background: 'rgba(0, 210, 255, 0.06)',
               border: '1px solid rgba(0, 210, 255, 0.3)',
-              borderRadius: 12,
-              padding: 'clamp(12px, 2vw, 18px)',
+              borderRadius: 14,
+              padding: 'clamp(14px, 2vw, 20px)',
               marginBottom: 20
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14, flexWrap: 'wrap', gap: 8 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <Smartphone size={16} color="#00d2ff" />
-                  <span style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>
-                    Razorpay UPI Instant Intent & Dynamic QR
-                  </span>
+                  <UpiLogo size={22} />
+                  <div>
+                    <span style={{ fontSize: 14, fontWeight: 800, color: '#fff', display: 'block' }}>
+                      Choose your preferred UPI App
+                    </span>
+                    <span style={{ fontSize: 11, color: '#94a3b8' }}>
+                      Instant redirection or scan with any UPI App
+                    </span>
+                  </div>
                 </div>
                 <span style={{ background: '#00e676', color: '#000', fontSize: 10, fontWeight: 900, padding: '3px 8px', borderRadius: 4, letterSpacing: 0.5 }}>
-                  INSTANT DISPATCH
+                  0% TRANSACTION FEE
                 </span>
               </div>
 
-              {/* UPI Apps Row */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(95px, 1fr))', gap: 8, marginBottom: 14 }}>
-                {[
-                  { id: 'GPAY', label: 'Google Pay', sub: 'okaxis / okhdfc' },
-                  { id: 'PHONEPE', label: 'PhonePe', sub: '@ybl / @ibl' },
-                  { id: 'PAYTM', label: 'Paytm UPI', sub: '@paytm' },
-                  { id: 'QR', label: 'Scan QR Code', sub: 'Any UPI App' }
-                ].map((app) => (
-                  <button
-                    key={app.id}
-                    type="button"
-                    onClick={() => setSelectedUpiApp(app.id)}
-                    style={{
-                      background: selectedUpiApp === app.id ? 'rgba(0, 210, 255, 0.22)' : 'rgba(255, 255, 255, 0.04)',
-                      border: selectedUpiApp === app.id ? '1px solid #00d2ff' : '1px solid rgba(255, 255, 255, 0.1)',
-                      color: selectedUpiApp === app.id ? '#00d2ff' : '#cbd5e1',
-                      borderRadius: 8,
-                      padding: '8px 6px',
-                      textAlign: 'center',
-                      cursor: 'pointer',
-                      minHeight: 46
-                    }}
-                  >
-                    <div style={{ fontSize: 12, fontWeight: 700 }}>{app.label}</div>
-                    <div style={{ fontSize: 9, color: '#94a3b8' }}>{app.sub}</div>
-                  </button>
-                ))}
-              </div>
-
-              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'stretch' }}>
-                <input
-                  type="text"
-                  value={upiId}
-                  onChange={(e) => setUpiId(e.target.value)}
-                  placeholder="Enter UPI VPA (e.g. name@upi)"
-                  style={{
-                    flex: '1 1 180px',
-                    minWidth: 0,
-                    minHeight: 44,
-                    boxSizing: 'border-box',
-                    background: 'rgba(0, 0, 0, 0.35)',
-                    border: '1px solid rgba(0, 210, 255, 0.35)',
-                    borderRadius: 8,
-                    color: '#fff',
-                    padding: '10px 14px',
-                    fontSize: 13,
-                    fontWeight: 700
-                  }}
-                />
+              {/* UPI Apps Grid with Brand Logos */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 10, marginBottom: 16 }}>
+                {/* Google Pay */}
                 <button
                   type="button"
-                  onClick={handleLaunchRazorpayPopup}
+                  onClick={() => handleSelectUpiApp('GPAY')}
                   style={{
-                    background: 'rgba(0, 210, 255, 0.18)',
-                    border: '1px solid #00d2ff',
-                    color: '#00d2ff',
-                    padding: '10px 18px',
-                    borderRadius: 8,
-                    fontSize: 13,
-                    fontWeight: 800,
+                    background: selectedUpiApp === 'GPAY' ? 'rgba(66, 133, 244, 0.25)' : 'rgba(255, 255, 255, 0.04)',
+                    border: selectedUpiApp === 'GPAY' ? '2px solid #4285F4' : '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: 10,
+                    padding: '12px 10px',
+                    textAlign: 'center',
                     cursor: 'pointer',
-                    whiteSpace: 'nowrap',
-                    minHeight: 44,
-                    display: 'inline-flex',
+                    display: 'flex',
+                    flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 6
+                    gap: 6,
+                    transition: 'all 0.2s',
+                    boxShadow: selectedUpiApp === 'GPAY' ? '0 0 14px rgba(66, 133, 244, 0.4)' : 'none'
                   }}
                 >
-                  <span>Open Razorpay Window</span>
-                  <ExternalLink size={14} />
+                  <GPayLogo size={32} />
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>Google Pay</div>
+                  <div style={{ fontSize: 10, color: '#94a3b8' }}>@okaxis / @okhdfc</div>
+                </button>
+
+                {/* PhonePe */}
+                <button
+                  type="button"
+                  onClick={() => handleSelectUpiApp('PHONEPE')}
+                  style={{
+                    background: selectedUpiApp === 'PHONEPE' ? 'rgba(95, 37, 159, 0.35)' : 'rgba(255, 255, 255, 0.04)',
+                    border: selectedUpiApp === 'PHONEPE' ? '2px solid #a855f7' : '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: 10,
+                    padding: '12px 10px',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 6,
+                    transition: 'all 0.2s',
+                    boxShadow: selectedUpiApp === 'PHONEPE' ? '0 0 14px rgba(168, 85, 247, 0.4)' : 'none'
+                  }}
+                >
+                  <PhonePeLogo size={32} />
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>PhonePe</div>
+                  <div style={{ fontSize: 10, color: '#94a3b8' }}>@ybl / @ibl</div>
+                </button>
+
+                {/* Paytm UPI */}
+                <button
+                  type="button"
+                  onClick={() => handleSelectUpiApp('PAYTM')}
+                  style={{
+                    background: selectedUpiApp === 'PAYTM' ? 'rgba(0, 186, 242, 0.25)' : 'rgba(255, 255, 255, 0.04)',
+                    border: selectedUpiApp === 'PAYTM' ? '2px solid #00BAF2' : '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: 10,
+                    padding: '12px 10px',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 6,
+                    transition: 'all 0.2s',
+                    boxShadow: selectedUpiApp === 'PAYTM' ? '0 0 14px rgba(0, 186, 242, 0.4)' : 'none'
+                  }}
+                >
+                  <PaytmLogo size={32} />
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>Paytm UPI</div>
+                  <div style={{ fontSize: 10, color: '#94a3b8' }}>@paytm</div>
+                </button>
+
+                {/* BHIM / QR Code */}
+                <button
+                  type="button"
+                  onClick={() => handleSelectUpiApp('QR')}
+                  style={{
+                    background: selectedUpiApp === 'QR' ? 'rgba(0, 230, 118, 0.22)' : 'rgba(255, 255, 255, 0.04)',
+                    border: selectedUpiApp === 'QR' ? '2px solid #00e676' : '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: 10,
+                    padding: '12px 10px',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 6,
+                    transition: 'all 0.2s',
+                    boxShadow: selectedUpiApp === 'QR' ? '0 0 14px rgba(0, 230, 118, 0.4)' : 'none'
+                  }}
+                >
+                  <UpiLogo size={32} />
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>Scan & Pay QR</div>
+                  <div style={{ fontSize: 10, color: '#00e676' }}>Any UPI App</div>
                 </button>
               </div>
+
+              {/* Dynamic QR Preview Box when QR is selected */}
+              {selectedUpiApp === 'QR' ? (
+                <div style={{
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  border: '1px solid rgba(0, 230, 118, 0.3)',
+                  borderRadius: 12,
+                  padding: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: 14
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <div style={{ background: '#fff', padding: 8, borderRadius: 8, display: 'inline-block' }}>
+                      <QrCode size={64} color="#090f1d" />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>Scan with PhonePe, GPay, Paytm or CRED</div>
+                      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Amount to pay: <strong style={{ color: '#00e676', fontSize: 13 }}>{currencySymbol}{convertPrice(finalPayable).toLocaleString()}</strong></div>
+                      <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
+                        <PhonePeLogo size={16} />
+                        <GPayLogo size={16} />
+                        <PaytmLogo size={16} />
+                        <UpiLogo size={16} />
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleLaunchRazorpayPopup}
+                    style={{
+                      background: 'linear-gradient(135deg, #00e676 0%, #00b0ff 100%)',
+                      border: 'none',
+                      color: '#090f1d',
+                      padding: '10px 18px',
+                      borderRadius: 8,
+                      fontSize: 13,
+                      fontWeight: 900,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 6
+                    }}
+                  >
+                    <span>Launch Razorpay Popup</span>
+                    <ExternalLink size={14} />
+                  </button>
+                </div>
+              ) : (
+                /* VPA Input Row */
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'stretch' }}>
+                  <input
+                    type="text"
+                    value={upiId}
+                    onChange={(e) => setUpiId(e.target.value)}
+                    placeholder={selectedUpiApp === 'GPAY' ? "Enter Google Pay VPA (e.g. rahul@okaxis)" : selectedUpiApp === 'PHONEPE' ? "Enter PhonePe VPA (e.g. rahul@ybl)" : "Enter UPI VPA (e.g. name@paytm)"}
+                    style={{
+                      flex: '1 1 200px',
+                      minWidth: 0,
+                      minHeight: 44,
+                      boxSizing: 'border-box',
+                      background: 'rgba(0, 0, 0, 0.35)',
+                      border: '1px solid rgba(0, 210, 255, 0.35)',
+                      borderRadius: 8,
+                      color: '#fff',
+                      padding: '10px 14px',
+                      fontSize: 13,
+                      fontWeight: 700
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={handleLaunchRazorpayPopup}
+                    style={{
+                      background: 'rgba(0, 210, 255, 0.18)',
+                      border: '1px solid #00d2ff',
+                      color: '#00d2ff',
+                      padding: '10px 18px',
+                      borderRadius: 8,
+                      fontSize: 13,
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                      minHeight: 44,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 6
+                    }}
+                  >
+                    <span>Pay with {selectedUpiApp === 'GPAY' ? 'Google Pay' : selectedUpiApp === 'PHONEPE' ? 'PhonePe' : 'Paytm'}</span>
+                    <ExternalLink size={14} />
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
-          {/* 2. RAZORPAY CARD VIEW */}
+          {/* 2. RAZORPAY CARD VIEW WITH BRAND LOGOS */}
           {paymentMethod === 'RAZORPAY_CARD' && (
             <div style={{
               background: 'rgba(0, 82, 204, 0.08)',
               border: '1px solid rgba(0, 82, 204, 0.35)',
-              borderRadius: 12,
-              padding: 'clamp(12px, 2vw, 18px)',
+              borderRadius: 14,
+              padding: 'clamp(14px, 2vw, 20px)',
               marginBottom: 20
             }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14, flexWrap: 'wrap', gap: 6 }}>
@@ -659,9 +851,12 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                     Razorpay 256-Bit Encrypted Card Payment
                   </span>
                 </div>
-                <span style={{ fontSize: 11, color: '#00d2ff', fontWeight: 700 }}>
-                  RuPay / Visa / Mastercard
-                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <VisaLogo size={18} />
+                  <MastercardLogo size={18} />
+                  <RupayLogo size={18} />
+                  <AmexLogo size={18} />
+                </div>
               </div>
 
               {/* Card Inputs Grid */}
@@ -701,99 +896,120 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                 </div>
               </div>
 
-              {/* Test Card Quick Chips */}
+              {/* Test Card Quick Chips with Brand Logos */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', fontSize: 11 }}>
-                <span style={{ color: '#94a3b8', fontWeight: 600 }}>Razorpay Test Cards:</span>
+                <span style={{ color: '#94a3b8', fontWeight: 600 }}>Quick Test Cards:</span>
                 <button
                   type="button"
                   onClick={() => handleFillTestCard('4111111111111111', `${passengers[0]?.firstName} ${passengers[0]?.lastName}`)}
-                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#00d2ff', borderRadius: 4, padding: '4px 8px', cursor: 'pointer', fontSize: 10, fontWeight: 700 }}
+                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#00d2ff', borderRadius: 6, padding: '4px 8px', cursor: 'pointer', fontSize: 11, fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 5 }}
                 >
-                  💳 Visa (4111...)
+                  <VisaLogo size={14} /> <span>Visa (4111...)</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleFillTestCard('5242001122334455', 'PRIYA SHARMA')}
-                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#f5af19', borderRadius: 4, padding: '4px 8px', cursor: 'pointer', fontSize: 10, fontWeight: 700 }}
+                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#f5af19', borderRadius: 6, padding: '4px 8px', cursor: 'pointer', fontSize: 11, fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 5 }}
                 >
-                  💳 Mastercard
+                  <MastercardLogo size={14} /> <span>Mastercard</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleFillTestCard('6080123456789012', 'AMITABH SHARMA')}
-                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#00e676', borderRadius: 4, padding: '4px 8px', cursor: 'pointer', fontSize: 10, fontWeight: 700 }}
+                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#00e676', borderRadius: 6, padding: '4px 8px', cursor: 'pointer', fontSize: 11, fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 5 }}
                 >
-                  💳 RuPay Card
+                  <RupayLogo size={14} /> <span>RuPay Card</span>
                 </button>
               </div>
             </div>
           )}
 
-          {/* 3. RAZORPAY NETBANKING VIEW */}
+          {/* 3. RAZORPAY NETBANKING VIEW WITH BANK LOGOS */}
           {paymentMethod === 'RAZORPAY_NETBANKING' && (
             <div style={{
               background: 'rgba(0, 230, 118, 0.06)',
               border: '1px solid rgba(0, 230, 118, 0.3)',
-              borderRadius: 12,
-              padding: 'clamp(12px, 2vw, 18px)',
+              borderRadius: 14,
+              padding: 'clamp(14px, 2vw, 20px)',
               marginBottom: 20
             }}>
-              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#fff', marginBottom: 10 }}>
-                Select NetBanking Bank
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 12 }}>
+                Select NetBanking Institution (Instant Authorization)
               </label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: 8 }}>
-                {['HDFC', 'SBI', 'ICICI', 'AXIS', 'KOTAK', 'PNB', 'BOB', 'OTHER'].map((bank) => (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 10 }}>
+                {[
+                  { id: 'HDFC', name: 'HDFC Bank', Logo: HdfcBankLogo },
+                  { id: 'SBI', name: 'SBI Bank', Logo: SbiBankLogo },
+                  { id: 'ICICI', name: 'ICICI Bank', Logo: IciciBankLogo },
+                  { id: 'AXIS', name: 'Axis Bank', Logo: AxisBankLogo },
+                  { id: 'KOTAK', name: 'Kotak Bank', Logo: KotakBankLogo },
+                  { id: 'OTHER', name: 'Other 50+ Banks', Logo: Building2 }
+                ].map((bank) => (
                   <button
-                    key={bank}
+                    key={bank.id}
                     type="button"
-                    onClick={() => setSelectedBank(bank)}
+                    onClick={() => setSelectedBank(bank.id)}
                     style={{
-                      padding: '8px',
-                      borderRadius: 6,
-                      background: selectedBank === bank ? 'rgba(0, 230, 118, 0.2)' : 'rgba(255,255,255,0.04)',
-                      border: selectedBank === bank ? '1px solid #00e676' : '1px solid rgba(255,255,255,0.1)',
-                      color: selectedBank === bank ? '#00e676' : '#cbd5e1',
-                      fontSize: 11,
+                      padding: '10px 8px',
+                      borderRadius: 8,
+                      background: selectedBank === bank.id ? 'rgba(0, 230, 118, 0.22)' : 'rgba(255,255,255,0.04)',
+                      border: selectedBank === bank.id ? '1.5px solid #00e676' : '1px solid rgba(255,255,255,0.1)',
+                      color: selectedBank === bank.id ? '#00e676' : '#cbd5e1',
+                      fontSize: 12,
                       fontWeight: 700,
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      transition: 'all 0.15s'
                     }}
                   >
-                    {bank} Bank
+                    <bank.Logo size={20} color={selectedBank === bank.id ? '#00e676' : '#cbd5e1'} />
+                    <span>{bank.name}</span>
                   </button>
                 ))}
               </div>
             </div>
           )}
 
-          {/* 4. RAZORPAY WALLET & EMI VIEW */}
+          {/* 4. RAZORPAY WALLET & EMI VIEW WITH LOGOS */}
           {paymentMethod === 'RAZORPAY_WALLET' && (
             <div style={{
               background: 'rgba(245, 175, 25, 0.06)',
               border: '1px solid rgba(245, 175, 25, 0.3)',
-              borderRadius: 12,
-              padding: 'clamp(12px, 2vw, 18px)',
+              borderRadius: 14,
+              padding: 'clamp(14px, 2vw, 20px)',
               marginBottom: 20
             }}>
-              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#fff', marginBottom: 10 }}>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 12 }}>
                 Select Digital Wallet / EMI Option
               </label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: 8 }}>
-                {['Paytm Wallet', 'Amazon Pay', 'PhonePe Wallet', 'MobiKwik', 'No-Cost EMI (3M)', 'Cardless EMI'].map((wal) => (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 10 }}>
+                {[
+                  { name: 'Amazon Pay', Logo: AmazonPayLogo },
+                  { name: 'Paytm Wallet', Logo: PaytmLogo },
+                  { name: 'PhonePe Wallet', Logo: PhonePeLogo },
+                  { name: 'MobiKwik', Logo: MobiKwikLogo }
+                ].map((wal) => (
                   <button
-                    key={wal}
+                    key={wal.name}
                     type="button"
                     style={{
-                      padding: '8px 10px',
-                      borderRadius: 6,
+                      padding: '10px 12px',
+                      borderRadius: 8,
                       background: 'rgba(245, 175, 25, 0.15)',
                       border: '1px solid rgba(245, 175, 25, 0.35)',
                       color: '#f5af19',
-                      fontSize: 11,
+                      fontSize: 12,
                       fontWeight: 700,
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8
                     }}
                   >
-                    {wal}
+                    <wal.Logo size={20} />
+                    <span>{wal.name}</span>
                   </button>
                 ))}
               </div>
@@ -905,11 +1121,18 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
             </div>
           </div>
 
-          {/* Submit Button & Security Footer */}
+          {/* Submit Button & Security Footer with Trust Badges */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#94a3b8' }}>
-              <ShieldCheck size={18} color="#00e676" style={{ flexShrink: 0 }} />
-              <span>Razorpay Verified • 256-bit RBI Compliant TLS Gateway</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12, color: '#94a3b8' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <RazorpayLogo size={18} />
+                <GPayLogo size={16} />
+                <PhonePeLogo size={16} />
+                <VisaLogo size={14} />
+                <MastercardLogo size={14} />
+                <RupayLogo size={14} />
+              </div>
+              <span>256-bit RBI Compliant Payment Gateway</span>
             </div>
 
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', width: '100%', justifyContent: 'flex-end' }}>

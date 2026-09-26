@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, CheckCircle2, Download, Printer, FileText, QrCode, Plane, ShieldCheck, User, Users } from 'lucide-react';
+import { GPayLogo, PhonePeLogo, PaytmLogo, UpiLogo, RazorpayLogo, VisaLogo, MastercardLogo, RupayLogo } from './PaymentLogos';
 
 export default function ETicketModal({ booking, currency, onClose, onViewMyTrips }) {
   const [showInvoice, setShowInvoice] = useState(Boolean(booking?.initialShowInvoice));
@@ -271,9 +272,14 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
                 </div>
                 <div style={{ textAlign: 'right' }}>
                   <div style={{ color: '#94a3b8' }}>Payment Reference:</div>
-                  <div style={{ fontWeight: 700, color: '#00e676' }}>Status: PAID IN FULL</div>
-                  <div style={{ color: '#cbd5e1' }}>Method: {paymentMethod || 'Razorpay UPI'}</div>
-                  <div style={{ color: '#00d2ff', fontSize: 11, fontFamily: 'monospace' }}>Razorpay ID: {booking.paymentId || `pay_rzp_${Date.now().toString().slice(-8)}`}</div>
+                  <div style={{ fontWeight: 700, color: '#00e676', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6 }}>
+                    <RazorpayLogo size={14} /> Status: PAID IN FULL
+                  </div>
+                  <div style={{ color: '#cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6, marginTop: 2 }}>
+                    {paymentMethod?.includes('Google Pay') ? <GPayLogo size={16} /> : paymentMethod?.includes('PhonePe') ? <PhonePeLogo size={16} /> : paymentMethod?.includes('Paytm') ? <PaytmLogo size={16} /> : <UpiLogo size={16} />}
+                    <span>{paymentMethod || 'Razorpay UPI'}</span>
+                  </div>
+                  <div style={{ color: '#00d2ff', fontSize: 11, fontFamily: 'monospace', marginTop: 2 }}>Razorpay ID: {booking.paymentId || `pay_rzp_${Date.now().toString().slice(-8)}`}</div>
                 </div>
               </div>
 
