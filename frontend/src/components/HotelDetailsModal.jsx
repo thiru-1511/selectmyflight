@@ -26,16 +26,14 @@ export default function HotelDetailsModal({
   onClose, 
   onConfirmBooking 
 }) {
-  if (!hotel) return null;
-
   // Safe fallback for room types if undefined in live API
   const defaultRoomTypes = [
-    { id: 'std', name: 'Deluxe Premier King Suite', bed: '1 King Bed', size: '48 sqm', capacity: '2 Adults', price: hotel.pricePerNight || 12500, view: 'City / Ocean View' },
-    { id: 'exec', name: 'Executive Club Lounge Suite', bed: '1 King Bed + Lounge', size: '65 sqm', capacity: '2 Adults + 1 Child', price: Math.round((hotel.pricePerNight || 12500) * 1.35), view: 'Panoramic Skyline' },
-    { id: 'pres', name: 'Presidential Penthouse Villa', bed: '2 King Beds + Jacuzzi', size: '120 sqm', capacity: '4 Guests', price: Math.round((hotel.pricePerNight || 12500) * 2.1), view: '360° Oceanfront' }
+    { id: 'std', name: 'Deluxe Premier King Suite', bed: '1 King Bed', size: '48 sqm', capacity: '2 Adults', price: hotel?.pricePerNight || 12500, view: 'City / Ocean View' },
+    { id: 'exec', name: 'Executive Club Lounge Suite', bed: '1 King Bed + Lounge', size: '65 sqm', capacity: '2 Adults + 1 Child', price: Math.round((hotel?.pricePerNight || 12500) * 1.35), view: 'Panoramic Skyline' },
+    { id: 'pres', name: 'Presidential Penthouse Villa', bed: '2 King Beds + Jacuzzi', size: '120 sqm', capacity: '4 Guests', price: Math.round((hotel?.pricePerNight || 12500) * 2.1), view: '360° Oceanfront' }
   ];
 
-  const availableRooms = (hotel.roomTypes && hotel.roomTypes.length > 0) ? hotel.roomTypes : defaultRoomTypes;
+  const availableRooms = (hotel?.roomTypes && hotel.roomTypes.length > 0) ? hotel.roomTypes : defaultRoomTypes;
   const [selectedRoom, setSelectedRoom] = useState(availableRooms[0]);
 
   const [guestForm, setGuestForm] = useState({
@@ -47,6 +45,8 @@ export default function HotelDetailsModal({
 
   const [bookingConfirmed, setBookingConfirmed] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+
+  if (!hotel) return null;
 
   // Calculate nights
   const d1 = new Date(checkInDate);

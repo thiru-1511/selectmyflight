@@ -405,8 +405,12 @@ export default function App() {
   const handleBookingSuccess = async (bookingPayload) => {
     try {
       const confirmed = await api.createBooking(bookingPayload);
+      const safeConfirmed = {
+        ...confirmed,
+        flight: confirmed?.flight || bookingPayload?.flight || checkoutBookingDetails?.flight || INITIAL_FLIGHTS.find(f => f.id === confirmed?.flightId) || INITIAL_FLIGHTS[0]
+      };
       setCheckoutBookingDetails(null);
-      setConfirmedETicket(confirmed);
+      setConfirmedETicket(safeConfirmed);
       
       // Add confirmation notification with Email and SMS dispatch confirmation
       setNotifications(prev => [

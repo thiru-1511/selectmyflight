@@ -92,6 +92,8 @@ export default function RealTimeTicker({ onOpenFeature }) {
         <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(255, 255, 255, 0.05)', padding: '2px 6px', borderRadius: 4, color: '#94a3b8', fontSize: 11 }}>
           <Plane size={11} color="#00d2ff" />
           <span><strong>{activeFlightsCount}</strong> Airborne</span>
+          <span style={{ color: '#475569', margin: '0 2px' }}>•</span>
+          <span style={{ color: '#38bdf8', fontFamily: 'monospace', fontSize: 10 }}>{liveTime}</span>
         </div>
       </div>
 

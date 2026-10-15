@@ -53,6 +53,7 @@ export default function Navbar({
     { id: 'hotels', label: 'Hotels', icon: Building2, badge: 'NEW', badgeColor: '#f5af19' },
     { id: 'itinerary', label: 'AI TripCraft', icon: Sparkles },
     { id: 'status', label: 'Live Status', icon: Radio, badge: 'RADAR', badgeColor: '#00e676' },
+    { id: 'alerts_action', label: 'Price Alerts', icon: Bell, badge: 'TRACK', badgeColor: '#f5af19', action: onOpenAlerts },
     { id: 'refund_action', label: 'Refund Tracker', icon: RefreshCw, badge: 'PNR', badgeColor: '#f5af19', action: onOpenRefundTracker },
     { id: 'ai', label: 'SkyGenie AI', icon: Bot },
     { id: 'explore', label: 'Destinations', icon: Compass },

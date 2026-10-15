@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, CheckCircle2, Download, Printer, FileText, QrCode, Plane, ShieldCheck, User, Users } from 'lucide-react';
 import { GPayLogo, PhonePeLogo, PaytmLogo, UpiLogo, RazorpayLogo, VisaLogo, MastercardLogo, RupayLogo } from './PaymentLogos';
+import { INITIAL_FLIGHTS } from '../data/mockFlights';
 
 export default function ETicketModal({ booking, currency, onClose, onViewMyTrips }) {
   const [showInvoice, setShowInvoice] = useState(Boolean(booking?.initialShowInvoice));
@@ -8,7 +9,21 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
 
   if (!booking) return null;
 
-  const { flight, passengers = [], pnr, travelDate, gate, terminal, totalAmount, discountAmount, paymentMethod } = booking;
+  const rawFlight = booking.flight || (booking.flightId ? INITIAL_FLIGHTS.find(f => f.id === booking.flightId) : null) || INITIAL_FLIGHTS[0] || {};
+  const flight = {
+    originCode: rawFlight.originCode || booking.origin || 'DEL',
+    destinationCode: rawFlight.destinationCode || booking.destination || 'BOM',
+    airlineName: rawFlight.airlineName || booking.airlineName || 'SelectMyFlight Express',
+    flightNumber: rawFlight.flightNumber || booking.flightNumber || '6E-2041',
+    departureTime: rawFlight.departureTime || booking.departureTime || '06:00',
+    arrivalTime: rawFlight.arrivalTime || booking.arrivalTime || '08:15',
+    durationMinutes: rawFlight.durationMinutes || 135,
+    basePrice: rawFlight.basePrice || 4850,
+    aircraftModel: rawFlight.aircraftModel || 'Boeing 787-9 Dreamliner',
+    ...rawFlight
+  };
+
+  const { passengers = [], pnr, travelDate, gate, terminal, totalAmount, discountAmount, paymentMethod } = booking;
   const safePassengers = passengers && passengers.length > 0 ? passengers : [
     { title: 'Mr', firstName: 'Traveler', lastName: '', seatNumber: '01A', mealPreference: 'Standard' }
   ];

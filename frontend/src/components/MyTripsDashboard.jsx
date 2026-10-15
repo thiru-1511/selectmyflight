@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Plane, Luggage, AlertTriangle, FileText, Ban, RefreshCw, Receipt, Building2, Sparkles } from 'lucide-react';
 import { api } from '../services/api';
+import { INITIAL_FLIGHTS } from '../data/mockFlights';
 
 export default function MyTripsDashboard({ bookings, currency, onRefreshBookings, onViewETicket, onBookFlight, onTrackRefund }) {
   const [activeTab, setActiveTab] = useState('upcoming'); // 'upcoming', 'past'
@@ -126,7 +127,16 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
             const isTransit = trip.bookingType === 'TRANSIT';
             const isBundle = trip.bookingType === 'BUNDLE';
 
-            const flight = trip.flight || {};
+            const rawFlight = trip.flight || (trip.flightId ? INITIAL_FLIGHTS.find(f => f.id === trip.flightId) : null) || INITIAL_FLIGHTS[0] || {};
+            const flight = {
+              originCode: rawFlight.originCode || trip.origin || 'DEL',
+              destinationCode: rawFlight.destinationCode || trip.destination || 'BOM',
+              airlineName: rawFlight.airlineName || trip.airlineName || 'SelectMyFlight Express',
+              flightNumber: rawFlight.flightNumber || trip.flightNumber || '6E-2041',
+              departureTime: rawFlight.departureTime || trip.departureTime || '06:00',
+              arrivalTime: rawFlight.arrivalTime || trip.arrivalTime || '08:15',
+              ...rawFlight
+            };
             const passenger = (trip.passengers && trip.passengers[0]) ? trip.passengers[0] : {};
             const totalCost = trip.totalAmount || trip.totalPrice || 0;
 
@@ -271,7 +281,7 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                       {!isHotel && !isTransit && !isBundle && (
                         <button
-                          onClick={() => onViewETicket(trip)}
+                          onClick={() => onViewETicket({ ...trip, flight })}
                           className="btn-primary"
                           style={{ padding: '8px 14px', fontSize: 12 }}
                         >
@@ -280,7 +290,7 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
                       )}
 
                       <button
-                        onClick={() => onViewETicket && onViewETicket({ ...trip, initialShowInvoice: true })}
+                        onClick={() => onViewETicket && onViewETicket({ ...trip, flight, initialShowInvoice: true })}
                         style={{
                           background: 'rgba(255, 255, 255, 0.08)',
                           border: '1px solid rgba(255, 255, 255, 0.15)',

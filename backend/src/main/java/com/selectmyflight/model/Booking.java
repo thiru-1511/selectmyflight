@@ -37,6 +37,21 @@ public class Booking {
     private String gate = "T3-B22";
     private String terminal = "T3";
 
+    @Transient
+    private String flightNumber;
+    @Transient
+    private String airlineName;
+    @Transient
+    private String origin;
+    @Transient
+    private String destination;
+    @Transient
+    private String departureTime;
+    @Transient
+    private String selectedSeat;
+    @Transient
+    private Flight flight;
+
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Passenger> passengers = new ArrayList<>();
 
@@ -83,6 +98,27 @@ public class Booking {
 
     public String getTerminal() { return terminal; }
     public void setTerminal(String terminal) { this.terminal = terminal; }
+
+    public String getFlightNumber() { return flightNumber; }
+    public void setFlightNumber(String flightNumber) { this.flightNumber = flightNumber; }
+
+    public String getAirlineName() { return airlineName; }
+    public void setAirlineName(String airlineName) { this.airlineName = airlineName; }
+
+    public String getOrigin() { return origin; }
+    public void setOrigin(String origin) { this.origin = origin; }
+
+    public String getDestination() { return destination; }
+    public void setDestination(String destination) { this.destination = destination; }
+
+    public String getDepartureTime() { return departureTime; }
+    public void setDepartureTime(String departureTime) { this.departureTime = departureTime; }
+
+    public String getSelectedSeat() { return selectedSeat; }
+    public void setSelectedSeat(String selectedSeat) { this.selectedSeat = selectedSeat; }
+
+    public Flight getFlight() { return flight; }
+    public void setFlight(Flight flight) { this.flight = flight; }
 
     public List<Passenger> getPassengers() { return passengers; }
     public void setPassengers(List<Passenger> passengers) { this.passengers = passengers; }

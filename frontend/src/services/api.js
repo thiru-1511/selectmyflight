@@ -43,12 +43,12 @@ export const api = {
     // Fallback: Local filtering
     let results = [...INITIAL_FLIGHTS];
     if (origin && destination) {
-      const match = results.filter(f => f.originCode === origin && f.destinationCode === destination);
+      const match = results.filter(f => f && f.originCode === origin && f.destinationCode === destination);
       if (match.length > 0) results = match;
-      else results = results.filter(f => f.destinationCode === destination || f.originCode === origin);
+      else results = results.filter(f => f && (f.destinationCode === destination || f.originCode === origin));
     }
     if (cabinClass && cabinClass !== 'All') {
-      results = results.filter(f => f.cabinClass.toLowerCase() === cabinClass.toLowerCase());
+      results = results.filter(f => f && f.cabinClass && f.cabinClass.toLowerCase() === cabinClass.toLowerCase());
     }
 
     if (sortBy === 'price_asc') results.sort((a, b) => a.basePrice - b.basePrice);
@@ -134,7 +134,14 @@ export const api = {
         body: JSON.stringify(bookingData),
         signal: AbortSignal.timeout(3000)
       });
-      if (res.ok) return await res.json();
+      if (res.ok) {
+        const data = await res.json();
+        const matchedFlight = data.flight || bookingData.flight || (data.flightId ? INITIAL_FLIGHTS.find(f => f.id === data.flightId) : null) || INITIAL_FLIGHTS[0];
+        return {
+          ...data,
+          flight: matchedFlight
+        };
+      }
     } catch {
       // Fallback to local storage
     }
@@ -166,12 +173,25 @@ export const api = {
     try {
       const url = email ? `${API_BASE_URL}/bookings?email=${encodeURIComponent(email)}` : `${API_BASE_URL}/bookings`;
       const res = await fetch(url, { signal: AbortSignal.timeout(2500) });
-      if (res.ok) return await res.json();
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          return data.map(b => ({
+            ...b,
+            flight: b.flight || (b.flightId ? INITIAL_FLIGHTS.find(f => f.id === b.flightId) : null) || INITIAL_FLIGHTS[0]
+          }));
+        }
+        return data;
+      }
     } catch {
       // Fallback to local storage
     }
 
-    return loadLocalBookings();
+    const local = loadLocalBookings();
+    return (local || []).map(b => ({
+      ...b,
+      flight: b.flight || (b.flightId ? INITIAL_FLIGHTS.find(f => f.id === b.flightId) : null) || INITIAL_FLIGHTS[0]
+    }));
   },
 
   // 6. Cancel Booking with Refund Calculation

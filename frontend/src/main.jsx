@@ -52,6 +52,8 @@ class ErrorBoundary extends Component {
               try {
                 localStorage.removeItem('smf_user');
                 localStorage.removeItem('smf_wishlist');
+                localStorage.removeItem('smf_bookings');
+                localStorage.removeItem('smf_alerts');
               } catch {
                 // ignore
               }

@@ -22,6 +22,12 @@ public class BookingService {
     @Autowired
     private FlightRepository flightRepository;
 
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private MessageService messageService;
+
     public Booking createBooking(Booking bookingRequest) {
         // Generate Unique 6-character PNR
         String pnr = generatePnr();
@@ -40,22 +46,90 @@ public class BookingService {
         if (bookingRequest.getPassengers() != null) {
             for (Passenger p : bookingRequest.getPassengers()) {
                 p.setBooking(bookingRequest);
+                if (bookingRequest.getSelectedSeat() == null && p.getSeatNumber() != null) {
+                    bookingRequest.setSelectedSeat(p.getSeatNumber());
+                }
             }
         }
 
-        return bookingRepository.save(bookingRequest);
+        // Fetch flight metadata for notifications
+        if (bookingRequest.getFlightId() != null) {
+            flightRepository.findById(bookingRequest.getFlightId()).ifPresent(f -> {
+                bookingRequest.setFlightNumber(f.getFlightNumber());
+                bookingRequest.setAirlineName(f.getAirlineName());
+                bookingRequest.setOrigin(f.getOriginCode());
+                bookingRequest.setDestination(f.getDestinationCode());
+                bookingRequest.setDepartureTime(f.getDepartureTime());
+            });
+        }
+
+        Booking saved = bookingRepository.save(bookingRequest);
+
+        // Ensure transient fields remain populated in saved instance
+        saved.setFlightNumber(bookingRequest.getFlightNumber());
+        saved.setAirlineName(bookingRequest.getAirlineName());
+        saved.setOrigin(bookingRequest.getOrigin());
+        saved.setDestination(bookingRequest.getDestination());
+        saved.setDepartureTime(bookingRequest.getDepartureTime());
+        saved.setSelectedSeat(bookingRequest.getSelectedSeat() != null ? bookingRequest.getSelectedSeat() : "14B");
+        enrichBookingWithFlight(saved);
+
+        // 🚀 AUTOMATED MULTI-CHANNEL DISPATCH (Email, SMS & WhatsApp)
+        dispatchBookingNotifications(saved);
+
+        return saved;
+    }
+
+    private void dispatchBookingNotifications(Booking booking) {
+        try {
+            // 1. 📧 Email E-Ticket Confirmation
+            if (booking.getContactEmail() != null && !booking.getContactEmail().isBlank()) {
+                emailService.sendBookingConfirmationEmail(booking.getContactEmail(), booking);
+            }
+
+            // 2. 📱 SMS Booking Confirmation
+            if (booking.getContactPhone() != null && !booking.getContactPhone().isBlank()) {
+                messageService.sendBookingSms(booking.getContactPhone(), booking);
+            }
+
+            // 3. 💬 WhatsApp Interactive Boarding Pass
+            if (booking.getContactPhone() != null && !booking.getContactPhone().isBlank()) {
+                messageService.sendBookingWhatsApp(booking.getContactPhone(), booking);
+            }
+        } catch (Exception e) {
+            System.err.println("⚠️ Notification dispatch notice: " + e.getMessage());
+        }
+    }
+
+    public void enrichBookingWithFlight(Booking booking) {
+        if (booking != null && booking.getFlightId() != null) {
+            flightRepository.findById(booking.getFlightId()).ifPresent(f -> {
+                booking.setFlight(f);
+                booking.setFlightNumber(f.getFlightNumber());
+                booking.setAirlineName(f.getAirlineName());
+                booking.setOrigin(f.getOriginCode());
+                booking.setDestination(f.getDestinationCode());
+                booking.setDepartureTime(f.getDepartureTime());
+            });
+        }
     }
 
     public Optional<Booking> getBookingByPnr(String pnr) {
-        return bookingRepository.findByPnr(pnr.toUpperCase().trim());
+        Optional<Booking> opt = bookingRepository.findByPnr(pnr.toUpperCase().trim());
+        opt.ifPresent(this::enrichBookingWithFlight);
+        return opt;
     }
 
     public List<Booking> getAllBookings() {
-        return bookingRepository.findAllByOrderByBookingDateDesc();
+        List<Booking> list = bookingRepository.findAllByOrderByBookingDateDesc();
+        list.forEach(this::enrichBookingWithFlight);
+        return list;
     }
 
     public List<Booking> getBookingsByEmail(String email) {
-        return bookingRepository.findByContactEmailOrderByBookingDateDesc(email);
+        List<Booking> list = bookingRepository.findByContactEmailOrderByBookingDateDesc(email);
+        list.forEach(this::enrichBookingWithFlight);
+        return list;
     }
 
     public Map<String, Object> cancelBooking(String pnr) {

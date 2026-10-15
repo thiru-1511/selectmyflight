@@ -19,10 +19,15 @@ export function PhonePeLogo({ size = 24, style = {} }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" fill="none" style={{ display: 'inline-block', verticalAlign: 'middle', ...style }}>
       <rect width="48" height="48" rx="10" fill="#5f259f" />
-      <circle cx="24" cy="24" r="18" fill="#5f259f" />
-      {/* Devanagari Pe 'पे' symbol */}
-      <path d="M22 13v22M22 21h7a5 5 0 0 0 5-5 5 5 0 0 0-5-5h-9" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M22 24l9 11" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" />
+      {/* Official Devanagari Pe 'पे' symbol */}
+      <g transform="translate(1.7, 2.0) scale(1.9)">
+        <path
+          fill="#ffffff"
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M10.206 9.941h2.949v4.692c-.402.201-.938.268-1.34.268-1.072 0-1.609-.536-1.609-1.743V9.941zM17.445 8.869a.887.887 0 0 0-.871-.871h-1.609l-3.686-4.222c-.335-.402-.871-.536-1.407-.402l-1.274.401c-.201.067-.268.335-.134.469l4.021 3.82H6.386c-.201 0-.335.134-.335.335v.67c0 .469.402.871.871.871h.938v3.217c0 2.413 1.273 3.82 3.418 3.82.67 0 1.206-.067 1.877-.335v2.145c0 .603.469 1.072 1.072 1.072h.938a.432.432 0 0 0 .402-.402V9.874h1.542c.201 0 .335-.134.335-.335v-.67z"
+        />
+      </g>
     </svg>
   );
 }
@@ -32,9 +37,12 @@ export function PaytmLogo({ size = 24, style = {} }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" fill="none" style={{ display: 'inline-block', verticalAlign: 'middle', ...style }}>
       <rect width="48" height="48" rx="10" fill="#002970" />
-      {/* Paytm styled text */}
-      <text x="24" y="27" fill="#00BAF2" fontSize="13" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" letterSpacing="-0.5">Paytm</text>
-      <path d="M12 33h24" stroke="#00BAF2" strokeWidth="2.5" strokeLinecap="round" />
+      {/* Official Paytm two-tone branding */}
+      <text x="24" y="28" fontSize="13" fontWeight="900" fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" textAnchor="middle" letterSpacing="-0.3">
+        <tspan fill="#ffffff">Pay</tspan>
+        <tspan fill="#00BAF2">tm</tspan>
+      </text>
+      <path d="M12 34h24" stroke="#00BAF2" strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -184,6 +192,18 @@ export function RazorpayLogo({ size = 24, style = {} }) {
     <svg width={size * 1.3} height={size} viewBox="0 0 50 36" fill="none" style={{ display: 'inline-block', verticalAlign: 'middle', ...style }}>
       <rect width="50" height="36" rx="6" fill="#0C2340" />
       <path d="M26 6L14 30h8l4-8h8l2-4h-8l3-6h8l2-6H26z" fill="#00BAF2" />
+    </svg>
+  );
+}
+
+// 17. Google Official Icon
+export function GoogleLogo({ size = 20, style = {} }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', ...style }}>
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05" />
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335" />
     </svg>
   );
 }

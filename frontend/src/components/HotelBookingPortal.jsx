@@ -21,6 +21,23 @@ import { HOTEL_CITIES, INITIAL_HOTELS } from '../data/mockHotels';
 import HotelDetailsModal from './HotelDetailsModal';
 import { api } from '../services/api';
 
+const CITY_HERO_IMAGES = {
+  'DXB': '/assets/images/hotel_burj_al_arab.jpg',
+  'SIN': '/assets/images/hotel_marina_bay_sands.jpg',
+  'LHR': '/assets/images/hotel_savoy_london.jpg',
+  'CDG': 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1200&q=80',
+  'NYC': 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=1200&q=80',
+  'TYO': 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=1200&q=80',
+  'BKK': 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1200&q=80',
+  'DPS': 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200&q=80',
+  'FCO': 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1200&q=80',
+  'MLE': 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=1200&q=80',
+  'GOI': 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1200&q=80',
+  'DEL': 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1200&q=80',
+  'BOM': 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1200&q=80',
+  'BLR': 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=1200&q=80'
+};
+
 export default function HotelBookingPortal({ currency = 'INR', onBookHotelSuccess }) {
   const [selectedCity, setSelectedCity] = useState('DXB');
   const [checkInDate, setCheckInDate] = useState(() => {
@@ -111,22 +128,6 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
     });
   }, [currentHotelPool, selectedCity, starFilter, maxPrice, selectedAmenity, freeCancelOnly, sortBy]);
 
-  const CITY_HERO_IMAGES = {
-    'DXB': '/assets/images/hotel_burj_al_arab.jpg',
-    'SIN': '/assets/images/hotel_marina_bay_sands.jpg',
-    'LHR': '/assets/images/hotel_savoy_london.jpg',
-    'CDG': 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1200&q=80',
-    'NYC': 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=1200&q=80',
-    'TYO': 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=1200&q=80',
-    'BKK': 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1200&q=80',
-    'DPS': 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200&q=80',
-    'FCO': 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1200&q=80',
-    'MLE': 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=1200&q=80',
-    'GOI': 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1200&q=80',
-    'DEL': 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1200&q=80',
-    'BOM': 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1200&q=80',
-    'BLR': 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=1200&q=80'
-  };
 
   const [heroHotelImage, setHeroHotelImage] = useState('/assets/images/hotel_burj_al_arab.jpg');
 

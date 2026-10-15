@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { X, Check, Utensils, Briefcase, Zap, ArrowRight, Plane, Users, User, CheckCircle2, Sparkles, Plus, Minus } from 'lucide-react';
 import { ADDONS, INITIAL_FLIGHTS } from '../data/mockFlights';
 
