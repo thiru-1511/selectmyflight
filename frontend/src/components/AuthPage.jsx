@@ -63,19 +63,20 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
     setErrorMsg('');
   };
 
-  const fallbackGoogleLogin = useCallback((email, name) => {
+  const fallbackGoogleLogin = useCallback((email, name, role = 'ROLE_USER') => {
+    const isAdmin = role === 'ROLE_ADMIN' || (email && email.toLowerCase().includes('admin'));
     const user = {
-      name: name || 'Rahul Sharma',
-      email: email || 'rahul.sharma@gmail.com',
-      phone: '+91 98765 43210',
-      role: 'ROLE_USER',
-      frequentFlyerTier: 'Gold Elite',
+      name: name || (isAdmin ? 'Executive Administrator' : 'Rahul Sharma'),
+      email: email || (isAdmin ? 'admin@selectmyflight.com' : 'rahul.sharma@gmail.com'),
+      phone: isAdmin ? '+91 98765 00000' : '+91 98765 43210',
+      role: isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER',
+      frequentFlyerTier: isAdmin ? 'Executive Platinum' : 'Gold Elite',
       homeAirport: 'DEL',
       authProvider: 'GOOGLE'
     };
-    setSuccessMsg(`Authenticated via Google (${email || 'rahul.sharma@gmail.com'})! Entering SelectMyFlight...`);
+    setSuccessMsg(`Authenticated as ${user.name} (${user.email})! Entering SelectMyFlight...`);
     setTimeout(() => {
-      onAuthSuccess(user, false);
+      onAuthSuccess(user, isAdmin);
     }, 500);
   }, [onAuthSuccess]);
 
@@ -146,30 +147,32 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
     setGoogleModalTab('picker');
   };
 
-  const handleGoogleSignIn = (selectedEmail = null, selectedName = null) => {
+  const handleGoogleSignIn = (selectedEmail = null, selectedName = null, selectedRole = 'ROLE_USER') => {
     setLoading(true);
     setErrorMsg('');
     const emailToUse = selectedEmail || googleEmailInput.trim() || 'rahul.sharma@gmail.com';
     const nameToUse = selectedName || (emailToUse.includes('@') ? emailToUse.split('@')[0].replace(/[._]/g, ' ') : 'Google Traveler');
+    const isAdmin = selectedRole === 'ROLE_ADMIN' || emailToUse.toLowerCase().includes('admin');
 
     fetch(`${API_BASE_URL}/auth/google`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: emailToUse, name: nameToUse })
+      body: JSON.stringify({ email: emailToUse, name: nameToUse, role: isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER' })
     })
       .then(res => res.json())
       .then(data => {
         if (data && data.success && data.user) {
-          setSuccessMsg(`Authenticated via Google (${emailToUse})! Entering SelectMyFlight...`);
+          const userIsAdmin = data.user.role === 'ROLE_ADMIN' || isAdmin;
+          setSuccessMsg(`Authenticated as ${data.user.name}! Entering SelectMyFlight...`);
           setTimeout(() => {
-            onAuthSuccess(data.user, false);
+            onAuthSuccess(data.user, userIsAdmin);
           }, 500);
         } else {
-          fallbackGoogleLogin(emailToUse, nameToUse);
+          fallbackGoogleLogin(emailToUse, nameToUse, selectedRole);
         }
       })
       .catch(() => {
-        fallbackGoogleLogin(emailToUse, nameToUse);
+        fallbackGoogleLogin(emailToUse, nameToUse, selectedRole);
       })
       .finally(() => {
         setLoading(false);
@@ -1542,45 +1545,109 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
                   </div>
                 )}
 
-                {/* Option 1: Quick Account */}
-                <div 
-                  onClick={() => handleGoogleSignIn('rahul.sharma@gmail.com', 'Rahul Sharma')}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 12,
-                    padding: '10px 12px',
-                    borderRadius: 10,
-                    border: '1px solid #e5e7eb',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s',
-                    background: '#f9fafb',
-                    marginBottom: 10
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f3f4f6'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = '#f9fafb'}
-                >
-                  <div style={{
-                    width: 36,
-                    height: 36,
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #4285F4, #34A853)',
-                    color: '#fff',
-                    fontWeight: 800,
-                    fontSize: 15,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    R
+                {/* Option 1: Quick Accounts Picker */}
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: '#374151', marginBottom: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span>Choose an account to sign in:</span>
+                    <span style={{ fontSize: 11, color: '#2563eb', fontWeight: 600 }}>1-Click Instant Login</span>
                   </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>Rahul Sharma</div>
-                    <div style={{ fontSize: 12, color: '#6b7280' }}>rahul.sharma@gmail.com</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxHeight: 240, overflowY: 'auto', paddingRight: 2 }}>
+                    {[
+                      {
+                        name: 'Thiru (You)',
+                        email: 'thiru1511@gmail.com',
+                        initial: 'T',
+                        badge: 'Active Profile',
+                        badgeBg: '#ecfdf5',
+                        badgeColor: '#059669',
+                        avatarBg: 'linear-gradient(135deg, #10b981, #047857)',
+                        role: 'ROLE_USER'
+                      },
+                      {
+                        name: 'Rahul Sharma',
+                        email: 'rahul.sharma@gmail.com',
+                        initial: 'R',
+                        badge: 'Gold Elite',
+                        badgeBg: '#fef3c7',
+                        badgeColor: '#d97706',
+                        avatarBg: 'linear-gradient(135deg, #4285F4, #34A853)',
+                        role: 'ROLE_USER'
+                      },
+                      {
+                        name: 'Priya Patel',
+                        email: 'priya.patel@gmail.com',
+                        initial: 'P',
+                        badge: 'Corporate Voyager',
+                        badgeBg: '#eff6ff',
+                        badgeColor: '#2563eb',
+                        avatarBg: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+                        role: 'ROLE_USER'
+                      },
+                      {
+                        name: 'Executive Administrator',
+                        email: 'admin@selectmyflight.com',
+                        initial: 'A',
+                        badge: 'Admin Console',
+                        badgeBg: '#fee2e2',
+                        badgeColor: '#dc2626',
+                        avatarBg: 'linear-gradient(135deg, #ef4444, #991b1b)',
+                        role: 'ROLE_ADMIN'
+                      }
+                    ].map((acc) => (
+                      <div 
+                        key={acc.email}
+                        onClick={() => handleGoogleSignIn(acc.email, acc.name, acc.role)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 12,
+                          padding: '10px 12px',
+                          borderRadius: 10,
+                          border: '1px solid #e5e7eb',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s ease',
+                          background: '#f9fafb'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#f0fdf4';
+                          e.currentTarget.style.borderColor = '#86efac';
+                          e.currentTarget.style.transform = 'translateY(-1px)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#f9fafb';
+                          e.currentTarget.style.borderColor = '#e5e7eb';
+                          e.currentTarget.style.transform = 'none';
+                        }}
+                      >
+                        <div style={{
+                          width: 36,
+                          height: 36,
+                          borderRadius: '50%',
+                          background: acc.avatarBg,
+                          color: '#fff',
+                          fontWeight: 800,
+                          fontSize: 15,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0
+                        }}>
+                          {acc.initial}
+                        </div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {acc.name}
+                          </div>
+                          <div style={{ fontSize: 12, color: '#6b7280', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {acc.email}
+                          </div>
+                        </div>
+                        <span style={{ fontSize: 10, background: acc.badgeBg, color: acc.badgeColor, padding: '3px 8px', borderRadius: 12, fontWeight: 700, flexShrink: 0 }}>
+                          {acc.badge}
+                        </span>
+                      </div>
+                    ))}
                   </div>
-                  <span style={{ fontSize: 10, background: '#e0f2fe', color: '#0284c7', padding: '2px 8px', borderRadius: 12, fontWeight: 700 }}>
-                    Google Verified
-                  </span>
                 </div>
 
                 {/* Option 2: Custom Gmail Input */}
