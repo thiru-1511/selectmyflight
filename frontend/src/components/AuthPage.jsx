@@ -32,14 +32,12 @@ import {
 
 export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateToAdmin, initialMode = 'login' }) {
   const [activeTab, setActiveTab] = useState(initialMode); // 'login' or 'register'
-  const [loginMethod, setLoginMethod] = useState('mobile'); // 'mobile' | 'email' | 'password'
+  const [loginMethod, setLoginMethod] = useState('email'); // 'email' | 'mobile' | 'password'
   const [showGoogleModal, setShowGoogleModal] = useState(false);
   const [googleEmailInput, setGoogleEmailInput] = useState('');
-  const [googleModalTab, setGoogleModalTab] = useState('picker'); // 'picker' | 'clientId' | 'smsGuide'
-  const [googleClientId, setGoogleClientId] = useState(() => {
+  const [googleClientId] = useState(() => {
     return localStorage.getItem('smf_google_client_id') || (typeof import.meta !== 'undefined' && import.meta.env?.VITE_GOOGLE_CLIENT_ID) || '';
   });
-  const [clientInput, setClientInput] = useState('');
 
   // Form states
   const [formData, setFormData] = useState({
@@ -136,16 +134,7 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
         console.warn('Google Identity Services notice:', e);
       }
     }
-  }, [googleClientId, showGoogleModal, googleModalTab, onAuthSuccess, fallbackGoogleLogin]);
-
-  const handleSaveGoogleClientId = (val) => {
-    const clean = val.trim();
-    if (!clean) return;
-    localStorage.setItem('smf_google_client_id', clean);
-    setGoogleClientId(clean);
-    setSuccessMsg('Google Client ID saved! Live Google Sign-In activated.');
-    setGoogleModalTab('picker');
-  };
+  }, [googleClientId, showGoogleModal, onAuthSuccess, fallbackGoogleLogin]);
 
   const handleGoogleSignIn = (selectedEmail = null, selectedName = null, selectedRole = 'ROLE_USER') => {
     setLoading(true);
@@ -796,29 +785,6 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
               }}>
                 <button
                   type="button"
-                  onClick={() => { setLoginMethod('mobile'); setErrorMsg(''); setSuccessMsg(''); }}
-                  style={{
-                    padding: '8px 8px',
-                    borderRadius: 7,
-                    fontSize: 12,
-                    fontWeight: 700,
-                    border: 'none',
-                    cursor: 'pointer',
-                    background: loginMethod === 'mobile' ? 'linear-gradient(135deg, rgba(0, 210, 255, 0.2), rgba(0, 114, 255, 0.2))' : 'transparent',
-                    color: loginMethod === 'mobile' ? '#00d2ff' : '#94a3b8',
-                    borderBottom: loginMethod === 'mobile' ? '2px solid #00d2ff' : '2px solid transparent',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 6
-                  }}
-                >
-                  <Phone size={13} />
-                  <span>Mobile OTP</span>
-                </button>
-
-                <button
-                  type="button"
                   onClick={() => { setLoginMethod('email'); setErrorMsg(''); setSuccessMsg(''); }}
                   style={{
                     padding: '8px 8px',
@@ -838,6 +804,29 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
                 >
                   <Mail size={13} />
                   <span>Email OTP</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => { setLoginMethod('mobile'); setErrorMsg(''); setSuccessMsg(''); }}
+                  style={{
+                    padding: '8px 8px',
+                    borderRadius: 7,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    border: 'none',
+                    cursor: 'pointer',
+                    background: loginMethod === 'mobile' ? 'linear-gradient(135deg, rgba(0, 210, 255, 0.2), rgba(0, 114, 255, 0.2))' : 'transparent',
+                    color: loginMethod === 'mobile' ? '#00d2ff' : '#94a3b8',
+                    borderBottom: loginMethod === 'mobile' ? '2px solid #00d2ff' : '2px solid transparent',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 6
+                  }}
+                >
+                  <Phone size={13} />
+                  <span>Mobile OTP</span>
                 </button>
 
                 <button
@@ -1444,368 +1433,196 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
             onClick={(e) => e.stopPropagation()}
             style={{
               width: '100%',
-              maxWidth: 480,
+              maxWidth: 440,
               background: '#ffffff',
               color: '#1f2937',
-              borderRadius: 16,
-              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.45)',
+              borderRadius: 20,
+              boxShadow: '0 25px 65px rgba(0, 0, 0, 0.4)',
               overflow: 'hidden',
-              padding: '24px 22px'
+              padding: '28px 24px',
+              position: 'relative'
             }}
           >
-            {/* Header */}
-            <div style={{ textAlign: 'center', marginBottom: 16 }}>
-              <div style={{ display: 'inline-block', marginBottom: 6 }}>
-                <GoogleLogo size={36} />
+            {/* Top Close Button */}
+            <button
+              type="button"
+              onClick={() => setShowGoogleModal(false)}
+              style={{
+                position: 'absolute',
+                right: 18,
+                top: 18,
+                background: 'none',
+                border: 'none',
+                fontSize: 22,
+                color: '#9ca3af',
+                cursor: 'pointer',
+                padding: 4,
+                lineHeight: 1
+              }}
+              aria-label="Close"
+            >
+              ×
+            </button>
+
+            {/* Header: Google Logo & Title */}
+            <div style={{ textAlign: 'center', marginBottom: 20 }}>
+              <div style={{ display: 'inline-block', marginBottom: 8 }}>
+                <GoogleLogo size={34} />
               </div>
-              <h3 style={{ fontSize: 18, fontWeight: 700, color: '#111827', margin: '4px 0 2px 0' }}>
-                Authentication & Gateways
+              <h3 style={{ fontSize: 20, fontWeight: 700, color: '#202124', margin: '0 0 4px 0', letterSpacing: '-0.3px' }}>
+                Sign in with Google
               </h3>
-              <p style={{ fontSize: 13, color: '#6b7280', margin: 0 }}>
-                Live Google Sign-In &amp; Real SMS / Email OTP
+              <p style={{ fontSize: 13, color: '#5f6368', margin: 0 }}>
+                Choose an account to continue to <strong style={{ color: '#202124' }}>SelectMyFlight</strong>
               </p>
             </div>
 
-            {/* Modal Tabs */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              background: '#f3f4f6',
-              padding: 3,
-              borderRadius: 10,
-              marginBottom: 16,
-              gap: 2
-            }}>
-              <button
-                type="button"
-                onClick={() => setGoogleModalTab('picker')}
-                style={{
-                  padding: '7px 6px',
-                  borderRadius: 8,
-                  fontSize: 11,
-                  fontWeight: 700,
-                  border: 'none',
-                  cursor: 'pointer',
-                  background: googleModalTab === 'picker' ? '#ffffff' : 'transparent',
-                  color: googleModalTab === 'picker' ? '#1a73e8' : '#6b7280',
-                  boxShadow: googleModalTab === 'picker' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'
-                }}
-              >
-                👤 Sign In
-              </button>
-              <button
-                type="button"
-                onClick={() => setGoogleModalTab('clientId')}
-                style={{
-                  padding: '7px 6px',
-                  borderRadius: 8,
-                  fontSize: 11,
-                  fontWeight: 700,
-                  border: 'none',
-                  cursor: 'pointer',
-                  background: googleModalTab === 'clientId' ? '#ffffff' : 'transparent',
-                  color: googleModalTab === 'clientId' ? '#1a73e8' : '#6b7280',
-                  boxShadow: googleModalTab === 'clientId' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'
-                }}
-              >
-                🔑 Google Client ID
-              </button>
-              <button
-                type="button"
-                onClick={() => setGoogleModalTab('smsGuide')}
-                style={{
-                  padding: '7px 6px',
-                  borderRadius: 8,
-                  fontSize: 11,
-                  fontWeight: 700,
-                  border: 'none',
-                  cursor: 'pointer',
-                  background: googleModalTab === 'smsGuide' ? '#ffffff' : 'transparent',
-                  color: googleModalTab === 'smsGuide' ? '#1a73e8' : '#6b7280',
-                  boxShadow: googleModalTab === 'smsGuide' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'
-                }}
-              >
-                📱 Real SMS Setup
-              </button>
-            </div>
-
-            {/* TAB 1: Real Account Picker / Direct Sign In */}
-            {googleModalTab === 'picker' && (
-              <div>
-                {/* Official Google Identity Services Container if Client ID is configured */}
-                {googleClientId && (
-                  <div style={{ marginBottom: 14, textAlign: 'center' }}>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: '#16a34a', marginBottom: 6 }}>
-                      ⚡ Real Google Identity Services Connected:
-                    </div>
-                    <div id="realGoogleSignInContainer" style={{ display: 'flex', justifyContent: 'center' }}></div>
-                    <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 4 }}>
-                      Click above to open official Google account popup
-                    </div>
-                  </div>
-                )}
-
-                {/* Option 1: Quick Accounts Picker */}
-                <div style={{ marginBottom: 14 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: '#374151', marginBottom: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span>Choose an account to sign in:</span>
-                    <span style={{ fontSize: 11, color: '#2563eb', fontWeight: 600 }}>1-Click Instant Login</span>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxHeight: 240, overflowY: 'auto', paddingRight: 2 }}>
-                    {[
-                      {
-                        name: 'Thiru (You)',
-                        email: 'thiru1511@gmail.com',
-                        initial: 'T',
-                        badge: 'Active Profile',
-                        badgeBg: '#ecfdf5',
-                        badgeColor: '#059669',
-                        avatarBg: 'linear-gradient(135deg, #10b981, #047857)',
-                        role: 'ROLE_USER'
-                      },
-                      {
-                        name: 'Rahul Sharma',
-                        email: 'rahul.sharma@gmail.com',
-                        initial: 'R',
-                        badge: 'Gold Elite',
-                        badgeBg: '#fef3c7',
-                        badgeColor: '#d97706',
-                        avatarBg: 'linear-gradient(135deg, #4285F4, #34A853)',
-                        role: 'ROLE_USER'
-                      },
-                      {
-                        name: 'Priya Patel',
-                        email: 'priya.patel@gmail.com',
-                        initial: 'P',
-                        badge: 'Corporate Voyager',
-                        badgeBg: '#eff6ff',
-                        badgeColor: '#2563eb',
-                        avatarBg: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
-                        role: 'ROLE_USER'
-                      },
-                      {
-                        name: 'Executive Administrator',
-                        email: 'admin@selectmyflight.com',
-                        initial: 'A',
-                        badge: 'Admin Console',
-                        badgeBg: '#fee2e2',
-                        badgeColor: '#dc2626',
-                        avatarBg: 'linear-gradient(135deg, #ef4444, #991b1b)',
-                        role: 'ROLE_ADMIN'
-                      }
-                    ].map((acc) => (
-                      <div 
-                        key={acc.email}
-                        onClick={() => handleGoogleSignIn(acc.email, acc.name, acc.role)}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 12,
-                          padding: '10px 12px',
-                          borderRadius: 10,
-                          border: '1px solid #e5e7eb',
-                          cursor: 'pointer',
-                          transition: 'all 0.15s ease',
-                          background: '#f9fafb'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#f0fdf4';
-                          e.currentTarget.style.borderColor = '#86efac';
-                          e.currentTarget.style.transform = 'translateY(-1px)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#f9fafb';
-                          e.currentTarget.style.borderColor = '#e5e7eb';
-                          e.currentTarget.style.transform = 'none';
-                        }}
-                      >
-                        <div style={{
-                          width: 36,
-                          height: 36,
-                          borderRadius: '50%',
-                          background: acc.avatarBg,
-                          color: '#fff',
-                          fontWeight: 800,
-                          fontSize: 15,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0
-                        }}>
-                          {acc.initial}
-                        </div>
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {acc.name}
-                          </div>
-                          <div style={{ fontSize: 12, color: '#6b7280', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {acc.email}
-                          </div>
-                        </div>
-                        <span style={{ fontSize: 10, background: acc.badgeBg, color: acc.badgeColor, padding: '3px 8px', borderRadius: 12, fontWeight: 700, flexShrink: 0 }}>
-                          {acc.badge}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Option 2: Custom Gmail Input */}
-                <div style={{ marginTop: 12 }}>
-                  <label style={{ fontSize: 12, fontWeight: 600, color: '#4b5563', marginBottom: 4, display: 'block' }}>
-                    Or enter your real Gmail address:
-                  </label>
-                  <input 
-                    type="email"
-                    placeholder="yourname@gmail.com"
-                    value={googleEmailInput}
-                    onChange={(e) => setGoogleEmailInput(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '9px 12px',
-                      borderRadius: 8,
-                      border: '1px solid #d1d5db',
-                      fontSize: 13,
-                      boxSizing: 'border-box',
-                      outline: 'none'
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => handleGoogleSignIn(googleEmailInput.trim())}
-                    disabled={!googleEmailInput.trim()}
-                    style={{
-                      width: '100%',
-                      marginTop: 8,
-                      padding: '9px',
-                      borderRadius: 8,
-                      background: googleEmailInput.trim() ? '#1a73e8' : '#9ca3af',
-                      color: '#fff',
-                      border: 'none',
-                      fontWeight: 700,
-                      fontSize: 13,
-                      cursor: googleEmailInput.trim() ? 'pointer' : 'not-allowed'
-                    }}
-                  >
-                    Continue with {googleEmailInput.trim() || 'this account'}
-                  </button>
-                </div>
+            {/* Official Google Identity Services Container if configured */}
+            {googleClientId && (
+              <div style={{ marginBottom: 14, textAlign: 'center' }}>
+                <div id="realGoogleSignInContainer" style={{ display: 'flex', justifyContent: 'center' }}></div>
               </div>
             )}
 
-            {/* TAB 2: Google Client ID Setup */}
-            {googleModalTab === 'clientId' && (
-              <div style={{ fontSize: 13, color: '#374151' }}>
-                <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 8, padding: '10px 12px', marginBottom: 12 }}>
-                  <div style={{ fontWeight: 700, color: '#1e40af', marginBottom: 4 }}>
-                    How to get Real Google Client ID:
-                  </div>
-                  <ol style={{ margin: '0 0 0 16px', padding: 0, fontSize: 12, lineHeight: 1.6, color: '#1e3a8a' }}>
-                    <li>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noreferrer" style={{ color: '#2563eb', fontWeight: 700 }}>Google Cloud Console → Credentials</a>.</li>
-                    <li>Click <strong>Create Credentials → OAuth client ID</strong>.</li>
-                    <li>Choose Application type: <strong>Web application</strong>.</li>
-                    <li>Under <em>Authorized JavaScript origins</em>, add: <code style={{ background: '#dbeafe', padding: '1px 4px', borderRadius: 4 }}>http://localhost:5173</code></li>
-                    <li>Copy your <strong>Client ID</strong> and paste below:</li>
-                  </ol>
-                </div>
-
-                <label style={{ fontSize: 12, fontWeight: 700, color: '#374151', display: 'block', marginBottom: 4 }}>
-                  Your Google OAuth Client ID:
-                </label>
-                <input 
-                  type="text"
-                  placeholder="e.g. 1234567890-xxx.apps.googleusercontent.com"
-                  defaultValue={googleClientId}
-                  onChange={(e) => setClientInput(e.target.value)}
+            {/* Accounts List (Consumer Google Accounts) */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
+              {[
+                {
+                  name: 'Thiru (You)',
+                  email: 'thiru1511@gmail.com',
+                  initial: 'T',
+                  avatarBg: '#059669',
+                  role: 'ROLE_USER'
+                },
+                {
+                  name: 'Rahul Sharma',
+                  email: 'rahul.sharma@gmail.com',
+                  initial: 'R',
+                  avatarBg: '#1a73e8',
+                  role: 'ROLE_USER'
+                },
+                {
+                  name: 'Priya Patel',
+                  email: 'priya.patel@gmail.com',
+                  initial: 'P',
+                  avatarBg: '#9333ea',
+                  role: 'ROLE_USER'
+                }
+              ].map((acc) => (
+                <div 
+                  key={acc.email}
+                  onClick={() => handleGoogleSignIn(acc.email, acc.name, acc.role)}
                   style={{
-                    width: '100%',
-                    padding: '9px 12px',
-                    borderRadius: 8,
-                    border: '1px solid #d1d5db',
-                    fontSize: 12,
-                    boxSizing: 'border-box',
-                    outline: 'none',
-                    fontFamily: 'monospace'
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 14,
+                    padding: '12px 14px',
+                    borderRadius: 12,
+                    border: '1px solid #e8eaed',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                    background: '#ffffff'
                   }}
-                />
-                <button
-                  type="button"
-                  onClick={() => handleSaveGoogleClientId(clientInput || googleClientId)}
-                  style={{
-                    width: '100%',
-                    marginTop: 8,
-                    padding: '9px',
-                    borderRadius: 8,
-                    background: '#16a34a',
-                    color: '#fff',
-                    border: 'none',
-                    fontWeight: 700,
-                    fontSize: 13,
-                    cursor: 'pointer'
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#f8f9fa';
+                    e.currentTarget.style.borderColor = '#dadce0';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ffffff';
+                    e.currentTarget.style.borderColor = '#e8eaed';
                   }}
                 >
-                  Save &amp; Activate Official Google Button
+                  <div style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: '50%',
+                    background: acc.avatarBg,
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    fontSize: 16,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0
+                  }}>
+                    {acc.initial}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#202124', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {acc.name}
+                    </div>
+                    <div style={{ fontSize: 12, color: '#5f6368', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {acc.email}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Option to use another account / enter email */}
+            <div style={{ borderTop: '1px solid #f1f3f4', paddingTop: 14 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#3c4043', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <User size={15} color="#5f6368" />
+                <span>Use another account</span>
+              </div>
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (googleEmailInput.trim()) {
+                    handleGoogleSignIn(googleEmailInput.trim());
+                  }
+                }}
+                style={{ display: 'flex', gap: 8 }}
+              >
+                <input 
+                  type="email"
+                  placeholder="Enter your Gmail address"
+                  value={googleEmailInput}
+                  onChange={(e) => setGoogleEmailInput(e.target.value)}
+                  style={{
+                    flex: 1,
+                    padding: '10px 12px',
+                    borderRadius: 8,
+                    border: '1px solid #dadce0',
+                    fontSize: 13,
+                    color: '#202124',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = '#1a73e8'}
+                  onBlur={(e) => e.target.style.borderColor = '#dadce0'}
+                />
+                <button
+                  type="submit"
+                  disabled={!googleEmailInput.trim()}
+                  style={{
+                    padding: '10px 16px',
+                    borderRadius: 8,
+                    background: googleEmailInput.trim() ? '#1a73e8' : '#e8eaed',
+                    color: googleEmailInput.trim() ? '#ffffff' : '#9aa0a6',
+                    border: 'none',
+                    fontWeight: 600,
+                    fontSize: 13,
+                    cursor: googleEmailInput.trim() ? 'pointer' : 'not-allowed',
+                    transition: 'all 0.15s'
+                  }}
+                >
+                  Continue
                 </button>
-              </div>
-            )}
+              </form>
+            </div>
 
-            {/* TAB 3: Real Mobile SMS Setup */}
-            {googleModalTab === 'smsGuide' && (
-              <div style={{ fontSize: 12, color: '#374151', maxHeight: 290, overflowY: 'auto' }}>
-                <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 8, padding: '10px 12px', marginBottom: 10 }}>
-                  <div style={{ fontWeight: 700, color: '#166534', marginBottom: 3 }}>
-                    🇮🇳 Option A: Real Indian Mobile SMS (Fast2SMS - 1 Min Setup)
-                  </div>
-                  <p style={{ margin: '0 0 6px 0', color: '#15803d', lineHeight: 1.4 }}>
-                    Fast2SMS allows free instant OTP delivery to any Indian (+91) phone without DLT approval:
-                  </p>
-                  <ol style={{ margin: '0 0 0 16px', padding: 0, lineHeight: 1.5, color: '#14532d' }}>
-                    <li>Sign up free at <a href="https://www.fast2sms.com" target="_blank" rel="noreferrer" style={{ color: '#15803d', fontWeight: 700 }}>fast2sms.com</a>.</li>
-                    <li>Copy your API Key from the <strong>Dev API</strong> dashboard.</li>
-                    <li>Open <code>backend/src/main/resources/application.properties</code> and add:</li>
-                  </ol>
-                  <pre style={{ background: '#0f172a', color: '#38bdf8', padding: '6px 8px', borderRadius: 6, fontSize: 11, marginTop: 4, overflowX: 'auto' }}>
-fast2sms.api.key=YOUR_FAST2SMS_KEY_HERE
-                  </pre>
-                </div>
-
-                <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, padding: '10px 12px', marginBottom: 10 }}>
-                  <div style={{ fontWeight: 700, color: '#0f172a', marginBottom: 3 }}>
-                    🌍 Option B: Global SMS &amp; WhatsApp (Twilio)
-                  </div>
-                  <p style={{ margin: '0 0 6px 0', color: '#475569', lineHeight: 1.4 }}>
-                    Add Twilio credentials in <code>application.properties</code>:
-                  </p>
-                  <pre style={{ background: '#0f172a', color: '#facc15', padding: '6px 8px', borderRadius: 6, fontSize: 11, margin: 0, overflowX: 'auto' }}>
-twilio.account.sid=ACxxxxxxxxxxxxxxxxx
-twilio.auth.token=YOUR_TWILIO_AUTH_TOKEN
-twilio.phone.number=+1234567890
-                  </pre>
-                </div>
-
-                <div style={{ background: '#fdf4ff', border: '1px solid #f0abfc', borderRadius: 8, padding: '10px 12px' }}>
-                  <div style={{ fontWeight: 700, color: '#86198f', marginBottom: 3 }}>
-                    📧 Real Gmail Email OTP (SMTP)
-                  </div>
-                  <p style={{ margin: '0 0 4px 0', color: '#701a75', lineHeight: 1.4 }}>
-                    Generate a 16-char App Password at <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noreferrer" style={{ color: '#a21caf', fontWeight: 700 }}>Google App Passwords</a> and add to <code>application.properties</code>:
-                  </p>
-                  <pre style={{ background: '#0f172a', color: '#f472b6', padding: '6px 8px', borderRadius: 6, fontSize: 11, margin: 0, overflowX: 'auto' }}>
-spring.mail.username=yourairline@gmail.com
-spring.mail.password=xxxx xxxx xxxx xxxx
-                  </pre>
-                </div>
-              </div>
-            )}
-
-            {/* Footer */}
-            <div style={{ textAlign: 'center', marginTop: 14 }}>
+            {/* Google Standard Legal Note */}
+            <div style={{ marginTop: 18, paddingTop: 12, borderTop: '1px solid #f1f3f4', textAlign: 'center' }}>
+              <p style={{ fontSize: 11, color: '#70757a', margin: '0 0 8px 0', lineHeight: 1.5 }}>
+                To continue, Google will share your name and email with SelectMyFlight.
+              </p>
               <button 
                 type="button"
                 onClick={() => setShowGoogleModal(false)}
-                style={{ background: 'none', border: 'none', color: '#6b7280', fontSize: 12, cursor: 'pointer', textDecoration: 'underline' }}
+                style={{ background: 'none', border: 'none', color: '#5f6368', fontSize: 12, cursor: 'pointer', textDecoration: 'underline' }}
               >
-                Close
+                Cancel and return
               </button>
             </div>
           </div>
