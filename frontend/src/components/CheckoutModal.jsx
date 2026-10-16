@@ -53,20 +53,26 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
   const passengerCount = bookingDetails.passengerCount || (bookingDetails.selectedSeatsList ? bookingDetails.selectedSeatsList.length : 1);
   const selectedSeatsList = bookingDetails.selectedSeatsList || (seat?.selectedSeatsList) || (seat?.seatNumber ? seat.seatNumber.split(', ') : ['01A']);
 
+  const verifiedName = localStorage.getItem('smf_verified_name') || 'Thiru';
+  const verifiedEmail = localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com';
+  const nameParts = verifiedName.split(' ');
+  const primaryFirst = nameParts[0] || 'Thiru';
+  const primaryLast = nameParts.slice(1).join(' ') || 'Traveler';
+
   const defaultTemplates = [
-    { title: 'Mr', firstName: 'Rahul', lastName: 'Sharma', gender: 'Male', age: '28' },
-    { title: 'Ms', firstName: 'Priya', lastName: 'Sharma', gender: 'Female', age: '26' },
-    { title: 'Mr', firstName: 'Amitabh', lastName: 'Sharma', gender: 'Male', age: '54' },
-    { title: 'Mrs', firstName: 'Sunita', lastName: 'Sharma', gender: 'Female', age: '50' },
-    { title: 'Master', firstName: 'Aarav', lastName: 'Sharma', gender: 'Male', age: '10' },
-    { title: 'Ms', firstName: 'Ananya', lastName: 'Sharma', gender: 'Female', age: '8' }
+    { title: 'Mr', firstName: primaryFirst, lastName: primaryLast, gender: 'Male', age: '28' },
+    { title: 'Ms', firstName: 'Priya', lastName: primaryLast, gender: 'Female', age: '26' },
+    { title: 'Mr', firstName: 'Amitabh', lastName: primaryLast, gender: 'Male', age: '54' },
+    { title: 'Mrs', firstName: 'Sunita', lastName: primaryLast, gender: 'Female', age: '50' },
+    { title: 'Master', firstName: 'Aarav', lastName: primaryLast, gender: 'Male', age: '10' },
+    { title: 'Ms', firstName: 'Ananya', lastName: primaryLast, gender: 'Female', age: '8' }
   ];
 
   // Multi-passenger details state
   const [passengers, setPassengers] = useState(() => {
     const list = [];
     for (let i = 0; i < passengerCount; i++) {
-      const template = defaultTemplates[i] || { title: 'Mr', firstName: `Traveler${i + 1}`, lastName: 'Sharma', gender: 'Male', age: '25' };
+      const template = defaultTemplates[i] || { title: 'Mr', firstName: `Traveler${i + 1}`, lastName: primaryLast, gender: 'Male', age: '25' };
       const assignedSeat = selectedSeatsList[i] || `0${i + 1}A`;
       list.push({
         id: i + 1,
@@ -83,7 +89,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
 
   // Primary Contact details
   const [contactInfo, setContactInfo] = useState({
-    email: 'rahul.sharma@gmail.com',
+    email: verifiedEmail,
     phone: '+91 98765 43210'
   });
 
@@ -101,14 +107,14 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
     rawCardNumber: '4111111111111111',
     cardExp: '12/28',
     cardCvc: '888',
-    cardHolder: 'RAHUL SHARMA'
+    cardHolder: verifiedName.toUpperCase()
   });
 
   // Selected Bank for NetBanking
   const [selectedBank, setSelectedBank] = useState('HDFC');
   // Selected UPI App
   const [selectedUpiApp, setSelectedUpiApp] = useState('GPAY'); // 'GPAY', 'PHONEPE', 'PAYTM', 'QR'
-  const [upiId, setUpiId] = useState('rahul@okaxis');
+  const [upiId, setUpiId] = useState(`${primaryFirst.toLowerCase()}@okaxis`);
 
   const [paymentMethod, setPaymentMethod] = useState('RAZORPAY_UPI'); // 'RAZORPAY_UPI', 'RAZORPAY_CARD', 'RAZORPAY_NETBANKING', 'RAZORPAY_WALLET'
   const [promoInput, setPromoInput] = useState('');
@@ -170,15 +176,16 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
   // Switch UPI App and update default handle
   const handleSelectUpiApp = (appId) => {
     setSelectedUpiApp(appId);
-    if (appId === 'GPAY') setUpiId('rahul@okaxis');
-    else if (appId === 'PHONEPE') setUpiId('rahul@ybl');
+    const handlePrefix = (passengers[0]?.firstName || 'thiru').toLowerCase();
+    if (appId === 'GPAY') setUpiId(`${handlePrefix}@okaxis`);
+    else if (appId === 'PHONEPE') setUpiId(`${handlePrefix}@ybl`);
     else if (appId === 'PAYTM') setUpiId('9876543210@paytm');
     else if (appId === 'QR') setUpiId('selectmyflight@upi');
   };
 
   // Launch official Razorpay Popup or in-app checkout
   const handleLaunchRazorpayPopup = () => {
-    const primaryPax = passengers[0] || { firstName: 'Rahul', lastName: 'Sharma' };
+    const primaryPax = passengers[0] || { firstName: primaryFirst, lastName: primaryLast };
     if (window.Razorpay) {
       try {
         const options = {
@@ -413,7 +420,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                         required
                         value={pax.firstName}
                         onChange={(e) => handlePassengerChange(idx, 'firstName', e.target.value)}
-                        placeholder="e.g. Rahul"
+                        placeholder="e.g. Thiru"
                         style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#fff', padding: '10px 12px', borderRadius: 8, fontSize: 13, outline: 'none', minHeight: 42 }}
                       />
                     </div>
@@ -792,7 +799,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                     type="text"
                     value={upiId}
                     onChange={(e) => setUpiId(e.target.value)}
-                    placeholder={selectedUpiApp === 'GPAY' ? "Enter Google Pay VPA (e.g. rahul@okaxis)" : selectedUpiApp === 'PHONEPE' ? "Enter PhonePe VPA (e.g. rahul@ybl)" : "Enter UPI VPA (e.g. name@paytm)"}
+                    placeholder={selectedUpiApp === 'GPAY' ? "Enter Google Pay VPA (e.g. thiru@okaxis)" : selectedUpiApp === 'PHONEPE' ? "Enter PhonePe VPA (e.g. thiru@ybl)" : "Enter UPI VPA (e.g. name@paytm)"}
                     style={{
                       flex: '1 1 200px',
                       minWidth: 0,

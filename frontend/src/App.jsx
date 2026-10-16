@@ -63,7 +63,15 @@ export default function App() {
   const navigateTo = (route) => {
     setActiveTab(route);
     if (route === 'search') {
-      window.location.hash = '';
+      try {
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        } else {
+          window.location.hash = '';
+        }
+      } catch {
+        window.location.hash = '';
+      }
     } else {
       window.location.hash = route;
     }

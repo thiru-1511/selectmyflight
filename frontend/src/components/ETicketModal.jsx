@@ -282,7 +282,7 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
                 <div>
                   <div style={{ color: '#94a3b8' }}>Billed To:</div>
                   <div style={{ fontWeight: 700, color: '#fff' }}>{safePassengers.map(p => `${p.title} ${p.firstName} ${p.lastName} (Seat ${p.seatNumber})`).join(', ')}</div>
-                  <div style={{ color: '#cbd5e1' }}>{booking.contactEmail || 'rahul.sharma@gmail.com'}</div>
+                  <div style={{ color: '#cbd5e1' }}>{booking.contactEmail || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com'}</div>
                   <div style={{ color: '#cbd5e1' }}>{booking.contactPhone || '+91 98765 43210'}</div>
                 </div>
                 <div style={{ textAlign: 'right' }}>

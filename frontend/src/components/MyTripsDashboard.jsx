@@ -262,7 +262,7 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
                       {trip.passengers && trip.passengers.length > 1 ? `Travelers (${trip.passengers.length})` : 'Traveler'}
                     </div>
                     <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', marginTop: 2 }}>
-                      {trip.primaryGuestName || trip.passengerName || (passenger.firstName ? (trip.passengers && trip.passengers.length > 1 ? `${passenger.firstName} ${passenger.lastName} (+${trip.passengers.length - 1} pax)` : `${passenger.firstName} ${passenger.lastName}`) : 'Rahul Sharma')}
+                      {trip.primaryGuestName || trip.passengerName || (passenger.firstName ? (trip.passengers && trip.passengers.length > 1 ? `${passenger.firstName} ${passenger.lastName} (+${trip.passengers.length - 1} pax)` : `${passenger.firstName} ${passenger.lastName}`) : (localStorage.getItem('smf_verified_name') || 'Thiru'))}
                     </div>
                     <div style={{ fontSize: 12, color: '#f5af19', fontWeight: 600 }}>
                       {isHotel ? 'Instant Voucher Issued' : isTransit ? `Status: Confirmed` : isBundle ? 'Package Locked' : `Seat: ${trip.passengers && trip.passengers.length > 1 ? trip.passengers.map(p => p.seatNumber).join(', ') : (passenger.seatNumber || '01A')}`}

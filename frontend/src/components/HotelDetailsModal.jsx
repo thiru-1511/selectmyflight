@@ -37,8 +37,8 @@ export default function HotelDetailsModal({
   const [selectedRoom, setSelectedRoom] = useState(availableRooms[0]);
 
   const [guestForm, setGuestForm] = useState({
-    name: 'Rahul Sharma',
-    email: 'rahul.sharma@gmail.com',
+    name: localStorage.getItem('smf_verified_name') || 'Thiru',
+    email: localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com',
     phone: '+91 98765 43210',
     specialRequest: 'Quiet high-floor room preferred'
   });

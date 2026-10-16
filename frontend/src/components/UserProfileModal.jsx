@@ -3,8 +3,8 @@ import { X, User, Award, Shield, CheckCircle2, Star, Save } from 'lucide-react';
 
 export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, onSwitchAccount }) {
   const [formData, setFormData] = useState({
-    name: user?.name || 'Rahul Sharma',
-    email: user?.email || 'rahul.sharma@gmail.com',
+    name: user?.name || localStorage.getItem('smf_verified_name') || 'Thiru',
+    email: user?.email || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com',
     phone: user?.phone || '+91 98765 43210',
     preferredSeat: user?.preferredSeat || 'Window',
     preferredClass: user?.preferredClass || 'Business',
@@ -17,9 +17,9 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
   React.useEffect(() => {
     if (user) {
       setFormData({
-        name: user.name || '',
-        email: user.email || '',
-        phone: user.phone || '',
+        name: user.name || localStorage.getItem('smf_verified_name') || 'Thiru',
+        email: user.email || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com',
+        phone: user.phone || '+91 98765 43210',
         preferredSeat: user.preferredSeat || 'Window',
         preferredClass: user.preferredClass || 'Economy',
         preferredMeal: user.preferredMeal || 'Royal Rajasthani Thali (Veg)',
@@ -37,6 +37,14 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
     setTimeout(() => setSaved(false), 2500);
   };
 
+  const userInitials = (formData.name || 'T')
+    .split(' ')
+    .filter(Boolean)
+    .map(w => w[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 560 }}>
@@ -53,15 +61,15 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
               width: 42,
               height: 42,
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #f5af19, #e65c00)',
+              background: 'linear-gradient(135deg, #1a73e8, #00d2ff)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#fff',
               fontWeight: 800,
-              fontSize: 18
+              fontSize: 16
             }}>
-              RS
+              {userInitials || 'T'}
             </div>
             <div>
               <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: 0 }}>

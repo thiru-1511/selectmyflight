@@ -35,26 +35,26 @@ import { INITIAL_BOOKINGS } from '../data/mockFlights';
 const INITIAL_CUSTOMERS = [
   {
     id: 1,
-    name: 'Rahul Sharma',
-    email: 'rahul.sharma@gmail.com',
+    name: 'Thiru (Personal / Admin)',
+    email: 'thiru1511@gmail.com',
     phone: '+91 98765 43210',
-    tier: 'Gold Elite',
-    loyaltyPoints: 12450,
+    tier: 'Executive Platinum',
+    loyaltyPoints: 54800,
     status: 'Active',
-    joinedDate: '2025-11-14',
+    joinedDate: '2025-01-10',
     homeAirport: 'DEL (New Delhi)',
-    seatPreference: '04A (Window / Extra Legroom)',
+    seatPreference: '01A (First Class Suite)',
     mealPreference: 'Royal Rajasthani Thali (Veg)',
-    bookingsCount: 6,
-    totalSpent: 38400,
+    bookingsCount: 12,
+    totalSpent: 98400,
     recentPnr: 'SMF-9021'
   },
   {
     id: 2,
-    name: 'Priya Patel',
-    email: 'priya.patel@gmail.com',
+    name: 'Thiru Selvan',
+    email: 'thiru.selvan@gmail.com',
     phone: '+91 98123 45678',
-    tier: 'Platinum VIP',
+    tier: 'Gold Elite',
     loyaltyPoints: 24800,
     status: 'Active',
     joinedDate: '2025-08-20',
@@ -955,8 +955,8 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                         </td>
 
                         <td style={{ padding: '16px 20px' }}>
-                          <div style={{ fontWeight: 700, color: '#fff' }}>{b.passengerName || 'Rahul Sharma'}</div>
-                          <div style={{ fontSize: 11, color: '#94a3b8' }}>{b.passengerEmail || 'rahul.sharma@gmail.com'}</div>
+                          <div style={{ fontWeight: 700, color: '#fff' }}>{b.passengerName || localStorage.getItem('smf_verified_name') || 'Thiru'}</div>
+                          <div style={{ fontSize: 11, color: '#94a3b8' }}>{b.passengerEmail || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com'}</div>
                         </td>
 
                         <td style={{ padding: '16px 20px' }}>
