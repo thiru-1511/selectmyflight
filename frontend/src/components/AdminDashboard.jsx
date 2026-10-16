@@ -28,9 +28,12 @@ import {
   Filter, 
   Tag, 
   Heart,
-  Lock
+  Lock,
+  FileText,
+  Eye
 } from 'lucide-react';
 import { INITIAL_BOOKINGS } from '../data/mockFlights';
+import ETicketModal from './ETicketModal';
 
 const INITIAL_CUSTOMERS = [
   {
@@ -145,6 +148,65 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
   // Modals
   const [showAddCustomerModal, setShowAddCustomerModal] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState(null);
+  const [selectedBookingForETicket, setSelectedBookingForETicket] = useState(null);
+  const [selectedCustomerForBookings, setSelectedCustomerForBookings] = useState(null);
+
+  // Auto-sync logged in user from localStorage into the Admin Customer Directory
+  useEffect(() => {
+    try {
+      const verifiedEmail = localStorage.getItem('smf_verified_email');
+      const verifiedName = localStorage.getItem('smf_verified_name') || 'Verified Traveler';
+      if (verifiedEmail) {
+        const cleanEmail = verifiedEmail.toLowerCase().trim();
+        setCustomers(prev => {
+          const idx = prev.findIndex(c => c.email && c.email.toLowerCase().trim() === cleanEmail);
+          if (idx >= 0) return prev;
+          const newCust = {
+            id: Date.now(),
+            name: verifiedName,
+            email: cleanEmail,
+            phone: '+91 98765 43210',
+            tier: 'Executive Platinum',
+            loyaltyPoints: 10000,
+            status: 'Active',
+            joinedDate: new Date().toISOString().split('T')[0],
+            lastLogin: new Date().toISOString(),
+            homeAirport: 'DEL (New Delhi)',
+            seatPreference: '01A (Window)',
+            mealPreference: 'Vegetarian Gourmet',
+            bookingsCount: 0,
+            totalSpent: 0,
+            recentPnr: 'N/A'
+          };
+          return [newCust, ...prev];
+        });
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  // Auto-calculate customer booking counts, total spent, and latest PNR from real bookings list
+  useEffect(() => {
+    if (!bookings || bookings.length === 0) return;
+    setCustomers(prev => prev.map(c => {
+      const cEmail = (c.email || '').toLowerCase().trim();
+      const userBookings = bookings.filter(b => 
+        (b.contactEmail && b.contactEmail.toLowerCase().trim() === cEmail) ||
+        (b.passengerEmail && b.passengerEmail.toLowerCase().trim() === cEmail)
+      );
+      if (userBookings.length > 0) {
+        const spent = userBookings.reduce((sum, b) => sum + (Number(b.totalAmount || b.totalPrice) || 0), 0);
+        return {
+          ...c,
+          bookingsCount: Math.max(c.bookingsCount || 0, userBookings.length),
+          totalSpent: Math.max(c.totalSpent || 0, spent),
+          recentPnr: userBookings[0].pnr || c.recentPnr
+        };
+      }
+      return c;
+    }));
+  }, [bookings]);
 
   // Add Customer Form State
   const [newCustomerForm, setNewCustomerForm] = useState({
@@ -421,7 +483,7 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
               }}
             >
               <Luggage size={16} />
-              Passenger Manifest & Refunds ({bookings.length})
+              Passenger Manifest & Confirmed Tickets ({bookings.length})
             </button>
 
             <button
@@ -802,7 +864,34 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                               ₹{cust.totalSpent.toLocaleString()}
                             </div>
                             <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
-                              {cust.bookingsCount} trips • PNR: <strong style={{ color: '#00d2ff' }}>{cust.recentPnr}</strong>
+                              {cust.bookingsCount} trips • PNR:{' '}
+                              {cust.recentPnr && cust.recentPnr !== 'N/A' ? (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const matched = bookings.find(b => b.pnr === cust.recentPnr);
+                                    if (matched) {
+                                      setSelectedBookingForETicket(matched);
+                                    } else {
+                                      setSelectedCustomerForBookings(cust);
+                                    }
+                                  }}
+                                  style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    color: '#00d2ff',
+                                    fontWeight: 800,
+                                    cursor: 'pointer',
+                                    textDecoration: 'underline',
+                                    padding: 0
+                                  }}
+                                  title="Click to view confirmed E-Ticket details"
+                                >
+                                  {cust.recentPnr}
+                                </button>
+                              ) : (
+                                <span style={{ color: '#64748b' }}>N/A</span>
+                              )}
                             </div>
                           </td>
 
@@ -830,6 +919,23 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                           {/* CRUD Actions */}
                           <td style={{ padding: '16px 20px', textAlign: 'right' }}>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6 }}>
+                              {/* View Confirmed Tickets */}
+                              <button
+                                type="button"
+                                onClick={() => setSelectedCustomerForBookings(cust)}
+                                title="View Confirmed Flight Bookings & E-Tickets"
+                                style={{
+                                  background: 'rgba(0, 210, 255, 0.15)',
+                                  border: '1px solid rgba(0, 210, 255, 0.4)',
+                                  color: '#00d2ff',
+                                  padding: '6px 8px',
+                                  borderRadius: 6,
+                                  cursor: 'pointer'
+                                }}
+                              >
+                                <Luggage size={14} />
+                              </button>
+
                               {/* Upgrade Tier */}
                               <button
                                 type="button"
@@ -945,31 +1051,35 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                     </tr>
                   </thead>
                   <tbody>
-                    {bookings.map((b) => (
+                      {bookings.map((b) => (
                       <tr key={b.id || b.pnr} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
                         <td style={{ padding: '16px 20px' }}>
                           <div style={{ fontWeight: 800, color: '#00d2ff' }}>{b.pnr}</div>
                           <div style={{ fontSize: 12, color: '#fff' }}>
-                            {b.flight?.originCode || 'DEL'} ➔ {b.flight?.destinationCode || 'BOM'} ({b.flight?.flightNumber || '6E-2041'})
+                            {b.flight?.originCode || b.origin || 'DEL'} ➔ {b.flight?.destinationCode || b.destination || 'BOM'} ({b.flight?.flightNumber || b.flightNumber || '6E-2041'})
                           </div>
                         </td>
 
                         <td style={{ padding: '16px 20px' }}>
-                          <div style={{ fontWeight: 700, color: '#fff' }}>{b.passengerName || localStorage.getItem('smf_verified_name') || 'Thiru'}</div>
-                          <div style={{ fontSize: 11, color: '#94a3b8' }}>{b.passengerEmail || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com'}</div>
+                          <div style={{ fontWeight: 700, color: '#fff' }}>
+                            {b.passengerName || (b.passengers?.[0]?.firstName ? `${b.passengers[0].firstName} ${b.passengers[0].lastName || ''}`.trim() : null) || 'Verified Passenger'}
+                          </div>
+                          <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                            {b.contactEmail || b.passengerEmail || 'passenger@gmail.com'}
+                          </div>
                         </td>
 
                         <td style={{ padding: '16px 20px' }}>
-                          <div style={{ color: '#fff', fontWeight: 700 }}>Seat {b.seatNumber || '04A'}</div>
-                          <div style={{ fontSize: 11, color: '#f5af19' }}>{b.cabinClass || 'Economy (Window)'}</div>
+                          <div style={{ color: '#fff', fontWeight: 700 }}>Seat {b.seatNumber || b.passengers?.[0]?.seatNumber || '01A'}</div>
+                          <div style={{ fontSize: 11, color: '#f5af19' }}>{b.cabinClass || b.flight?.cabinClass || 'Economy (Window)'}</div>
                         </td>
 
                         <td style={{ padding: '16px 20px', color: '#cbd5e1' }}>
-                          {b.travelDate || '2026-10-05'}
+                          {b.travelDate || (b.bookingDate ? b.bookingDate.split('T')[0] : '2026-10-05')}
                         </td>
 
                         <td style={{ padding: '16px 20px', fontWeight: 800, color: '#00e676' }}>
-                          ₹{(b.totalPrice || 5300).toLocaleString()}
+                          ₹{Number(b.totalAmount || b.totalPrice || 5300).toLocaleString()}
                         </td>
 
                         <td style={{ padding: '16px 20px' }}>
@@ -986,24 +1096,48 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                         </td>
 
                         <td style={{ padding: '16px 20px', textAlign: 'right' }}>
-                          {b.status !== 'CANCELLED_REFUNDED' && (
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8 }}>
                             <button
                               type="button"
-                              onClick={() => handleRefundBookingOverride(b.pnr)}
+                              onClick={() => setSelectedBookingForETicket(b)}
                               style={{
-                                background: 'rgba(245, 175, 25, 0.15)',
-                                border: '1px solid #f5af19',
-                                color: '#f5af19',
+                                background: 'rgba(0, 210, 255, 0.15)',
+                                border: '1px solid #00d2ff',
+                                color: '#00d2ff',
                                 padding: '6px 12px',
                                 borderRadius: 6,
                                 fontSize: 12,
                                 fontWeight: 700,
-                                cursor: 'pointer'
+                                cursor: 'pointer',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: 5
                               }}
+                              title="View E-Ticket Confirmation & Boarding Pass"
                             >
-                              🔄 100% Refund Override
+                              <FileText size={13} />
+                              <span>View E-Ticket</span>
                             </button>
-                          )}
+
+                            {b.status !== 'CANCELLED_REFUNDED' && (
+                              <button
+                                type="button"
+                                onClick={() => handleRefundBookingOverride(b.pnr)}
+                                style={{
+                                  background: 'rgba(245, 175, 25, 0.15)',
+                                  border: '1px solid #f5af19',
+                                  color: '#f5af19',
+                                  padding: '6px 10px',
+                                  borderRadius: 6,
+                                  fontSize: 12,
+                                  fontWeight: 700,
+                                  cursor: 'pointer'
+                                }}
+                              >
+                                🔄 100% Refund
+                              </button>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -1317,6 +1451,145 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                 Update Customer Profile
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Admin E-Ticket & Confirmation Inspector Modal */}
+      {selectedBookingForETicket && (
+        <ETicketModal
+          booking={selectedBookingForETicket}
+          currency="INR"
+          onClose={() => setSelectedBookingForETicket(null)}
+        />
+      )}
+
+      {/* Customer Flight Bookings Inspector Modal */}
+      {selectedCustomerForBookings && (
+        <div 
+          className="modal-overlay" 
+          onClick={() => setSelectedCustomerForBookings(null)} 
+          style={{ zIndex: 1700, padding: 16 }}
+        >
+          <div 
+            className="modal-content" 
+            onClick={(e) => e.stopPropagation()} 
+            style={{ maxWidth: 820, maxHeight: '90vh', overflowY: 'auto' }}
+          >
+            <div style={{
+              padding: '18px 24px',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              background: 'linear-gradient(135deg, rgba(0, 210, 255, 0.1), rgba(0, 82, 204, 0.05))'
+            }}>
+              <div>
+                <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: 0 }}>
+                  ✈️ Flight Bookings for {selectedCustomerForBookings.name}
+                </h3>
+                <p style={{ fontSize: 12, color: '#94a3b8', margin: '4px 0 0 0' }}>
+                  Email: <strong style={{ color: '#00d2ff' }}>{selectedCustomerForBookings.email}</strong> • Phone: {selectedCustomerForBookings.phone}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedCustomerForBookings(null)}
+                style={{ background: 'none', border: 'none', color: '#cbd5e1', cursor: 'pointer', padding: 4 }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div style={{ padding: 22 }}>
+              {(() => {
+                const custEmail = (selectedCustomerForBookings.email || '').toLowerCase().trim();
+                const custBookings = bookings.filter(b => 
+                  (b.contactEmail && b.contactEmail.toLowerCase().trim() === custEmail) ||
+                  (b.passengerEmail && b.passengerEmail.toLowerCase().trim() === custEmail) ||
+                  (b.pnr === selectedCustomerForBookings.recentPnr)
+                );
+
+                if (custBookings.length === 0) {
+                  return (
+                    <div style={{ textAlign: 'center', padding: '40px 20px', color: '#94a3b8' }}>
+                      <Luggage size={40} color="#64748b" style={{ margin: '0 auto 12px auto' }} />
+                      <h4 style={{ color: '#fff', margin: '0 0 6px 0' }}>No Bookings on Record Yet</h4>
+                      <p style={{ fontSize: 13, margin: 0 }}>
+                        This customer is active. When they complete a flight reservation, their confirmed tickets will appear here in real-time.
+                      </p>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    {custBookings.map((b) => (
+                      <div
+                        key={b.id || b.pnr}
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.04)',
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
+                          borderRadius: 12,
+                          padding: '16px 20px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          flexWrap: 'wrap',
+                          gap: 12
+                        }}
+                      >
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <span style={{ fontSize: 15, fontWeight: 800, color: '#00d2ff' }}>PNR: {b.pnr}</span>
+                            <span style={{
+                              background: 'rgba(0, 230, 118, 0.15)',
+                              color: '#00e676',
+                              fontSize: 11,
+                              fontWeight: 700,
+                              padding: '2px 8px',
+                              borderRadius: 6
+                            }}>
+                              {b.status || 'CONFIRMED'}
+                            </span>
+                          </div>
+                          <div style={{ fontSize: 13, color: '#fff', marginTop: 4, fontWeight: 600 }}>
+                            {b.flight?.originCode || b.origin || 'DEL'} ➔ {b.flight?.destinationCode || b.destination || 'BOM'} • {b.flight?.airlineName || 'Airline'} ({b.flight?.flightNumber || b.flightNumber || 'Flight'})
+                          </div>
+                          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+                            Travel Date: {b.travelDate || (b.bookingDate ? b.bookingDate.split('T')[0] : 'Upcoming')} • Seat: {b.seatNumber || b.passengers?.[0]?.seatNumber || '01A'} • Amount Paid: <strong style={{ color: '#00e676' }}>₹{Number(b.totalAmount || b.totalPrice || 5300).toLocaleString()}</strong>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedCustomerForBookings(null);
+                            setSelectedBookingForETicket(b);
+                          }}
+                          style={{
+                            background: 'linear-gradient(135deg, #00d2ff, #0052cc)',
+                            color: '#fff',
+                            border: 'none',
+                            padding: '8px 16px',
+                            borderRadius: 8,
+                            fontSize: 12,
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 6
+                          }}
+                        >
+                          <FileText size={14} />
+                          <span>View Full Confirmation & E-Ticket</span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
+            </div>
           </div>
         </div>
       )}

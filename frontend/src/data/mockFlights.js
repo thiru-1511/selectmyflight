@@ -289,11 +289,11 @@ export const INITIAL_BOOKINGS = [
     flightStatus: 'ON_TIME',
     gate: 'T3-B14',
     terminal: 'T3',
-    contactEmail: 'rahul.sharma@gmail.com',
+    contactEmail: 'thiru1511@gmail.com',
     contactPhone: '+91 98765 43210',
     flight: INITIAL_FLIGHTS[0],
     passengers: [
-      { title: 'Mr', firstName: 'Rahul', lastName: 'Sharma', gender: 'Male', seatNumber: '04A', meal: 'Royal Rajasthani Thali (Veg)', extraBaggage: 0 }
+      { title: 'Mr', firstName: 'Thiru', lastName: '', gender: 'Male', seatNumber: '04A', meal: 'Royal Rajasthani Thali (Veg)', extraBaggage: 0 }
     ]
   }
 ];

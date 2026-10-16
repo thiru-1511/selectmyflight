@@ -69,8 +69,43 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
       localStorage.setItem('smf_user', JSON.stringify(user));
       localStorage.setItem('smf_verified_email', user.email);
       localStorage.setItem('smf_verified_name', user.name);
+
+      // Immediately sync into Admin Customer Directory (smf_admin_customers)
+      const adminCustomers = JSON.parse(localStorage.getItem('smf_admin_customers') || '[]');
+      const userEmail = (user.email || '').toLowerCase().trim();
+      const existingIdx = adminCustomers.findIndex(c => c.email && c.email.toLowerCase().trim() === userEmail);
+      if (existingIdx >= 0) {
+        adminCustomers[existingIdx] = {
+          ...adminCustomers[existingIdx],
+          name: user.name || adminCustomers[existingIdx].name,
+          phone: user.phone || adminCustomers[existingIdx].phone,
+          status: 'Active',
+          lastLogin: new Date().toISOString()
+        };
+        const updated = adminCustomers.splice(existingIdx, 1)[0];
+        adminCustomers.unshift(updated);
+      } else if (userEmail) {
+        adminCustomers.unshift({
+          id: Date.now(),
+          name: user.name || getUserNameFromEmail(userEmail),
+          email: userEmail,
+          phone: user.phone || '+91 98765 43210',
+          tier: user.frequentFlyerTier || (isAdmin ? 'Executive Platinum' : 'Gold Elite'),
+          loyaltyPoints: 5000,
+          status: 'Active',
+          joinedDate: new Date().toISOString().split('T')[0],
+          lastLogin: new Date().toISOString(),
+          homeAirport: user.homeAirport || 'DEL (New Delhi)',
+          seatPreference: '01A (Window)',
+          mealPreference: 'Vegetarian Gourmet',
+          bookingsCount: 0,
+          totalSpent: 0,
+          recentPnr: 'N/A'
+        });
+      }
+      localStorage.setItem('smf_admin_customers', JSON.stringify(adminCustomers));
     } catch (e) {
-      console.warn(e);
+      console.warn('Sync customer to admin directory notice:', e);
     }
     setSuccessMsg(`Welcome, ${user.name}! Verified (${user.email}).`);
     setTimeout(() => {

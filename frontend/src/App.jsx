@@ -421,17 +421,63 @@ export default function App() {
       setConfirmedETicket(safeConfirmed);
       
       // Add confirmation notification with Email and SMS dispatch confirmation
+      const customerEmail = currentUser?.email || localStorage.getItem('smf_verified_email') || safeConfirmed.contactEmail || 'customer@gmail.com';
+      const customerPhone = currentUser?.phone || safeConfirmed.contactPhone || '+91 98765 43210';
       setNotifications(prev => [
         {
           id: Date.now(),
           type: 'booking',
           title: `Booking Confirmed: PNR ${confirmed.pnr}`,
-          message: `${confirmed.flight?.originCode || searchParams.origin} ➔ ${confirmed.flight?.destinationCode || searchParams.destination}. 📧 E-Ticket & Tax Invoice PDF emailed to ${currentUser?.email || 'rahul.sharma@gmail.com'}. 📱 SMS sent to ${currentUser?.phone || '+91 98765 43210'}. Gate B14, Terminal T3.`,
+          message: `${confirmed.flight?.originCode || searchParams.origin} ➔ ${confirmed.flight?.destinationCode || searchParams.destination}. 📧 E-Ticket & Tax Invoice PDF emailed to ${customerEmail}. 📱 SMS sent to ${customerPhone}. Gate ${safeConfirmed.gate || 'T3-B14'}, Terminal ${safeConfirmed.terminal || 'T3'}.`,
           time: 'Just now',
           read: false
         },
         ...prev
       ]);
+
+      // Sync confirmed booking into Admin Customers Directory & Passenger Manifest
+      try {
+        const adminCustomers = JSON.parse(localStorage.getItem('smf_admin_customers') || '[]');
+        const bookingEmail = customerEmail.toLowerCase().trim();
+        const bookingName = safeConfirmed.passengers?.[0]?.firstName 
+          ? `${safeConfirmed.passengers[0].firstName} ${safeConfirmed.passengers[0].lastName || ''}`.trim() 
+          : (currentUser?.name || localStorage.getItem('smf_verified_name') || 'Verified Customer');
+        const bookingAmt = Number(safeConfirmed.totalAmount) || 0;
+
+        const custIdx = adminCustomers.findIndex(c => c.email && c.email.toLowerCase().trim() === bookingEmail);
+        if (custIdx >= 0) {
+          adminCustomers[custIdx] = {
+            ...adminCustomers[custIdx],
+            bookingsCount: (adminCustomers[custIdx].bookingsCount || 0) + 1,
+            totalSpent: (adminCustomers[custIdx].totalSpent || 0) + bookingAmt,
+            recentPnr: safeConfirmed.pnr,
+            status: 'Active',
+            lastBookingDate: new Date().toISOString()
+          };
+          const updatedCust = adminCustomers.splice(custIdx, 1)[0];
+          adminCustomers.unshift(updatedCust);
+        } else if (bookingEmail) {
+          adminCustomers.unshift({
+            id: Date.now(),
+            name: bookingName,
+            email: bookingEmail,
+            phone: customerPhone,
+            tier: 'Gold Elite',
+            loyaltyPoints: Math.round(bookingAmt * 0.1) || 2500,
+            status: 'Active',
+            joinedDate: new Date().toISOString().split('T')[0],
+            homeAirport: safeConfirmed.flight?.originCode || 'DEL (New Delhi)',
+            seatPreference: safeConfirmed.passengers?.[0]?.seatNumber || '01A',
+            mealPreference: safeConfirmed.passengers?.[0]?.meal || 'Vegetarian Gourmet',
+            bookingsCount: 1,
+            totalSpent: bookingAmt,
+            recentPnr: safeConfirmed.pnr
+          });
+        }
+        localStorage.setItem('smf_admin_customers', JSON.stringify(adminCustomers));
+      } catch (adminSyncErr) {
+        console.warn('Admin customer sync notice:', adminSyncErr);
+      }
 
       // Refresh trips
       const updatedTrips = await api.getMyTrips();
