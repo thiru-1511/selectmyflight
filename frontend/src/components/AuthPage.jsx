@@ -99,20 +99,23 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
       };
       handleCompleteLogin(travelerUser, travelerUser.role === 'ROLE_ADMIN');
     } catch (err) {
-      console.warn('Firebase Google Sign-In error:', err);
+      console.warn('Firebase Google Sign-In notice:', err);
       if (err.code === 'auth/unauthorized-domain') {
         setShowDomainModal(true);
-      } else if (err.code === 'auth/popup-closed-by-user') {
-        setErrorMsg('Google Sign-In popup closed.');
+      } else if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') {
+        // User closed or dismissed popup window - do not display an alarming error
+        setErrorMsg('');
+      } else if (err.code === 'auth/popup-blocked') {
+        setErrorMsg('Google Sign-In popup was blocked by your browser. Please allow popups or use Email OTP.');
       } else {
-        setErrorMsg(err.message || 'Unable to authenticate with Google.');
+        setErrorMsg(err.message || 'Unable to authenticate with Google. Please use Email OTP.');
       }
     } finally {
       setLoading(false);
     }
   };
 
-  // Amazon / Flipkart Style OTP Dispatch
+  // Secure One-Time Password (OTP) Dispatch
   const handleSendOtp = async (overrideRecipient = null) => {
     const isMobileMode = loginMethod === 'mobile';
     const rawPhone = formData.phone.trim();
@@ -602,7 +605,7 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
             </h1>
             <p style={{ fontSize: 13, color: '#94a3b8', margin: 0 }}>
               {activeTab === 'login' 
-                ? 'Verify with your real Gmail / Email or phone number just like Amazon & Flipkart.' 
+                ? 'Access your flights, manage reservations, and earn frequent flyer miles.' 
                 : 'Create your account to unlock instant flight bookings and rewards.'}
             </p>
           </div>
@@ -813,11 +816,11 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
                   </div>
                 )}
 
-                {/* 2. Customer Email Input (Amazon / Flipkart Step 1) */}
+                {/* 2. Customer Email Input */}
                 {(loginMethod === 'email' || loginMethod === 'password') && (!otpSent || loginMethod === 'password') && (
                   <div>
                     <label style={{ fontSize: 12, fontWeight: 700, color: '#cbd5e1', marginBottom: 6, display: 'block' }}>
-                      Customer Gmail / Email Address
+                      Email Address
                     </label>
                     <div style={{ position: 'relative' }}>
                       <div style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}>
@@ -826,7 +829,7 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
                       <input
                         type="email"
                         required
-                        placeholder="Enter your Gmail or email (e.g. yourname@gmail.com)"
+                        placeholder="name@domain.com (e.g. yourname@gmail.com)"
                         value={formData.email}
                         onChange={(e) => handleChange('email', e.target.value)}
                         style={{
@@ -1486,7 +1489,7 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
               textAlign: 'left'
             }}>
               <div style={{ fontSize: 12, fontWeight: 700, color: '#34d399', marginBottom: 6 }}>
-                OR VERIFY INSTANTLY VIA EMAIL OTP (AMAZON / FLIPKART STYLE):
+                OR SIGN IN USING EMAIL VERIFICATION CODE:
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
                 <input
