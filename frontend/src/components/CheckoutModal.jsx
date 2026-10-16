@@ -62,7 +62,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
   const defaultTemplates = [
     { title: 'Mr', firstName: primaryFirst, lastName: primaryLast, gender: 'Male', age: '28' },
     { title: 'Ms', firstName: 'Priya', lastName: primaryLast, gender: 'Female', age: '26' },
-    { title: 'Mr', firstName: 'Amitabh', lastName: primaryLast, gender: 'Male', age: '54' },
+    { title: 'Mr', firstName: 'Rajesh', lastName: primaryLast, gender: 'Male', age: '54' },
     { title: 'Mrs', firstName: 'Sunita', lastName: primaryLast, gender: 'Female', age: '50' },
     { title: 'Master', firstName: 'Aarav', lastName: primaryLast, gender: 'Male', age: '10' },
     { title: 'Ms', firstName: 'Ananya', lastName: primaryLast, gender: 'Female', age: '8' }
@@ -922,7 +922,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleFillTestCard('6080123456789012', 'AMITABH SHARMA')}
+                  onClick={() => handleFillTestCard('6080123456789012', (verifiedName || 'VERIFIED TRAVELER').toUpperCase())}
                   style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#00e676', borderRadius: 6, padding: '4px 8px', cursor: 'pointer', fontSize: 11, fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 5 }}
                 >
                   <RupayLogo size={14} /> <span>RuPay Card</span>

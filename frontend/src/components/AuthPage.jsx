@@ -104,6 +104,11 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
         });
       }
       localStorage.setItem('smf_admin_customers', JSON.stringify(adminCustomers));
+      try {
+        window.dispatchEvent(new Event('smf_data_updated'));
+      } catch {
+        // ignore
+      }
     } catch (e) {
       console.warn('Sync customer to admin directory notice:', e);
     }
@@ -274,7 +279,7 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
             };
             setSuccessMsg(`Phone verified via Google Firebase! Welcome to SelectMyFlight.`);
             setTimeout(() => {
-              onAuthSuccess(travelerUser, false);
+              handleCompleteLogin(travelerUser, false);
             }, 500);
             return;
           } catch (fbConfirmErr) {
@@ -314,10 +319,8 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
 
         if (backendUser) {
           const isAdmin = backendUser.role === 'ROLE_ADMIN';
-          localStorage.setItem('smf_verified_email', backendUser.email);
-          localStorage.setItem('smf_verified_name', backendUser.name);
           setSuccessMsg(`Welcome, ${backendUser.name}! Verification successful.`);
-          setTimeout(() => onAuthSuccess(backendUser, isAdmin), 400);
+          setTimeout(() => handleCompleteLogin(backendUser, isAdmin), 400);
           return;
         }
 
@@ -341,11 +344,8 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
             authProvider: isEmailOtp ? 'EMAIL_VERIFIED' : (isMobileOtp ? 'MOBILE_VERIFIED' : 'PASSWORD')
           };
 
-          localStorage.setItem('smf_verified_email', cleanEmail);
-          localStorage.setItem('smf_verified_name', realName);
-
           setSuccessMsg(`Welcome, ${realUser.name}! Identity verified (${cleanEmail}).`);
-          setTimeout(() => onAuthSuccess(realUser, isAdmin), 400);
+          setTimeout(() => handleCompleteLogin(realUser, isAdmin), 400);
           return;
         }
       } else {

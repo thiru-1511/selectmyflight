@@ -475,6 +475,11 @@ export default function App() {
           });
         }
         localStorage.setItem('smf_admin_customers', JSON.stringify(adminCustomers));
+        try {
+          window.dispatchEvent(new Event('smf_data_updated'));
+        } catch {
+          // ignore
+        }
       } catch (adminSyncErr) {
         console.warn('Admin customer sync notice:', adminSyncErr);
       }
@@ -504,6 +509,46 @@ export default function App() {
     setCurrentUser(user);
     try {
       localStorage.setItem('smf_user', JSON.stringify(user));
+      localStorage.setItem('smf_verified_email', user.email || '');
+      localStorage.setItem('smf_verified_name', user.name || '');
+
+      // Ensure user is present in Admin Customer Directory
+      const adminCustomers = JSON.parse(localStorage.getItem('smf_admin_customers') || '[]');
+      const userEmail = (user.email || '').toLowerCase().trim();
+      const existingIdx = adminCustomers.findIndex(c => c.email && c.email.toLowerCase().trim() === userEmail);
+      if (existingIdx >= 0) {
+        adminCustomers[existingIdx] = {
+          ...adminCustomers[existingIdx],
+          name: user.name || adminCustomers[existingIdx].name,
+          phone: user.phone || adminCustomers[existingIdx].phone,
+          status: 'Active',
+          lastLogin: new Date().toISOString()
+        };
+      } else if (userEmail) {
+        adminCustomers.unshift({
+          id: Date.now(),
+          name: user.name || 'Verified Customer',
+          email: userEmail,
+          phone: user.phone || '+91 98765 43210',
+          tier: user.frequentFlyerTier || (isAdmin ? 'Executive Platinum' : 'Gold Elite'),
+          loyaltyPoints: 5000,
+          status: 'Active',
+          joinedDate: new Date().toISOString().split('T')[0],
+          lastLogin: new Date().toISOString(),
+          homeAirport: user.homeAirport || 'DEL (New Delhi)',
+          seatPreference: '01A (Window)',
+          mealPreference: 'Vegetarian Gourmet',
+          bookingsCount: 0,
+          totalSpent: 0,
+          recentPnr: 'N/A'
+        });
+      }
+      localStorage.setItem('smf_admin_customers', JSON.stringify(adminCustomers));
+      try {
+        window.dispatchEvent(new Event('smf_data_updated'));
+      } catch {
+        // ignore
+      }
     } catch (e) {
       console.warn(e);
     }

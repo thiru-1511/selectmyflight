@@ -34,110 +34,83 @@ import {
 } from 'lucide-react';
 import { INITIAL_BOOKINGS } from '../data/mockFlights';
 import ETicketModal from './ETicketModal';
+import { API_BASE_URL } from '../services/api';
 
-const INITIAL_CUSTOMERS = [
-  {
-    id: 1,
-    name: 'Thiru (Personal / Admin)',
-    email: 'thiru1511@gmail.com',
-    phone: '+91 98765 43210',
-    tier: 'Executive Platinum',
-    loyaltyPoints: 54800,
-    status: 'Active',
-    joinedDate: '2025-01-10',
-    homeAirport: 'DEL (New Delhi)',
-    seatPreference: '01A (First Class Suite)',
-    mealPreference: 'Royal Rajasthani Thali (Veg)',
-    bookingsCount: 12,
-    totalSpent: 98400,
-    recentPnr: 'SMF-9021'
-  },
-  {
-    id: 2,
-    name: 'Thiru Selvan',
-    email: 'thiru.selvan@gmail.com',
-    phone: '+91 98123 45678',
-    tier: 'Gold Elite',
-    loyaltyPoints: 24800,
-    status: 'Active',
-    joinedDate: '2025-08-20',
-    homeAirport: 'BOM (Mumbai)',
-    seatPreference: '02C (Aisle / Business)',
-    mealPreference: 'Gourmet Herb Grilled Chicken',
-    bookingsCount: 9,
-    totalSpent: 72900,
-    recentPnr: 'SMF-4412'
-  },
-  {
-    id: 3,
-    name: 'Amitabh Sen',
-    email: 'amitabh.sen@outlook.com',
-    phone: '+91 97654 32109',
-    tier: 'Silver Member',
-    loyaltyPoints: 4200,
-    status: 'Active',
-    joinedDate: '2026-01-10',
-    homeAirport: 'BLR (Bengaluru)',
-    seatPreference: '06F (Window)',
-    mealPreference: 'Jain Special Meal',
-    bookingsCount: 2,
-    totalSpent: 11200,
-    recentPnr: 'SMF-7833'
-  },
-  {
-    id: 4,
-    name: 'Farheen Sardar',
-    email: 'farheen.sardar@selectmyflight.com',
-    phone: '+91 99887 76655',
-    tier: 'Diamond Executive',
-    loyaltyPoints: 48900,
-    status: 'Active',
-    joinedDate: '2025-05-12',
-    homeAirport: 'DEL (New Delhi)',
-    seatPreference: '01A (First Class Suite)',
-    mealPreference: 'Chef Vegan Special',
-    bookingsCount: 14,
-    totalSpent: 146000,
-    recentPnr: 'SMF-1092'
-  },
-  {
-    id: 5,
-    name: 'Vikramaditya Roy',
-    email: 'vikram.roy@techcorp.in',
-    phone: '+91 98220 11223',
-    tier: 'Silver Member',
-    loyaltyPoints: 1800,
-    status: 'Suspended',
-    joinedDate: '2026-03-02',
-    homeAirport: 'HYD (Hyderabad)',
-    seatPreference: '07D (Aisle)',
-    mealPreference: 'Complimentary Snack',
-    bookingsCount: 1,
-    totalSpent: 4850,
-    recentPnr: 'SMF-3321'
+// Real customer data loader - strictly NO hardcoded demo personas
+const getRealCustomers = (currentUser = null) => {
+  try {
+    const DEMO_EMAILS = [
+      'amitabh.sen@outlook.com', 
+      'farheen.sardar@selectmyflight.com', 
+      'vikram.roy@techcorp.in', 
+      'rahul.sharma@gmail.com',
+      'thiru.selvan@gmail.com'
+    ];
+    const DEMO_NAMES = [
+      'Amitabh Sen',
+      'Farheen Sardar',
+      'Vikramaditya Roy',
+      'Thiru Selvan'
+    ];
+    const saved = localStorage.getItem('smf_admin_customers');
+    let list = saved ? JSON.parse(saved) : [];
+    // Filter out all hardcoded demo personas by email or name
+    list = list.filter(c => {
+      if (!c) return false;
+      const email = (c.email || '').toLowerCase().trim();
+      const name = (c.name || '').trim();
+      if (DEMO_EMAILS.includes(email)) return false;
+      if (DEMO_NAMES.includes(name)) return false;
+      return true;
+    });
+
+    // Include the real verified user or administrator
+    const verifiedEmail = currentUser?.email || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com';
+    const verifiedName = currentUser?.name || localStorage.getItem('smf_verified_name') || 'Thiru (Admin)';
+    
+    if (verifiedEmail && !list.some(c => c.email && c.email.toLowerCase().trim() === verifiedEmail.toLowerCase().trim())) {
+      list.unshift({
+        id: Date.now(),
+        name: verifiedName,
+        email: verifiedEmail.toLowerCase().trim(),
+        phone: currentUser?.phone || '+91 98765 43210',
+        tier: 'Executive Platinum',
+        loyaltyPoints: 10000,
+        status: 'Active',
+        joinedDate: new Date().toISOString().split('T')[0],
+        lastLogin: new Date().toISOString(),
+        homeAirport: 'DEL (New Delhi)',
+        seatPreference: '01A (First Class Suite)',
+        mealPreference: 'Vegetarian Gourmet',
+        bookingsCount: 0,
+        totalSpent: 0,
+        recentPnr: 'N/A'
+      });
+    }
+
+    localStorage.setItem('smf_admin_customers', JSON.stringify(list));
+    return list;
+  } catch {
+    return [];
   }
-];
+};
+
+const getRealBookings = () => {
+  try {
+    const saved = localStorage.getItem('smf_bookings');
+    let list = saved ? JSON.parse(saved) : [];
+    list = list.filter(b => b && b.contactEmail !== 'rahul.sharma@gmail.com' && b.pnr !== 'SMF901');
+    return list;
+  } catch {
+    return [];
+  }
+};
 
 export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }) {
   // Tabs: 'customers' (CRUD primary), 'bookings' (Passenger Manifest), 'analytics' (Daily Operations)
   const [activeTab, setActiveTab] = useState('customers');
-  const [customers, setCustomers] = useState(() => {
-    try {
-      const saved = localStorage.getItem('smf_admin_customers');
-      return saved ? JSON.parse(saved) : INITIAL_CUSTOMERS;
-    } catch {
-      return INITIAL_CUSTOMERS;
-    }
-  });
-
-  const [bookings, setBookings] = useState(() => {
-    try {
-      const saved = localStorage.getItem('smf_bookings');
-      return saved ? JSON.parse(saved) : INITIAL_BOOKINGS;
-    } catch {
-      return INITIAL_BOOKINGS;
-    }
-  });
+  const [customers, setCustomers] = useState(() => getRealCustomers(currentUser));
+  const [bookings, setBookings] = useState(() => getRealBookings());
 
   const [searchTerm, setSearchTerm] = useState('');
   const [tierFilter, setTierFilter] = useState('All');
@@ -184,7 +157,68 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
     } catch {
       // ignore
     }
+
+    // Fetch real registered users from backend API if online
+    fetch(`${API_BASE_URL}/admin/users`, { signal: AbortSignal.timeout(2000) })
+      .then(res => res.json())
+      .then(dbUsers => {
+        if (Array.isArray(dbUsers) && dbUsers.length > 0) {
+          setCustomers(prev => {
+            const merged = [...prev];
+            dbUsers.forEach(u => {
+              const uEmail = (u.email || '').toLowerCase().trim();
+              if (uEmail && !merged.some(m => m.email && m.email.toLowerCase().trim() === uEmail)) {
+                merged.push({
+                  id: u.id || Date.now() + Math.random(),
+                  name: u.fullName || u.name || 'Registered Customer',
+                  email: uEmail,
+                  phone: u.phone || '+91 98765 43210',
+                  tier: u.role === 'ROLE_ADMIN' ? 'Executive Platinum' : (u.frequentFlyerTier || 'Gold Elite'),
+                  loyaltyPoints: 5000,
+                  status: 'Active',
+                  joinedDate: u.createdAt ? u.createdAt.split('T')[0] : new Date().toISOString().split('T')[0],
+                  lastLogin: new Date().toISOString(),
+                  homeAirport: u.homeAirport || 'DEL (New Delhi)',
+                  seatPreference: '01A (Window)',
+                  mealPreference: 'Vegetarian Gourmet',
+                  bookingsCount: 0,
+                  totalSpent: 0,
+                  recentPnr: 'N/A'
+                });
+              }
+            });
+            localStorage.setItem('smf_admin_customers', JSON.stringify(merged));
+            return merged;
+          });
+        }
+      })
+      .catch(() => {});
+
+    // Fetch real customer bookings from backend API if online
+    fetch(`${API_BASE_URL}/admin/bookings`, { signal: AbortSignal.timeout(2000) })
+      .then(res => res.json())
+      .then(dbBookings => {
+        if (Array.isArray(dbBookings) && dbBookings.length > 0) {
+          setBookings(dbBookings);
+          localStorage.setItem('smf_bookings', JSON.stringify(dbBookings));
+        }
+      })
+      .catch(() => {});
   }, []);
+
+  // Real-time synchronization: listen for new logins, registrations, and bookings from all windows/tabs
+  useEffect(() => {
+    const handleSync = () => {
+      setCustomers(getRealCustomers(currentUser));
+      setBookings(getRealBookings());
+    };
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('smf_data_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('smf_data_updated', handleSync);
+    };
+  }, [currentUser]);
 
   // Auto-calculate customer booking counts, total spent, and latest PNR from real bookings list
   useEffect(() => {
@@ -1051,7 +1085,18 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                     </tr>
                   </thead>
                   <tbody>
-                      {bookings.map((b) => (
+                    {bookings.length === 0 ? (
+                      <tr>
+                        <td colSpan="7" style={{ padding: '48px 20px', textAlign: 'center', color: '#94a3b8' }}>
+                          <Luggage size={36} color="#64748b" style={{ margin: '0 auto 12px auto', display: 'block' }} />
+                          <div style={{ fontSize: 15, fontWeight: 700, color: '#fff' }}>No Active Flight Bookings Found</div>
+                          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
+                            When customers search and book flights on the website, their confirmed reservations, PNRs, and passenger manifests will appear here in real-time.
+                          </div>
+                        </td>
+                      </tr>
+                    ) : (
+                      bookings.map((b) => (
                       <tr key={b.id || b.pnr} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
                         <td style={{ padding: '16px 20px' }}>
                           <div style={{ fontWeight: 800, color: '#00d2ff' }}>{b.pnr}</div>
@@ -1075,11 +1120,11 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                         </td>
 
                         <td style={{ padding: '16px 20px', color: '#cbd5e1' }}>
-                          {b.travelDate || (b.bookingDate ? b.bookingDate.split('T')[0] : '2026-10-05')}
+                          {b.travelDate || (b.bookingDate ? b.bookingDate.split('T')[0] : new Date().toISOString().split('T')[0])}
                         </td>
 
                         <td style={{ padding: '16px 20px', fontWeight: 800, color: '#00e676' }}>
-                          ₹{Number(b.totalAmount || b.totalPrice || 5300).toLocaleString()}
+                          ₹{Number(b.totalAmount || b.totalPrice || 0).toLocaleString()}
                         </td>
 
                         <td style={{ padding: '16px 20px' }}>
@@ -1140,7 +1185,8 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                           </div>
                         </td>
                       </tr>
-                    ))}
+                    ))
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -1239,7 +1285,7 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Vikramaditya Roy"
+                    placeholder="e.g. Ananya Sharma"
                     value={newCustomerForm.name}
                     onChange={(e) => setNewCustomerForm(prev => ({ ...prev, name: e.target.value }))}
                     style={{ width: '100%', padding: '10px 12px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 8, color: '#fff', fontSize: 13, outline: 'none' }}
@@ -1253,7 +1299,7 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                   <input
                     type="email"
                     required
-                    placeholder="e.g. vikram.roy@gmail.com"
+                    placeholder="e.g. customer@gmail.com"
                     value={newCustomerForm.email}
                     onChange={(e) => setNewCustomerForm(prev => ({ ...prev, email: e.target.value }))}
                     style={{ width: '100%', padding: '10px 12px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 8, color: '#fff', fontSize: 13, outline: 'none' }}

@@ -278,25 +278,7 @@ export const ADDONS = [
   { id: 7, type: 'PRIORITY', name: 'Priority Boarding & Express Baggage', price: 650, desc: 'Fast queue skip and first off conveyor belt' }
 ];
 
-export const INITIAL_BOOKINGS = [
-  {
-    id: 101,
-    pnr: 'SMF901',
-    flightId: 1,
-    travelDate: '2026-10-05',
-    totalAmount: 5300,
-    status: 'CONFIRMED',
-    flightStatus: 'ON_TIME',
-    gate: 'T3-B14',
-    terminal: 'T3',
-    contactEmail: 'thiru1511@gmail.com',
-    contactPhone: '+91 98765 43210',
-    flight: INITIAL_FLIGHTS[0],
-    passengers: [
-      { title: 'Mr', firstName: 'Thiru', lastName: '', gender: 'Male', seatNumber: '04A', meal: 'Royal Rajasthani Thali (Veg)', extraBaggage: 0 }
-    ]
-  }
-];
+export const INITIAL_BOOKINGS = [];
 
 export const INITIAL_NOTIFICATIONS = [
   {

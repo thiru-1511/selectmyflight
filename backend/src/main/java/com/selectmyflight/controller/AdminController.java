@@ -58,7 +58,7 @@ public class AdminController {
         stats.put("confirmedBookings", confirmedCount);
         stats.put("cancelledBookings", cancelledCount);
         stats.put("activeFlights", allFlights.size());
-        stats.put("registeredTravelers", Math.max(totalUsers, 1420)); // Base count for demo
+        stats.put("registeredTravelers", totalUsers);
         stats.put("averageOrderValue", avgOrderValue);
         stats.put("cancellationRate", allBookings.size() > 0 ? (cancelledCount * 100.0 / allBookings.size()) : 0);
 
