@@ -37,6 +37,22 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
               ⚡ Fastest ({formatDuration(flight.durationMinutes)})
             </span>
           )}
+          {flight.isLiveDuffel && (
+            <span style={{
+              background: 'linear-gradient(135deg, rgba(0, 210, 255, 0.25), rgba(58, 123, 213, 0.25))',
+              border: '1px solid rgba(0, 210, 255, 0.45)',
+              color: '#00d2ff',
+              fontSize: 10,
+              fontWeight: 800,
+              padding: '3px 8px',
+              borderRadius: 20,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 4
+            }}>
+              ⚡ Live GDS Fare
+            </span>
+          )}
           <span style={{
             background: flight.stops === 0 ? 'rgba(255, 255, 255, 0.08)' : 'rgba(245, 175, 25, 0.15)',
             color: flight.stops === 0 ? '#cbd5e1' : '#f5af19',
@@ -82,22 +98,45 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
       }}>
         {/* Airline Info */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{
-            width: 42,
-            height: 42,
-            borderRadius: 10,
-            background: flight.airlineColor || '#0052cc',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#fff',
-            fontWeight: 800,
-            fontSize: 15,
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-            flexShrink: 0
-          }}>
-            {flight.airlineCode}
-          </div>
+          {flight.airlineLogo ? (
+            <div style={{
+              width: 44,
+              height: 44,
+              borderRadius: 10,
+              background: '#ffffff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+              flexShrink: 0,
+              overflow: 'hidden',
+              padding: 4
+            }}>
+              <img
+                src={flight.airlineLogo}
+                alt={flight.airlineName}
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              />
+            </div>
+          ) : (
+            <div style={{
+              width: 42,
+              height: 42,
+              borderRadius: 10,
+              background: flight.airlineColor || '#0052cc',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              fontWeight: 800,
+              fontSize: 15,
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+              flexShrink: 0
+            }}>
+              {flight.airlineCode}
+            </div>
+          )}
           <div>
             <h4 style={{ fontSize: 15, fontWeight: 700, color: '#fff', margin: 0 }}>
               {flight.airlineName}

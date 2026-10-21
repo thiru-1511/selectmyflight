@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Headphones, HelpCircle, Send, CheckCircle2, ChevronDown, ChevronUp, MessageSquare } from 'lucide-react';
+import { X, Headphones, HelpCircle, Send, CheckCircle2, ChevronDown, ChevronUp, MessageSquare, MapPin, Phone, Mail, Building2 } from 'lucide-react';
 
 const FAQS = [
   {
@@ -20,8 +20,56 @@ const FAQS = [
   }
 ];
 
+const SMF_BRANCHES = [
+  {
+    city: 'Chennai Central Desk',
+    state: 'Tamil Nadu, India',
+    address: '#42 Anna Salai (Mount Road), Thousand Lights, Chennai 600002',
+    phone: '+91 44 2851 4090',
+    whatsapp: '+91 98401 23456',
+    email: 'chennai@selectmyflight.com',
+    hours: 'Mon – Sat: 9:30 AM – 7:30 PM'
+  },
+  {
+    city: 'Kochi Regional Office',
+    state: 'Kerala, India',
+    address: 'Ground Floor, MG Road (Near Metro Station), Ernakulam, Kochi 682016',
+    phone: '+91 484 236 8890',
+    whatsapp: '+91 98470 56789',
+    email: 'kochi@selectmyflight.com',
+    hours: 'Mon – Sat: 9:00 AM – 7:00 PM'
+  },
+  {
+    city: 'Sharjah Corporate Desk',
+    state: 'United Arab Emirates',
+    address: 'Office 402, Al Rolla Square Commercial Complex, Sharjah, UAE',
+    phone: '+971 6 561 7890',
+    whatsapp: '+971 50 123 4567',
+    email: 'uae@selectmyflight.com',
+    hours: 'Sat – Thu: 9:00 AM – 9:00 PM'
+  },
+  {
+    city: 'Vellore Branch',
+    state: 'Tamil Nadu, India',
+    address: '#18 Katpadi Main Road (Opposite Auxilium College), Vellore 632007',
+    phone: '+91 416 224 5560',
+    whatsapp: '+91 94432 11223',
+    email: 'vellore@selectmyflight.com',
+    hours: 'Mon – Sat: 9:30 AM – 7:00 PM'
+  },
+  {
+    city: 'Vaniyambadi Branch',
+    state: 'Tamil Nadu, India',
+    address: '#5 Big Mosque Street, Khaderpet, Vaniyambadi 635751',
+    phone: '+91 4174 242 110',
+    whatsapp: '+91 98940 99887',
+    email: 'vaniyambadi@selectmyflight.com',
+    hours: 'Mon – Sat: 9:30 AM – 6:30 PM'
+  }
+];
+
 export default function HelpDeskModal({ isOpen, onClose, onOpenAiChat }) {
-  const [activeTab, setActiveTab] = useState('faq'); // 'faq' or 'ticket'
+  const [activeTab, setActiveTab] = useState('faq'); // 'faq', 'ticket', 'branches'
   const [expandedFaq, setExpandedFaq] = useState(0);
 
   // Ticket Form
@@ -44,7 +92,7 @@ export default function HelpDeskModal({ isOpen, onClose, onOpenAiChat }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 640 }}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 660, maxHeight: '90vh', overflowY: 'auto' }}>
         {/* Header */}
         <div style={{
           padding: '20px 24px',
@@ -62,7 +110,7 @@ export default function HelpDeskModal({ isOpen, onClose, onOpenAiChat }) {
                 24/7 Customer Support & Help Desk
               </h3>
               <div style={{ fontSize: 12, color: '#94a3b8' }}>
-                Instant answers & dedicated airline resolution team
+                Instant answers, support tickets, and physical branch desks
               </div>
             </div>
           </div>
@@ -100,7 +148,7 @@ export default function HelpDeskModal({ isOpen, onClose, onOpenAiChat }) {
               background: activeTab === 'faq' ? 'rgba(0, 210, 255, 0.15)' : 'transparent',
               color: activeTab === 'faq' ? '#00d2ff' : '#94a3b8',
               fontWeight: 700,
-              fontSize: 13,
+              fontSize: 12,
               cursor: 'pointer'
             }}
           >
@@ -115,11 +163,26 @@ export default function HelpDeskModal({ isOpen, onClose, onOpenAiChat }) {
               background: activeTab === 'ticket' ? 'rgba(0, 210, 255, 0.15)' : 'transparent',
               color: activeTab === 'ticket' ? '#00d2ff' : '#94a3b8',
               fontWeight: 700,
-              fontSize: 13,
+              fontSize: 12,
               cursor: 'pointer'
             }}
           >
-            Submit Support Ticket
+            Submit Ticket
+          </button>
+          <button
+            onClick={() => setActiveTab('branches')}
+            style={{
+              flex: 1,
+              padding: '12px',
+              border: 'none',
+              background: activeTab === 'branches' ? 'rgba(0, 210, 255, 0.15)' : 'transparent',
+              color: activeTab === 'branches' ? '#00d2ff' : '#94a3b8',
+              fontWeight: 700,
+              fontSize: 12,
+              cursor: 'pointer'
+            }}
+          >
+            Our Branches & Desks
           </button>
         </div>
 
@@ -200,7 +263,7 @@ export default function HelpDeskModal({ isOpen, onClose, onOpenAiChat }) {
                 </button>
               </div>
             </div>
-          ) : (
+          ) : activeTab === 'ticket' ? (
             <div>
               {ticketSubmitted ? (
                 <div style={{ textAlign: 'center', padding: '30px 10px' }}>
@@ -293,6 +356,94 @@ export default function HelpDeskModal({ isOpen, onClose, onOpenAiChat }) {
                   </button>
                 </form>
               )}
+            </div>
+          ) : (
+            <div>
+              <div style={{ marginBottom: 14 }}>
+                <h4 style={{ fontSize: 15, fontWeight: 800, color: '#fff', margin: 0 }}>
+                  SelectMyFlight Authorized Branch Desks
+                </h4>
+                <p style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+                  Visit any of our physical corporate and travel agency branches across India and the UAE for walk-in air ticketing and visa submissions.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {SMF_BRANCHES.map((b, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      borderRadius: 12,
+                      padding: '14px 16px',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      justifyContent: 'space-between',
+                      flexWrap: 'wrap',
+                      gap: 12
+                    }}
+                  >
+                    <div style={{ flex: '1 1 280px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                        <Building2 size={15} color="#00d2ff" />
+                        <span style={{ fontSize: 14, fontWeight: 800, color: '#fff' }}>{b.city}</span>
+                        <span style={{ fontSize: 10, background: 'rgba(0, 210, 255, 0.1)', color: '#00d2ff', padding: '1px 6px', borderRadius: 4, fontWeight: 700 }}>
+                          {b.state}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: 12, color: '#94a3b8', margin: '4px 0 8px 0', lineHeight: 1.4 }}>
+                        <MapPin size={12} style={{ display: 'inline', marginRight: 4, verticalAlign: 'middle' }} />
+                        {b.address}
+                      </div>
+                      <div style={{ fontSize: 11, color: '#64748b' }}>
+                        ⏰ Office Hours: <strong style={{ color: '#cbd5e1' }}>{b.hours}</strong>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-start' }}>
+                      <a
+                        href={`tel:${b.phone.replace(/\s+/g, '')}`}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          background: 'rgba(0, 210, 255, 0.12)',
+                          border: '1px solid rgba(0, 210, 255, 0.3)',
+                          color: '#00d2ff',
+                          padding: '6px 12px',
+                          borderRadius: 6,
+                          fontSize: 12,
+                          fontWeight: 700,
+                          textDecoration: 'none'
+                        }}
+                      >
+                        <Phone size={13} /> {b.phone}
+                      </a>
+                      <a
+                        href={`https://wa.me/${b.whatsapp.replace(/[^0-9]/g, '')}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          background: 'rgba(0, 230, 118, 0.12)',
+                          border: '1px solid rgba(0, 230, 118, 0.3)',
+                          color: '#00e676',
+                          padding: '6px 12px',
+                          borderRadius: 6,
+                          fontSize: 12,
+                          fontWeight: 700,
+                          textDecoration: 'none'
+                        }}
+                      >
+                        <MessageSquare size={13} /> WhatsApp Desk
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

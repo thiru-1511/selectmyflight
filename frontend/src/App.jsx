@@ -32,6 +32,9 @@ import AdminLoginPage from './components/AdminLoginPage';
 import AdminDashboard from './components/AdminDashboard';
 import HotelBookingPortal from './components/HotelBookingPortal';
 import AiItineraryPlanner from './components/AiItineraryPlanner';
+import HolidayPackagesPortal from './components/HolidayPackagesPortal';
+import VisaServicesPortal from './components/VisaServicesPortal';
+import ManageBookingModal from './components/ManageBookingModal';
 
 import { api } from './services/api';
 import { INITIAL_FLIGHTS, INITIAL_NOTIFICATIONS } from './data/mockFlights';
@@ -41,7 +44,7 @@ export default function App() {
   const getInitialRoute = () => {
     try {
       const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
-      if (['auth', 'admin', 'admin-login', 'explore', 'status', 'map', 'trips', 'ai', 'hotels', 'itinerary'].includes(hash)) {
+      if (['auth', 'admin', 'admin-login', 'explore', 'status', 'map', 'trips', 'ai', 'hotels', 'itinerary', 'packages', 'visa'].includes(hash)) {
         return hash;
       }
       if (hash === 'login' || hash === 'register') {
@@ -81,7 +84,7 @@ export default function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
-      if (hash && ['auth', 'login', 'register', 'admin', 'admin-login', 'explore', 'status', 'map', 'trips', 'ai', 'hotels', 'itinerary'].includes(hash)) {
+      if (hash && ['auth', 'login', 'register', 'admin', 'admin-login', 'explore', 'status', 'map', 'trips', 'ai', 'hotels', 'itinerary', 'packages', 'visa'].includes(hash)) {
         setActiveTab(hash === 'login' || hash === 'register' ? 'auth' : hash);
       } else if (!hash) {
         setActiveTab('search');
@@ -155,6 +158,7 @@ export default function App() {
   const [isHelpDeskOpen, setIsHelpDeskOpen] = useState(false);                    // Help Desk Modal
   const [isRefundTrackerOpen, setIsRefundTrackerOpen] = useState(false);          // Direct Refund Tracker Modal
   const [refundTrackerData, setRefundTrackerData] = useState(null);               // Specific PNR refund payload
+  const [isManageBookingOpen, setIsManageBookingOpen] = useState(false);          // Quick Manage Booking & Web Check-In
   const [isFeatureLauncherOpen, setIsFeatureLauncherOpen] = useState(false);      // Universal Command Palette (Ctrl+K)
 
   // Global Keyboard Shortcut: Ctrl+K / Cmd+K to open Command Palette
@@ -202,7 +206,7 @@ export default function App() {
     setLoading(true);
     try {
       const [flightsData, flexData, tripsData] = await Promise.all([
-        api.searchFlights(searchParams.origin, searchParams.destination, searchParams.cabinClass),
+        api.searchFlights(searchParams.origin, searchParams.destination, searchParams.cabinClass, 'price_asc', searchParams.departureDate),
         api.getFlexibleDates(searchParams.origin, searchParams.destination, searchParams.departureDate),
         api.getMyTrips()
       ]);
@@ -227,7 +231,7 @@ export default function App() {
     setLoading(true);
     try {
       const [flightsData, flexData] = await Promise.all([
-        api.searchFlights(searchParams.origin, searchParams.destination, searchParams.cabinClass),
+        api.searchFlights(searchParams.origin, searchParams.destination, searchParams.cabinClass, 'price_asc', searchParams.departureDate),
         api.getFlexibleDates(searchParams.origin, searchParams.destination, searchParams.departureDate)
       ]);
       setFlights(flightsData && flightsData.length > 0 ? flightsData : await api.searchFlights());
@@ -286,6 +290,15 @@ export default function App() {
           document.getElementById('hero-search-flights-btn')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 100);
         break;
+      case 'packages':
+        navigateTo('packages');
+        break;
+      case 'visa':
+        navigateTo('visa');
+        break;
+      case 'manage':
+        setIsManageBookingOpen(true);
+        break;
       case 'hotels':
         navigateTo('hotels');
         break;
@@ -324,6 +337,12 @@ export default function App() {
         break;
       case 'support':
         setIsHelpDeskOpen(true);
+        break;
+      case 'duffel':
+        navigateTo('search');
+        setTimeout(() => {
+          window.scrollTo({ top: 380, behavior: 'smooth' });
+        }, 120);
         break;
       default:
         navigateTo('search');
@@ -667,6 +686,7 @@ export default function App() {
           setRefundTrackerData(null);
           setIsRefundTrackerOpen(true);
         }}
+        onOpenManageBooking={() => setIsManageBookingOpen(true)}
         onOpenFeatureLauncher={() => setIsFeatureLauncherOpen(true)}
         onOpenAuth={() => navigateTo('auth')}
         onOpenAdmin={() => navigateTo(currentUser?.role === 'ROLE_ADMIN' ? 'admin' : 'admin-login')}
@@ -765,6 +785,32 @@ export default function App() {
               onSelectRoute={(origin, destination) => handleQuickPrompt(origin, destination)}
             />
           </>
+        )}
+
+        {/* TAB: Curated Holiday Packages Portal */}
+        {activeTab === 'packages' && (
+          <div style={{ maxWidth: 1400, margin: '24px auto 60px auto', padding: '0 24px' }}>
+            <HolidayPackagesPortal
+              currency={currency}
+              onClose={() => navigateTo('search')}
+              onPackageBooked={(newTrip) => {
+                setBookings(prev => [newTrip, ...prev]);
+                navigateTo('trips');
+              }}
+              onNavigateToMyTrips={() => navigateTo('trips')}
+            />
+          </div>
+        )}
+
+        {/* TAB: Official Visa & Immigration Services Portal */}
+        {activeTab === 'visa' && (
+          <div style={{ maxWidth: 1400, margin: '24px auto 60px auto', padding: '0 24px' }}>
+            <VisaServicesPortal
+              currency={currency}
+              onClose={() => navigateTo('search')}
+              onNavigateToFlights={() => navigateTo('search')}
+            />
+          </div>
         )}
 
         {/* TAB: Hotel Booking Portal */}
@@ -1017,6 +1063,15 @@ export default function App() {
           setIsHelpDeskOpen(false);
           setActiveTab('ai');
         }}
+      />
+
+      {/* 11. Quick Manage Booking & Web Check-In Lookup Modal */}
+      <ManageBookingModal
+        isOpen={isManageBookingOpen}
+        onClose={() => setIsManageBookingOpen(false)}
+        onViewETicket={(booking) => setConfirmedETicket(booking)}
+        onTrackRefund={handleOpenRefundTracker}
+        currency={currency}
       />
 
       {/* Footer */}

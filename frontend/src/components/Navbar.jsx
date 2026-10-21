@@ -17,7 +17,10 @@ import {
   ChevronDown,
   Menu,
   X,
-  LogOut
+  LogOut,
+  Palmtree,
+  FileCheck2,
+  FileText
 } from 'lucide-react';
 
 export default function Navbar({ 
@@ -36,6 +39,7 @@ export default function Navbar({
   onOpenNotifications,
   onOpenHelpDesk,
   onOpenRefundTracker,
+  onOpenManageBooking,
   onOpenFeatureLauncher,
   onOpenAuth,
   onOpenProfile,
@@ -50,7 +54,10 @@ export default function Navbar({
 
   const navItems = [
     { id: 'search', label: 'Flights', icon: Plane },
-    { id: 'hotels', label: 'Hotels', icon: Building2, badge: 'NEW', badgeColor: '#f5af19' },
+    { id: 'packages', label: 'Holidays', icon: Palmtree, badge: 'HOT', badgeColor: '#f5af19' },
+    { id: 'visa', label: 'Visa Desk', icon: FileCheck2, badge: 'UAE', badgeColor: '#00e676' },
+    { id: 'manage_booking_action', label: 'Manage Booking', icon: FileText, badge: 'PNR', badgeColor: '#00d2ff', action: onOpenManageBooking },
+    { id: 'hotels', label: 'Hotels', icon: Building2 },
     { id: 'itinerary', label: 'AI TripCraft', icon: Sparkles },
     { id: 'status', label: 'Live Status', icon: Radio, badge: 'RADAR', badgeColor: '#00e676' },
     { id: 'alerts_action', label: 'Price Alerts', icon: Bell, badge: 'TRACK', badgeColor: '#f5af19', action: onOpenAlerts },

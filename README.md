@@ -44,6 +44,18 @@ An enterprise-grade, visually stunning flight booking and travel management plat
 25. 🛡️ **Dedicated Separate Admin Link**: Only the **Admin Dashboard** is provided as a separate, distinct link in the navigation header, leading to the restricted operations center.
 26. 📊 **Executive Admin Operations**: Real-time KPI analytics (Revenue, Bookings, Active Flights, Registered Travelers, Top Corridors), commercial fleet scheduler, passenger manifest with 1-click refund override, and user directory at `#/admin`.
 
+### Pillar 7: Original SelectMyFlight Core Agency Services (New B2C Modules)
+27. 🛂 **Official UAE & Global Visa Services Portal (`VisaServicesPortal.jsx`)**: Comprehensive visa facilitation for Dubai/UAE (30-day, 60-day Express, and Airport-to-Airport A2A packages), Singapore eVisas, and Schengen filing with paperless document pre-check and real-time 4-stage tracking.
+28. 🏖️ **All-Inclusive Curated Holiday & Tour Packages (`HolidayPackagesPortal.jsx`)**: Handcrafted vacation packages for Dubai, Kerala, Singapore, Bali, and Rajasthan bundled with flights, 4★ hotels, daily breakfast, airport transfers, and guided sightseeing. Includes custom quote request generator.
+29. 📋 **Guest "Manage Booking & Web Check-In" Lookup (`ManageBookingModal.jsx`)**: Fast-access PNR retrieval modal allowing passengers to print official boarding passes, complete instant web check-in, reschedule travel dates, or request cancellations without logging in.
+30. 🏢 **Physical Agency Branch Directory**: Dedicated desk directory in Help Desk covering Chennai Central, Kochi Regional Office, Vellore, Vaniyambadi, and Sharjah (UAE) with direct phone and WhatsApp hotlines.
+
+### Pillar 8: Global Airline NDC / GDS Integration (Duffel API)
+31. 🌐 **Live Real-Time Flight Feeds (`duffelService.js`)**: Direct NDC integration connecting over 300+ international carriers (Emirates, Qatar Airways, Air India, British Airways, Lufthansa, Iberia).
+32. ⚡ **Instant Live Seat & Price Sync**: Queries real-time airline inventories with live cabin luggage allowances, aircraft models, stop counts, and dynamic currency conversions.
+33. 🛡️ **Zero-CORS Dev Proxy**: Built-in Vite developer proxy forwarding `/duffel-api` requests directly to `api.duffel.com` with authorized bearer tokens and v2 schema.
+34. 🏷️ **Live GDS Badging**: Visual badge `⚡ Live GDS Fare` and official airline CDN logos rendered dynamically on flight cards.
+
 ---
 
 ### 🔑 Authentication Portals & Direct Routes

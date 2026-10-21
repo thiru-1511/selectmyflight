@@ -21,9 +21,26 @@ const saveLocalAlerts = (alerts) => {
   localStorage.setItem('smf_alerts', JSON.stringify(alerts));
 };
 
+import { duffelService } from './duffelService';
+
 export const api = {
-  // 1. Flight Search & Compare
-  async searchFlights(origin, destination, cabinClass = 'Economy', sortBy = 'price_asc') {
+  // 1. Flight Search & Compare (Live Duffel GDS + Spring Boot / Local Fallback)
+  async searchFlights(origin, destination, cabinClass = 'Economy', sortBy = 'price_asc', departureDate) {
+    let liveDuffelResults = [];
+    if (origin && destination) {
+      try {
+        liveDuffelResults = await duffelService.searchFlights({
+          origin,
+          destination,
+          departureDate,
+          cabinClass,
+          adults: 1
+        });
+      } catch (err) {
+        console.warn('Live Duffel API search skipped:', err);
+      }
+    }
+
     try {
       const query = new URLSearchParams();
       if (origin) query.append('origin', origin);
@@ -34,7 +51,13 @@ export const api = {
       const res = await fetch(`${API_BASE_URL}/flights?${query.toString()}`, { signal: AbortSignal.timeout(2500) });
       if (res.ok) {
         const data = await res.json();
-        if (data && data.length > 0) return data;
+        if (data && data.length > 0) {
+          const combined = [...liveDuffelResults, ...data];
+          if (sortBy === 'price_asc') combined.sort((a, b) => a.basePrice - b.basePrice);
+          else if (sortBy === 'duration_asc') combined.sort((a, b) => a.durationMinutes - b.durationMinutes);
+          else if (sortBy === 'departure_asc') combined.sort((a, b) => a.departureTime.localeCompare(b.departureTime));
+          return combined;
+        }
       }
     } catch {
       // Backend unavailable, fallback to local dataset
@@ -51,11 +74,13 @@ export const api = {
       results = results.filter(f => f && f.cabinClass && f.cabinClass.toLowerCase() === cabinClass.toLowerCase());
     }
 
-    if (sortBy === 'price_asc') results.sort((a, b) => a.basePrice - b.basePrice);
-    else if (sortBy === 'duration_asc') results.sort((a, b) => a.durationMinutes - b.durationMinutes);
-    else if (sortBy === 'departure_asc') results.sort((a, b) => a.departureTime.localeCompare(b.departureTime));
+    const finalResults = liveDuffelResults.length > 0 ? [...liveDuffelResults, ...results] : results;
 
-    return results;
+    if (sortBy === 'price_asc') finalResults.sort((a, b) => a.basePrice - b.basePrice);
+    else if (sortBy === 'duration_asc') finalResults.sort((a, b) => a.durationMinutes - b.durationMinutes);
+    else if (sortBy === 'departure_asc') finalResults.sort((a, b) => a.departureTime.localeCompare(b.departureTime));
+
+    return finalResults;
   },
 
   // 2. Flexible Dates Matrix (-3 to +3 days)

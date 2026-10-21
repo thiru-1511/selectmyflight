@@ -11,7 +11,7 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [filterQuery, setFilterQuery] = useState('');
 
-  const categories = ['All', 'Real-Time', 'Booking', 'AI Concierge', 'Savings', 'Experience', 'Assurance'];
+  const categories = ['All', 'Holidays', 'Visas', 'Real-Time', 'Booking', 'AI Concierge', 'Savings', 'Experience', 'Assurance'];
 
   const filteredFeatures = FEATURES_LIST.filter(f => {
     const matchesCat = selectedCategory === 'All' || f.category === selectedCategory || (selectedCategory === 'Real-Time' && ['status', 'refund', 'map'].includes(f.id));

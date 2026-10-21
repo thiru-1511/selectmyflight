@@ -41,6 +41,30 @@ const LIVE_EVENTS = [
     color: '#a855f7',
     badge: 'GLOBAL RADAR',
     text: 'AI-161 (DEL ➔ LHR) entering European Airspace corridor'
+  },
+  {
+    id: 6,
+    type: 'visa',
+    icon: ShieldCheck,
+    color: '#00e676',
+    badge: 'VISA DESK',
+    text: 'Dubai & UAE 30/60-Day Tourist Visas: Fast approval in 24h • Paperless filing'
+  },
+  {
+    id: 7,
+    type: 'holidays',
+    icon: Plane,
+    color: '#f5af19',
+    badge: 'ALL-INCLUSIVE',
+    text: 'Dubai & Kerala Holiday Packages live with flights, 4★ stays & guided tours'
+  },
+  {
+    id: 8,
+    type: 'gds',
+    icon: ShieldCheck,
+    color: '#00e676',
+    badge: 'LIVE GDS/NDC',
+    text: 'Duffel API Connected: Real-time live seat availability & fares across 300+ airlines'
   }
 ];
 

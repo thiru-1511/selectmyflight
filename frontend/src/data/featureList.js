@@ -9,9 +9,12 @@ import {
   Tag, 
   Globe, 
   Compass, 
-  HelpCircle,
-  Building2,
-  Sparkles
+  HelpCircle, 
+  Building2, 
+  Sparkles,
+  FileCheck2,
+  Palmtree,
+  FileText
 } from 'lucide-react';
 
 export const FEATURES_LIST = [
@@ -27,6 +30,45 @@ export const FEATURES_LIST = [
     actionLabel: 'Search Flights',
     isPrimary: true,
     bgImage: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80'
+  },
+  {
+    id: 'packages',
+    category: 'Holidays',
+    title: 'Curated Holiday Packages',
+    badge: 'ALL-INCLUSIVE',
+    badgeColor: '#f5af19',
+    icon: Palmtree,
+    color: '#f5af19',
+    description: 'All-inclusive vacations to Dubai, Kerala, Singapore & Bali with flights, 4★ hotels, transfers, and sightseeing.',
+    actionLabel: 'Explore Holidays',
+    isPrimary: true,
+    bgImage: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80'
+  },
+  {
+    id: 'visa',
+    category: 'Visas',
+    title: 'UAE & Global Visa Services',
+    badge: '99.2% APPROVAL',
+    badgeColor: '#00e676',
+    icon: FileCheck2,
+    color: '#00e676',
+    description: 'Dubai 30/60-day tourist visas, Airport-to-Airport (A2A) status change, Singapore eVisas, and document pre-verification.',
+    actionLabel: 'Apply Visa Online',
+    isPrimary: true,
+    bgImage: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80'
+  },
+  {
+    id: 'manage',
+    category: 'Booking',
+    title: 'Manage Booking & Web Check-In',
+    badge: 'INSTANT PNR',
+    badgeColor: '#38bdf8',
+    icon: FileText,
+    color: '#38bdf8',
+    description: 'Enter your PNR to reprint digital boarding pass, complete instant web check-in, or modify departure dates.',
+    actionLabel: 'Manage Booking',
+    isPrimary: true,
+    bgImage: 'https://images.unsplash.com/photo-1540339832862-474599807836?w=800&q=80'
   },
   {
     id: 'hotels',
@@ -183,5 +225,18 @@ export const FEATURES_LIST = [
     actionLabel: 'Open Help Desk',
     isPrimary: false,
     bgImage: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80'
+  },
+  {
+    id: 'duffel',
+    category: 'GDS Integration',
+    title: 'Live Global Airline GDS / NDC Feeds',
+    badge: '300+ AIRLINES',
+    badgeColor: '#00d2ff',
+    icon: Radio,
+    color: '#00d2ff',
+    description: 'Live NDC airline integration via Duffel API with live seat maps, real-time pricing & PNR reservation.',
+    actionLabel: 'Search Live Flights',
+    isPrimary: false,
+    bgImage: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80'
   }
 ];
