@@ -3,11 +3,11 @@ import { X, Bell, BellRing, CheckCircle2, TrendingDown, ArrowRight } from 'lucid
 import { AIRPORTS } from '../data/mockFlights';
 import { api } from '../services/api';
 
-export default function PriceAlertModal({ isOpen, onClose, currentOrigin, currentDestination, currency }) {
+export default function PriceAlertModal({ isOpen, onClose, currentOrigin, currentDestination, currency, onAlertCreated }) {
   const [origin, setOrigin] = useState(currentOrigin || 'DEL');
   const [destination, setDestination] = useState(currentDestination || 'DXB');
   const [targetPrice, setTargetPrice] = useState(12000);
-  const [email, setEmail] = useState('user@selectmyflight.com');
+  const [email, setEmail] = useState('');
   const [alerts, setAlerts] = useState([]);
   const [submitted, setSubmitted] = useState(false);
 
@@ -24,15 +24,24 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    await api.createAlert({
+    const created = await api.createAlert({
       origin,
       destination,
       targetPrice,
       email
     });
     setSubmitted(true);
+    if (onAlertCreated) {
+      onAlertCreated({
+        origin,
+        destination,
+        targetPrice,
+        email,
+        alertStatus: created?.alertStatus || (targetPrice >= 4850 ? 'TRIGGERED' : 'ACTIVE')
+      });
+    }
     loadAlerts();
-    setTimeout(() => setSubmitted(false), 3000);
+    setTimeout(() => setSubmitted(false), 5000);
   };
 
   const convertPrice = (inrPrice) => {
@@ -95,18 +104,23 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
         <form onSubmit={handleCreate} style={{ padding: '24px' }}>
           {submitted && (
             <div style={{
-              background: 'rgba(0, 230, 118, 0.15)',
+              background: 'linear-gradient(135deg, rgba(0, 230, 118, 0.15), rgba(0, 210, 255, 0.15))',
               border: '1px solid #00e676',
-              borderRadius: 8,
-              padding: '12px 16px',
+              borderRadius: 10,
+              padding: '14px 18px',
               color: '#00e676',
               fontSize: 13,
               display: 'flex',
-              alignItems: 'center',
-              gap: 8,
+              flexDirection: 'column',
+              gap: 4,
               marginBottom: 16
             }}>
-              <CheckCircle2 size={18} /> Price Alert successfully activated for {origin} ➔ {destination}!
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800 }}>
+                <CheckCircle2 size={18} /> Price Alert successfully activated for {origin} ➔ {destination}!
+              </div>
+              <div style={{ fontSize: 12, color: '#cbd5e1', paddingLeft: 26 }}>
+                📧 Automated fare tracking alerts will be delivered to <strong style={{ color: '#00d2ff' }}>{email}</strong>.
+              </div>
             </div>
           )}
 
@@ -174,19 +188,22 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
           </div>
 
           <div style={{ marginBottom: 20 }}>
-            <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>Email for Notifications</label>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+              <label style={{ fontSize: 12, color: '#94a3b8' }}>Email for Notifications</label>
+              <span style={{ fontSize: 11, color: '#00d2ff', fontWeight: 600 }}>✦ Enter your real Gmail to receive alerts</span>
+            </div>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="name@example.com"
+              placeholder="e.g. yourname@gmail.com"
               style={{
                 width: '100%',
                 background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
+                border: '1px solid rgba(0, 210, 255, 0.3)',
                 color: '#fff',
-                padding: '10px 14px',
+                padding: '11px 14px',
                 borderRadius: 8,
                 fontSize: 14
               }}

@@ -1009,6 +1009,16 @@ export default function App() {
         currentOrigin={searchParams.origin}
         currentDestination={searchParams.destination}
         currency={currency}
+        onAlertCreated={(newAlert) => {
+          setNotifications(prev => [{
+            id: Date.now(),
+            type: 'price',
+            title: `🔔 Price Alert Set: ${newAlert.origin} ➔ ${newAlert.destination}`,
+            message: `Monitoring 24/7 for fares under ₹${newAlert.targetPrice?.toLocaleString()}. Automated alerts sent to ${newAlert.email}.`,
+            time: 'Just now',
+            read: false
+          }, ...prev]);
+        }}
       />
 
       {/* 6. Fare Rules & Baggage Modal */}

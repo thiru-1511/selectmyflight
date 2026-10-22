@@ -106,6 +106,55 @@ public class EmailService {
         sendHtmlEmail(toEmail, subject, htmlBody);
     }
 
+    /**
+     * Sends a real-time Price Drop Alert confirmation or trigger notification.
+     */
+    public void sendPriceAlertEmail(String toEmail, String origin, String destination, java.math.BigDecimal targetPrice, java.math.BigDecimal currentPrice, String status) {
+        boolean isTriggered = "TRIGGERED".equalsIgnoreCase(status);
+        String subject = isTriggered 
+            ? "🎯 FARE DROP ALERT: " + origin + " ➔ " + destination + " dropped to ₹" + currentPrice + "!"
+            : "🔔 Price Alert Activated: " + origin + " ➔ " + destination + " (Target: ₹" + targetPrice + ")";
+
+        String htmlBody = """
+            <div style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #0b132b; color: #ffffff; padding: 25px; border-radius: 12px; max-width: 600px; margin: auto;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h1 style="color: #38bdf8; margin: 0; font-size: 24px;">✈️ SelectMyFlight</h1>
+                    <p style="color: #94a3b8; font-size: 14px; margin-top: 4px;">Smart Route & Price Tracking Telemetry</p>
+                </div>
+                <div style="background-color: #1e293b; padding: 20px; border-radius: 8px; border: 1px solid #334155;">
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <span style="background-color: %s; color: white; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 12px;">%s</span>
+                    </div>
+                    <h3 style="color: #ffffff; text-align: center; margin: 0 0 10px 0; font-size: 18px;">%s ➔ %s</h3>
+                    <table style="width: 100%%; color: #ffffff; font-size: 14px; border-collapse: collapse; margin-top: 15px;">
+                        <tr>
+                            <td style="padding: 8px 0; color: #94a3b8;">Your Target Budget:</td>
+                            <td style="padding: 8px 0; font-weight: bold; color: #38bdf8; text-align: right;">₹%s</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; color: #94a3b8;">Current Best Available Fare:</td>
+                            <td style="padding: 8px 0; font-weight: bold; color: #34d399; text-align: right; font-size: 18px;">₹%s</td>
+                        </tr>
+                    </table>
+                    <div style="margin-top: 25px; text-align: center;">
+                        <a href="http://localhost:5173/#search" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; display: inline-block;">
+                            🚀 View Flights & Book Now
+                        </a>
+                    </div>
+                </div>
+                <p style="color: #64748b; font-size: 12px; text-align: center; margin-top: 20px;">
+                    SelectMyFlight monitors fare fluctuations 24/7. You will receive an email alert whenever prices on this route drop.
+                </p>
+            </div>
+            """.formatted(
+                isTriggered ? "#10b981" : "#0284c7",
+                isTriggered ? "🎯 TARGET FARE REACHED" : "📡 MONITORING 24/7",
+                origin, destination, targetPrice, currentPrice
+            );
+
+        sendHtmlEmail(toEmail, subject, htmlBody);
+    }
+
     private void sendHtmlEmail(String toEmail, String subject, String htmlBody) {
         if (toEmail == null || toEmail.isBlank()) {
             return;

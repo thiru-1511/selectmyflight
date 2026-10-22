@@ -18,6 +18,9 @@ public class PriceAlertService {
     @Autowired
     private FlightRepository flightRepository;
 
+    @Autowired(required = false)
+    private EmailService emailService;
+
     public PriceAlert createAlert(String origin, String destination, BigDecimal targetPrice, String email) {
         BigDecimal lowestPrice = flightRepository.findLowestPriceForRoute(origin.toUpperCase(), destination.toUpperCase());
         if (lowestPrice == null) {
@@ -38,7 +41,18 @@ public class PriceAlertService {
             alert.setAlertStatus("ACTIVE");
         }
 
-        return priceAlertRepository.save(alert);
+        PriceAlert saved = priceAlertRepository.save(alert);
+
+        // 📧 Dispatch live email notification
+        if (emailService != null && email != null && !email.isBlank()) {
+            try {
+                emailService.sendPriceAlertEmail(email, origin.toUpperCase(), destination.toUpperCase(), targetPrice, lowestPrice, saved.getAlertStatus());
+            } catch (Exception e) {
+                System.err.println("⚠️ Could not send price alert email: " + e.getMessage());
+            }
+        }
+
+        return saved;
     }
 
     public List<PriceAlert> getAlertsByEmail(String email) {
