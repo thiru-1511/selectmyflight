@@ -164,6 +164,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   padding: 20px;
   animation: fadeIn 0.25s ease-out;
+  overflow-y: auto;
 }
 
 @keyframes fadeIn {
@@ -587,7 +588,28 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
   background-position: center !important;
   border: 1px solid rgba(0, 210, 255, 0.35) !important;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 50px rgba(0, 210, 255, 0.25) !important;
-  overflow: hidden !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* Custom sleek scrollbar for 3D booking modals */
+.booking-3d-backdrop::-webkit-scrollbar {
+  width: 8px;
+}
+.booking-3d-backdrop::-webkit-scrollbar-track {
+  background: rgba(7, 12, 24, 0.85);
+  border-radius: 8px;
+}
+.booking-3d-backdrop::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(0, 210, 255, 0.55), rgba(0, 114, 255, 0.75));
+  border-radius: 8px;
+  border: 1px solid rgba(0, 210, 255, 0.35);
+}
+.booking-3d-backdrop::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(0, 210, 255, 0.85), rgba(0, 114, 255, 0.95));
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.6);
 }
 
 /* 3D Horizon Telemetry Grid Lines in Background */
@@ -606,18 +628,15 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
   pointer-events: none;
   z-index: 0;
   opacity: 0.65;
+  overflow: hidden;
 }
 
 /* 3D Floating SelectMyFlight Logo Watermark Container */
 .logo-3d-watermark-container {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
   pointer-events: none;
   z-index: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
