@@ -571,3 +571,111 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
     font-size: 13px !important;
   }
 }
+
+/* ==========================================================================
+   3D SelectMyFlight Logo Background & Horizon Grid for Flight Booking Pages
+   ========================================================================== */
+.booking-3d-backdrop {
+  position: relative !important;
+  background-color: #070c18 !important;
+  background-image: 
+    radial-gradient(circle at 50% 20%, rgba(0, 210, 255, 0.16) 0%, transparent 60%),
+    radial-gradient(circle at 85% 75%, rgba(245, 175, 25, 0.12) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(7, 12, 24, 0.90), rgba(11, 19, 38, 0.94)),
+    url('/assets/images/smf_3d_booking_bg.jpg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  border: 1px solid rgba(0, 210, 255, 0.35) !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 50px rgba(0, 210, 255, 0.25) !important;
+  overflow: hidden !important;
+}
+
+/* 3D Horizon Telemetry Grid Lines in Background */
+.booking-3d-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  transform: perspective(600px) rotateX(60deg) translateY(-25px);
+  transform-origin: top center;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.65;
+}
+
+/* 3D Floating SelectMyFlight Logo Watermark Container */
+.logo-3d-watermark-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* The 3D Emblem with Perspective, Ambient Glow, and Float Animation */
+.logo-3d-watermark {
+  width: clamp(280px, 46vw, 520px);
+  max-width: 90%;
+  opacity: 0.18;
+  filter: drop-shadow(0 0 25px rgba(0, 210, 255, 0.6)) 
+          drop-shadow(0 25px 45px rgba(0, 210, 255, 0.4)) 
+          drop-shadow(0 40px 80px rgba(0, 0, 0, 0.9));
+  transform: perspective(1200px) rotateX(15deg) rotateY(-18deg) rotateZ(3deg) scale(1.1);
+  animation: float3DLogo 8s ease-in-out infinite alternate;
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes float3DLogo {
+  0% {
+    transform: perspective(1200px) rotateX(14deg) rotateY(-16deg) rotateZ(2deg) translateY(0px) scale(1.08);
+    opacity: 0.16;
+    filter: drop-shadow(0 0 20px rgba(0, 210, 255, 0.5)) 
+            drop-shadow(0 20px 35px rgba(0, 210, 255, 0.35)) 
+            drop-shadow(0 35px 70px rgba(0, 0, 0, 0.85));
+  }
+  50% {
+    transform: perspective(1200px) rotateX(10deg) rotateY(-10deg) rotateZ(0deg) translateY(-14px) scale(1.14);
+    opacity: 0.22;
+    filter: drop-shadow(0 0 35px rgba(0, 210, 255, 0.8)) 
+            drop-shadow(0 28px 50px rgba(0, 210, 255, 0.55)) 
+            drop-shadow(0 45px 90px rgba(0, 0, 0, 0.95));
+  }
+  100% {
+    transform: perspective(1200px) rotateX(16deg) rotateY(-20deg) rotateZ(4deg) translateY(8px) scale(1.1);
+    opacity: 0.17;
+    filter: drop-shadow(0 0 25px rgba(0, 210, 255, 0.55)) 
+            drop-shadow(0 22px 40px rgba(0, 210, 255, 0.4)) 
+            drop-shadow(0 38px 75px rgba(0, 0, 0, 0.88));
+  }
+}
+
+/* Glowing Orbital Ring behind 3D logo */
+.logo-3d-orbit-ring {
+  position: absolute;
+  width: clamp(340px, 55vw, 620px);
+  height: clamp(340px, 55vw, 620px);
+  border-radius: 50%;
+  border: 1px dashed rgba(0, 210, 255, 0.22);
+  transform: perspective(1200px) rotateX(70deg) rotateY(-15deg);
+  pointer-events: none;
+  animation: orbitRotate 24s linear infinite;
+}
+
+@keyframes orbitRotate {
+  from { transform: perspective(1200px) rotateX(70deg) rotateY(-15deg) rotate(0deg); }
+  to { transform: perspective(1200px) rotateX(70deg) rotateY(-15deg) rotate(360deg); }
+}
+

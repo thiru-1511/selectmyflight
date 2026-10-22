@@ -278,7 +278,20 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
 
   return (
     <div className="modal-overlay" onClick={onClose} style={{ zIndex: 1600, padding: 'clamp(10px, 2vw, 20px)' }}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 880, maxHeight: '94vh', overflowY: 'auto' }}>
+      <div className="modal-content booking-3d-backdrop" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 880, maxHeight: '94vh', overflowY: 'auto', position: 'relative' }}>
+        {/* 3D Horizon Grid Background */}
+        <div className="booking-3d-grid" />
+
+        {/* 3D Floating SelectMyFlight Logo Watermark & Orbital Ring */}
+        <div className="logo-3d-watermark-container">
+          <div className="logo-3d-orbit-ring" />
+          <img 
+            src="/assets/images/selectmyflight_logo.png" 
+            alt="SelectMyFlight 3D Logo" 
+            className="logo-3d-watermark" 
+          />
+        </div>
+
         {/* Header */}
         <div style={{
           padding: '20px 28px',
@@ -338,7 +351,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} style={{ padding: 'clamp(16px, 3vw, 24px) clamp(14px, 3vw, 28px)', overflowX: 'hidden' }}>
+        <form onSubmit={handleSubmit} style={{ padding: 'clamp(16px, 3vw, 24px) clamp(14px, 3vw, 28px)', overflowX: 'hidden', position: 'relative', zIndex: 1 }}>
           
           {/* Passenger Information Cards for All Travelers */}
           <div style={{ marginBottom: 24 }}>

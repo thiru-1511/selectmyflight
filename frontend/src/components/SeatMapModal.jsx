@@ -242,19 +242,30 @@ export default function SeatMapModal({
   return (
     <div className="modal-overlay" onClick={onClose} style={{ zIndex: 1500, padding: 'clamp(10px, 2vw, 20px)' }}>
       <div 
-        className="modal-content" 
+        className="modal-content booking-3d-backdrop" 
         onClick={(e) => e.stopPropagation()} 
         style={{ 
           maxWidth: 980, 
           maxHeight: '94vh', 
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
-          background: '#0d1527',
-          border: '1px solid rgba(0, 210, 255, 0.35)',
-          borderRadius: 20,
-          boxShadow: '0 25px 70px rgba(0,0,0,0.85), 0 0 40px rgba(0, 210, 255, 0.2)'
+          position: 'relative',
+          borderRadius: 20
         }}
       >
+        {/* 3D Horizon Grid Background */}
+        <div className="booking-3d-grid" />
+
+        {/* 3D Floating SelectMyFlight Logo Watermark & Orbital Ring */}
+        <div className="logo-3d-watermark-container">
+          <div className="logo-3d-orbit-ring" />
+          <img 
+            src="/assets/images/selectmyflight_logo.png" 
+            alt="SelectMyFlight 3D Logo" 
+            className="logo-3d-watermark" 
+          />
+        </div>
+
         {/* Header */}
         <div style={{
           padding: '18px 24px',
