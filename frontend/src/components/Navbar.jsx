@@ -22,6 +22,7 @@ import {
   FileCheck2,
   FileText
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar({ 
   activeTab, 
@@ -47,25 +48,29 @@ export default function Navbar({
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const { t, language: contextLanguage, setLanguage: contextSetLanguage } = useLanguage();
+  const currentLanguage = language || contextLanguage || 'EN';
+  const handleLanguageChange = setLanguage || contextSetLanguage;
+
   const handleNavClick = (tabId) => {
     setActiveTab(tabId);
     setIsMobileMenuOpen(false);
   };
 
   const navItems = [
-    { id: 'search', label: 'Flights', icon: Plane },
-    { id: 'packages', label: 'Holidays', icon: Palmtree, badge: 'HOT', badgeColor: '#f5af19' },
-    { id: 'visa', label: 'Visa Desk', icon: FileCheck2, badge: 'UAE', badgeColor: '#00e676' },
-    { id: 'manage_booking_action', label: 'Manage Booking', icon: FileText, badge: 'PNR', badgeColor: '#00d2ff', action: onOpenManageBooking },
-    { id: 'hotels', label: 'Hotels', icon: Building2 },
-    { id: 'itinerary', label: 'AI TripCraft', icon: Sparkles },
-    { id: 'status', label: 'Live Status', icon: Radio, badge: 'RADAR', badgeColor: '#00e676' },
-    { id: 'alerts_action', label: 'Price Alerts', icon: Bell, badge: 'TRACK', badgeColor: '#f5af19', action: onOpenAlerts },
-    { id: 'refund_action', label: 'Refund Tracker', icon: RefreshCw, badge: 'PNR', badgeColor: '#f5af19', action: onOpenRefundTracker },
-    { id: 'ai', label: 'SkyGenie AI', icon: Bot },
-    { id: 'explore', label: 'Destinations', icon: Compass },
-    { id: 'map', label: 'Route Map', icon: Globe },
-    { id: 'trips', label: 'My Trips', icon: Luggage, count: myTripsCount }
+    { id: 'search', label: t('nav.flights', 'Flights'), icon: Plane },
+    { id: 'packages', label: t('nav.holidays', 'Holidays'), icon: Palmtree, badge: 'HOT', badgeColor: '#f5af19' },
+    { id: 'visa', label: t('nav.visa', 'Visa Desk'), icon: FileCheck2, badge: 'UAE', badgeColor: '#00e676' },
+    { id: 'manage_booking_action', label: t('nav.manageBooking', 'Manage Booking'), icon: FileText, badge: 'PNR', badgeColor: '#00d2ff', action: onOpenManageBooking },
+    { id: 'hotels', label: t('nav.hotels', 'Hotels'), icon: Building2 },
+    { id: 'itinerary', label: t('nav.tripCraft', 'AI TripCraft'), icon: Sparkles },
+    { id: 'status', label: t('nav.liveStatus', 'Live Status'), icon: Radio, badge: 'RADAR', badgeColor: '#00e676' },
+    { id: 'alerts_action', label: t('nav.priceAlerts', 'Price Alerts'), icon: Bell, badge: 'TRACK', badgeColor: '#f5af19', action: onOpenAlerts },
+    { id: 'refund_action', label: t('nav.refundTracker', 'Refund Tracker'), icon: RefreshCw, badge: 'PNR', badgeColor: '#f5af19', action: onOpenRefundTracker },
+    { id: 'ai', label: t('nav.skyGenie', 'SkyGenie AI'), icon: Bot },
+    { id: 'explore', label: t('nav.destinations', 'Destinations'), icon: Compass },
+    { id: 'map', label: t('nav.routeMap', 'Route Map'), icon: Globe },
+    { id: 'trips', label: t('nav.myTrips', 'My Trips'), icon: Luggage, count: myTripsCount }
   ];
 
   return (
@@ -112,7 +117,7 @@ export default function Navbar({
               <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                 <span className="live-dot" style={{ width: 6, height: 6 }} />
                 <span style={{ fontSize: 9, color: '#00e676', letterSpacing: 0.8, textTransform: 'uppercase', fontWeight: 800 }}>
-                  LIVE OPERATIONS
+                  {t('nav.liveOperations', 'LIVE OPERATIONS')}
                 </span>
               </div>
             </div>
@@ -139,7 +144,7 @@ export default function Navbar({
             title="Search any feature, route, or task (Ctrl+K)"
           >
             <Search size={13} color="#00d2ff" />
-            <span style={{ color: '#cbd5e1', fontWeight: 500 }}>Find Features...</span>
+            <span style={{ color: '#cbd5e1', fontWeight: 500 }}>{t('nav.findFeatures', 'Find Features...')}</span>
             <kbd style={{
               background: 'rgba(255, 255, 255, 0.1)',
               padding: '1px 5px',
@@ -295,8 +300,8 @@ export default function Navbar({
             </select>
 
             <select
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
+              value={currentLanguage}
+              onChange={(e) => handleLanguageChange(e.target.value)}
               style={{
                 background: 'rgba(255, 255, 255, 0.06)',
                 color: '#cbd5e1',
@@ -373,7 +378,7 @@ export default function Navbar({
               }}
             >
               <User size={14} />
-              <span>Sign In</span>
+              <span>{t('nav.signIn', 'Sign In')}</span>
             </button>
           )}
 
@@ -510,11 +515,11 @@ export default function Navbar({
 
             <div style={{ flex: 1 }}>
               <label style={{ display: 'block', fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>
-                Language
+                {t('nav.language', 'Language')}
               </label>
               <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
+                value={currentLanguage}
+                onChange={(e) => handleLanguageChange(e.target.value)}
                 style={{ width: '100%', padding: '6px 10px', fontSize: 13 }}
               >
                 <option value="EN">English (EN)</option>

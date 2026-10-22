@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Radio, Plane, TrendingDown, RefreshCw, Clock, ShieldCheck } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const LIVE_EVENTS = [
   {
@@ -69,6 +70,7 @@ const LIVE_EVENTS = [
 ];
 
 export default function RealTimeTicker({ onOpenFeature }) {
+  const { t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [liveTime, setLiveTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
   const [activeFlightsCount, setActiveFlightsCount] = useState(248);
@@ -110,12 +112,12 @@ export default function RealTimeTicker({ onOpenFeature }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontWeight: 700 }}>
           <span className="live-dot" style={{ width: 6, height: 6 }} />
-          <span style={{ color: '#00e676', letterSpacing: 0.5, fontSize: 10 }}>AIR NETWORK</span>
+          <span style={{ color: '#00e676', letterSpacing: 0.5, fontSize: 10 }}>{t('ticker.network', 'AIR NETWORK')}</span>
         </div>
 
         <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(255, 255, 255, 0.05)', padding: '2px 6px', borderRadius: 4, color: '#94a3b8', fontSize: 11 }}>
           <Plane size={11} color="#00d2ff" />
-          <span><strong>{activeFlightsCount}</strong> Airborne</span>
+          <span><strong>{activeFlightsCount}</strong> {t('ticker.airborne', 'Airborne')}</span>
           <span style={{ color: '#475569', margin: '0 2px' }}>•</span>
           <span style={{ color: '#38bdf8', fontFamily: 'monospace', fontSize: 10 }}>{liveTime}</span>
         </div>
@@ -152,7 +154,7 @@ export default function RealTimeTicker({ onOpenFeature }) {
           letterSpacing: 0.5,
           flexShrink: 0
         }}>
-          {activeEvent.badge}
+          {t(activeEvent.badge, activeEvent.badge)}
         </span>
 
         <div style={{
@@ -169,7 +171,7 @@ export default function RealTimeTicker({ onOpenFeature }) {
         }}>
           <IconComponent size={12} color={activeEvent.color} style={{ flexShrink: 0 }} />
           <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {activeEvent.text}
+            {t(activeEvent.text, activeEvent.text)}
           </span>
         </div>
       </div>

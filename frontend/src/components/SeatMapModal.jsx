@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Check, Utensils, Briefcase, Zap, ArrowRight, Plane, Users, User, CheckCircle2, Sparkles, Plus, Minus, Loader2 } from 'lucide-react';
 import { ADDONS, INITIAL_FLIGHTS } from '../data/mockFlights';
 import { duffelService } from '../services/duffelService';
+import { useLanguage } from '../context/LanguageContext';
 
 const PASSENGER_COLORS = [
   { bg: 'rgba(0, 210, 255, 0.25)', border: '#00d2ff', text: '#00d2ff', badge: 'P1', name: 'Passenger 1' },
@@ -20,6 +21,7 @@ export default function SeatMapModal({
   isPreviewMode = false,
   initialPassengerCount = 1 
 }) {
+  const { t } = useLanguage();
   const [activeFlight, setActiveFlight] = useState(initialFlight || INITIAL_FLIGHTS[0]);
   
   useEffect(() => {
@@ -308,7 +310,7 @@ export default function SeatMapModal({
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                 <h3 style={{ fontSize: 'clamp(17px, 2.5vw, 21px)', fontWeight: 900, color: '#fff', margin: 0 }}>
-                  💺 {activeFlight?.airlineName || 'Airline'} Seat Selection
+                  💺 {activeFlight?.airlineName || 'Airline'} {t('seatmap.title', 'Seat Selection')}
                 </h3>
                 {activeFlight?.isLiveDuffel && (
                   <span style={{
@@ -380,7 +382,7 @@ export default function SeatMapModal({
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#00d2ff', fontSize: 13, fontWeight: 800 }}>
                 <Users size={18} />
-                <span>Number of Travelers:</span>
+                <span>{t('seatmap.travelersCount', 'Number of Travelers:')}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(0, 0, 0, 0.4)', borderRadius: 8, border: '1px solid rgba(0, 210, 255, 0.3)', padding: '2px' }}>
                 <button
@@ -429,7 +431,7 @@ export default function SeatMapModal({
             {/* Hint */}
             <div style={{ fontSize: 12, color: '#00e676', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
               <Sparkles size={14} />
-              <span>Tap a passenger tab below to assign their individual seat:</span>
+              <span>{t('seatmap.assignHint', 'Tap a passenger tab below to assign their individual seat:')}</span>
             </div>
           </div>
 
@@ -981,7 +983,7 @@ export default function SeatMapModal({
               className="btn-secondary"
               style={{ padding: '10px 18px', fontSize: 13 }}
             >
-              {onProceedToCheckout ? 'Cancel' : 'Close Explorer'}
+              {onProceedToCheckout ? t('common.cancel', 'Cancel') : t('common.close', 'Close')}
             </button>
             <button
               type="button"

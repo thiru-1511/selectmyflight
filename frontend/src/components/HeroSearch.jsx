@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Plane, Calendar, Users, ArrowRightLeft, Search, Sparkles, ShieldCheck, Clock, RefreshCw } from 'lucide-react';
 import { AIRPORTS } from '../data/mockFlights';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function HeroSearch({ searchParams, setSearchParams, onSearch, onQuickPrompt, loading = false }) {
+  const { t } = useLanguage();
   const [tripType, setTripType] = useState('one-way'); // 'one-way', 'round-trip', 'multi-city'
   const [heroBg, setHeroBg] = useState('/assets/images/hero_flight_banner.jpg');
 
@@ -73,13 +75,13 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
             letterSpacing: -0.5,
             textShadow: '0 4px 20px rgba(0,0,0,0.6)'
           }}>
-            Fly Smarter. Compare Faster. <br />
+            {t('search.heading', 'Fly Smarter. Compare Faster.')} <br />
             <span style={{
               background: 'linear-gradient(135deg, #00d2ff, #f5af19)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }}>
-              Zero Hidden Fees.
+              {t('search.subheading', 'Zero Hidden Fees.')}
             </span>
           </h1>
 
@@ -90,7 +92,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
             margin: '0 auto 24px auto',
             lineHeight: 1.5
           }}>
-            Real-time multi-airline flight comparison, flexible date matrices, and AI travel concierge.
+            {t('search.desc', 'Real-time multi-airline flight comparison, flexible date matrices, and AI travel concierge.')}
           </p>
 
           {/* Search Card Container */}
@@ -122,14 +124,14 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                       transition: 'all 0.2s'
                     }}
                   >
-                    {type.replace('-', ' ')}
+                    {type === 'one-way' ? t('search.oneWay', 'One-Way') : type === 'round-trip' ? t('search.roundTrip', 'Round-Trip') : t('search.multiCity', 'Multi-City')}
                   </button>
                 ))}
               </div>
 
               {/* Cabin Class Selector */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>Class:</span>
+                <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>{t('search.cabinClass', 'Class:')}</span>
                 <select
                   value={searchParams.cabinClass}
                   onChange={(e) => setSearchParams(prev => ({ ...prev, cabinClass: e.target.value }))}
@@ -165,7 +167,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               {/* Origin Dropdown */}
               <div style={{ position: 'relative' }}>
                 <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
-                  From (Origin)
+                  {t('search.from', 'From (Origin)')}
                 </label>
                 <div style={{
                   display: 'flex',
@@ -229,7 +231,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               {/* Destination Dropdown */}
               <div style={{ position: 'relative' }}>
                 <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
-                  To (Destination)
+                  {t('search.to', 'To (Destination)')}
                 </label>
                 <div style={{
                   display: 'flex',
@@ -266,7 +268,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               {/* Departure Date */}
               <div>
                 <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
-                  Departure Date
+                  {t('search.departure', 'Departure Date')}
                 </label>
                 <div style={{
                   display: 'flex',
@@ -302,7 +304,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               {tripType === 'round-trip' && (
                 <div>
                   <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
-                    Return Date
+                    {t('search.return', 'Return Date')}
                   </label>
                   <div style={{
                     display: 'flex',
@@ -338,7 +340,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               {/* Passengers Count */}
               <div>
                 <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
-                  Travelers
+                  {t('search.travelers', 'Travelers')}
                 </label>
                 <div style={{
                   display: 'flex',
@@ -400,7 +402,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                   }}
                 >
                   {loading ? <RefreshCw size={18} className="spin-anim" /> : <Search size={18} />}
-                  <span>{loading ? 'Searching Flights...' : 'Search Flights'}</span>
+                  <span>{loading ? t('search.searching', 'Searching Live GDS...') : t('search.searchFlights', 'Search Flights')}</span>
                 </button>
               </div>
             </div>

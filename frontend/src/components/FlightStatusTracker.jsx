@@ -19,8 +19,10 @@ import {
 } from 'lucide-react';
 import { INITIAL_FLIGHTS } from '../data/mockFlights';
 import { API_BASE_URL } from '../services/api';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function FlightStatusTracker() {
+  const { t } = useLanguage();
   const [trackerMode, setTrackerMode] = useState('airline'); // 'airline' or 'live_radar'
   const [searchQuery, setSearchQuery] = useState('6E-2041');
   const [activeFlight, setActiveFlight] = useState(INITIAL_FLIGHTS[0]);
@@ -199,13 +201,13 @@ export default function FlightStatusTracker() {
       {/* Header */}
       <div style={{ textAlign: 'center', marginBottom: 24 }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0, 210, 255, 0.1)', color: '#00d2ff', padding: '6px 16px', borderRadius: 20, fontSize: 13, fontWeight: 700, marginBottom: 12 }}>
-          <Radio size={16} color="#00e676" /> REAL-TIME FLIGHT RADAR & TELEMETRY
+          <Radio size={16} color="#00e676" /> {t('tracker.badge', 'REAL-TIME FLIGHT RADAR & TELEMETRY')}
         </div>
         <h2 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 800, color: '#fff' }}>
-          Real-Time Flight Tracker
+          {t('tracker.title', 'Real-Time Flight Tracker')}
         </h2>
         <p style={{ color: '#94a3b8', fontSize: 'clamp(13px, 2vw, 14px)', maxWidth: 580, margin: '4px auto 0 auto' }}>
-          Track real-time flight gates, delays, and baggage carousels, connect your own <strong>Live Flight API Key</strong>, or monitor live aircraft transmitting ADS-B transponder telemetry in the sky right now.
+          {t('tracker.subtitle', 'Track real-time flight gates, delays, and baggage carousels, connect your own Live Flight API Key, or monitor live aircraft transmitting ADS-B transponder telemetry in the sky right now.')}
         </p>
 
         {/* Mode Switcher */}
@@ -229,7 +231,7 @@ export default function FlightStatusTracker() {
               flex: '1 1 auto'
             }}
           >
-            <Plane size={15} /> Commercial Flight Status
+            <Plane size={15} /> {t('tracker.commercialMode', 'Commercial Flight Status')}
           </button>
           <button
             type="button"
@@ -250,7 +252,7 @@ export default function FlightStatusTracker() {
               flex: '1 1 auto'
             }}
           >
-            <Radio size={15} /> Live Sky Radar (ADS-B)
+            <Radio size={15} /> {t('tracker.radarMode', 'Live Sky Radar (ADS-B)')}
             <span className="live-dot" />
           </button>
         </div>
@@ -274,19 +276,19 @@ export default function FlightStatusTracker() {
             </div>
             <div>
               <div style={{ fontSize: 13, fontWeight: 700, color: '#fff', display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span>Live Flight API: <strong>{apiProvider === 'aviationstack' ? 'AviationStack API' : 'AirLabs API'}</strong></span>
+                <span>{t('tracker.liveApi', 'Live Flight API')}: <strong>{apiProvider === 'aviationstack' ? 'AviationStack API' : 'AirLabs API'}</strong></span>
                 {apiKey ? (
                   <span style={{ background: 'rgba(0, 230, 118, 0.15)', color: '#00e676', border: '1px solid rgba(0, 230, 118, 0.3)', padding: '2px 8px', borderRadius: 10, fontSize: 11, fontWeight: 800 }}>
-                    ACTIVE KEY CONFIGURED
+                    {t('tracker.activeKey', 'ACTIVE KEY CONFIGURED')}
                   </span>
                 ) : (
                   <span style={{ background: 'rgba(245, 175, 25, 0.15)', color: '#f5af19', border: '1px solid rgba(245, 175, 25, 0.3)', padding: '2px 8px', borderRadius: 10, fontSize: 11, fontWeight: 700 }}>
-                    NO KEY ENTERED (TEST MODE ACTIVE)
+                    {t('tracker.noKey', 'NO KEY ENTERED (TEST MODE ACTIVE)')}
                   </span>
                 )}
               </div>
               <div style={{ fontSize: 11, color: '#94a3b8' }}>
-                {apiKey ? `Using key: ${apiKey.substring(0, 6)}•••••••••` : 'Provide your API key to query live real-world airline flights worldwide.'}
+                {apiKey ? `${t('tracker.apiConfigured', 'Using key:')} ${apiKey.substring(0, 6)}•••••••••` : t('tracker.apiDesc', 'Provide your API key to query live real-world airline flights worldwide.')}
               </div>
             </div>
           </div>
@@ -298,7 +300,7 @@ export default function FlightStatusTracker() {
             style={{ padding: '6px 14px', fontSize: 12, display: 'flex', alignItems: 'center', gap: 6 }}
           >
             <Settings size={14} />
-            {isSettingsOpen ? 'Close Settings' : 'Configure API Key'}
+            {isSettingsOpen ? t('tracker.closeSettings', 'Close Settings') : t('tracker.configureApiKey', 'Configure API Key')}
             {isSettingsOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
         </div>
@@ -391,7 +393,7 @@ export default function FlightStatusTracker() {
               <Search size={20} color="#00d2ff" style={{ flexShrink: 0 }} />
               <input
                 type="text"
-                placeholder="Enter flight number (e.g. 6E-2041, AI-865, EK-511)..."
+                placeholder={t('tracker.flightNumberPlaceholder', 'Enter flight number (e.g. 6E-2041, AI-865, EK-511)...')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
@@ -414,7 +416,7 @@ export default function FlightStatusTracker() {
               style={{ padding: '10px 20px', fontSize: 13, display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 auto', justifyContent: 'center' }}
             >
               {isFetchingLiveApi && <RefreshCw size={14} className="spin-anim" />}
-              {isFetchingLiveApi ? 'Querying Live API...' : 'Track Flight'}
+              {isFetchingLiveApi ? t('tracker.querying', 'Querying Live API...') : t('tracker.trackFlight', 'Track Flight')}
             </button>
           </form>
 
@@ -439,7 +441,7 @@ export default function FlightStatusTracker() {
 
           {/* Quick Example Chips */}
           <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 28, flexWrap: 'wrap' }}>
-            <span style={{ fontSize: 12, color: '#94a3b8' }}>Try Flights:</span>
+            <span style={{ fontSize: 12, color: '#94a3b8' }}>{t('tracker.tryFlights', 'Try Flights:')}</span>
             {['6E-2041', 'AI-865', 'EK-511', 'SQ-503', 'BA-142'].map(code => (
               <button
                 key={code}
@@ -499,7 +501,7 @@ export default function FlightStatusTracker() {
                 borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
               }}>
                 <div>
-                  <div style={{ fontSize: 12, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.5 }}>Commercial Carrier</div>
+                  <div style={{ fontSize: 12, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.5 }}>{t('tracker.commercialCarrier', 'Commercial Carrier')}</div>
                   <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff', margin: '2px 0' }}>
                     {activeFlight.airlineName} • {activeFlight.flightNumber}
                   </h3>
@@ -519,7 +521,7 @@ export default function FlightStatusTracker() {
                   alignItems: 'center',
                   gap: 8
                 }}>
-                  <span className="live-dot" /> {activeFlight.status || 'ON SCHEDULE • ON TIME'}
+                  <span className="live-dot" /> {t(activeFlight.status, activeFlight.status || t('tracker.onTime', 'ON SCHEDULE • ON TIME'))}
                 </div>
               </div>
 
@@ -532,17 +534,17 @@ export default function FlightStatusTracker() {
                 alignItems: 'center'
               }}>
                 <div>
-                  <div style={{ fontSize: 12, color: '#94a3b8' }}>ORIGIN</div>
+                  <div style={{ fontSize: 12, color: '#94a3b8' }}>{t('tracker.origin', 'ORIGIN')}</div>
                   <div style={{ fontSize: 28, fontWeight: 800, color: '#fff' }}>{activeFlight.originCode}</div>
                   <div style={{ fontSize: 16, fontWeight: 700, color: '#00d2ff' }}>{activeFlight.departureTime}</div>
                   <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
-                    {activeFlight.originName || 'Scheduled Departure'}
+                    {activeFlight.originName || t('tracker.scheduledDeparture', 'Scheduled Departure')}
                   </div>
                 </div>
 
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 4 }}>
-                    {activeFlight.durationMinutes ? `Flight Duration: ${Math.floor(activeFlight.durationMinutes / 60)}h ${activeFlight.durationMinutes % 60}m` : 'Flight En Route'}
+                    {activeFlight.durationMinutes ? `${t('tracker.flightDuration', 'Flight Duration:')} ${Math.floor(activeFlight.durationMinutes / 60)}h ${activeFlight.durationMinutes % 60}m` : t('tracker.enRoute', 'Flight En Route')}
                   </div>
                   <div style={{
                     position: 'relative',
@@ -553,16 +555,16 @@ export default function FlightStatusTracker() {
                     <Plane size={16} color="#00d2ff" style={{ position: 'absolute', top: -7, left: '60%' }} />
                   </div>
                   <div style={{ fontSize: 11, color: '#00e676', fontWeight: 700, marginTop: 6 }}>
-                    En Route • Cruising {activeFlight.liveTelemetry?.altitude || '34,000'} ft
+                    {t('tracker.enRoute', 'En Route • Cruising')} {activeFlight.liveTelemetry?.altitude || '34,000'} ft
                   </div>
                 </div>
 
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: 12, color: '#94a3b8' }}>DESTINATION</div>
+                  <div style={{ fontSize: 12, color: '#94a3b8' }}>{t('tracker.destination', 'DESTINATION')}</div>
                   <div style={{ fontSize: 28, fontWeight: 800, color: '#fff' }}>{activeFlight.destinationCode}</div>
                   <div style={{ fontSize: 16, fontWeight: 700, color: '#00d2ff' }}>{activeFlight.arrivalTime}</div>
                   <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
-                    {activeFlight.destinationName || 'Estimated Arrival'}
+                    {activeFlight.destinationName || t('tracker.estimatedArrival', 'Estimated Arrival')}
                   </div>
                 </div>
               </div>
@@ -579,25 +581,25 @@ export default function FlightStatusTracker() {
                 textAlign: 'center'
               }}>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>TERMINAL</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{t('tracker.terminal', 'TERMINAL')}</div>
                   <div style={{ fontSize: 16, fontWeight: 800, color: '#fff', marginTop: 2 }}>
                     {activeFlight.terminal || 'T3'}
                   </div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>DEPARTURE GATE</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{t('tracker.gate', 'DEPARTURE GATE')}</div>
                   <div style={{ fontSize: 16, fontWeight: 800, color: '#00d2ff', marginTop: 2 }}>
                     {activeFlight.gate || 'Gate B22'}
                   </div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>STATUS / DELAY</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{t('tracker.statusDelay', 'STATUS / DELAY')}</div>
                   <div style={{ fontSize: 16, fontWeight: 800, color: activeFlight.delayMinutes > 0 ? '#ff5252' : '#00e676', marginTop: 2 }}>
-                    {activeFlight.delayMinutes > 0 ? `${activeFlight.delayMinutes}m Delay` : 'On Time'}
+                    {activeFlight.delayMinutes > 0 ? `${activeFlight.delayMinutes}m Delay` : t('tracker.onTime', 'On Time')}
                   </div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>BAGGAGE BELT</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{t('tracker.baggage', 'BAGGAGE BELT')}</div>
                   <div style={{ fontSize: 16, fontWeight: 800, color: '#00e676', marginTop: 2 }}>
                     {activeFlight.baggage || 'Carousel 06'}
                   </div>
@@ -616,11 +618,11 @@ export default function FlightStatusTracker() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span className="live-dot" />
                 <h3 style={{ fontSize: 20, fontWeight: 800, color: '#fff', margin: 0 }}>
-                  Live Aircraft Currently Airborne in the Sky
+                  {t('tracker.liveAircraftTitle', 'Live Aircraft Currently Airborne in the Sky')}
                 </h3>
               </div>
               <p style={{ color: '#94a3b8', fontSize: 13, marginTop: 4 }}>
-                Real-time ADS-B transponder telemetry showing actual commercial planes flying right now with live altitude, speed, and GPS coordinates.
+                {t('tracker.liveAircraftDesc', 'Real-time ADS-B transponder telemetry showing actual commercial planes flying right now with live altitude, speed, and GPS coordinates.')}
               </p>
             </div>
 
@@ -632,7 +634,7 @@ export default function FlightStatusTracker() {
               style={{ padding: '8px 16px', fontSize: 12, display: 'flex', alignItems: 'center', gap: 6 }}
             >
               <RefreshCw size={14} className={loadingPlanes ? 'spin-anim' : ''} />
-              {loadingPlanes ? 'Refreshing Radar...' : `Refresh Radar (${lastRefreshed})`}
+              {loadingPlanes ? t('tracker.refreshingRadar', 'Refreshing Radar...') : `${t('tracker.refreshRadar', 'Refresh Radar')} (${lastRefreshed})`}
             </button>
           </div>
 
@@ -641,12 +643,12 @@ export default function FlightStatusTracker() {
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', textAlign: 'left', color: '#94a3b8' }}>
-                  <th style={{ padding: '10px' }}>Callsign</th>
-                  <th style={{ padding: '10px' }}>Country / Airline</th>
-                  <th style={{ padding: '10px' }}>Current Altitude</th>
-                  <th style={{ padding: '10px' }}>Ground Speed</th>
-                  <th style={{ padding: '10px' }}>Coordinates (Lat, Lon)</th>
-                  <th style={{ padding: '10px' }}>Transponder</th>
+                  <th style={{ padding: '10px' }}>{t('tracker.thCallsign', 'Callsign')}</th>
+                  <th style={{ padding: '10px' }}>{t('tracker.thCountry', 'Country / Airline')}</th>
+                  <th style={{ padding: '10px' }}>{t('tracker.thAltitude', 'Current Altitude')}</th>
+                  <th style={{ padding: '10px' }}>{t('tracker.thSpeed', 'Ground Speed')}</th>
+                  <th style={{ padding: '10px' }}>{t('tracker.thCoords', 'Coordinates (Lat, Lon)')}</th>
+                  <th style={{ padding: '10px' }}>{t('tracker.thTransponder', 'Transponder')}</th>
                 </tr>
               </thead>
               <tbody>

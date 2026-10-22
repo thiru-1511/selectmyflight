@@ -34,6 +34,7 @@ import HotelBookingPortal from './components/HotelBookingPortal';
 import AiItineraryPlanner from './components/AiItineraryPlanner';
 import HolidayPackagesPortal from './components/HolidayPackagesPortal';
 import VisaServicesPortal from './components/VisaServicesPortal';
+import { useLanguage } from './context/LanguageContext';
 import ManageBookingModal from './components/ManageBookingModal';
 
 import { api } from './services/api';
@@ -96,7 +97,7 @@ export default function App() {
 
   // Currency & Language
   const [currency, setCurrency] = useState('INR');
-  const [language, setLanguage] = useState('EN');
+  const { language, setLanguage, t } = useLanguage();
 
   // Search Parameters
   const [searchParams, setSearchParams] = useState({
@@ -934,7 +935,7 @@ export default function App() {
           onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
         >
           <Bot size={18} />
-          <span>Ask SkyGenie AI</span>
+          <span>{t('nav.askSkyGenie', 'Ask SkyGenie AI')}</span>
           <span className="live-dot" />
         </button>
       )}

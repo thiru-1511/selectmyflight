@@ -1,7 +1,9 @@
 import React from 'react';
 import { Plane, Clock, Briefcase, Info, CheckCircle2, XCircle, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function FlightCard({ flight, isCheapest, isFastest, currency, onSelectFlight, onViewRules, isSaved, onToggleWishlist }) {
+  const { t } = useLanguage();
   const formatDuration = (mins) => {
     const h = Math.floor(mins / 60);
     const m = mins % 60;
@@ -29,12 +31,12 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center' }}>
           {isCheapest && (
             <span className="badge-cheapest" style={{ fontSize: 10, padding: '3px 8px' }}>
-              🏷️ Cheapest
+              🏷️ {t('flights.cheapest', 'Cheapest')}
             </span>
           )}
           {isFastest && (
             <span className="badge-fastest" style={{ fontSize: 10, padding: '3px 8px' }}>
-              ⚡ Fastest ({formatDuration(flight.durationMinutes)})
+              ⚡ {t('flights.fastest', 'Fastest')} ({formatDuration(flight.durationMinutes)})
             </span>
           )}
           {flight.isLiveDuffel && (
@@ -50,7 +52,7 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
               alignItems: 'center',
               gap: 4
             }}>
-              ⚡ Live GDS Fare
+              ⚡ {t('flights.liveGds', 'Live GDS Fare')}
             </span>
           )}
           <span style={{
@@ -61,7 +63,7 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
             padding: '3px 8px',
             borderRadius: 20
           }}>
-            {flight.stops === 0 ? 'Non-Stop' : `${flight.stops} Stop`}
+            {flight.stops === 0 ? t('flights.nonStop', 'Non-Stop') : `${flight.stops} ${flight.stops > 1 ? t('flights.stops', 'Stops') : t('flights.stop', 'Stop')}`}
           </span>
         </div>
 
@@ -235,7 +237,7 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
               marginTop: 2
             }}
           >
-            Fare & Baggage Rules
+            {t('flights.fareRules', 'Fare & Baggage Rules')}
           </button>
         </div>
 
@@ -251,7 +253,7 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
         }}>
           <div>
             <div style={{ fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 600 }}>
-              Per Traveler
+              {t('flights.perTraveler', 'Per Traveler')}
             </div>
             <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', letterSpacing: -0.5 }}>
               {currencySymbol}{convertPrice(flight.basePrice).toLocaleString()}
@@ -279,7 +281,7 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
               cursor: 'pointer'
             }}
           >
-            <span>Select Seats</span>
+            <span>{t('flights.selectSeats', 'Select Seats')}</span>
             <ArrowRight size={15} />
           </button>
         </div>
