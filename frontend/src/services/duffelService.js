@@ -159,5 +159,31 @@ export const duffelService = {
       console.warn('Duffel API live search skipped (using standard catalog):', err.message);
       return [];
     }
+  },
+
+  /**
+   * Fetch live aircraft seat map from Duffel API for an offer
+   * @param {string} offerId
+   */
+  async getSeatMaps(offerId) {
+    if (!offerId) return null;
+    try {
+      const url = `/duffel-api/air/seat_maps?offer_id=${encodeURIComponent(offerId)}`;
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${DUFFEL_TOKEN}`,
+          'Duffel-Version': 'v2',
+          'Accept': 'application/json'
+        },
+        signal: AbortSignal.timeout(8000)
+      });
+      if (!response.ok) return null;
+      const json = await response.json();
+      return json?.data || null;
+    } catch (err) {
+      console.warn('Duffel live seat map fetch notice:', err.message);
+      return null;
+    }
   }
 };
+

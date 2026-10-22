@@ -260,7 +260,10 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
 
           <button
             type="button"
-            onClick={() => onSelectFlight(flight)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelectFlight(flight);
+            }}
             className="btn-primary"
             style={{
               minHeight: 44,
@@ -272,7 +275,8 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 6
+              gap: 6,
+              cursor: 'pointer'
             }}
           >
             <span>Select Seats</span>

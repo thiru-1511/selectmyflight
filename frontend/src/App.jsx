@@ -956,6 +956,7 @@ export default function App() {
       {/* 1. Seat Selection in Booking Flow */}
       {selectedFlightForBooking && (
         <SeatMapModal
+          key={selectedFlightForBooking.id || selectedFlightForBooking.flightNumber}
           flight={selectedFlightForBooking}
           currency={currency}
           initialPassengerCount={searchParams?.passengers || 1}

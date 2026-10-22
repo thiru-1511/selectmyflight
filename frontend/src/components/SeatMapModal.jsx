@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { X, Check, Utensils, Briefcase, Zap, ArrowRight, Plane, Users, User, CheckCircle2, Sparkles, Plus, Minus } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Check, Utensils, Briefcase, Zap, ArrowRight, Plane, Users, User, CheckCircle2, Sparkles, Plus, Minus, Loader2 } from 'lucide-react';
 import { ADDONS, INITIAL_FLIGHTS } from '../data/mockFlights';
+import { duffelService } from '../services/duffelService';
 
 const PASSENGER_COLORS = [
   { bg: 'rgba(0, 210, 255, 0.25)', border: '#00d2ff', text: '#00d2ff', badge: 'P1', name: 'Passenger 1' },
@@ -21,16 +22,48 @@ export default function SeatMapModal({
 }) {
   const [activeFlight, setActiveFlight] = useState(initialFlight || INITIAL_FLIGHTS[0]);
   
+  useEffect(() => {
+    if (initialFlight) {
+      setActiveFlight(initialFlight);
+    }
+  }, [initialFlight]);
+
   // Passenger count state (1 to 6)
   const [passengerCount, setPassengerCount] = useState(Math.max(1, Math.min(6, initialPassengerCount || 1)));
   const [activePassengerIndex, setActivePassengerIndex] = useState(0);
 
+  // Duffel Live Seat Map state
+  const [liveSeatMapLoading, setLiveSeatMapLoading] = useState(false);
+  const [liveSeatMap, setLiveSeatMap] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+    if (activeFlight?.isLiveDuffel && activeFlight?.duffelOfferId) {
+      setLiveSeatMapLoading(true);
+      duffelService.getSeatMaps(activeFlight.duffelOfferId).then((maps) => {
+        if (active) {
+          if (maps && maps.length > 0) {
+            setLiveSeatMap(maps[0]);
+          }
+          setLiveSeatMapLoading(false);
+        }
+      }).catch(() => {
+        if (active) setLiveSeatMapLoading(false);
+      });
+    } else {
+      setLiveSeatMap(null);
+    }
+    return () => { active = false; };
+  }, [activeFlight?.duffelOfferId]);
+
   // Cabin Models for Switcher
+  const currentAircraft = activeFlight?.aircraftModel || 'Boeing 787-9 Dreamliner';
   const AIRCRAFT_MODELS = [
+    { name: currentAircraft, rows: [1, 2, 3, 4, 5, 6, 7, 8], layout: 'Aircraft Standard Cabin' },
     { name: 'Boeing 787-9 Dreamliner', rows: [1, 2, 3, 4, 5, 6, 7, 8], layout: '3-3-3 Config' },
     { name: 'Airbus A350-900 XWB', rows: [1, 2, 3, 4, 5, 6, 7, 8], layout: 'Quiet Luxury Cabin' },
     { name: 'Airbus A321neo', rows: [1, 2, 3, 4, 5, 6, 7, 8], layout: 'Single Aisle Express' }
-  ];
+  ].filter((v, i, a) => a.findIndex(t => t.name === v.name) === i);
 
   const rows = [1, 2, 3, 4, 5, 6, 7, 8];
   const leftCols = ['A', 'B', 'C'];
@@ -233,28 +266,84 @@ export default function SeatMapModal({
           zIndex: 10,
           backdropFilter: 'blur(16px)'
         }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <h3 style={{ fontSize: 'clamp(17px, 2.5vw, 21px)', fontWeight: 900, color: '#fff', margin: 0 }}>
-                💺 Multi-Passenger Seat Selection & In-Flight Dining
-              </h3>
-              {isPreviewMode && (
-                <span style={{
-                  background: 'rgba(0, 210, 255, 0.15)',
-                  color: '#00d2ff',
-                  border: '1px solid rgba(0, 210, 255, 0.3)',
-                  fontSize: 10,
-                  fontWeight: 800,
-                  padding: '2px 6px',
-                  borderRadius: 4
-                }}>
-                  CABIN EXPLORER
-                </span>
-              )}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            {activeFlight?.airlineLogo ? (
+              <div style={{
+                width: 44,
+                height: 44,
+                borderRadius: 10,
+                background: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 4,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                flexShrink: 0
+              }}>
+                <img
+                  src={activeFlight.airlineLogo}
+                  alt={activeFlight?.airlineName || 'Airline'}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                />
+              </div>
+            ) : (
+              <div style={{
+                width: 44,
+                height: 44,
+                borderRadius: 10,
+                background: activeFlight?.airlineColor || '#0052cc',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                fontWeight: 900,
+                fontSize: 16,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                flexShrink: 0
+              }}>
+                {activeFlight?.airlineCode || 'SM'}
+              </div>
+            )}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                <h3 style={{ fontSize: 'clamp(17px, 2.5vw, 21px)', fontWeight: 900, color: '#fff', margin: 0 }}>
+                  💺 {activeFlight?.airlineName || 'Airline'} Seat Selection
+                </h3>
+                {activeFlight?.isLiveDuffel && (
+                  <span style={{
+                    background: 'linear-gradient(135deg, rgba(0, 210, 255, 0.25), rgba(58, 123, 213, 0.25))',
+                    color: '#00d2ff',
+                    border: '1px solid rgba(0, 210, 255, 0.45)',
+                    fontSize: 10,
+                    fontWeight: 800,
+                    padding: '2px 8px',
+                    borderRadius: 12,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4
+                  }}>
+                    ⚡ LIVE GDS SEAT MAP
+                  </span>
+                )}
+                {isPreviewMode && (
+                  <span style={{
+                    background: 'rgba(0, 210, 255, 0.15)',
+                    color: '#00d2ff',
+                    border: '1px solid rgba(0, 210, 255, 0.3)',
+                    fontSize: 10,
+                    fontWeight: 800,
+                    padding: '2px 6px',
+                    borderRadius: 4
+                  }}>
+                    CABIN EXPLORER
+                  </span>
+                )}
+              </div>
+              <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0 0' }}>
+                Flight {activeFlight?.flightNumber || 'SM-101'} • {activeFlight?.originCode} ➔ {activeFlight?.destinationCode} ({activeFlight?.aircraftModel || 'Boeing 787-9 Dreamliner'})
+              </p>
             </div>
-            <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0 0' }}>
-              Flight {activeFlight.flightNumber} • {activeFlight.originCode} ➔ {activeFlight.destinationCode} ({activeFlight.aircraftModel || 'Boeing 787-9 Dreamliner'})
-            </p>
           </div>
           <button
             type="button"
@@ -463,7 +552,7 @@ export default function SeatMapModal({
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <Plane size={13} color="#00d2ff" />
             <select
-              value={activeFlight.aircraftModel || 'Boeing 787-9 Dreamliner'}
+              value={activeFlight?.aircraftModel || 'Boeing 787-9 Dreamliner'}
               onChange={(e) => setActiveFlight(prev => ({ ...prev, aircraftModel: e.target.value }))}
               style={{
                 background: '#111a33',
@@ -495,6 +584,23 @@ export default function SeatMapModal({
         }}>
           {/* Left: Aircraft Visual Seat Grid */}
           <div>
+            {liveSeatMapLoading && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                background: 'rgba(0, 210, 255, 0.1)',
+                border: '1px solid rgba(0, 210, 255, 0.3)',
+                borderRadius: 8,
+                padding: '8px 12px',
+                marginBottom: 12,
+                fontSize: 12,
+                color: '#00d2ff'
+              }}>
+                <Loader2 size={15} style={{ animation: 'spin 1s linear infinite' }} />
+                <span>Checking real-time seat inventory with {activeFlight?.airlineName || 'airline'} GDS...</span>
+              </div>
+            )}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
               <div>
                 <h4 style={{ fontSize: 15, fontWeight: 800, color: '#fff', margin: 0 }}>
