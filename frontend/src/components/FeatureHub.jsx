@@ -11,7 +11,7 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [filterQuery, setFilterQuery] = useState('');
 
-  const categories = ['All', 'Holidays', 'Visas', 'Real-Time', 'Booking', 'Travel Desk', 'Savings', 'Experience', 'Assurance'];
+  const categories = ['All', 'Holidays', 'Visas', 'Real-Time', 'Booking', 'AI Concierge', 'Savings', 'Experience', 'Assurance'];
 
   const filteredFeatures = FEATURES_LIST.filter(f => {
     const matchesCat = selectedCategory === 'All' || f.category === selectedCategory || (selectedCategory === 'Real-Time' && ['status', 'refund', 'map'].includes(f.id));
@@ -58,7 +58,7 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
             Pick Any Feature & Launch Instantly
           </h2>
           <p style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
-            Real-time telemetry, direct refunds, 3D cabin layouts, travel concierge, or instant deals.
+            Real-time telemetry, direct refunds, 3D cabin layouts, AI concierge, or instant deals.
           </p>
         </div>
 

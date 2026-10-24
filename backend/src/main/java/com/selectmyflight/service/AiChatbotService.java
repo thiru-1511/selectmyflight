@@ -104,7 +104,7 @@ public class AiChatbotService {
             replyText = "🛡️ **Fare & Refund Terms:**\n• Most flights on SelectMyFlight are refundable up to 24 hours prior to departure.\n• Standard cancellation fee is ₹1,500 and date change fee is ₹1,000.\n• Instant refunds are processed directly in your **My Trips** dashboard!";
         } else {
             // General Travel greeting & smart recommendation
-            replyText = "Hello! I am **SkyGenie**, your 24/7 personal travel assistant. You can ask me:\n• *\"Find me a cheap flight to Dubai\"*\n• *\"Which flight has the shortest duration?\"*\n• *\"I want a weekend trip under ₹15,000\"*\n\nHere are some trending flight picks for you:";
+            replyText = "Hello! I am **SkyGenie AI**, your 24/7 personal travel assistant. You can ask me:\n• *\"Find me a cheap flight to Dubai\"*\n• *\"Which flight has the shortest duration?\"*\n• *\"I want a weekend trip under ₹15,000\"*\n\nHere are some trending flight picks for you:";
             recommendedFlights = allFlights.stream()
                     .sorted(Comparator.comparing(Flight::getBasePrice))
                     .limit(3)

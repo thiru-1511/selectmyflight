@@ -144,7 +144,7 @@ export const api = {
       reply = `🧳 **SelectMyFlight Baggage Policy:**\n• Cabin Baggage: 1 bag up to 7 kg free across all flights.\n• Checked Baggage: 15 kg - 30 kg depending on airline & cabin class.\n• Pre-booking extra baggage saves up to 45% compared to airport counter!`;
     } else {
       recommended = INITIAL_FLIGHTS.slice(0, 3);
-      reply = `Hello! I am **SkyGenie**, your 24/7 personal travel concierge. You can ask me:\n• *"Find me a cheap flight to Dubai"*\n• *"Which flight has the shortest duration?"*\n• *"I want a weekend trip under ₹15,000"*\n\nHere are some trending flight picks:`;
+      reply = `Hello! I am **SkyGenie AI**, your 24/7 personal travel concierge. You can ask me:\n• *"Find me a cheap flight to Dubai"*\n• *"Which flight has the shortest duration?"*\n• *"I want a weekend trip under ₹15,000"*\n\nHere are some trending flight picks:`;
     }
 
     return { reply, recommendedFlights: recommended };

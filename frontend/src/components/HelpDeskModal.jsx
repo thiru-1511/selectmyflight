@@ -68,7 +68,7 @@ const SMF_BRANCHES = [
   }
 ];
 
-export default function HelpDeskModal({ isOpen, onClose, onOpenChat }) {
+export default function HelpDeskModal({ isOpen, onClose, onOpenAiChat }) {
   const [activeTab, setActiveTab] = useState('faq'); // 'faq', 'ticket', 'branches'
   const [expandedFaq, setExpandedFaq] = useState(0);
 
@@ -248,13 +248,13 @@ export default function HelpDeskModal({ isOpen, onClose, onOpenChat }) {
                 gap: 12
               }}>
                 <div style={{ fontSize: 13, color: '#fff' }}>
-                  Need an answer immediately? Chat live with <strong>SkyGenie Concierge</strong>!
+                  Need an answer immediately? Chat live with <strong>SkyGenie AI</strong>!
                 </div>
                 <button
                   type="button"
                   onClick={() => {
                     onClose();
-                    onOpenChat && onOpenChat();
+                    onOpenAiChat();
                   }}
                   className="btn-primary"
                   style={{ padding: '8px 14px', fontSize: 12 }}

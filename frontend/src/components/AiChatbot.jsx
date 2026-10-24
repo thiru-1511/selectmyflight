@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Headphones, Send, X, Sparkles, Plane, ArrowRight, MessageSquare } from 'lucide-react';
+import { Bot, Send, X, Sparkles, Plane, ArrowRight, MessageSquare } from 'lucide-react';
 import { api } from '../services/api';
 
 export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency }) {
   const [messages, setMessages] = useState([
     {
       sender: 'ai',
-      text: "👋 Hi there! I'm **SkyGenie**, your 24/7 personal flight concierge. How can I help you today? Try clicking one of the suggested prompts below or ask me anything!",
+      text: "👋 Hi there! I'm **SkyGenie AI**, your 24/7 personal flight concierge. How can I help you today? Try clicking one of the suggested prompts below or ask me anything!",
       recommendedFlights: []
     }
   ]);
@@ -85,15 +85,15 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
             justifyContent: 'center',
             boxShadow: '0 0 15px rgba(0, 210, 255, 0.4)'
           }}>
-            <Headphones size={20} color="#fff" />
+            <Bot size={20} color="#fff" />
           </div>
           <div>
             <div style={{ fontSize: 15, fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: 6 }}>
-              SkyGenie Concierge
+              SkyGenie AI
               <span className="live-dot" />
             </div>
             <div style={{ fontSize: 11, color: '#00d2ff', fontWeight: 600 }}>
-              Live Flight Concierge • 24/7 Active
+              AI Flight Concierge • 24/7 Active
             </div>
           </div>
         </div>
