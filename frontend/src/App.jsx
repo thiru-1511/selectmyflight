@@ -39,7 +39,7 @@ import ManageBookingModal from './components/ManageBookingModal';
 
 import { api } from './services/api';
 import { INITIAL_FLIGHTS, INITIAL_NOTIFICATIONS } from './data/mockFlights';
-import { Bot } from 'lucide-react';
+import { Headphones } from 'lucide-react';
 
 export default function App() {
   const getInitialRoute = () => {
@@ -885,10 +885,10 @@ export default function App() {
           }}>
             <div style={{ textAlign: 'center', marginBottom: 28 }}>
               <h2 style={{ fontSize: 32, fontWeight: 800, color: '#fff' }}>
-                🤖 SkyGenie AI Travel Concierge
+                ✈️ SkyGenie 24/7 Travel Concierge
               </h2>
               <p style={{ color: '#94a3b8', fontSize: 15, marginTop: 4 }}>
-                Ask our neural engine for budget trips under ₹15,000, shortest flight durations, or Dubai getaways.
+                Instant live flight assistance for budget trips under ₹15,000, shortest flight durations, or Dubai getaways.
               </p>
             </div>
             <div style={{ height: 640, position: 'relative' }}>
@@ -906,7 +906,7 @@ export default function App() {
         )}
       </main>
 
-      {/* Floating SkyGenie AI Button (when not on 'ai' tab) */}
+      {/* Floating SkyGenie Concierge Button (when not on 'ai' tab) */}
       {activeTab !== 'ai' && !isChatbotOpen && (
         <button
           type="button"
@@ -934,8 +934,8 @@ export default function App() {
           onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
           onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
         >
-          <Bot size={18} />
-          <span>{t('nav.askSkyGenie', 'Ask SkyGenie AI')}</span>
+          <Headphones size={18} />
+          <span>{t('nav.askSkyGenie', 'Chat with SkyGenie')}</span>
           <span className="live-dot" />
         </button>
       )}
@@ -1071,7 +1071,7 @@ export default function App() {
       <HelpDeskModal
         isOpen={isHelpDeskOpen}
         onClose={() => setIsHelpDeskOpen(false)}
-        onOpenAiChat={() => {
+        onOpenChat={() => {
           setIsHelpDeskOpen(false);
           setActiveTab('ai');
         }}

@@ -1,4 +1,4 @@
-// SelectMyFlight SkyGenie TripCraft AI Itinerary Database & Neural Presets
+// SelectMyFlight SkyGenie TripCraft Custom Itinerary Database & Presets
 
 export const ITINERARY_PRESETS = [
   // DUBAI

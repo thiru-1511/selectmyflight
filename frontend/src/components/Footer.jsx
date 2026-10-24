@@ -54,7 +54,7 @@ export default function Footer({ onQuickPrompt, onNavigate }) {
               <Headphones size={26} />
             </div>
             <div>
-              <div style={{ fontSize: 15, fontWeight: 700, color: '#fff' }}>24/7 AI & Human Concierge</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: '#fff' }}>24/7 Dedicated Concierge</div>
               <div style={{ fontSize: 12 }}>Assistance before and after booking</div>
             </div>
           </div>

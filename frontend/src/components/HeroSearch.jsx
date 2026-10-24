@@ -92,7 +92,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
             margin: '0 auto 24px auto',
             lineHeight: 1.5
           }}>
-            {t('search.desc', 'Real-time multi-airline flight comparison, flexible date matrices, and AI travel concierge.')}
+            {t('search.desc', 'Real-time multi-airline flight comparison, flexible date matrices, and smart travel concierge.')}
           </p>
 
           {/* Search Card Container */}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Plane, 
   Bell, 
-  Bot, 
+  Headphones, 
   Luggage, 
   Compass, 
   Globe, 
@@ -63,11 +63,11 @@ export default function Navbar({
     { id: 'visa', label: t('nav.visa', 'Visa Desk'), icon: FileCheck2, badge: 'UAE', badgeColor: '#00e676' },
     { id: 'manage_booking_action', label: t('nav.manageBooking', 'Manage Booking'), icon: FileText, badge: 'PNR', badgeColor: '#00d2ff', action: onOpenManageBooking },
     { id: 'hotels', label: t('nav.hotels', 'Hotels'), icon: Building2 },
-    { id: 'itinerary', label: t('nav.tripCraft', 'AI TripCraft'), icon: Sparkles },
+    { id: 'itinerary', label: t('nav.tripCraft', 'TripCraft Planner'), icon: Sparkles },
     { id: 'status', label: t('nav.liveStatus', 'Live Status'), icon: Radio, badge: 'RADAR', badgeColor: '#00e676' },
     { id: 'alerts_action', label: t('nav.priceAlerts', 'Price Alerts'), icon: Bell, badge: 'TRACK', badgeColor: '#f5af19', action: onOpenAlerts },
     { id: 'refund_action', label: t('nav.refundTracker', 'Refund Tracker'), icon: RefreshCw, badge: 'PNR', badgeColor: '#f5af19', action: onOpenRefundTracker },
-    { id: 'ai', label: t('nav.skyGenie', 'SkyGenie AI'), icon: Bot },
+    { id: 'ai', label: t('nav.skyGenie', 'SkyGenie Concierge'), icon: Headphones },
     { id: 'explore', label: t('nav.destinations', 'Destinations'), icon: Compass },
     { id: 'map', label: t('nav.routeMap', 'Route Map'), icon: Globe },
     { id: 'trips', label: t('nav.myTrips', 'My Trips'), icon: Luggage, count: myTripsCount }

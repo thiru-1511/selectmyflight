@@ -189,11 +189,11 @@ export default function AiItineraryPlanner({
             fontWeight: 800,
             marginBottom: 12
           }}>
-            <Sparkles size={14} /> SKYGENIE TRIPCRAFT™ NEURAL ITINERARY ENGINE
+            <Sparkles size={14} /> SKYGENIE TRIPCRAFT™ CUSTOM ITINERARY PLANNER
           </div>
 
           <h1 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 800, color: '#fff', lineHeight: 1.2 }}>
-            AI-Powered Personalized <span style={{ color: '#c084fc' }}>Travel Itineraries</span>
+            Personalized Tailored <span style={{ color: '#c084fc' }}>Travel Itineraries</span>
           </h1>
           <p style={{ fontSize: 'clamp(13px, 2vw, 14px)', color: '#94a3b8', marginTop: 8 }}>
             Build day-by-day tailored travel schedules with morning, afternoon, and evening recommendations, budget projections, and 1-click bundled booking.
@@ -288,7 +288,7 @@ export default function AiItineraryPlanner({
           {isGenerating && (
             <div style={{ marginTop: 14, background: 'rgba(192, 132, 252, 0.15)', border: '1px solid rgba(192, 132, 252, 0.3)', padding: '10px 16px', borderRadius: 10, color: '#c084fc', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}>
               <span className="live-dot" />
-              <span>{generationStep || 'Synthesizing Neural Itinerary...'}</span>
+              <span>{generationStep || 'Building Custom Trip Schedule...'}</span>
             </div>
           )}
 

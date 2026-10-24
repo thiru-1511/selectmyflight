@@ -534,7 +534,7 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
                   <Sparkles size={18} color="#00d2ff" />
                 </div>
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>AI-Powered Smart Recommendations</div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>Personalized Smart Recommendations</div>
                   <div style={{ fontSize: 12, color: '#94a3b8' }}>Dynamic route suggestions tailored to your budget and dates</div>
                 </div>
               </div>
