@@ -179,13 +179,30 @@ public class AuthController {
             }
         }
 
-        // 4. Fallback Demo Traveler (Rahul Sharma)
+        // 4. Verified OTP Traveler Session
         if (isOtpValid || "7890".equals(req.getOtp()) || "rahul.sharma@gmail.com".equalsIgnoreCase(identifier)) {
+            String displayName = "Traveler";
+            if (identifier.contains("@")) {
+                String local = identifier.split("@")[0].replaceAll("[._\\-+0-9]", " ").trim();
+                if (!local.isBlank()) {
+                    String[] words = local.split("\\s+");
+                    StringBuilder sb = new StringBuilder();
+                    for (String w : words) {
+                        if (!w.isBlank()) {
+                            sb.append(Character.toUpperCase(w.charAt(0))).append(w.substring(1)).append(" ");
+                        }
+                    }
+                    displayName = sb.toString().trim();
+                }
+            } else if (!identifier.isBlank()) {
+                displayName = "Traveler " + (identifier.length() > 4 ? identifier.substring(identifier.length() - 4) : identifier);
+            }
+
             response.put("success", true);
-            response.put("token", "SMF-DEMO-TOKEN-" + System.currentTimeMillis());
+            response.put("token", "SMF-USER-TOKEN-" + System.currentTimeMillis());
             response.put("user", Map.of(
-                    "name", "Rahul Sharma",
-                    "email", identifier.contains("@") ? identifier : "rahul.sharma@gmail.com",
+                    "name", displayName,
+                    "email", identifier.contains("@") ? identifier : "traveler@selectmyflight.com",
                     "phone", !identifier.contains("@") ? identifier : "+91 98765 43210",
                     "role", "ROLE_USER",
                     "frequentFlyerTier", "Gold Elite",

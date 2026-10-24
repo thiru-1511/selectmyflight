@@ -54,6 +54,8 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
   const [otpValue, setOtpValue] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [activeOtpCode, setActiveOtpCode] = useState('');
+  const [otpDispatchedViaEmail, setOtpDispatchedViaEmail] = useState(false);
+  const [showDemoOtp, setShowDemoOtp] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
@@ -173,13 +175,7 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
 
     setLoading(true);
     setErrorMsg('');
-
-    // Generate real dynamic 6-digit verification code
-    const generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
-    window.__smf_active_otp = generatedOtp;
-    setActiveOtpCode(generatedOtp);
-    setOtpValue(generatedOtp);
-    setOtpSent(true);
+    setShowDemoOtp(false);
 
     // 1. Mobile SMS via Firebase
     if (isMobileMode && rawPhone) {
@@ -199,6 +195,8 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
 
         const confirmationResult = await signInWithPhoneNumber(auth, formatted, window.recaptchaVerifier);
         window.confirmationResult = confirmationResult;
+        setOtpSent(true);
+        setOtpValue('');
         setLoading(false);
         setSuccessMsg(`🚀 Real SMS dispatched to ${formatted}! Enter verification code.`);
         return;
@@ -211,20 +209,43 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
       }
     }
 
-    // 2. Email OTP dispatch via backend (if available)
+    // 2. Real Email OTP dispatch via Backend SMTP Service
+    let realOtp = null;
+    let emailSentSuccessfully = false;
+
     try {
-      await fetch(`${API_BASE_URL}/auth/send-otp`, {
+      const res = await fetch(`${API_BASE_URL}/auth/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ recipient, channel: isMobileMode ? 'SMS' : 'EMAIL' }),
-        signal: AbortSignal.timeout(2000)
+        signal: AbortSignal.timeout(15000)
       });
-    } catch {
-      // Backend offline on static Vercel host
+      const data = await res.json();
+      if (res.ok && data.success && data.otp) {
+        realOtp = String(data.otp);
+        emailSentSuccessfully = true;
+      }
+    } catch (netErr) {
+      console.warn('Backend send-otp error / unreachable:', netErr);
     }
 
+    // Fallback if backend was unreachable
+    if (!realOtp) {
+      realOtp = String(Math.floor(100000 + Math.random() * 900000));
+    }
+
+    window.__smf_active_otp = realOtp;
+    setActiveOtpCode(realOtp);
+    setOtpSent(true);
+    setOtpValue(''); // Keep empty so user types code received in their email
+    setOtpDispatchedViaEmail(emailSentSuccessfully);
     setLoading(false);
-    setSuccessMsg(`✅ 6-digit verification code generated for ${recipient}! Enter OTP: [${generatedOtp}] to verify.`);
+
+    if (emailSentSuccessfully) {
+      setSuccessMsg(`📧 6-digit verification code sent to ${recipient}! Please check your Gmail / Email inbox (or Spam folder).`);
+    } else {
+      setSuccessMsg(`⚠️ Live mail server offline. For testing, your verification OTP is: [${realOtp}].`);
+    }
     setTimeout(() => setSuccessMsg(''), 15000);
   };
 
@@ -952,11 +973,63 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
                       </button>
                     </div>
 
-                    {/* Active OTP Display Badge */}
-                    {activeOtpCode && (
+                    {/* Active OTP Display / Email Dispatch Status */}
+                    {otpSent && otpDispatchedViaEmail && (
                       <div style={{
-                        background: 'rgba(16, 185, 129, 0.12)',
-                        border: '1px solid rgba(16, 185, 129, 0.35)',
+                        background: 'rgba(56, 189, 248, 0.1)',
+                        border: '1px solid rgba(56, 189, 248, 0.3)',
+                        borderRadius: 10,
+                        padding: '12px 14px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 6
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <Mail size={18} color="#38bdf8" />
+                            <span style={{ fontSize: 13, fontWeight: 700, color: '#e0f2fe' }}>
+                              Verification Email Dispatched
+                            </span>
+                          </div>
+                          <span style={{
+                            fontSize: 10,
+                            fontWeight: 800,
+                            letterSpacing: 0.5,
+                            color: '#10b981',
+                            background: 'rgba(16, 185, 129, 0.15)',
+                            border: '1px solid rgba(16, 185, 129, 0.3)',
+                            padding: '2px 8px',
+                            borderRadius: 12
+                          }}>
+                            SENT TO INBOX
+                          </span>
+                        </div>
+                        <p style={{ margin: 0, fontSize: 12, color: '#94a3b8', lineHeight: 1.5 }}>
+                          A 6-digit code has been sent to <strong style={{ color: '#fff' }}>{loginMethod === 'email' ? formData.email : `+91 ${formData.phone}`}</strong>. Please check your inbox and spam folder.
+                        </p>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 4 }}>
+                          <button
+                            type="button"
+                            onClick={() => setShowDemoOtp(!showDemoOtp)}
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              color: '#64748b',
+                              fontSize: 11,
+                              cursor: 'pointer',
+                              textDecoration: 'underline'
+                            }}
+                          >
+                            {showDemoOtp ? `Hide Demo Code: [${activeOtpCode}]` : "Can't access your email right now? Click to view demo code"}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {otpSent && !otpDispatchedViaEmail && activeOtpCode && (
+                      <div style={{
+                        background: 'rgba(234, 179, 8, 0.1)',
+                        border: '1px solid rgba(234, 179, 8, 0.35)',
                         borderRadius: 10,
                         padding: '10px 14px',
                         display: 'flex',
@@ -964,15 +1037,15 @@ export default function AuthPage({ onAuthSuccess, onNavigateToHome, onNavigateTo
                         justifyContent: 'space-between'
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <ShieldCheck size={18} color="#34d399" />
-                          <span style={{ fontSize: 12, color: '#e2e8f0' }}>Your 6-Digit OTP:</span>
+                          <ShieldCheck size={18} color="#facc15" />
+                          <span style={{ fontSize: 12, color: '#fef08a' }}>Demo Mode (Mail server offline):</span>
                         </div>
                         <span style={{
                           fontFamily: 'monospace',
                           fontSize: 18,
                           fontWeight: 800,
                           letterSpacing: 3,
-                          color: '#34d399',
+                          color: '#facc15',
                           background: 'rgba(0, 0, 0, 0.3)',
                           padding: '2px 10px',
                           borderRadius: 6
