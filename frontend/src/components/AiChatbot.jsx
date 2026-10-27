@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Bot, Send, X, Sparkles, Plane, ArrowRight, MessageSquare } from 'lucide-react';
+import { Bot, Send, X, Sparkles, Plane, ArrowRight, MessageSquare, Palmtree, Clock, Compass, Star } from 'lucide-react';
 import { api } from '../services/api';
 
-export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency }) {
+export default function AiChatbot({ isOpen, onClose, onSelectFlight, onSelectPackage, onNavigateToTab, currency }) {
   const [messages, setMessages] = useState([
     {
       sender: 'ai',
-      text: "👋 Hi there! I'm **SkyGenie AI**, your 24/7 personal flight concierge. How can I help you today? Try clicking one of the suggested prompts below or ask me anything!",
-      recommendedFlights: []
+      text: "👋 Hi there! I'm **SkyGenie AI**, your 24/7 personal flight concierge & holiday planner. Ask me to plan a holiday, suggest personalized trips, or find the cheapest flights!",
+      recommendedFlights: [],
+      recommendedPackages: []
     }
   ]);
   const [input, setInput] = useState('');
@@ -39,7 +40,8 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
         {
           sender: 'ai',
           text: response.reply,
-          recommendedFlights: response.recommendedFlights || []
+          recommendedFlights: response.recommendedFlights || [],
+          recommendedPackages: response.recommendedPackages || []
         }
       ]);
     } catch {
@@ -48,7 +50,8 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
         {
           sender: 'ai',
           text: "I'm having trouble fetching live flight data right now. Please try again or search directly in our flight search bar.",
-          recommendedFlights: []
+          recommendedFlights: [],
+          recommendedPackages: []
         }
       ]);
     } finally {
@@ -148,9 +151,144 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
               {m.text}
             </div>
 
+            {/* Recommended Holiday Package Cards */}
+            {m.recommendedPackages && m.recommendedPackages.length > 0 && (
+              <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <div style={{
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: '#f5af19',
+                  textTransform: 'uppercase',
+                  letterSpacing: 0.5,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6
+                }}>
+                  <Palmtree size={14} color="#f5af19" />
+                  <span>AI-Recommended Holiday Packages</span>
+                </div>
+                {m.recommendedPackages.map((pkg) => (
+                  <div
+                    key={pkg.id}
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(16, 26, 48, 0.98), rgba(11, 18, 33, 0.98))',
+                      border: '1px solid rgba(245, 175, 25, 0.35)',
+                      borderRadius: 12,
+                      overflow: 'hidden',
+                      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.45)'
+                    }}
+                  >
+                    <div style={{ position: 'relative', height: 115, overflow: 'hidden' }}>
+                      <img
+                        src={pkg.heroImage}
+                        alt={pkg.title}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                      <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'linear-gradient(to top, rgba(11, 18, 33, 0.95) 0%, rgba(11, 18, 33, 0.2) 60%, transparent 100%)'
+                      }} />
+                      <span style={{
+                        position: 'absolute',
+                        top: 8,
+                        left: 8,
+                        background: pkg.badgeColor || '#00d2ff',
+                        color: '#000',
+                        fontSize: 9,
+                        fontWeight: 800,
+                        padding: '2px 8px',
+                        borderRadius: 10,
+                        letterSpacing: 0.5
+                      }}>
+                        {pkg.badge || 'ALL-INCLUSIVE'}
+                      </span>
+                      <span style={{
+                        position: 'absolute',
+                        bottom: 6,
+                        left: 8,
+                        fontSize: 11,
+                        color: '#e2e8f0',
+                        fontWeight: 600,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 4
+                      }}>
+                        <Clock size={12} color="#f5af19" /> {pkg.duration}
+                      </span>
+                    </div>
+
+                    <div style={{ padding: '10px 12px' }}>
+                      <div style={{ fontSize: 13, fontWeight: 800, color: '#fff', marginBottom: 4 }}>
+                        {pkg.title}
+                      </div>
+                      <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, lineHeight: 1.4 }}>
+                        {pkg.highlights}
+                      </div>
+
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                        paddingTop: 8
+                      }}>
+                        <div>
+                          <div style={{ fontSize: 10, color: '#94a3b8' }}>Per Person</div>
+                          <div style={{ fontSize: 15, fontWeight: 800, color: '#00e676' }}>
+                            {currencySymbol}{convertPrice(pkg.pricePerPerson).toLocaleString()}
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: 6 }}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (onSelectPackage) onSelectPackage(pkg);
+                              else if (onNavigateToTab) onNavigateToTab('packages');
+                              onClose();
+                            }}
+                            className="btn-primary"
+                            style={{
+                              padding: '6px 12px',
+                              fontSize: 11,
+                              borderRadius: 8,
+                              background: 'linear-gradient(135deg, #f5af19, #f12711)',
+                              color: '#fff',
+                              border: 'none',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 4,
+                              cursor: 'pointer',
+                              fontWeight: 700
+                            }}
+                          >
+                            <Palmtree size={12} /> Book Holiday
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
             {/* Recommended Flight Cards */}
             {m.recommendedFlights && m.recommendedFlights.length > 0 && (
               <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: '#00d2ff',
+                  textTransform: 'uppercase',
+                  letterSpacing: 0.5,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6
+                }}>
+                  <Plane size={13} color="#00d2ff" />
+                  <span>Matching Flight Corridors</span>
+                </div>
                 {m.recommendedFlights.map(flight => (
                   <div
                     key={flight.id}
@@ -195,7 +333,7 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
 
         {loading && (
           <div style={{ alignSelf: 'flex-start', color: '#00d2ff', fontSize: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Sparkles size={14} className="spin-slow" /> SkyGenie is searching flight databases...
+            <Sparkles size={14} className="spin-slow" /> SkyGenie is searching flight & holiday databases...
           </div>
         )}
         <div ref={messagesEndRef} />
@@ -209,10 +347,12 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
         gap: 6
       }}>
         {[
-          "Find me a cheap flight to Dubai.",
-          "Which flight has the shortest duration?",
-          "I want a weekend trip under ₹15,000.",
-          "What is the baggage allowance?"
+          "🌴 Plan a 5-day holiday in Bali",
+          "🎯 Personalized trip recommendations for me",
+          "🏖️ Beach getaways under ₹40,000",
+          "✈️ Fastest flight to Dubai",
+          "💎 Dubai luxury package with desert safari",
+          "🧳 What is the baggage allowance?"
         ].map((prompt, i) => (
           <button
             key={i}
@@ -226,10 +366,11 @@ export default function AiChatbot({ isOpen, onClose, onSelectFlight, currency })
               fontSize: 11,
               cursor: 'pointer',
               flexShrink: 0,
-              whiteSpace: 'nowrap'
+              whiteSpace: 'nowrap',
+              transition: 'all 0.2s'
             }}
           >
-            💡 {prompt}
+            {prompt}
           </button>
         ))}
       </div>

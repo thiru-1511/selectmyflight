@@ -1,5 +1,6 @@
 // SelectMyFlight Hybrid API Client (Spring Boot Backend + Local Fallback)
 import { INITIAL_FLIGHTS, INITIAL_BOOKINGS } from '../data/mockFlights';
+import { HOLIDAY_PACKAGES } from '../data/mockPackages';
 
 export const API_BASE_URL = (import.meta.env?.VITE_API_BASE_URL || 'http://localhost:8080/api').replace(/\/+$/, '');
 
@@ -129,8 +130,34 @@ export const api = {
     const q = query.toLowerCase();
     let reply = '';
     let recommended = [];
+    let packages = [];
 
-    if (q.includes('shortest') || q.includes('fastest')) {
+    if (q.includes('bali') || q.includes('dubai') || q.includes('kerala') || q.includes('singapore') || 
+        q.includes('holiday') || q.includes('package') || q.includes('vacation') || q.includes('tour') ||
+        q.includes('beach') || q.includes('honeymoon')) {
+      
+      if (q.includes('bali')) {
+        packages = HOLIDAY_PACKAGES.filter(p => p.destinationCode === 'DPS');
+        reply = "🌴 **Tropical Bali Escape (6 Days / 5 Nights)**\n• Includes: Roundtrip flights + Private Pool Villa in Ubud + 5★ Seminyak beachfront stay\n• Highlights: Nusa Penida speedboat tour, Rice Terrace swing, Tanah Lot sunset\n• Fares from **₹49,800/person** (Save 18% bundled).";
+      } else if (q.includes('dubai')) {
+        packages = HOLIDAY_PACKAGES.filter(p => p.destinationCode === 'DXB');
+        reply = "✨ **Dubai Extravaganza & Desert Wonder (5 Days / 4 Nights)**\n• Includes: Return flights + 4★ Downtown Hotel + UAE Visa included\n• Highlights: Burj Khalifa 124th floor, Red Dune 4x4 Desert Safari & BBQ, Marina Dhow Dinner Cruise\n• Fares from **₹42,500/person**.";
+      } else if (q.includes('kerala')) {
+        packages = HOLIDAY_PACKAGES.filter(p => p.destinationCode === 'COK');
+        reply = "🌿 **Magical Kerala — Backwaters & Tea Hills (6 Days / 5 Nights)**\n• Includes: Return flights to Cochin + Private Houseboat in Alleppey + Munnar tea hills resort\n• Highlights: Periyar spice plantation, private chauffeur sedan, all houseboat meals\n• Fares from **₹28,900/person**.";
+      } else if (q.includes('singapore')) {
+        packages = HOLIDAY_PACKAGES.filter(p => p.destinationCode === 'SIN');
+        reply = "🏙️ **Futuristic Singapore & Sentosa (5 Days / 4 Nights)**\n• Includes: Roundtrip flights + 4★ City Hotel + Universal Studios & Gardens by the Bay passes\n• Fares from **₹54,000/person**.";
+      } else {
+        packages = HOLIDAY_PACKAGES.slice(0, 3);
+        reply = "🌴 **AI-Curated Holiday Packages Available:**\nHere are our top rated all-inclusive holiday packages with guaranteed flights, handpicked 4★/5★ luxury stays, and guided sightseeing:";
+      }
+      recommended = INITIAL_FLIGHTS.slice(0, 2);
+    } else if (q.includes('personal') || q.includes('recommend') || q.includes('for me') || q.includes('suggest')) {
+      packages = HOLIDAY_PACKAGES.slice(0, 2);
+      recommended = INITIAL_FLIGHTS.slice(0, 3);
+      reply = "🎯 **Personalized Trip Recommendations for You:**\nBased on popular departures and trending seasonal weather, here are personalized top picks matching your profile:\n\n• **Weekend Beach Escape:** Goa (GOI) — 2h 35m non-stop, starting ₹5,800\n• **International Luxury:** Dubai (DXB) — 4h 05m non-stop with Emirates, starting ₹14,800\n• **All-Inclusive Holiday:** 6-Day Bali Ubud Villa & Beach Package — ₹49,800";
+    } else if (q.includes('shortest') || q.includes('fastest')) {
       const fastest = [...INITIAL_FLIGHTS].sort((a, b) => a.durationMinutes - b.durationMinutes)[0];
       recommended = [fastest];
       reply = `✈️ The fastest flight is **${fastest.airlineName}** (${fastest.flightNumber}) from ${fastest.originCode} to ${fastest.destinationCode} with a flight time of only **${Math.floor(fastest.durationMinutes / 60)}h ${fastest.durationMinutes % 60}m** at ₹${fastest.basePrice.toLocaleString()}!`;
@@ -143,11 +170,12 @@ export const api = {
     } else if (q.includes('baggage') || q.includes('weight')) {
       reply = `🧳 **SelectMyFlight Baggage Policy:**\n• Cabin Baggage: 1 bag up to 7 kg free across all flights.\n• Checked Baggage: 15 kg - 30 kg depending on airline & cabin class.\n• Pre-booking extra baggage saves up to 45% compared to airport counter!`;
     } else {
-      recommended = INITIAL_FLIGHTS.slice(0, 3);
-      reply = `Hello! I am **SkyGenie AI**, your 24/7 personal travel concierge. You can ask me:\n• *"Find me a cheap flight to Dubai"*\n• *"Which flight has the shortest duration?"*\n• *"I want a weekend trip under ₹15,000"*\n\nHere are some trending flight picks:`;
+      recommended = INITIAL_FLIGHTS.slice(0, 2);
+      packages = HOLIDAY_PACKAGES.slice(0, 2);
+      reply = `Hello! I am **SkyGenie AI**, your 24/7 personal travel & holiday planner assistant. You can ask me:\n• *"Plan a 5-day holiday in Bali or Dubai"*\n• *"Recommend personalized trips for me"*\n• *"Find a cheap weekend trip under ₹15,000"*\n• *"Which flight has the shortest duration to London?"*\n\nHere are some trending holiday & flight picks:`;
     }
 
-    return { reply, recommendedFlights: recommended };
+    return { reply, recommendedFlights: recommended, recommendedPackages: packages };
   },
 
   // 4. Create Booking & PNR

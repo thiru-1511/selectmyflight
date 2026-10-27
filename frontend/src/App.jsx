@@ -384,6 +384,54 @@ export default function App() {
     ]);
   };
 
+  // Holiday Package Booking Handler (from AI Chatbot & Personalized Recommendations)
+  const handleHolidayPackageBooked = (pkg) => {
+    const bookingPnr = 'SMF-PKG-' + Math.floor(1000 + Math.random() * 9000);
+    const travelerCount = pkg.travelers || 2;
+    const newBooking = {
+      id: Date.now(),
+      pnr: bookingPnr,
+      bookingType: 'HOLIDAY_PACKAGE',
+      flightNumber: pkg.flightNum || `SMF-${pkg.destinationCode || 'DXB'}-PKG`,
+      airlineName: pkg.airline || 'SelectMyFlight Holidays',
+      airlineCode: 'SMF',
+      originCode: pkg.originCity || 'DEL',
+      destinationCode: pkg.destinationCode || 'DXB',
+      originCity: pkg.originCity === 'DEL' ? 'New Delhi' : pkg.originCity || 'New Delhi',
+      destinationCity: pkg.destination || 'Dubai, UAE',
+      departureDate: new Date(Date.now() + 10 * 86400000).toISOString().split('T')[0],
+      departureTime: '08:30',
+      arrivalTime: '13:00',
+      totalAmount: (pkg.pricePerPerson || 42500) * travelerCount,
+      passengersCount: travelerCount,
+      packageTitle: pkg.title,
+      duration: pkg.duration,
+      status: 'CONFIRMED',
+      paymentMethod: 'UPI Instant / Verified',
+      bookedAt: new Date().toISOString()
+    };
+    try {
+      const existing = JSON.parse(localStorage.getItem('smf_bookings') || '[]');
+      localStorage.setItem('smf_bookings', JSON.stringify([newBooking, ...existing]));
+      window.dispatchEvent(new Event('smf_data_updated'));
+    } catch {
+      // ignore
+    }
+    setBookings(prev => [newBooking, ...prev]);
+    setNotifications(prev => [
+      {
+        id: Date.now(),
+        type: 'booking',
+        title: `Holiday Confirmed: ${newBooking.packageTitle}`,
+        message: `Package booked for ${newBooking.destinationCity} (${newBooking.duration}). PNR: ${bookingPnr}`,
+        time: 'Just now',
+        read: false
+      },
+      ...prev
+    ]);
+    setActiveTab('trips');
+  };
+
   // Wishlist Toggle
   const handleToggleWishlist = (flight) => {
     setWishlist(prev => {
@@ -784,6 +832,8 @@ export default function App() {
               user={currentUser}
               currency={currency}
               onSelectRoute={(origin, destination) => handleQuickPrompt(origin, destination)}
+              onSelectPackage={handleHolidayPackageBooked}
+              onNavigateToTab={navigateTo}
             />
           </>
         )}
@@ -899,6 +949,8 @@ export default function App() {
                   setSelectedFlightForBooking(flight);
                   setActiveTab('search');
                 }}
+                onSelectPackage={handleHolidayPackageBooked}
+                onNavigateToTab={navigateTo}
                 currency={currency}
               />
             </div>
@@ -949,6 +1001,8 @@ export default function App() {
             setSelectedFlightForBooking(flight);
             setIsChatbotOpen(false);
           }}
+          onSelectPackage={handleHolidayPackageBooked}
+          onNavigateToTab={navigateTo}
           currency={currency}
         />
       )}
