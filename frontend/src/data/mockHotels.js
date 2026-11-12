@@ -21,6 +21,7 @@ export const INITIAL_HOTELS = [
   // DUBAI
   {
     id: 'htl-dxb-1',
+    rawHotelId: '12313',
     name: 'Burj Al Arab Jumeirah — 7-Star Luxury Suite',
     cityCode: 'DXB',
     cityName: 'Dubai',
@@ -37,12 +38,37 @@ export const INITIAL_HOTELS = [
     freeCancellation: true,
     breakfastIncluded: true,
     roomTypes: [
-      { id: 'rm-1', name: 'Royal Infinity Ocean Suite', price: 58000, bed: '1 Super King Bed', view: 'Arabian Sea Sunset View', size: '170 sq.m', capacity: '2 Adults, 2 Children' },
-      { id: 'rm-2', name: 'Diplomatic Sky Villa Suite', price: 92000, bed: '2 King Beds', view: 'Panoramic Palm Jumeirah View', size: '330 sq.m', capacity: '4 Adults' }
+      { 
+        id: 'rm-1', 
+        name: 'Royal Infinity Ocean Suite', 
+        price: 58000, 
+        bed: '1 Super King Bed', 
+        view: 'Arabian Sea Sunset View', 
+        size: '170 sq.m', 
+        capacity: '2 Adults, 2 Children',
+        bedroomImage: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80'
+      },
+      { 
+        id: 'rm-2', 
+        name: 'Diplomatic Sky Villa Suite', 
+        price: 92000, 
+        bed: '2 King Beds', 
+        view: 'Panoramic Palm Jumeirah View', 
+        size: '330 sq.m', 
+        capacity: '4 Adults',
+        bedroomImage: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&q=80'
+      }
     ]
   },
   {
     id: 'htl-dxb-2',
+    rawHotelId: '7523192',
     name: 'Atlantis The Royal Resort & Residences',
     cityCode: 'DXB',
     cityName: 'Dubai',
@@ -59,11 +85,24 @@ export const INITIAL_HOTELS = [
     freeCancellation: true,
     breakfastIncluded: true,
     roomTypes: [
-      { id: 'rm-3', name: 'Royal Palm King Suite', price: 34500, bed: '1 Extra Large King Bed', view: 'Arabian Gulf View', size: '65 sq.m', capacity: '2 Adults, 1 Child' }
+      { 
+        id: 'rm-3', 
+        name: 'Royal Palm King Suite', 
+        price: 34500, 
+        bed: '1 Extra Large King Bed', 
+        view: 'Arabian Gulf View', 
+        size: '65 sq.m', 
+        capacity: '2 Adults, 1 Child',
+        bedroomImage: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1200&q=80'
+      }
     ]
   },
   {
     id: 'htl-dxb-3',
+    rawHotelId: '1716386',
     name: 'Rove Downtown Dubai',
     cityCode: 'DXB',
     cityName: 'Dubai',
@@ -79,13 +118,20 @@ export const INITIAL_HOTELS = [
     freeCancellation: true,
     breakfastIncluded: false,
     roomTypes: [
-      { id: 'rm-5', name: 'Rover Room King', price: 7800, bed: '1 King Bed', view: 'City View', size: '26 sq.m', capacity: '2 Adults' }
+      { 
+        id: 'rm-5', name: 'Rover Room King', price: 7800, bed: '1 King Bed', view: 'City View', size: '26 sq.m', capacity: '2 Adults',
+        bedroomImage: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1512916194211-3f2b7f5f7de3?w=1200&q=80'
+      }
     ]
   },
 
   // LONDON
   {
     id: 'htl-lhr-1',
+    rawHotelId: '14090',
     name: 'The Savoy London — A Fairmont Managed Hotel',
     cityCode: 'LHR',
     cityName: 'London',
@@ -102,12 +148,25 @@ export const INITIAL_HOTELS = [
     freeCancellation: true,
     breakfastIncluded: true,
     roomTypes: [
-      { id: 'rm-6', name: 'Superior Queen Room', price: 48900, bed: '1 Queen Bed', view: 'Courtyard View', size: '35 sq.m', capacity: '2 Adults' },
-      { id: 'rm-7', name: 'Thames River View Deluxe Suite', price: 82000, bed: '1 King Bed', view: 'Iconic River View', size: '70 sq.m', capacity: '2 Adults' }
+      { 
+        id: 'rm-6', name: 'Superior Queen Room', price: 48900, bed: '1 Queen Bed', view: 'Courtyard View', size: '35 sq.m', capacity: '2 Adults',
+        bedroomImage: 'https://images.unsplash.com/photo-1587985064135-0366536eab42?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1200&q=80'
+      },
+      { 
+        id: 'rm-7', name: 'Thames River View Deluxe Suite', price: 82000, bed: '1 King Bed', view: 'Iconic River View', size: '70 sq.m', capacity: '2 Adults',
+        bedroomImage: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80'
+      }
     ]
   },
   {
     id: 'htl-lhr-2',
+    rawHotelId: '701625',
     name: 'Shangri-La The Shard, London',
     cityCode: 'LHR',
     cityName: 'London',
@@ -123,13 +182,20 @@ export const INITIAL_HOTELS = [
     freeCancellation: true,
     breakfastIncluded: true,
     roomTypes: [
-      { id: 'rm-8', name: 'Premier Shard King', price: 52000, bed: '1 King Bed', view: 'Panoramic London Skyline', size: '48 sq.m', capacity: '2 Adults' }
+      { 
+        id: 'rm-8', name: 'Premier Shard King', price: 52000, bed: '1 King Bed', view: 'Panoramic London Skyline', size: '48 sq.m', capacity: '2 Adults',
+        bedroomImage: 'https://images.unsplash.com/photo-1631049552240-59c37f38802b?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1545083036-b175dd155a1d?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1549294413-26f195200c16?w=1200&q=80'
+      }
     ]
   },
 
   // SINGAPORE
   {
     id: 'htl-sin-1',
+    rawHotelId: '254824',
     name: 'Marina Bay Sands Singapore',
     cityCode: 'SIN',
     cityName: 'Singapore',
@@ -146,13 +212,20 @@ export const INITIAL_HOTELS = [
     freeCancellation: true,
     breakfastIncluded: true,
     roomTypes: [
-      { id: 'rm-10', name: 'Deluxe Marina View Room', price: 41000, bed: '1 King or 2 Doubles', view: 'Marina Bay Skyline', size: '42 sq.m', capacity: '2 Adults, 1 Child' }
+      { 
+        id: 'rm-10', name: 'Deluxe Marina View Room', price: 41000, bed: '1 King or 2 Doubles', view: 'Marina Bay Skyline', size: '42 sq.m', capacity: '2 Adults, 1 Child',
+        bedroomImage: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1631049552240-59c37f38802b?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=1200&q=80'
+      }
     ]
   },
 
   // GOA
   {
     id: 'htl-goi-1',
+    rawHotelId: '37798',
     name: 'Taj Exotica Resort & Spa, Goa',
     cityCode: 'GOI',
     cityName: 'Goa',
@@ -169,11 +242,18 @@ export const INITIAL_HOTELS = [
     freeCancellation: true,
     breakfastIncluded: true,
     roomTypes: [
-      { id: 'rm-14', name: 'Premium Sea View Villa', price: 18500, bed: '1 King Bed', view: 'Direct Sea View', size: '56 sq.m', capacity: '2 Adults, 2 Children' }
+      { 
+        id: 'rm-14', name: 'Premium Sea View Villa', price: 18500, bed: '1 King Bed', view: 'Direct Sea View', size: '56 sq.m', capacity: '2 Adults, 2 Children',
+        bedroomImage: 'https://images.unsplash.com/photo-1596701062351-8ac031b88a5c?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80'
+      }
     ]
   },
   {
     id: 'htl-goi-2',
+    rawHotelId: '2024108',
     name: 'W Goa — Vagator Beach',
     cityCode: 'GOI',
     cityName: 'Goa',
@@ -189,13 +269,20 @@ export const INITIAL_HOTELS = [
     freeCancellation: true,
     breakfastIncluded: true,
     roomTypes: [
-      { id: 'rm-16', name: 'Wonderful King Room', price: 16200, bed: '1 King Bed', view: 'Chapotora Fort View', size: '48 sq.m', capacity: '2 Adults' }
+      { 
+        id: 'rm-16', name: 'Wonderful King Room', price: 16200, bed: '1 King Bed', view: 'Chapotora Fort View', size: '48 sq.m', capacity: '2 Adults',
+        bedroomImage: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1631049552240-59c37f38802b?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1512916194211-3f2b7f5f7de3?w=1200&q=80'
+      }
     ]
   },
 
   // DELHI
   {
     id: 'htl-del-1',
+    rawHotelId: '295493',
     name: 'The Leela Palace New Delhi',
     cityCode: 'DEL',
     cityName: 'New Delhi',
@@ -211,12 +298,25 @@ export const INITIAL_HOTELS = [
     freeCancellation: true,
     breakfastIncluded: true,
     roomTypes: [
-      { id: 'rm-17', name: 'Grande Deluxe King Room', price: 19500, bed: '1 King Bed', view: 'Diplomatic Enclave Greens', size: '52 sq.m', capacity: '2 Adults' },
-      { id: 'rm-18', name: 'Royal Suite with Plunge Pool', price: 42000, bed: '1 King Bed', view: 'Palace Gardens', size: '110 sq.m', capacity: '2 Adults' }
+      { 
+        id: 'rm-17', name: 'Grande Deluxe King Room', price: 19500, bed: '1 King Bed', view: 'Diplomatic Enclave Greens', size: '52 sq.m', capacity: '2 Adults',
+        bedroomImage: 'https://images.unsplash.com/photo-1596701062351-8ac031b88a5c?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1587985064135-0366536eab42?w=1200&q=80'
+      },
+      { 
+        id: 'rm-18', name: 'Royal Suite with Plunge Pool', price: 42000, bed: '1 King Bed', view: 'Palace Gardens', size: '110 sq.m', capacity: '2 Adults',
+        bedroomImage: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&q=80'
+      }
     ]
   },
   {
     id: 'htl-del-2',
+    rawHotelId: '1863266',
     name: 'Andaz Delhi — A Concept by Hyatt',
     cityCode: 'DEL',
     cityName: 'New Delhi',
@@ -232,13 +332,20 @@ export const INITIAL_HOTELS = [
     freeCancellation: true,
     breakfastIncluded: true,
     roomTypes: [
-      { id: 'rm-19', name: 'Andaz King Runway View', price: 11800, bed: '1 King Bed', view: 'Runway View', size: '38 sq.m', capacity: '2 Adults' }
+      { 
+        id: 'rm-19', name: 'Andaz King Runway View', price: 11800, bed: '1 King Bed', view: 'Runway View', size: '38 sq.m', capacity: '2 Adults',
+        bedroomImage: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1545083036-b175dd155a1d?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1549294413-26f195200c16?w=1200&q=80'
+      }
     ]
   },
 
   // MUMBAI
   {
     id: 'htl-bom-1',
+    rawHotelId: '284240',
     name: 'The Taj Mahal Palace, Mumbai',
     cityCode: 'BOM',
     cityName: 'Mumbai',
@@ -254,8 +361,20 @@ export const INITIAL_HOTELS = [
     freeCancellation: true,
     breakfastIncluded: true,
     roomTypes: [
-      { id: 'rm-20', name: 'Palace Heritage Sea View Room', price: 24500, bed: '1 King Bed', view: 'Gateway of India View', size: '45 sq.m', capacity: '2 Adults' },
-      { id: 'rm-21', name: 'Tata Signature Suite', price: 75000, bed: '1 Grand King Bed', view: 'Full Arabian Sea Panoramic', size: '130 sq.m', capacity: '2 Adults' }
+      { 
+        id: 'rm-20', name: 'Palace Heritage Sea View Room', price: 24500, bed: '1 King Bed', view: 'Gateway of India View', size: '45 sq.m', capacity: '2 Adults',
+        bedroomImage: 'https://images.unsplash.com/photo-1596701062351-8ac031b88a5c?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80'
+      },
+      { 
+        id: 'rm-21', name: 'Tata Signature Suite', price: 75000, bed: '1 Grand King Bed', view: 'Full Arabian Sea Panoramic', size: '130 sq.m', capacity: '2 Adults',
+        bedroomImage: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1200&q=80',
+        bathroomImage: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1200&q=80',
+        loungeImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80',
+        balconyImage: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&q=80'
+      }
     ]
   }
 ];

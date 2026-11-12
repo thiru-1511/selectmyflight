@@ -171,3 +171,5 @@ export const INITIAL_VISA_APPLICATIONS = [
     notes: 'Official ICA eVisa issued. Electronic certificate ready for print & travel.'
   }
 ];
+
+

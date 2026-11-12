@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Plane, Luggage, AlertTriangle, FileText, Ban, RefreshCw, Receipt, Building2, Sparkles } from 'lucide-react';
+import { Plane, Luggage, AlertTriangle, FileText, Ban, RefreshCw, Receipt, Building2, Sparkles, Sliders } from 'lucide-react';
 import { api } from '../services/api';
 import { INITIAL_FLIGHTS } from '../data/mockFlights';
+import HotelManageModal from './HotelManageModal';
 
 export default function MyTripsDashboard({ bookings, currency, onRefreshBookings, onViewETicket, onBookFlight, onTrackRefund }) {
   const [activeTab, setActiveTab] = useState('upcoming'); // 'upcoming', 'past'
   const [cancelModalData, setCancelModalData] = useState(null);
+  const [selectedHotelBookingForManage, setSelectedHotelBookingForManage] = useState(null);
 
   const convertPrice = (inrPrice) => {
     return currency === 'USD' ? Math.round(inrPrice / 85) : inrPrice;
@@ -279,6 +281,16 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
                     </div>
 
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                      {isHotel && (
+                        <button
+                          onClick={() => setSelectedHotelBookingForManage(trip)}
+                          className="btn-primary"
+                          style={{ padding: '8px 14px', fontSize: 12, display: 'flex', alignItems: 'center', gap: 6 }}
+                        >
+                          <Building2 size={14} /> Manage Room & Stay
+                        </button>
+                      )}
+
                       {!isHotel && !isTransit && !isBundle && (
                         <button
                           onClick={() => onViewETicket({ ...trip, flight })}
@@ -448,6 +460,28 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
             </div>
           </div>
         </div>
+      )}
+      {/* Hotel Stay & Room Management Modal */}
+      {selectedHotelBookingForManage && (
+        <HotelManageModal
+          booking={selectedHotelBookingForManage}
+          currency={currency}
+          onClose={() => setSelectedHotelBookingForManage(null)}
+          onUpdateBooking={() => {
+            onRefreshBookings && onRefreshBookings();
+          }}
+          onCancelBooking={(bookingId) => {
+            const fee = 0;
+            const total = selectedHotelBookingForManage.totalAmount || 0;
+            setCancelModalData({
+              pnr: bookingId,
+              totalAmount: total,
+              cancellationFee: fee,
+              refundAmount: total
+            });
+            setSelectedHotelBookingForManage(null);
+          }}
+        />
       )}
     </div>
   );

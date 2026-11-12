@@ -3,6 +3,7 @@ import { translations, phraseTranslations } from '../data/translations';
 
 const LanguageContext = createContext(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const SUPPORTED_LANGUAGES = [
   { code: 'EN', name: 'English', nativeName: 'English', flag: '🇬🇧' },
   { code: 'HI', name: 'Hindi', nativeName: 'हिंदी', flag: '🇮🇳' },
@@ -89,6 +90,7 @@ export function LanguageProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useLanguage() {
   const context = useContext(LanguageContext);
   if (!context) {

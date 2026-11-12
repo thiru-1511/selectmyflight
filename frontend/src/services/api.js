@@ -430,6 +430,7 @@ export const api = {
 
             return {
               id: `live-htl-${h.hotel_id || idx}`,
+              rawHotelId: h.hotel_id,
               name: hotelName,
               cityCode: cityCode,
               cityName: dest.name,
@@ -462,7 +463,11 @@ export const api = {
                   bed: '1 Super King Bed',
                   view: `${dest.name} Skyline & City View`,
                   size: '45 sq.m',
-                  capacity: `${guests} Adults`
+                  capacity: `${guests} Adults`,
+                  bedroomImage: photoUrl || 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80',
+                  bathroomImage: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80',
+                  loungeImage: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=80',
+                  balconyImage: CITY_DEFAULT_PHOTOS[cityCode] || 'https://images.unsplash.com/photo-1512916194211-3f2b7f5f7de3?w=1200&q=80'
                 },
                 {
                   id: `rm-${h.hotel_id}-2`,
@@ -471,7 +476,11 @@ export const api = {
                   bed: '1 Grand Emperor Bed',
                   view: 'Panoramic Sunset View with Balcony',
                   size: '85 sq.m',
-                  capacity: `${guests} Adults, 1 Child`
+                  capacity: `${guests} Adults, 1 Child`,
+                  bedroomImage: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1200&q=80',
+                  bathroomImage: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1200&q=80',
+                  loungeImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
+                  balconyImage: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80'
                 }
               ]
             };
@@ -483,6 +492,59 @@ export const api = {
     }
 
     return null; // Return null to fallback to curated mock data
+  },
+  // 9. Fetch Real Hotel Interior Photos from Booking.com CDN
+  async getHotelLivePhotos(hotelId) {
+    if (!hotelId) return null;
+    const RAPIDAPI_KEY = '3797ffed48msh4456813e607e281p18040djsn2605e00fd899';
+    const RAPIDAPI_HOST = 'booking-com.p.rapidapi.com';
+
+    try {
+      const url = `https://${RAPIDAPI_HOST}/v1/hotels/photos?hotel_id=${hotelId}&locale=en-gb`;
+      const res = await fetch(url, {
+        headers: {
+          'x-rapidapi-key': RAPIDAPI_KEY,
+          'x-rapidapi-host': RAPIDAPI_HOST
+        },
+        signal: AbortSignal.timeout(9000)
+      });
+
+      if (res.ok) {
+        const rawPhotos = await res.json();
+        if (Array.isArray(rawPhotos) && rawPhotos.length > 0) {
+          const categorized = {
+            bedrooms: [],
+            bathrooms: [],
+            lounges: [],
+            views: [],
+            allPhotos: []
+          };
+
+          rawPhotos.forEach(p => {
+            const highRes = p.url_max || p.url_1440 || (p.url_square60 ? p.url_square60.replace('/square60/', '/max1280x900/') : null);
+            if (!highRes) return;
+
+            const tagsStr = (p.tags || []).map(t => (t.tag || '').toLowerCase()).join(' ');
+
+            categorized.allPhotos.push(highRes);
+
+            if (tagsStr.includes('bedroom') || tagsStr.includes('bed')) {
+              categorized.bedrooms.push(highRes);
+            } else if (tagsStr.includes('bathroom') || tagsStr.includes('bath') || tagsStr.includes('shower') || tagsStr.includes('toilet')) {
+              categorized.bathrooms.push(highRes);
+            } else if (tagsStr.includes('living room') || tagsStr.includes('lounge') || tagsStr.includes('seating') || tagsStr.includes('suite')) {
+              categorized.lounges.push(highRes);
+            } else if (tagsStr.includes('view') || tagsStr.includes('terrace') || tagsStr.includes('balcony')) {
+              categorized.views.push(highRes);
+            }
+          });
+
+          return categorized;
+        }
+      }
+    } catch (err) {
+      console.warn('Live hotel photos fetch fallback:', err.message);
+    }
+    return null;
   }
 };
-

@@ -30,7 +30,7 @@ export default function ManageBookingModal({
   const [foundBooking, setFoundBooking] = useState(null);
   const [isRescheduling, setIsRescheduling] = useState(false);
   const [newTravelDate, setNewTravelDate] = useState('');
-  const [rescheduleSuccess, setRescheduleSuccess] = useState(false);
+  const [_rescheduleSuccess, setRescheduleSuccess] = useState(false);
   const [webCheckedIn, setWebCheckedIn] = useState(false);
 
   if (!isOpen) return null;
@@ -123,7 +123,7 @@ export default function ManageBookingModal({
         setSearchError(`No booking found matching PNR "${cleanPnr}". Try quick demo PNR: SMF901 or SMF204`);
         setFoundBooking(null);
       }
-    } catch (err) {
+    } catch {
       setSearchError('Error loading booking data. Please try again.');
     }
   };

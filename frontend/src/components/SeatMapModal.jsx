@@ -36,7 +36,7 @@ export default function SeatMapModal({
 
   // Duffel Live Seat Map state
   const [liveSeatMapLoading, setLiveSeatMapLoading] = useState(false);
-  const [liveSeatMap, setLiveSeatMap] = useState(null);
+  const [_liveSeatMap, setLiveSeatMap] = useState(null);
 
   useEffect(() => {
     let active = true;
@@ -56,7 +56,7 @@ export default function SeatMapModal({
       setLiveSeatMap(null);
     }
     return () => { active = false; };
-  }, [activeFlight?.duffelOfferId]);
+  }, [activeFlight?.duffelOfferId, activeFlight?.isLiveDuffel]);
 
   // Cabin Models for Switcher
   const currentAircraft = activeFlight?.aircraftModel || 'Boeing 787-9 Dreamliner';

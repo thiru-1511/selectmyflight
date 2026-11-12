@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import { VISA_TYPES, INITIAL_VISA_APPLICATIONS } from '../data/mockVisa';
 
-export default function VisaServicesPortal({ currency = 'INR', onClose, onNavigateToFlights }) {
+export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavigateToFlights }) {
   const [activeTab, setActiveTab] = useState('browse'); // 'browse', 'track', 'apply'
   const [selectedCountry, setSelectedCountry] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');

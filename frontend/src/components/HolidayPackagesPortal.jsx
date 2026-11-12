@@ -28,7 +28,7 @@ import {
 import confetti from 'canvas-confetti';
 import { HOLIDAY_PACKAGES } from '../data/mockPackages';
 
-export default function HolidayPackagesPortal({ currency = 'INR', onClose, onPackageBooked, onNavigateToMyTrips }) {
+export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPackageBooked, onNavigateToMyTrips }) {
   const [viewMode, setViewMode] = useState('curated'); // 'curated' | 'ai-planner'
   const [selectedDestination, setSelectedDestination] = useState('All');
   const [activePackageModal, setActivePackageModal] = useState(null);

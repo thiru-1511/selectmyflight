@@ -30,10 +30,12 @@ import {
   Heart,
   Lock,
   FileText,
-  Eye
+  Eye,
+  Building2
 } from 'lucide-react';
 import { INITIAL_BOOKINGS } from '../data/mockFlights';
 import ETicketModal from './ETicketModal';
+import HotelManageModal from './HotelManageModal';
 import { API_BASE_URL } from '../services/api';
 
 // Real customer data loader - strictly NO hardcoded demo personas
@@ -123,6 +125,7 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
   const [editingCustomer, setEditingCustomer] = useState(null);
   const [selectedBookingForETicket, setSelectedBookingForETicket] = useState(null);
   const [selectedCustomerForBookings, setSelectedCustomerForBookings] = useState(null);
+  const [selectedHotelForAdminManage, setSelectedHotelForAdminManage] = useState(null);
 
   // Auto-sync logged in user from localStorage into the Admin Customer Directory
   useEffect(() => {
@@ -394,11 +397,18 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
 
   // Filtered Customers
   const filteredCustomers = customers.filter(c => {
+    if (!c) return false;
+    const name = (c.name || '').toLowerCase();
+    const email = (c.email || '').toLowerCase();
+    const phone = String(c.phone || '');
+    const pnr = (c.recentPnr || '').toLowerCase();
+    const search = (searchTerm || '').toLowerCase();
+
     const matchesSearch = !searchTerm || 
-      c.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      c.email.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      c.phone.includes(searchTerm) ||
-      (c.recentPnr && c.recentPnr.toLowerCase().includes(searchTerm.toLowerCase()));
+      name.includes(search) || 
+      email.includes(search) || 
+      phone.includes(search) ||
+      pnr.includes(search);
     
     const matchesTier = tierFilter === 'All' || c.tier === tierFilter;
     const matchesStatus = statusFilter === 'All' || c.status === statusFilter;
@@ -407,9 +417,12 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
   });
 
   // Calculations
-  const totalCustomerSpend = customers.reduce((acc, c) => acc + (c.totalSpent || 0), 0);
-  const activeCustomersCount = customers.filter(c => c.status === 'Active').length;
-  const vipCustomersCount = customers.filter(c => c.tier.includes('Gold') || c.tier.includes('Platinum') || c.tier.includes('Diamond')).length;
+  const totalCustomerSpend = customers.reduce((acc, c) => acc + (Number(c?.totalSpent) || 0), 0);
+  const activeCustomersCount = customers.filter(c => c && c.status === 'Active').length;
+  const vipCustomersCount = customers.filter(c => {
+    const t = c?.tier || '';
+    return t.includes('Gold') || t.includes('Platinum') || t.includes('Diamond');
+  }).length;
 
   return (
     <div style={{
@@ -843,11 +856,11 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                                 color: '#fff',
                                 flexShrink: 0
                               }}>
-                                {cust.name[0]}
+                                {(cust.name && cust.name[0]) || 'U'}
                               </div>
                               <div>
-                                <div style={{ fontWeight: 800, color: '#fff', fontSize: 14 }}>{cust.name}</div>
-                                <div style={{ fontSize: 11, color: '#64748b' }}>Joined {cust.joinedDate}</div>
+                                <div style={{ fontWeight: 800, color: '#fff', fontSize: 14 }}>{cust.name || 'Customer'}</div>
+                                <div style={{ fontSize: 11, color: '#64748b' }}>Joined {cust.joinedDate || 'Recent'}</div>
                               </div>
                             </div>
                           </td>
@@ -856,19 +869,19 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                           <td style={{ padding: '16px 20px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#cbd5e1' }}>
                               <Mail size={13} color="#00d2ff" />
-                              <span>{cust.email}</span>
+                              <span>{cust.email || 'N/A'}</span>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#94a3b8', fontSize: 12, marginTop: 4 }}>
                               <Phone size={13} color="#00e676" />
-                              <span>{cust.phone}</span>
+                              <span>{cust.phone || 'N/A'}</span>
                             </div>
                           </td>
 
                           {/* Loyalty Tier */}
                           <td style={{ padding: '16px 20px' }}>
                             <span style={{
-                              background: cust.tier.includes('Diamond') ? 'rgba(245, 175, 25, 0.2)' : cust.tier.includes('Platinum') ? 'rgba(168, 85, 247, 0.2)' : cust.tier.includes('Gold') ? 'rgba(245, 175, 25, 0.15)' : 'rgba(255, 255, 255, 0.08)',
-                              color: cust.tier.includes('Diamond') ? '#f5af19' : cust.tier.includes('Platinum') ? '#c084fc' : cust.tier.includes('Gold') ? '#f5af19' : '#cbd5e1',
+                              background: (cust.tier || '').includes('Diamond') ? 'rgba(245, 175, 25, 0.2)' : (cust.tier || '').includes('Platinum') ? 'rgba(168, 85, 247, 0.2)' : (cust.tier || '').includes('Gold') ? 'rgba(245, 175, 25, 0.15)' : 'rgba(255, 255, 255, 0.08)',
+                              color: (cust.tier || '').includes('Diamond') ? '#f5af19' : (cust.tier || '').includes('Platinum') ? '#c084fc' : (cust.tier || '').includes('Gold') ? '#f5af19' : '#cbd5e1',
                               border: '1px solid rgba(255, 255, 255, 0.1)',
                               fontSize: 11,
                               fontWeight: 800,
@@ -879,26 +892,26 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                               gap: 4
                             }}>
                               <Award size={12} />
-                              {cust.tier}
+                              {cust.tier || 'Silver Member'}
                             </span>
                             <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>
-                              <strong>{cust.loyaltyPoints.toLocaleString()}</strong> miles
+                              <strong>{(cust.loyaltyPoints || 0).toLocaleString()}</strong> miles
                             </div>
                           </td>
 
                           {/* Preferences */}
                           <td style={{ padding: '16px 20px' }}>
-                            <div style={{ fontSize: 12, color: '#fff' }}>💺 {cust.seatPreference}</div>
-                            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3 }}>🍱 {cust.mealPreference}</div>
+                            <div style={{ fontSize: 12, color: '#fff' }}>💺 {cust.seatPreference || 'Standard'}</div>
+                            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3 }}>🍱 {cust.mealPreference || 'Standard'}</div>
                           </td>
 
                           {/* Bookings & Total Spent */}
                           <td style={{ padding: '16px 20px' }}>
                             <div style={{ fontSize: 14, fontWeight: 800, color: '#00e676' }}>
-                              ₹{cust.totalSpent.toLocaleString()}
+                              ₹{(Number(cust.totalSpent) || 0).toLocaleString()}
                             </div>
                             <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
-                              {cust.bookingsCount} trips • PNR:{' '}
+                              {cust.bookingsCount || 0} trips • PNR:{' '}
                               {cust.recentPnr && cust.recentPnr !== 'N/A' ? (
                                 <button
                                   type="button"
@@ -1096,73 +1109,114 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                         </td>
                       </tr>
                     ) : (
-                      bookings.map((b) => (
-                      <tr key={b.id || b.pnr} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                        <td style={{ padding: '16px 20px' }}>
-                          <div style={{ fontWeight: 800, color: '#00d2ff' }}>{b.pnr}</div>
-                          <div style={{ fontSize: 12, color: '#fff' }}>
-                            {b.flight?.originCode || b.origin || 'DEL'} ➔ {b.flight?.destinationCode || b.destination || 'BOM'} ({b.flight?.flightNumber || b.flightNumber || '6E-2041'})
-                          </div>
-                        </td>
+                      bookings.map((b) => {
+                        const isHtl = b.type === 'HOTEL' || b.bookingType === 'HOTEL';
+                        return (
+                        <tr key={b.id || b.pnr || b.bookingId} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                          <td style={{ padding: '16px 20px' }}>
+                            <div style={{ fontWeight: 800, color: isHtl ? '#f5af19' : '#00d2ff' }}>
+                              {b.bookingId || b.pnr || 'SMF-RES'}
+                            </div>
+                            <div style={{ fontSize: 12, color: '#fff' }}>
+                              {isHtl ? (
+                                `🏨 ${b.hotelName || 'Grand Hotel'} (${b.destinationCity || b.cityName || 'Stay'})`
+                              ) : (
+                                `${b.flight?.originCode || b.origin || 'DEL'} ➔ ${b.flight?.destinationCode || b.destination || 'BOM'} (${b.flight?.flightNumber || b.flightNumber || '6E-2041'})`
+                              )}
+                            </div>
+                          </td>
 
-                        <td style={{ padding: '16px 20px' }}>
-                          <div style={{ fontWeight: 700, color: '#fff' }}>
-                            {b.passengerName || (b.passengers?.[0]?.firstName ? `${b.passengers[0].firstName} ${b.passengers[0].lastName || ''}`.trim() : null) || 'Verified Passenger'}
-                          </div>
-                          <div style={{ fontSize: 11, color: '#94a3b8' }}>
-                            {b.contactEmail || b.passengerEmail || 'passenger@gmail.com'}
-                          </div>
-                        </td>
+                          <td style={{ padding: '16px 20px' }}>
+                            <div style={{ fontWeight: 700, color: '#fff' }}>
+                              {b.guestName || b.passengerName || (b.passengers?.[0]?.firstName ? `${b.passengers[0].firstName} ${b.passengers[0].lastName || ''}`.trim() : null) || 'Verified Guest'}
+                            </div>
+                            <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                              {b.guestEmail || b.contactEmail || b.passengerEmail || 'guest@gmail.com'}
+                            </div>
+                          </td>
 
-                        <td style={{ padding: '16px 20px' }}>
-                          <div style={{ color: '#fff', fontWeight: 700 }}>Seat {b.seatNumber || b.passengers?.[0]?.seatNumber || '01A'}</div>
-                          <div style={{ fontSize: 11, color: '#f5af19' }}>{b.cabinClass || b.flight?.cabinClass || 'Economy (Window)'}</div>
-                        </td>
+                          <td style={{ padding: '16px 20px' }}>
+                            {isHtl ? (
+                              <>
+                                <div style={{ color: '#fff', fontWeight: 700 }}>{b.roomName || 'Deluxe Suite'}</div>
+                                <div style={{ fontSize: 11, color: '#38bdf8' }}>{b.roomNumber || 'Room #2408'} • {b.bedChoice || '1 King Bed'}</div>
+                              </>
+                            ) : (
+                              <>
+                                <div style={{ color: '#fff', fontWeight: 700 }}>Seat {b.seatNumber || b.passengers?.[0]?.seatNumber || '01A'}</div>
+                                <div style={{ fontSize: 11, color: '#f5af19' }}>{b.cabinClass || b.flight?.cabinClass || 'Economy (Window)'}</div>
+                              </>
+                            )}
+                          </td>
 
-                        <td style={{ padding: '16px 20px', color: '#cbd5e1' }}>
-                          {b.travelDate || (b.bookingDate ? b.bookingDate.split('T')[0] : new Date().toISOString().split('T')[0])}
-                        </td>
+                          <td style={{ padding: '16px 20px', color: '#cbd5e1' }}>
+                            {isHtl ? `${b.checkInDate || 'Upcoming'} (${b.nights || 1}N)` : (b.travelDate || (b.bookingDate ? String(b.bookingDate).split('T')[0] : new Date().toISOString().split('T')[0]))}
+                          </td>
 
-                        <td style={{ padding: '16px 20px', fontWeight: 800, color: '#00e676' }}>
-                          ₹{Number(b.totalAmount || b.totalPrice || 0).toLocaleString()}
-                        </td>
+                          <td style={{ padding: '16px 20px', fontWeight: 800, color: '#00e676' }}>
+                            ₹{Number(b.totalAmount || b.totalPrice || 0).toLocaleString()}
+                          </td>
 
-                        <td style={{ padding: '16px 20px' }}>
-                          <span style={{
-                            background: b.status === 'CANCELLED_REFUNDED' ? 'rgba(245, 175, 25, 0.2)' : b.status === 'CANCELLED' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(0, 230, 118, 0.2)',
-                            color: b.status === 'CANCELLED_REFUNDED' ? '#f5af19' : b.status === 'CANCELLED' ? '#f87171' : '#00e676',
-                            padding: '3px 8px',
-                            borderRadius: 6,
-                            fontSize: 11,
-                            fontWeight: 800
-                          }}>
-                            {b.status === 'CANCELLED_REFUNDED' ? 'REFUNDED 100%' : b.status || 'CONFIRMED'}
-                          </span>
-                        </td>
+                          <td style={{ padding: '16px 20px' }}>
+                            <span style={{
+                              background: b.status === 'CANCELLED_REFUNDED' ? 'rgba(245, 175, 25, 0.2)' : b.status === 'CANCELLED' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(0, 230, 118, 0.2)',
+                              color: b.status === 'CANCELLED_REFUNDED' ? '#f5af19' : b.status === 'CANCELLED' ? '#f87171' : '#00e676',
+                              padding: '3px 8px',
+                              borderRadius: 6,
+                              fontSize: 11,
+                              fontWeight: 800
+                            }}>
+                              {b.status === 'CANCELLED_REFUNDED' ? 'REFUNDED 100%' : b.status || 'CONFIRMED'}
+                            </span>
+                          </td>
 
-                        <td style={{ padding: '16px 20px', textAlign: 'right' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8 }}>
-                            <button
-                              type="button"
-                              onClick={() => setSelectedBookingForETicket(b)}
-                              style={{
-                                background: 'rgba(0, 210, 255, 0.15)',
-                                border: '1px solid #00d2ff',
-                                color: '#00d2ff',
-                                padding: '6px 12px',
-                                borderRadius: 6,
-                                fontSize: 12,
-                                fontWeight: 700,
-                                cursor: 'pointer',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: 5
-                              }}
-                              title="View E-Ticket Confirmation & Boarding Pass"
-                            >
-                              <FileText size={13} />
-                              <span>View E-Ticket</span>
-                            </button>
+                          <td style={{ padding: '16px 20px', textAlign: 'right' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8 }}>
+                              {isHtl ? (
+                                <button
+                                  type="button"
+                                  onClick={() => setSelectedHotelForAdminManage(b)}
+                                  style={{
+                                    background: 'rgba(245, 175, 25, 0.15)',
+                                    border: '1px solid #f5af19',
+                                    color: '#f5af19',
+                                    padding: '6px 12px',
+                                    borderRadius: 6,
+                                    fontSize: 12,
+                                    fontWeight: 700,
+                                    cursor: 'pointer',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: 5
+                                  }}
+                                  title="Manage Hotel Stay, Room Interior & Keycard"
+                                >
+                                  <Building2 size={13} />
+                                  <span>Manage Stay</span>
+                                </button>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => setSelectedBookingForETicket(b)}
+                                  style={{
+                                    background: 'rgba(0, 210, 255, 0.15)',
+                                    border: '1px solid #00d2ff',
+                                    color: '#00d2ff',
+                                    padding: '6px 12px',
+                                    borderRadius: 6,
+                                    fontSize: 12,
+                                    fontWeight: 700,
+                                    cursor: 'pointer',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: 5
+                                  }}
+                                  title="View E-Ticket Confirmation & Boarding Pass"
+                                >
+                                  <FileText size={13} />
+                                  <span>View E-Ticket</span>
+                                </button>
+                              )}
 
                             {b.status !== 'CANCELLED_REFUNDED' && (
                               <button
@@ -1185,8 +1239,9 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                           </div>
                         </td>
                       </tr>
-                    ))
-                    )}
+                    );
+                  })
+                )}
                   </tbody>
                 </table>
               </div>
@@ -1203,18 +1258,18 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {customers.slice(0, 4).map((c, i) => (
-                  <div key={c.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'rgba(255,255,255,0.03)', borderRadius: 8 }}>
+                  <div key={c.id || i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'rgba(255,255,255,0.03)', borderRadius: 8 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <span style={{ width: 24, height: 24, borderRadius: '50%', background: '#f5af19', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 11 }}>
                         #{i + 1}
                       </span>
                       <div>
-                        <div style={{ fontWeight: 700, color: '#fff' }}>{c.name}</div>
-                        <div style={{ fontSize: 11, color: '#94a3b8' }}>{c.tier} • {c.bookingsCount} trips</div>
+                        <div style={{ fontWeight: 700, color: '#fff' }}>{c.name || 'Customer'}</div>
+                        <div style={{ fontSize: 11, color: '#94a3b8' }}>{c.tier || 'Member'} • {c.bookingsCount || 0} trips</div>
                       </div>
                     </div>
                     <div style={{ fontWeight: 800, color: '#00e676', fontSize: 15 }}>
-                      ₹{c.totalSpent.toLocaleString()}
+                      ₹{(Number(c.totalSpent) || 0).toLocaleString()}
                     </div>
                   </div>
                 ))}
@@ -1510,6 +1565,22 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
         />
       )}
 
+      {/* Admin Hotel Stay & Room Management Inspector Modal */}
+      {selectedHotelForAdminManage && (
+        <HotelManageModal
+          booking={selectedHotelForAdminManage}
+          currency="INR"
+          onClose={() => setSelectedHotelForAdminManage(null)}
+          onUpdateBooking={(updated) => {
+            setBookings(prev => prev.map(b => (b.bookingId === updated.bookingId || b.id === updated.id) ? updated : b));
+          }}
+          onCancelBooking={(bookingId) => {
+            handleRefundBookingOverride(bookingId);
+            setSelectedHotelForAdminManage(null);
+          }}
+        />
+      )}
+
       {/* Customer Flight Bookings Inspector Modal */}
       {selectedCustomerForBookings && (
         <div 
@@ -1570,9 +1641,9 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
 
                 return (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                    {custBookings.map((b) => (
+                    {custBookings.map((b, bIdx) => (
                       <div
-                        key={b.id || b.pnr}
+                        key={b.id || b.pnr || bIdx}
                         style={{
                           background: 'rgba(255, 255, 255, 0.04)',
                           border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -1603,7 +1674,7 @@ export default function AdminDashboard({ currentUser, onExitToPortal, onLogout }
                             {b.flight?.originCode || b.origin || 'DEL'} ➔ {b.flight?.destinationCode || b.destination || 'BOM'} • {b.flight?.airlineName || 'Airline'} ({b.flight?.flightNumber || b.flightNumber || 'Flight'})
                           </div>
                           <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
-                            Travel Date: {b.travelDate || (b.bookingDate ? b.bookingDate.split('T')[0] : 'Upcoming')} • Seat: {b.seatNumber || b.passengers?.[0]?.seatNumber || '01A'} • Amount Paid: <strong style={{ color: '#00e676' }}>₹{Number(b.totalAmount || b.totalPrice || 5300).toLocaleString()}</strong>
+                            Travel Date: {b.travelDate || (b.bookingDate ? String(b.bookingDate).split('T')[0] : 'Upcoming')} • Seat: {b.seatNumber || b.passengers?.[0]?.seatNumber || '01A'} • Amount Paid: <strong style={{ color: '#00e676' }}>₹{Number(b.totalAmount || b.totalPrice || 5300).toLocaleString()}</strong>
                           </div>
                         </div>
 

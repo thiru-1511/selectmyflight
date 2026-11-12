@@ -98,6 +98,7 @@ export default function WishlistDrawer({ isOpen, wishlist, onClose, onRemove, on
                         color: '#ff5252',
                         padding: 8,
                         borderRadius: 6,
+                        
                         cursor: 'pointer'
                       }}
                     >
