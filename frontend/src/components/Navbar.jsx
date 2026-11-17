@@ -531,78 +531,51 @@ export default function Navbar({
 
           {/* User Account / Profile Button (Prominently styled, high contrast, never cut off) */}
           <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-            {currentUser ? (
-              <button 
-                type="button"
-                onClick={onOpenProfile}
-                className="navbar-user-profile-btn"
-                title={`Logged in as ${currentUser.name || 'Thiru'} (${currentUser.email || 'thiru1511@gmail.com'}) - Click to view profile`}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '3px 10px 3px 5px',
-                  borderRadius: 20,
-                  cursor: 'pointer',
-                  height: 32,
-                  whiteSpace: 'nowrap',
-                  flexShrink: 0
+            <button 
+              type="button"
+              onClick={currentUser ? onOpenProfile : onOpenAuth}
+              className="navbar-user-profile-btn"
+              title={`Logged in as ${currentUser?.name || 'Thiru'} (${currentUser?.email || 'thiru1511@gmail.com'}) - Click to view profile`}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '3px 10px 3px 5px',
+                borderRadius: 20,
+                cursor: 'pointer',
+                height: 32,
+                whiteSpace: 'nowrap',
+                flexShrink: 0
+              }}
+            >
+              <div style={{
+                width: 24,
+                height: 24,
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 12,
+                fontWeight: 800,
+                color: '#ffffff',
+                boxShadow: '0 1px 4px rgba(2, 132, 199, 0.35)',
+                flexShrink: 0
+              }}>
+                {(currentUser?.name || 'Thiru')[0].toUpperCase()}
+              </div>
+              <span 
+                className="navbar-user-name" 
+                style={{ 
+                  fontWeight: 800, 
+                  fontSize: 13,
+                  letterSpacing: -0.2
                 }}
               >
-                <div style={{
-                  width: 24,
-                  height: 24,
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #0284c7, #2563eb)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 12,
-                  fontWeight: 800,
-                  color: '#ffffff',
-                  boxShadow: '0 1px 4px rgba(2, 132, 199, 0.35)',
-                  flexShrink: 0
-                }}>
-                  {currentUser.name ? currentUser.name[0].toUpperCase() : 'T'}
-                </div>
-                <span 
-                  className="navbar-user-name" 
-                  style={{ 
-                    fontWeight: 800, 
-                    fontSize: 13,
-                    letterSpacing: -0.2
-                  }}
-                >
-                  {currentUser.name ? currentUser.name.split(' ')[0] : 'Thiru'}
-                </span>
-                <ChevronDown size={11} style={{ opacity: 0.65 }} />
-              </button>
-            ) : (
-              <button 
-                type="button"
-                onClick={onOpenAuth}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  background: 'linear-gradient(135deg, var(--accent-cyan, #0284c7), var(--accent-blue, #2563eb))',
-                  color: '#ffffff',
-                  border: 'none',
-                  padding: '5px 12px',
-                  borderRadius: 20,
-                  fontSize: 12,
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 10px rgba(2, 132, 199, 0.25)',
-                  height: 30,
-                  whiteSpace: 'nowrap',
-                  flexShrink: 0
-                }}
-              >
-                <User size={13} />
-                <span>{t('nav.signIn', 'Sign In')}</span>
-              </button>
-            )}
+                {currentUser?.name ? currentUser.name.split(' ')[0] : 'Thiru'}
+              </span>
+              <ChevronDown size={11} style={{ opacity: 0.65 }} />
+            </button>
           </div>
 
           {/* Mobile Hamburger Menu Toggle Button */}

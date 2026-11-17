@@ -133,14 +133,19 @@ export default function App() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // User Profile & Authentication State (Defaults to verified profile or Thiru)
+  // User Profile & Authentication State (Guaranteed default to Thiru)
   const [currentUser, setCurrentUser] = useState(() => {
     try {
       const saved = localStorage.getItem('smf_user');
-      if (saved) return JSON.parse(saved);
+      if (saved && saved !== 'null' && saved !== 'undefined') {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object' && parsed.name) {
+          return parsed;
+        }
+      }
       const verifiedName = localStorage.getItem('smf_verified_name');
       const verifiedEmail = localStorage.getItem('smf_verified_email');
-      return {
+      const defaultUser = {
         name: verifiedName || 'Thiru',
         email: verifiedEmail || 'thiru1511@gmail.com',
         phone: '+91 98765 43210',
@@ -149,6 +154,8 @@ export default function App() {
         frequentFlyerTier: 'Gold Elite',
         totalBookings: 3
       };
+      localStorage.setItem('smf_user', JSON.stringify(defaultUser));
+      return defaultUser;
     } catch {
       return {
         name: 'Thiru',
@@ -808,6 +815,7 @@ export default function App() {
               currency={currency}
               onQuickPrompt={handleQuickPrompt}
               loading={loading}
+              currentUser={currentUser}
             />
 
             {/* 3. Prominent Traveler Feature Hub & Quick Action Dock */}
