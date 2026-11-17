@@ -5,7 +5,7 @@ echo Pushing SelectMyFlight to GitHub: https://github.com/thiru-1511/selectmyfli
 echo ==========================================================
 
 cd /d "%~dp0"
-set PATH=%USERPROFILE%\.tools\git\cmd;%PATH%
+set PATH=C:\Program Files\Git\cmd;%USERPROFILE%\.tools\git\cmd;%PATH%
 
 echo Staging all files...
 git add .

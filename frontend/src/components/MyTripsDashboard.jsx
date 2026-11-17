@@ -41,17 +41,14 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
   };
 
   return (
-    <div style={{
+    <div className="mytrips-container" style={{
       maxWidth: 1240,
       margin: '16px auto 80px auto',
       padding: 'clamp(14px, 2.5vw, 28px) clamp(12px, 2.5vw, 28px) 60px clamp(12px, 2.5vw, 28px)',
       borderRadius: 24,
-      background: "linear-gradient(135deg, rgba(9, 15, 29, 0.90), rgba(15, 23, 42, 0.95)), url('/assets/images/cabin_luxury_suite.jpg')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
-      border: '1px solid rgba(0, 210, 255, 0.25)'
+      background: "var(--card-bg, #ffffff)",
+      border: "1px solid var(--card-border, #e2e8f0)",
+      boxShadow: '0 20px 45px -10px rgba(15, 23, 42, 0.12)'
     }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14, marginBottom: 24 }}>
@@ -175,7 +172,7 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
                       <span>{isHotel ? `VOUCHER: ${trip.voucherCode || trip.id}` : `PNR: ${trip.pnr || trip.id}`}</span>
                     </div>
 
-                    <span style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>
                       {isHotel && `${trip.hotelName} (${trip.destinationCity})`}
                       {isTransit && `${trip.serviceName} (#${trip.serviceNumber})`}
                       {isBundle && `${trip.title}`}
@@ -225,16 +222,16 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
                 }}>
                   {/* Route / Location */}
                   <div>
-                    <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase' }}>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted, #64748b)', textTransform: 'uppercase', fontWeight: 700 }}>
                       {isHotel ? 'Property Location' : isBundle ? 'Trip Destination' : 'Route'}
                     </div>
-                    <div style={{ fontSize: 16, fontWeight: 800, color: '#fff', marginTop: 2 }}>
+                    <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--text-main, #0f172a)', marginTop: 2 }}>
                       {isHotel && `${trip.destinationCity}`}
                       {isTransit && `${trip.originCity} ➔ ${trip.destinationCity}`}
                       {isBundle && `${trip.destination}`}
                       {!isHotel && !isTransit && !isBundle && `${flight.originCode || 'DEL'} ➔ ${flight.destinationCode || 'BOM'}`}
                     </div>
-                    <div style={{ fontSize: 12, color: '#00d2ff' }}>
+                    <div style={{ fontSize: 12, color: 'var(--accent-cyan, #0284c7)', fontWeight: 600 }}>
                       {isHotel && `${trip.roomType?.name || 'Deluxe Suite'}`}
                       {isTransit && `Dep: ${trip.departureTime} • Arr: ${trip.arrivalTime}`}
                       {isBundle && `Includes Flight ${trip.flightNumber} + Stay`}
@@ -244,13 +241,13 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
 
                   {/* Date & Room/Seat */}
                   <div>
-                    <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase' }}>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted, #64748b)', textTransform: 'uppercase', fontWeight: 700 }}>
                       {isHotel ? 'Check-In Date' : 'Travel Date'}
                     </div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', marginTop: 2 }}>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-main, #0f172a)', marginTop: 2 }}>
                       {trip.travelDate || trip.checkInDate || 'Scheduled Today'}
                     </div>
-                    <div style={{ fontSize: 12, color: '#94a3b8' }}>
+                    <div style={{ fontSize: 12, color: 'var(--text-muted, #64748b)' }}>
                       {isHotel && `Nights: ${trip.nights || 1} • Guests: ${trip.guestCount || 2}`}
                       {isTransit && `Coach: ${trip.coachNumber || 'C1'}, ${trip.seatNumber || 'Seat 12'}`}
                       {isBundle && `Duration: ${trip.duration}`}
@@ -260,10 +257,10 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
 
                   {/* Guest / Passenger */}
                   <div>
-                    <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase' }}>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted, #64748b)', textTransform: 'uppercase', fontWeight: 700 }}>
                       {trip.passengers && trip.passengers.length > 1 ? `Travelers (${trip.passengers.length})` : 'Traveler'}
                     </div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', marginTop: 2 }}>
+                    <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-main, #0f172a)', marginTop: 2 }}>
                       {trip.primaryGuestName || trip.passengerName || (passenger.firstName ? (trip.passengers && trip.passengers.length > 1 ? `${passenger.firstName} ${passenger.lastName} (+${trip.passengers.length - 1} pax)` : `${passenger.firstName} ${passenger.lastName}`) : (localStorage.getItem('smf_verified_name') || 'Thiru'))}
                     </div>
                     <div style={{ fontSize: 12, color: '#f5af19', fontWeight: 600 }}>
@@ -274,8 +271,8 @@ export default function MyTripsDashboard({ bookings, currency, onRefreshBookings
                   {/* Amount & Actions */}
                   <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
                     <div>
-                      <div style={{ fontSize: 11, color: '#94a3b8' }}>Total Paid</div>
-                      <div style={{ fontSize: 18, fontWeight: 800, color: '#fff' }}>
+                      <div style={{ fontSize: 11, color: 'var(--text-muted, #64748b)', fontWeight: 600 }}>Total Paid</div>
+                      <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                         {currencySymbol}{convertPrice(totalCost).toLocaleString()}
                       </div>
                     </div>

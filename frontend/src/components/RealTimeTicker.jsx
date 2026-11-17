@@ -95,9 +95,9 @@ export default function RealTimeTicker({ onOpenFeature }) {
 
   return (
     <div style={{
-      background: 'rgba(6, 11, 22, 0.96)',
-      borderBottom: '1px solid rgba(0, 210, 255, 0.15)',
-      color: '#cbd5e1',
+      background: 'var(--ticker-bg, rgba(6, 11, 22, 0.96))',
+      borderBottom: '1px solid var(--ticker-border, rgba(0, 210, 255, 0.15))',
+      color: 'var(--ticker-text, #cbd5e1)',
       fontSize: 12,
       padding: '5px 12px',
       display: 'flex',

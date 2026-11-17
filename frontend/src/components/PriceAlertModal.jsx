@@ -57,26 +57,26 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
         {/* Header */}
         <div style={{
           padding: '20px 24px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          borderBottom: '1px solid var(--card-border, #cbd5e1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: 'rgba(255, 255, 255, 0.02)'
+          background: 'var(--card-subtle-bg, #f8fafc)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{
               background: 'rgba(245, 175, 25, 0.15)',
-              color: '#f5af19',
+              color: 'var(--accent-gold, #d97706)',
               padding: 8,
               borderRadius: 8
             }}>
               <BellRing size={22} />
             </div>
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff' }}>
+              <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                 🔔 Track Route & Set Price Alert
               </h3>
-              <p style={{ fontSize: 12, color: '#94a3b8' }}>
+              <p style={{ fontSize: 12, color: 'var(--text-muted, #475569)' }}>
                 We monitor fare fluctuations 24/7 and notify you the moment prices drop to your target.
               </p>
             </div>
@@ -84,9 +84,9 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
           <button
             onClick={onClose}
             style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              border: 'none',
-              color: '#cbd5e1',
+              background: 'var(--card-subtle-bg, #f1f5f9)',
+              border: '1px solid var(--card-border, #cbd5e1)',
+              color: 'var(--text-main, #0f172a)',
               width: 32,
               height: 32,
               borderRadius: '50%',
@@ -126,22 +126,22 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 16 }}>
             <div>
-              <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>Origin</label>
+              <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 6, fontWeight: 700 }}>Origin</label>
               <select
                 value={origin}
                 onChange={(e) => setOrigin(e.target.value)}
                 style={{
                   width: '100%',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  color: '#fff',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1.5px solid var(--input-border, #cbd5e1)',
+                  color: 'var(--input-text, #0f172a)',
                   padding: '10px 12px',
                   borderRadius: 8,
                   fontSize: 14
                 }}
               >
                 {AIRPORTS.map(a => (
-                  <option key={a.code} value={a.code} style={{ background: '#111a33' }}>
+                  <option key={a.code} value={a.code}>
                     {a.city} ({a.code})
                   </option>
                 ))}
@@ -149,22 +149,22 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>Destination</label>
+              <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 6, fontWeight: 700 }}>Destination</label>
               <select
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
                 style={{
                   width: '100%',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  color: '#fff',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1.5px solid var(--input-border, #cbd5e1)',
+                  color: 'var(--input-text, #0f172a)',
                   padding: '10px 12px',
                   borderRadius: 8,
                   fontSize: 14
                 }}
               >
                 {AIRPORTS.map(a => (
-                  <option key={a.code} value={a.code} style={{ background: '#111a33' }}>
+                  <option key={a.code} value={a.code}>
                     {a.city} ({a.code})
                   </option>
                 ))}
@@ -173,8 +173,8 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
           </div>
 
           <div style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>
-              Target Maximum Price: <strong style={{ color: '#00d2ff' }}>{currencySymbol}{convertPrice(targetPrice).toLocaleString()}</strong>
+            <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 6, fontWeight: 700 }}>
+              Target Maximum Price: <strong style={{ color: 'var(--accent-cyan, #0284c7)' }}>{currencySymbol}{convertPrice(targetPrice).toLocaleString()}</strong>
             </label>
             <input
               type="range"
@@ -183,14 +183,14 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
               step="500"
               value={targetPrice}
               onChange={(e) => setTargetPrice(parseInt(e.target.value))}
-              style={{ width: '100%', accentColor: '#00d2ff', cursor: 'pointer' }}
+              style={{ width: '100%', accentColor: 'var(--accent-cyan, #0284c7)', cursor: 'pointer' }}
             />
           </div>
 
           <div style={{ marginBottom: 20 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-              <label style={{ fontSize: 12, color: '#94a3b8' }}>Email for Notifications</label>
-              <span style={{ fontSize: 11, color: '#00d2ff', fontWeight: 600 }}>✦ Enter your real Gmail to receive alerts</span>
+              <label style={{ fontSize: 12, color: 'var(--text-muted, #475569)', fontWeight: 700 }}>Email for Notifications</label>
+              <span style={{ fontSize: 11, color: 'var(--accent-cyan, #0284c7)', fontWeight: 600 }}>✦ Enter your real Gmail to receive alerts</span>
             </div>
             <input
               type="email"
@@ -200,9 +200,9 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
               placeholder="e.g. yourname@gmail.com"
               style={{
                 width: '100%',
-                background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(0, 210, 255, 0.3)',
-                color: '#fff',
+                background: 'var(--input-bg, #ffffff)',
+                border: '1.5px solid var(--input-border, #cbd5e1)',
+                color: 'var(--input-text, #0f172a)',
                 padding: '11px 14px',
                 borderRadius: 8,
                 fontSize: 14
@@ -224,10 +224,10 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
         {alerts.length > 0 && (
           <div style={{
             padding: '20px 24px',
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-            background: 'rgba(255, 255, 255, 0.01)'
+            borderTop: '1px solid var(--card-border, #cbd5e1)',
+            background: 'var(--card-subtle-bg, #f8fafc)'
           }}>
-            <h4 style={{ fontSize: 14, fontWeight: 700, color: '#fff', marginBottom: 12 }}>
+            <h4 style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-main, #0f172a)', marginBottom: 12 }}>
               Your Monitored Routes
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxHeight: 180, overflowY: 'auto' }}>
@@ -235,8 +235,8 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
                 <div
                   key={a.id}
                   style={{
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'var(--card-bg, #ffffff)',
+                    border: '1px solid var(--card-border, #cbd5e1)',
                     borderRadius: 8,
                     padding: '10px 14px',
                     display: 'flex',
@@ -246,16 +246,16 @@ export default function PriceAlertModal({ isOpen, onClose, currentOrigin, curren
                   }}
                 >
                   <div>
-                    <strong style={{ color: '#fff' }}>{a.origin || a.originCode} ➔ {a.destination || a.destinationCode}</strong>
-                    <div style={{ fontSize: 11, color: '#94a3b8' }}>Target: {currencySymbol}{convertPrice(a.targetPrice).toLocaleString()}</div>
+                    <strong style={{ color: 'var(--text-main, #0f172a)' }}>{a.origin || a.originCode} ➔ {a.destination || a.destinationCode}</strong>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Target: {currencySymbol}{convertPrice(a.targetPrice).toLocaleString()}</div>
                   </div>
                   <span style={{
                     fontSize: 11,
                     fontWeight: 700,
                     padding: '3px 8px',
                     borderRadius: 12,
-                    background: a.alertStatus === 'TRIGGERED' ? 'rgba(0, 230, 118, 0.2)' : 'rgba(0, 210, 255, 0.2)',
-                    color: a.alertStatus === 'TRIGGERED' ? '#00e676' : '#00d2ff'
+                    background: a.alertStatus === 'TRIGGERED' ? 'rgba(5, 150, 105, 0.15)' : 'rgba(2, 132, 199, 0.15)',
+                    color: a.alertStatus === 'TRIGGERED' ? 'var(--accent-green, #059669)' : 'var(--accent-cyan, #0284c7)'
                   }}>
                     {a.alertStatus === 'TRIGGERED' ? '🎯 TARGET REACHED' : '📡 MONITORING'}
                   </span>

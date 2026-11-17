@@ -84,13 +84,13 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
         justifyContent: 'space-between',
         flexWrap: 'wrap',
         gap: 12,
-        background: 'linear-gradient(135deg, rgba(17, 26, 51, 0.8), rgba(0, 210, 255, 0.08))',
-        border: '1px solid rgba(0, 210, 255, 0.25)'
+        background: 'var(--card-subtle-bg, #f1f5f9)',
+        border: '1px solid var(--card-border, #e2e8f0)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{
-            background: 'rgba(0, 210, 255, 0.15)',
-            color: '#00d2ff',
+            background: 'rgba(2, 132, 199, 0.14)',
+            color: 'var(--accent-cyan, #0284c7)',
             padding: '6px 10px',
             borderRadius: 8,
             fontWeight: 800,
@@ -98,7 +98,7 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
           }}>
             ⚡ Comparison
           </div>
-          <span style={{ fontSize: 13, color: '#f8fafc', fontWeight: 600 }}>
+          <span style={{ fontSize: 13, color: 'var(--text-main, #0f172a)', fontWeight: 600 }}>
             Best Deals Found Across 5+ Airlines
           </span>
         </div>
@@ -106,33 +106,33 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           {cheapestFlight && (
             <div style={{
-              background: 'rgba(0, 230, 118, 0.1)',
-              border: '1px solid rgba(0, 230, 118, 0.3)',
+              background: 'rgba(5, 150, 105, 0.1)',
+              border: '1px solid rgba(5, 150, 105, 0.3)',
               padding: '4px 10px',
               borderRadius: 8,
               fontSize: 12
             }}>
-              <span style={{ color: '#94a3b8' }}>Cheapest: </span>
-              <strong style={{ color: '#00e676' }}>
+              <span style={{ color: 'var(--text-muted, #475569)' }}>Cheapest: </span>
+              <strong style={{ color: 'var(--accent-green, #059669)' }}>
                 {currencySymbol}{convertPrice(cheapestFlight.basePrice).toLocaleString()}
               </strong>
-              <span style={{ color: '#cbd5e1' }}> ({cheapestFlight.airlineName})</span>
+              <span style={{ color: 'var(--text-main, #0f172a)' }}> ({cheapestFlight.airlineName})</span>
             </div>
           )}
 
           {fastestFlight && (
             <div style={{
-              background: 'rgba(0, 210, 255, 0.1)',
-              border: '1px solid rgba(0, 210, 255, 0.3)',
+              background: 'rgba(2, 132, 199, 0.1)',
+              border: '1px solid rgba(2, 132, 199, 0.3)',
               padding: '4px 10px',
               borderRadius: 8,
               fontSize: 12
             }}>
-              <span style={{ color: '#94a3b8' }}>Fastest: </span>
-              <strong style={{ color: '#00d2ff' }}>
+              <span style={{ color: 'var(--text-muted, #475569)' }}>Fastest: </span>
+              <strong style={{ color: 'var(--accent-cyan, #0284c7)' }}>
                 {Math.floor(fastestFlight.durationMinutes / 60)}h {fastestFlight.durationMinutes % 60}m
               </strong>
-              <span style={{ color: '#cbd5e1' }}> ({fastestFlight.airlineName})</span>
+              <span style={{ color: 'var(--text-main, #0f172a)' }}> ({fastestFlight.airlineName})</span>
             </div>
           )}
         </div>
@@ -184,8 +184,8 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <SlidersHorizontal size={16} color="#00d2ff" />
-              <h3 style={{ fontSize: 15, fontWeight: 700, color: '#fff' }}>Filter Flights</h3>
+              <SlidersHorizontal size={16} color="var(--accent-cyan, #00d2ff)" />
+              <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-main)' }}>Filter Flights</h3>
             </div>
             <button
               onClick={() => {
@@ -204,8 +204,8 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
           {/* 1. Max Price Range Slider */}
           <div style={{ marginBottom: 18 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 6 }}>
-              <span style={{ color: '#94a3b8', fontWeight: 600 }}>Max Price</span>
-              <span style={{ color: '#00d2ff', fontWeight: 700 }}>
+              <span style={{ color: 'var(--text-muted, #475569)', fontWeight: 600 }}>Max Price</span>
+              <span style={{ color: 'var(--accent-cyan, #0284c7)', fontWeight: 700 }}>
                 {currencySymbol}{convertPrice(maxPrice).toLocaleString()}
               </span>
             </div>
@@ -216,13 +216,13 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
               step="500"
               value={maxPrice}
               onChange={(e) => setMaxPrice(parseInt(e.target.value))}
-              style={{ width: '100%', accentColor: '#00d2ff', cursor: 'pointer' }}
+              style={{ width: '100%', accentColor: 'var(--accent-cyan, #0284c7)', cursor: 'pointer' }}
             />
           </div>
 
           {/* 2. Flight Stops */}
           <div style={{ marginBottom: 18 }}>
-            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 6 }}>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', textTransform: 'uppercase', marginBottom: 6 }}>
               Stops
             </label>
             <div style={{ display: 'flex', gap: 6 }}>
@@ -236,9 +236,9 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
                   onClick={() => setSelectedStops(stop.value)}
                   style={{
                     flex: 1,
-                    background: selectedStops === stop.value ? 'rgba(0, 210, 255, 0.2)' : 'rgba(255, 255, 255, 0.05)',
-                    color: selectedStops === stop.value ? '#00d2ff' : '#cbd5e1',
-                    border: selectedStops === stop.value ? '1px solid rgba(0, 210, 255, 0.4)' : '1px solid rgba(255, 255, 255, 0.08)',
+                    background: selectedStops === stop.value ? 'rgba(2, 132, 199, 0.15)' : 'var(--card-subtle-bg, #f1f5f9)',
+                    color: selectedStops === stop.value ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main, #334155)',
+                    border: selectedStops === stop.value ? '1px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, #cbd5e1)',
                     padding: '6px 0',
                     borderRadius: 6,
                     fontSize: 12,
@@ -254,7 +254,7 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
 
           {/* 3. Departure Time Slots */}
           <div style={{ marginBottom: 18 }}>
-            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 6 }}>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', textTransform: 'uppercase', marginBottom: 6 }}>
               Departure Time
             </label>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
@@ -268,9 +268,9 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
                   key={slot.value}
                   onClick={() => setDepartureSlot(slot.value)}
                   style={{
-                    background: departureSlot === slot.value ? 'rgba(0, 210, 255, 0.2)' : 'rgba(255, 255, 255, 0.05)',
-                    color: departureSlot === slot.value ? '#00d2ff' : '#cbd5e1',
-                    border: departureSlot === slot.value ? '1px solid rgba(0, 210, 255, 0.4)' : '1px solid rgba(255, 255, 255, 0.08)',
+                    background: departureSlot === slot.value ? 'rgba(2, 132, 199, 0.15)' : 'var(--card-subtle-bg, #f1f5f9)',
+                    color: departureSlot === slot.value ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main, #334155)',
+                    border: departureSlot === slot.value ? '1px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, #cbd5e1)',
                     padding: '6px 8px',
                     borderRadius: 6,
                     fontSize: 11,
@@ -286,7 +286,7 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
 
           {/* 4. Airlines Checkbox List */}
           <div style={{ marginBottom: 18 }}>
-            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 6 }}>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', textTransform: 'uppercase', marginBottom: 6 }}>
               Airlines
             </label>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -300,13 +300,13 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      background: isSelected ? 'rgba(0, 210, 255, 0.1)' : 'rgba(255, 255, 255, 0.03)',
-                      border: isSelected ? '1px solid rgba(0, 210, 255, 0.3)' : '1px solid transparent',
+                      background: isSelected ? 'rgba(2, 132, 199, 0.12)' : 'var(--card-subtle-bg, #f1f5f9)',
+                      border: isSelected ? '1px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, #e2e8f0)',
                       padding: '6px 10px',
                       borderRadius: 6,
                       fontSize: 12,
                       cursor: 'pointer',
-                      color: isSelected ? '#fff' : '#cbd5e1',
+                      color: isSelected ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main, #334155)',
                       transition: 'all 0.2s'
                     }}
                   >
@@ -315,17 +315,17 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
                         width: 14,
                         height: 14,
                         borderRadius: 3,
-                        border: isSelected ? '1px solid #00d2ff' : '1px solid #64748b',
-                        background: isSelected ? '#00d2ff' : 'transparent',
+                        border: isSelected ? '1px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, #94a3b8)',
+                        background: isSelected ? 'var(--accent-cyan, #0284c7)' : 'transparent',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
                       }}>
-                        {isSelected && <Check size={10} color="#090f1d" strokeWidth={4} />}
+                        {isSelected && <Check size={10} color="#ffffff" strokeWidth={4} />}
                       </div>
                       <span>{airline.name}</span>
                     </div>
-                    <span style={{ fontSize: 11, color: '#64748b' }}>({airline.count})</span>
+                    <span style={{ fontSize: 11, color: 'var(--text-muted, #64748b)' }}>({airline.count})</span>
                   </label>
                 );
               })}
@@ -338,16 +338,16 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
             alignItems: 'center',
             justifyContent: 'space-between',
             paddingTop: 12,
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)'
+            borderTop: '1px solid var(--card-border, #e2e8f0)'
           }}>
-            <span style={{ fontSize: 12, color: '#cbd5e1', fontWeight: 600 }}>
+            <span style={{ fontSize: 12, color: 'var(--text-main, #334155)', fontWeight: 600 }}>
               Refundable Flights Only
             </span>
             <input
               type="checkbox"
               checked={refundableOnly}
               onChange={(e) => setRefundableOnly(e.target.checked)}
-              style={{ width: 16, height: 16, accentColor: '#00d2ff', cursor: 'pointer' }}
+              style={{ width: 16, height: 16, accentColor: 'var(--accent-cyan, #0284c7)', cursor: 'pointer' }}
             />
           </div>
         </div>
@@ -362,25 +362,25 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
             flexWrap: 'wrap',
             gap: 10,
             marginBottom: 14,
-            background: 'rgba(255, 255, 255, 0.03)',
+            background: 'var(--card-subtle-bg, #f1f5f9)',
             padding: '8px 14px',
             borderRadius: 10,
-            border: '1px solid rgba(255, 255, 255, 0.08)'
+            border: '1px solid var(--card-border, #e2e8f0)'
           }}>
-            <span style={{ fontSize: 12, color: '#94a3b8' }}>
+            <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>
               Showing <strong>{filteredFlights.length}</strong> flights
             </span>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <ArrowUpDown size={14} color="#00d2ff" />
-              <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>Sort:</span>
+              <ArrowUpDown size={14} color="var(--accent-cyan, #00d2ff)" />
+              <span style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 600 }}>Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 style={{
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  color: '#fff',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  background: 'var(--input-bg, rgba(255, 255, 255, 0.08))',
+                  color: 'var(--text-main)',
+                  border: '1px solid var(--input-border, rgba(255, 255, 255, 0.15))',
                   padding: '4px 10px',
                   borderRadius: 6,
                   fontSize: 12,
@@ -390,9 +390,9 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
                   minHeight: 32
                 }}
               >
-                <option value="price_asc" style={{ background: '#111a33' }}>Cheapest First</option>
-                <option value="duration_asc" style={{ background: '#111a33' }}>Fastest (Shortest)</option>
-                <option value="departure_asc" style={{ background: '#111a33' }}>Earliest Departure</option>
+                <option value="price_asc">Cheapest First</option>
+                <option value="duration_asc">Fastest (Shortest)</option>
+                <option value="departure_asc">Earliest Departure</option>
               </select>
             </div>
           </div>
@@ -401,8 +401,8 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
           {filteredFlights.length === 0 ? (
             <div className="glass-card" style={{ padding: '40px 20px', textAlign: 'center' }}>
               <div style={{ fontSize: 40, marginBottom: 10 }}>🛫</div>
-              <h3 style={{ fontSize: 18, color: '#fff', marginBottom: 6 }}>No Flights Match Your Filters</h3>
-              <p style={{ color: '#94a3b8', fontSize: 13, maxWidth: 360, margin: '0 auto 16px auto' }}>
+              <h3 style={{ fontSize: 18, color: 'var(--text-main)', marginBottom: 6 }}>No Flights Match Your Filters</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: 13, maxWidth: 360, margin: '0 auto 16px auto' }}>
                 Try relaxing the price slider or clearing filters to see flights.
               </p>
               <button

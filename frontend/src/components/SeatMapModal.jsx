@@ -320,7 +320,7 @@ export default function SeatMapModal({
             )}
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                <h3 style={{ fontSize: 'clamp(17px, 2.5vw, 21px)', fontWeight: 900, color: '#fff', margin: 0 }}>
+                <h3 style={{ fontSize: 'clamp(17px, 2.5vw, 21px)', fontWeight: 900, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                   💺 {activeFlight?.airlineName || 'Airline'} {t('seatmap.title', 'Seat Selection')}
                 </h3>
                 {activeFlight?.isLiveDuffel && (
@@ -616,23 +616,23 @@ export default function SeatMapModal({
             )}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
               <div>
-                <h4 style={{ fontSize: 15, fontWeight: 800, color: '#fff', margin: 0 }}>
+                <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                   Interactive 3D Aircraft Cabin Map
                 </h4>
-                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+                <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)', marginTop: 2 }}>
                   Assigning for: <strong style={{ color: PASSENGER_COLORS[activePassengerIndex % PASSENGER_COLORS.length].border }}>Passenger {activePassengerIndex + 1} ({PASSENGER_COLORS[activePassengerIndex % PASSENGER_COLORS.length].badge})</strong>
                 </div>
               </div>
               <div style={{
-                background: 'rgba(0, 210, 255, 0.12)',
-                border: '1px solid rgba(0, 210, 255, 0.35)',
+                background: 'rgba(2, 132, 199, 0.12)',
+                border: '1px solid rgba(2, 132, 199, 0.35)',
                 padding: '4px 10px',
                 borderRadius: 8,
                 fontSize: 12,
-                color: '#00d2ff',
+                color: 'var(--accent-cyan, #0284c7)',
                 fontWeight: 700
               }}>
-                Selected: <strong style={{ color: '#fff', fontSize: 13 }}>{selectedSeats.filter(Boolean).join(', ') || 'None'}</strong> ({selectedSeats.length}/{passengerCount} Seats)
+                Selected: <strong style={{ color: 'var(--accent-cyan, #0284c7)', fontSize: 13 }}>{selectedSeats.filter(Boolean).join(', ') || 'None'}</strong> ({selectedSeats.length}/{passengerCount} Seats)
               </div>
             </div>
 
@@ -840,12 +840,12 @@ export default function SeatMapModal({
             <div style={{ marginBottom: 20 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, flexWrap: 'wrap', gap: 6 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <Utensils size={18} color="#00d2ff" />
-                  <h4 style={{ fontSize: 15, fontWeight: 800, color: '#fff', margin: 0 }}>
+                  <Utensils size={18} color="var(--accent-cyan, #0284c7)" />
+                  <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                     Gourmet In-Flight Dining
                   </h4>
                 </div>
-                <span style={{ fontSize: 11, color: '#94a3b8' }}>For all {passengerCount} travelers</span>
+                <span style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>For all {passengerCount} travelers</span>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -862,8 +862,8 @@ export default function SeatMapModal({
                         justifyContent: 'space-between',
                         padding: '10px 14px',
                         borderRadius: 10,
-                        background: isMealSelected ? 'rgba(0, 210, 255, 0.14)' : 'rgba(255, 255, 255, 0.04)',
-                        border: isMealSelected ? '1px solid #00d2ff' : '1px solid rgba(255, 255, 255, 0.08)',
+                        background: isMealSelected ? 'rgba(2, 132, 199, 0.12)' : 'var(--card-subtle-bg, #f1f5f9)',
+                        border: isMealSelected ? '1.5px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, #cbd5e1)',
                         cursor: 'pointer',
                         transition: 'all 0.2s'
                       }}
@@ -873,20 +873,20 @@ export default function SeatMapModal({
                           width: 18,
                           height: 18,
                           borderRadius: '50%',
-                          border: isMealSelected ? '5px solid #00d2ff' : '2px solid #64748b',
+                          border: isMealSelected ? '5px solid var(--accent-cyan, #0284c7)' : '2px solid #64748b',
                           background: '#fff'
                         }} />
                         <div>
-                          <div style={{ fontSize: 13, fontWeight: 700, color: isMealSelected ? '#00d2ff' : '#fff' }}>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: isMealSelected ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main, #0f172a)' }}>
                             {addon.name}
                           </div>
-                          <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                          <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>
                             {addon.description}
                           </div>
                         </div>
                       </div>
 
-                      <div style={{ fontSize: 13, fontWeight: 800, color: addon.price === 0 ? '#00e676' : '#fff' }}>
+                      <div style={{ fontSize: 13, fontWeight: 800, color: addon.price === 0 ? 'var(--accent-green, #059669)' : 'var(--text-main, #0f172a)' }}>
                         {addon.price === 0 ? 'Included' : `+${currencySymbol}${convertPrice(itemTotal)} (${currencySymbol}${convertPrice(addon.price)}/pax)`}
                       </div>
                     </div>
@@ -898,8 +898,8 @@ export default function SeatMapModal({
             {/* Extra Baggage Add-on */}
             <div style={{ marginBottom: 20 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-                <Briefcase size={18} color="#f5af19" />
-                <h4 style={{ fontSize: 15, fontWeight: 800, color: '#fff', margin: 0 }}>
+                <Briefcase size={18} color="var(--accent-gold, #d97706)" />
+                <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                   Pre-Book Excess Baggage
                 </h4>
               </div>
@@ -917,13 +917,13 @@ export default function SeatMapModal({
                       padding: '10px 8px',
                       borderRadius: 8,
                       textAlign: 'center',
-                      background: selectedBaggage === b.kg ? 'rgba(245, 175, 25, 0.18)' : 'rgba(255, 255, 255, 0.04)',
-                      border: selectedBaggage === b.kg ? '1px solid #f5af19' : '1px solid rgba(255, 255, 255, 0.08)',
+                      background: selectedBaggage === b.kg ? 'rgba(217, 119, 6, 0.15)' : 'var(--card-subtle-bg, #f1f5f9)',
+                      border: selectedBaggage === b.kg ? '1.5px solid var(--accent-gold, #d97706)' : '1px solid var(--card-border, #cbd5e1)',
                       cursor: 'pointer'
                     }}
                   >
-                    <div style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>{b.label}</div>
-                    <div style={{ fontSize: 12, color: '#f5af19', marginTop: 2, fontWeight: 800 }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>{b.label}</div>
+                    <div style={{ fontSize: 12, color: 'var(--accent-gold, #d97706)', marginTop: 2, fontWeight: 800 }}>
                       {b.price === 0 ? 'Free' : `+${currencySymbol}${convertPrice(b.price)}`}
                     </div>
                   </div>
@@ -940,23 +940,23 @@ export default function SeatMapModal({
                 justifyContent: 'space-between',
                 padding: '12px 16px',
                 borderRadius: 10,
-                background: priorityBoarding ? 'rgba(0, 230, 118, 0.15)' : 'rgba(255, 255, 255, 0.04)',
-                border: priorityBoarding ? '1px solid #00e676' : '1px solid rgba(255, 255, 255, 0.08)',
+                background: priorityBoarding ? 'rgba(5, 150, 105, 0.12)' : 'var(--card-subtle-bg, #f1f5f9)',
+                border: priorityBoarding ? '1.5px solid var(--accent-green, #059669)' : '1px solid var(--card-border, #cbd5e1)',
                 cursor: 'pointer'
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <Zap size={18} color="#00e676" />
+                <Zap size={18} color="var(--accent-green, #059669)" />
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>Priority Check-in & Boarding</div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>Dedicated queue for {passengerCount} travelers</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>Priority Check-in & Boarding</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Dedicated queue for {passengerCount} travelers</div>
                 </div>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: 13, fontWeight: 800, color: '#00e676' }}>
+                <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent-green, #059669)' }}>
                   +{currencySymbol}{convertPrice(totalPriorityAmount)}
                 </div>
-                <div style={{ fontSize: 11, color: priorityBoarding ? '#00e676' : '#94a3b8', fontWeight: 600 }}>
+                <div style={{ fontSize: 11, color: priorityBoarding ? 'var(--accent-green, #059669)' : 'var(--text-muted, #475569)', fontWeight: 600 }}>
                   {priorityBoarding ? '✓ Added' : 'Click to Add'}
                 </div>
               </div>

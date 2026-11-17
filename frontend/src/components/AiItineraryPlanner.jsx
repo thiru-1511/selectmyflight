@@ -151,16 +151,14 @@ export default function AiItineraryPlanner({
   };
 
   return (
-    <div style={{
+    <div className="tripcraft-container" style={{
       maxWidth: 1360,
       margin: '0 auto',
       padding: 'clamp(14px, 2.5vw, 24px) clamp(12px, 2.5vw, 24px) 80px clamp(12px, 2.5vw, 24px)',
       borderRadius: 24,
-      background: "linear-gradient(135deg, rgba(9, 15, 29, 0.88), rgba(15, 23, 42, 0.94)), url('/assets/images/ai_tripcraft_hero.jpg')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)'
+      background: "var(--card-bg, #ffffff)",
+      border: "1px solid var(--card-border, #e2e8f0)",
+      boxShadow: '0 20px 45px -10px rgba(15, 23, 42, 0.12)'
     }}>
       {/* Banner */}
       <div style={{
@@ -192,20 +190,20 @@ export default function AiItineraryPlanner({
             <Sparkles size={14} /> SKYGENIE TRIPCRAFT™ NEURAL ITINERARY ENGINE
           </div>
 
-          <h1 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 800, color: '#fff', lineHeight: 1.2 }}>
+          <h1 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 800, color: 'var(--text-main, #0f172a)', lineHeight: 1.2 }}>
             AI-Powered Personalized <span style={{ color: '#c084fc' }}>Travel Itineraries</span>
           </h1>
-          <p style={{ fontSize: 'clamp(13px, 2vw, 14px)', color: '#94a3b8', marginTop: 8 }}>
+          <p style={{ fontSize: 'clamp(13px, 2vw, 14px)', color: 'var(--text-muted, #475569)', marginTop: 8 }}>
             Build day-by-day tailored travel schedules with morning, afternoon, and evening recommendations, budget projections, and 1-click bundled booking.
           </p>
         </div>
 
         {/* Generator Controls Card */}
-        <div className="glass-card" style={{ marginTop: 20, padding: 'clamp(14px, 2vw, 24px)', background: 'rgba(9, 15, 29, 0.85)' }}>
+        <div className="glass-card" style={{ marginTop: 20, padding: 'clamp(14px, 2vw, 24px)' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16, alignItems: 'end' }}>
             {/* Destination */}
             <div>
-              <label style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+              <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-muted, #475569)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                 <MapPin size={14} color="#c084fc" /> Select Destination
               </label>
               <select
@@ -348,23 +346,23 @@ export default function AiItineraryPlanner({
                 <span style={{ fontSize: 11, fontWeight: 800, background: 'rgba(192, 132, 252, 0.15)', color: '#c084fc', border: '1px solid rgba(192, 132, 252, 0.3)', padding: '4px 10px', borderRadius: 20 }}>
                   {activeItinerary.theme}
                 </span>
-                <h2 style={{ fontSize: 'clamp(18px, 3vw, 22px)', fontWeight: 800, color: '#fff', marginTop: 10 }}>{activeItinerary.title}</h2>
-                <p style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
-                  Destination: <strong style={{ color: '#fff' }}>{activeItinerary.destinationCity}, {activeItinerary.country}</strong> • {activeItinerary.durationDays} Days Plan
+                <h2 style={{ fontSize: 'clamp(18px, 3vw, 22px)', fontWeight: 800, color: 'var(--text-main, #0f172a)', marginTop: 10 }}>{activeItinerary.title}</h2>
+                <p style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 4 }}>
+                  Destination: <strong style={{ color: 'var(--text-main, #0f172a)' }}>{activeItinerary.destinationCity}, {activeItinerary.country}</strong> • {activeItinerary.durationDays} Days Plan
                 </p>
               </div>
 
               <div>
-                <span style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', display: 'block' }}>Estimated Trip Budget</span>
+                <span style={{ fontSize: 11, color: 'var(--text-muted, #475569)', textTransform: 'uppercase', display: 'block', fontWeight: 700 }}>Estimated Trip Budget</span>
                 <span style={{ fontSize: 'clamp(20px, 3vw, 24px)', fontWeight: 800, color: '#f5af19', display: 'block', marginTop: 2 }}>{currencySymbol}{estBudget}</span>
-                <span style={{ fontSize: 10, color: '#94a3b8' }}>Includes stay, dining & activities</span>
+                <span style={{ fontSize: 10, color: 'var(--text-muted, #475569)' }}>Includes stay, dining & activities</span>
               </div>
             </div>
 
             {/* Highlights */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 16, paddingTop: 14, borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 16, paddingTop: 14, borderTop: '1px solid var(--card-border, rgba(255, 255, 255, 0.08))' }}>
               {activeItinerary.highlights.map((h, i) => (
-                <span key={i} style={{ fontSize: 11, background: 'rgba(255, 255, 255, 0.05)', color: '#00d2ff', padding: '4px 10px', borderRadius: 8, border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                <span key={i} style={{ fontSize: 11, background: 'var(--card-subtle-bg, rgba(255, 255, 255, 0.05))', color: 'var(--accent-cyan, #0284c7)', padding: '4px 10px', borderRadius: 8, border: '1px solid var(--card-border, rgba(255, 255, 255, 0.08))', fontWeight: 600 }}>
                   ✦ {h}
                 </span>
               ))}
@@ -378,9 +376,9 @@ export default function AiItineraryPlanner({
                 key={d.dayNumber}
                 onClick={() => setActiveDayTab(d.dayNumber)}
                 style={{
-                  background: activeDayTab === d.dayNumber ? 'linear-gradient(135deg, #c084fc, #00d2ff)' : 'rgba(255, 255, 255, 0.05)',
-                  color: activeDayTab === d.dayNumber ? '#090f1d' : '#cbd5e1',
-                  border: activeDayTab === d.dayNumber ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
+                  background: activeDayTab === d.dayNumber ? 'linear-gradient(135deg, #c084fc, #00d2ff)' : 'var(--card-subtle-bg, rgba(255, 255, 255, 0.05))',
+                  color: activeDayTab === d.dayNumber ? '#090f1d' : 'var(--text-main, #cbd5e1)',
+                  border: activeDayTab === d.dayNumber ? 'none' : '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
                   padding: '8px 18px',
                   borderRadius: 12,
                   fontSize: 13,
@@ -402,11 +400,11 @@ export default function AiItineraryPlanner({
 
             return (
               <div className="glass-card" style={{ padding: 'clamp(16px, 2.5vw, 24px)', display: 'flex', flexDirection: 'column', gap: 18 }}>
-                <div style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: 12 }}>
-                  <h3 style={{ fontSize: 'clamp(16px, 2.5vw, 18px)', fontWeight: 800, color: '#fff' }}>
+                <div style={{ borderBottom: '1px solid var(--card-border, rgba(255, 255, 255, 0.08))', paddingBottom: 12 }}>
+                  <h3 style={{ fontSize: 'clamp(16px, 2.5vw, 18px)', fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                     Day {currentDay.dayNumber}: {currentDay.title}
                   </h3>
-                  <p style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>Curated timeline sequence</p>
+                  <p style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 2 }}>Curated timeline sequence</p>
                 </div>
 
                 {/* Timeline items */}
@@ -416,13 +414,13 @@ export default function AiItineraryPlanner({
                     <div style={{ width: 34, height: 34, borderRadius: '50%', background: 'rgba(245, 175, 25, 0.2)', border: '2px solid #f5af19', color: '#f5af19', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, flexShrink: 0, marginTop: 2 }}>
                       🌅
                     </div>
-                    <div style={{ flex: 1, background: 'rgba(0,0,0,0.3)', padding: '12px 14px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div style={{ flex: 1, background: 'var(--card-subtle-bg, #f8fafc)', padding: '12px 14px', borderRadius: 12, border: '1px solid var(--card-border, #e2e8f0)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4, flexWrap: 'wrap', gap: 6 }}>
                         <span style={{ fontSize: 12, fontWeight: 800, color: '#f5af19' }}>{currentDay.morning.time}</span>
                         <span style={{ fontSize: 11, color: '#00e676', fontWeight: 700 }}>{currentDay.morning.estCost}</span>
                       </div>
-                      <h4 style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>{currentDay.morning.activity}</h4>
-                      <p style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>{currentDay.morning.desc}</p>
+                      <h4 style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>{currentDay.morning.activity}</h4>
+                      <p style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 4 }}>{currentDay.morning.desc}</p>
                     </div>
                   </div>
 
@@ -431,13 +429,13 @@ export default function AiItineraryPlanner({
                     <div style={{ width: 34, height: 34, borderRadius: '50%', background: 'rgba(0, 210, 255, 0.2)', border: '2px solid #00d2ff', color: '#00d2ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, flexShrink: 0, marginTop: 2 }}>
                       ☀️
                     </div>
-                    <div style={{ flex: 1, background: 'rgba(0,0,0,0.3)', padding: '12px 14px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div style={{ flex: 1, background: 'var(--card-subtle-bg, #f8fafc)', padding: '12px 14px', borderRadius: 12, border: '1px solid var(--card-border, #e2e8f0)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4, flexWrap: 'wrap', gap: 6 }}>
-                        <span style={{ fontSize: 12, fontWeight: 800, color: '#00d2ff' }}>{currentDay.afternoon.time}</span>
+                        <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent-cyan, #0284c7)' }}>{currentDay.afternoon.time}</span>
                         <span style={{ fontSize: 11, color: '#00e676', fontWeight: 700 }}>{currentDay.afternoon.estCost}</span>
                       </div>
-                      <h4 style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>{currentDay.afternoon.activity}</h4>
-                      <p style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>{currentDay.afternoon.desc}</p>
+                      <h4 style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>{currentDay.afternoon.activity}</h4>
+                      <p style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 4 }}>{currentDay.afternoon.desc}</p>
                     </div>
                   </div>
 
@@ -446,13 +444,13 @@ export default function AiItineraryPlanner({
                     <div style={{ width: 34, height: 34, borderRadius: '50%', background: 'rgba(192, 132, 252, 0.2)', border: '2px solid #c084fc', color: '#c084fc', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, flexShrink: 0, marginTop: 2 }}>
                       🌙
                     </div>
-                    <div style={{ flex: 1, background: 'rgba(0,0,0,0.3)', padding: '12px 14px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div style={{ flex: 1, background: 'var(--card-subtle-bg, #f8fafc)', padding: '12px 14px', borderRadius: 12, border: '1px solid var(--card-border, #e2e8f0)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4, flexWrap: 'wrap', gap: 6 }}>
                         <span style={{ fontSize: 12, fontWeight: 800, color: '#c084fc' }}>{currentDay.evening.time}</span>
                         <span style={{ fontSize: 11, color: '#00e676', fontWeight: 700 }}>{currentDay.evening.estCost}</span>
                       </div>
-                      <h4 style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>{currentDay.evening.activity}</h4>
-                      <p style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>{currentDay.evening.desc}</p>
+                      <h4 style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>{currentDay.evening.activity}</h4>
+                      <p style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 4 }}>{currentDay.evening.desc}</p>
                     </div>
                   </div>
                 </div>

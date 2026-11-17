@@ -105,21 +105,21 @@ export default function FeatureLauncher({ isOpen, onClose, onSelectFeature, onQu
         onClick={(e) => e.stopPropagation()} 
         style={{ 
           maxWidth: 640,
-          background: 'rgba(11, 19, 38, 0.96)',
+          background: 'var(--modal-bg, #ffffff)',
           backdropFilter: 'blur(24px)',
-          border: '1px solid rgba(0, 210, 255, 0.3)',
-          boxShadow: '0 30px 80px rgba(0,0,0,0.8), 0 0 40px rgba(0, 210, 255, 0.2)'
+          border: '1px solid var(--card-border, #cbd5e1)',
+          boxShadow: '0 30px 80px rgba(0,0,0,0.4), var(--glow-cyan)'
         }}
       >
         {/* Search Bar Input */}
         <div style={{
           padding: '16px 20px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          borderBottom: '1px solid var(--card-border, #e2e8f0)',
           display: 'flex',
           alignItems: 'center',
           gap: 12
         }}>
-          <Search size={20} color="#00d2ff" />
+          <Search size={20} color="var(--accent-cyan, #0284c7)" />
           <input
             ref={inputRef}
             type="text"
@@ -135,7 +135,7 @@ export default function FeatureLauncher({ isOpen, onClose, onSelectFeature, onQu
               background: 'transparent',
               border: 'none',
               outline: 'none',
-              color: '#fff',
+              color: 'var(--text-main, #0f172a)',
               fontSize: 16,
               fontWeight: 600
             }}
@@ -172,13 +172,13 @@ export default function FeatureLauncher({ isOpen, onClose, onSelectFeature, onQu
         {/* Results List */}
         <div style={{ maxHeight: 420, overflowY: 'auto', padding: '12px 14px' }}>
           {totalResults.length === 0 ? (
-            <div style={{ padding: '36px 20px', textAlign: 'center', color: '#94a3b8' }}>
-              <p style={{ fontSize: 15, fontWeight: 600, color: '#fff' }}>No features found for "{query}"</p>
+            <div style={{ padding: '36px 20px', textAlign: 'center', color: 'var(--text-muted, #64748b)' }}>
+              <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-main, #0f172a)' }}>No features found for "{query}"</p>
               <p style={{ fontSize: 13, marginTop: 4 }}>Try searching "refund", "status", "deals", or "seat".</p>
             </div>
           ) : (
             <>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', padding: '6px 12px', letterSpacing: 0.8 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #64748b)', textTransform: 'uppercase', padding: '6px 12px', letterSpacing: 0.8 }}>
                 Available Features & Quick Launchers
               </div>
 
@@ -201,8 +201,8 @@ export default function FeatureLauncher({ isOpen, onClose, onSelectFeature, onQu
                       padding: '12px 16px',
                       borderRadius: 10,
                       cursor: 'pointer',
-                      background: isSelected ? 'rgba(0, 210, 255, 0.15)' : 'transparent',
-                      border: isSelected ? '1px solid rgba(0, 210, 255, 0.4)' : '1px solid transparent',
+                      background: isSelected ? 'rgba(2, 132, 199, 0.12)' : 'transparent',
+                      border: isSelected ? '1px solid rgba(2, 132, 199, 0.35)' : '1px solid transparent',
                       transition: 'all 0.15s ease',
                       marginBottom: 4
                     }}
@@ -213,22 +213,22 @@ export default function FeatureLauncher({ isOpen, onClose, onSelectFeature, onQu
                         width: 34,
                         height: 34,
                         borderRadius: 8,
-                        background: `${item.color || '#00d2ff'}22`,
-                        border: `1px solid ${item.color || '#00d2ff'}44`,
+                        background: `${item.color || '#0284c7'}22`,
+                        border: `1px solid ${item.color || '#0284c7'}44`,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: item.color || '#00d2ff'
+                        color: item.color || 'var(--accent-cyan, #0284c7)'
                       }}>
                         <IconComp size={18} />
                       </div>
 
                       <div>
-                        <div style={{ fontSize: 14, fontWeight: 700, color: isSelected ? '#00d2ff' : '#fff' }}>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: isSelected ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main, #0f172a)' }}>
                           {item.title}
                         </div>
                         {item.description && (
-                          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 1 }}>
+                          <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 1 }}>
                             {item.description}
                           </div>
                         )}

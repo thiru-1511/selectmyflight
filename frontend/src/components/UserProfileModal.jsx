@@ -51,31 +51,32 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
         {/* Header */}
         <div style={{
           padding: '20px 24px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          borderBottom: '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{
-              width: 42,
-              height: 42,
+              width: 44,
+              height: 44,
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #1a73e8, #00d2ff)',
+              background: 'linear-gradient(135deg, #0284c7, #2563eb)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#fff',
               fontWeight: 800,
-              fontSize: 16
+              fontSize: 17,
+              flexShrink: 0
             }}>
               {userInitials || 'T'}
             </div>
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: 0 }}>
-                {formData.name}
+              <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
+                {formData.name || 'Traveler Profile'}
               </h3>
-              <div style={{ fontSize: 11, color: '#f5af19', display: 'flex', alignItems: 'center', gap: 4, fontWeight: 700 }}>
+              <div style={{ fontSize: 11, color: '#f5af19', display: 'flex', alignItems: 'center', gap: 4, fontWeight: 700, marginTop: 2 }}>
                 <Star size={12} fill="#f5af19" /> SelectMyFlight Gold Elite • 42,500 Miles
               </div>
             </div>
@@ -83,9 +84,9 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
           <button
             onClick={onClose}
             style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              border: 'none',
-              color: '#cbd5e1',
+              background: 'var(--card-subtle-bg, rgba(255, 255, 255, 0.08))',
+              border: '1px solid var(--card-border, rgba(255, 255, 255, 0.15))',
+              color: 'var(--text-main, #cbd5e1)',
               width: 32,
               height: 32,
               borderRadius: '50%',
@@ -120,37 +121,39 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 16 }}>
             <div>
-              <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>Full Name</label>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 6 }}>Full Name</label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 style={{
                   width: '100%',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  color: '#fff',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1.5px solid var(--input-border, #cbd5e1)',
+                  color: 'var(--input-text, #0f172a)',
                   padding: '10px 12px',
                   borderRadius: 8,
-                  fontSize: 13
+                  fontSize: 13,
+                  fontWeight: 600
                 }}
               />
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>Contact Phone</label>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 6 }}>Contact Phone</label>
               <input
                 type="text"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 style={{
                   width: '100%',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  color: '#fff',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1.5px solid var(--input-border, #cbd5e1)',
+                  color: 'var(--input-text, #0f172a)',
                   padding: '10px 12px',
                   borderRadius: 8,
-                  fontSize: 13
+                  fontSize: 13,
+                  fontWeight: 600
                 }}
               />
             </div>
@@ -158,23 +161,23 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
 
           {/* Travel Preferences */}
           <div style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--card-subtle-bg, rgba(255, 255, 255, 0.03))',
+            border: '1px solid var(--card-border, rgba(255, 255, 255, 0.08))',
             borderRadius: 10,
             padding: '16px',
             marginBottom: 20
           }}>
-            <h4 style={{ fontSize: 13, fontWeight: 700, color: '#00d2ff', textTransform: 'uppercase', marginBottom: 12 }}>
+            <h4 style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent-cyan, #0284c7)', textTransform: 'uppercase', marginBottom: 12 }}>
               Default Travel Preferences
             </h4>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
               <div>
-                <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Seat Preference</label>
+                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Seat Preference</label>
                 <select
                   value={formData.preferredSeat}
                   onChange={(e) => setFormData({ ...formData, preferredSeat: e.target.value })}
-                  style={{ width: '100%', background: '#111a33', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#fff', padding: '8px', borderRadius: 6, fontSize: 12 }}
+                  style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '8px', borderRadius: 6, fontSize: 12, fontWeight: 600 }}
                 >
                   <option value="Window">Window Seat</option>
                   <option value="Aisle">Aisle Seat</option>
@@ -183,11 +186,11 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Preferred Class</label>
+                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Preferred Class</label>
                 <select
                   value={formData.preferredClass}
                   onChange={(e) => setFormData({ ...formData, preferredClass: e.target.value })}
-                  style={{ width: '100%', background: '#111a33', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#fff', padding: '8px', borderRadius: 6, fontSize: 12 }}
+                  style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '8px', borderRadius: 6, fontSize: 12, fontWeight: 600 }}
                 >
                   <option value="Economy">Economy</option>
                   <option value="Premium Economy">Premium Economy</option>
@@ -196,11 +199,11 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Home Hub</label>
+                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Home Hub</label>
                 <select
                   value={formData.homeAirport}
                   onChange={(e) => setFormData({ ...formData, homeAirport: e.target.value })}
-                  style={{ width: '100%', background: '#111a33', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#fff', padding: '8px', borderRadius: 6, fontSize: 12 }}
+                  style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '8px', borderRadius: 6, fontSize: 12, fontWeight: 600 }}
                 >
                   <option value="DEL">New Delhi (DEL)</option>
                   <option value="BOM">Mumbai (BOM)</option>
@@ -209,12 +212,12 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Frequent Flyer ID</label>
+                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Frequent Flyer ID</label>
                 <input
                   type="text"
                   readOnly
                   value="SMF-GOLD-88902"
-                  style={{ width: '100%', background: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#f5af19', padding: '8px', borderRadius: 6, fontSize: 12, fontWeight: 700 }}
+                  style={{ width: '100%', background: 'var(--card-subtle-bg, rgba(255, 255, 255, 0.04))', border: '1.5px solid var(--card-border, rgba(255, 255, 255, 0.1))', color: '#f5af19', padding: '8px', borderRadius: 6, fontSize: 12, fontWeight: 800 }}
                 />
               </div>
             </div>
@@ -239,9 +242,9 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
                 padding: '12px',
                 fontSize: 13,
                 fontWeight: 700,
-                background: 'rgba(0, 210, 255, 0.12)',
-                border: '1px solid rgba(0, 210, 255, 0.35)',
-                color: '#00d2ff',
+                background: 'rgba(2, 132, 199, 0.12)',
+                border: '1.5px solid rgba(2, 132, 199, 0.35)',
+                color: 'var(--accent-cyan, #0284c7)',
                 borderRadius: 8,
                 cursor: 'pointer'
               }}

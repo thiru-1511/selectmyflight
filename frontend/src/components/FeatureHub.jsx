@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { 
-  Sparkles,
-  ArrowRight,
-  Search,
-  CheckCircle2
+  Sparkles, 
+  ArrowRight, 
+  Search 
 } from 'lucide-react';
 import { FEATURES_LIST } from '../data/featureList';
 
@@ -24,7 +23,7 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
 
   return (
     <section style={{
-      maxWidth: 1360,
+      maxWidth: 1400,
       margin: '0 auto',
       padding: '24px 16px 16px 16px'
     }}>
@@ -42,22 +41,24 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
             display: 'inline-flex',
             alignItems: 'center',
             gap: 6,
-            background: 'rgba(0, 210, 255, 0.12)',
-            border: '1px solid rgba(0, 210, 255, 0.3)',
+            background: 'rgba(2, 132, 199, 0.12)',
+            border: '1px solid rgba(2, 132, 199, 0.3)',
             padding: '3px 10px',
             borderRadius: 20,
             fontSize: 11,
-            fontWeight: 700,
-            color: '#00d2ff',
-            marginBottom: 6
+            fontWeight: 800,
+            color: 'var(--accent-cyan, #0284c7)',
+            marginBottom: 6,
+            letterSpacing: 0.5,
+            textTransform: 'uppercase'
           }}>
             <Sparkles size={13} />
             <span>TRAVELER FEATURE DOCK</span>
           </div>
-          <h2 style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, color: '#fff', letterSpacing: -0.5 }}>
+          <h2 style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: -0.5 }}>
             Pick Any Feature & Launch Instantly
           </h2>
-          <p style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+          <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 2 }}>
             Real-time telemetry, direct refunds, 3D cabin layouts, AI concierge, or instant deals.
           </p>
         </div>
@@ -67,14 +68,14 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
           display: 'flex',
           alignItems: 'center',
           gap: 8,
-          background: 'rgba(255, 255, 255, 0.05)',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
-          borderRadius: 10,
-          padding: '8px 12px',
+          background: 'var(--card-subtle-bg, #f1f5f9)',
+          border: '1px solid var(--card-border, #cbd5e1)',
+          borderRadius: 20,
+          padding: '8px 14px',
           width: '100%',
           maxWidth: 280
         }}>
-          <Search size={14} color="#94a3b8" />
+          <Search size={14} color="var(--accent-cyan, #0284c7)" />
           <input
             type="text"
             placeholder="Filter features..."
@@ -84,7 +85,7 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
               background: 'transparent',
               border: 'none',
               outline: 'none',
-              color: '#fff',
+              color: 'var(--text-main)',
               fontSize: 13,
               width: '100%',
               padding: 0,
@@ -96,39 +97,47 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
 
       {/* Category Pills (Horizontal Touch Swipe) */}
       <div className="scroll-touch-x" style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
         paddingBottom: 8,
         marginBottom: 16
       }}>
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            onClick={() => setSelectedCategory(cat)}
-            style={{
-              background: selectedCategory === cat ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'rgba(255, 255, 255, 0.04)',
-              color: selectedCategory === cat ? '#fff' : '#cbd5e1',
-              border: selectedCategory === cat ? 'none' : '1px solid rgba(255, 255, 255, 0.08)',
-              padding: '6px 12px',
-              borderRadius: 20,
-              fontSize: 12,
-              fontWeight: 700,
-              cursor: 'pointer',
-              whiteSpace: 'nowrap',
-              flexShrink: 0,
-              transition: 'all 0.2s',
-              boxShadow: selectedCategory === cat ? '0 4px 15px rgba(0, 210, 255, 0.3)' : 'none'
-            }}
-          >
-            {cat === 'All' ? '⚡ All (11)' : cat}
-          </button>
-        ))}
+        {categories.map((cat) => {
+          const isCatActive = selectedCategory === cat;
+          return (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => setSelectedCategory(cat)}
+              style={{
+                background: isCatActive 
+                  ? 'linear-gradient(135deg, var(--accent-cyan, #0284c7), var(--accent-blue, #2563eb))' 
+                  : 'var(--card-subtle-bg, #f1f5f9)',
+                color: isCatActive ? '#ffffff' : 'var(--text-main, #334155)',
+                border: isCatActive ? 'none' : '1px solid var(--card-border, #cbd5e1)',
+                padding: '6px 14px',
+                borderRadius: 20,
+                fontSize: 12,
+                fontWeight: isCatActive ? 700 : 600,
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+                transition: 'all 0.2s',
+                boxShadow: isCatActive ? '0 4px 14px rgba(2, 132, 199, 0.25)' : 'none'
+              }}
+            >
+              {cat === 'All' ? `⚡ All (${FEATURES_LIST.length})` : cat}
+            </button>
+          );
+        })}
       </div>
 
       {/* Feature Cards Grid */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-        gap: 12
+        gap: 14
       }}>
         {filteredFeatures.map((feat) => {
           const IconComp = feat.icon;
@@ -138,19 +147,21 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
             <div
               key={feat.id}
               onClick={() => onSelectFeature(feat.id)}
-              className="glass-card"
+              className="glass-card feature-hub-card"
               style={{
                 padding: '16px',
-                borderRadius: 12,
+                borderRadius: 14,
                 cursor: 'pointer',
-                border: isActive ? `1px solid ${feat.color}` : '1px solid rgba(255, 255, 255, 0.08)',
-                background: isActive ? 'rgba(18, 28, 54, 0.95)' : 'rgba(18, 28, 54, 0.65)',
+                border: isActive ? `1.5px solid ${feat.color}` : '1px solid var(--card-border, #e2e8f0)',
+                background: 'var(--card-bg, #ffffff)',
+                boxShadow: isActive ? `0 8px 24px ${feat.color}25` : '0 2px 8px rgba(15, 23, 42, 0.04)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 position: 'relative',
                 overflow: 'hidden',
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease',
+                minHeight: 185
               }}
             >
               {/* Top Accent glow bar */}
@@ -164,51 +175,54 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
                 zIndex: 2
               }} />
 
-              {/* Background flight image overlay */}
+              {/* Background flight image overlay (hidden in light mode via CSS) */}
               {feat.bgImage && (
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundImage: `linear-gradient(180deg, rgba(13, 22, 43, 0.72) 0%, rgba(9, 15, 29, 0.94) 100%), url('${feat.bgImage}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  opacity: isActive ? 0.95 : 0.82,
-                  transition: 'opacity 0.3s ease',
-                  zIndex: 0
-                }} />
+                <div 
+                  className="feature-card-dark-bg"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    backgroundImage: `linear-gradient(180deg, rgba(13, 22, 43, 0.72) 0%, rgba(9, 15, 29, 0.94) 100%), url('${feat.bgImage}')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    opacity: isActive ? 0.95 : 0.82,
+                    transition: 'opacity 0.3s ease',
+                    zIndex: 0
+                  }} 
+                />
               )}
 
               <div style={{ position: 'relative', zIndex: 1 }}>
                 {/* Header row: Icon & Badge */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
                   <div style={{
                     width: 38,
                     height: 38,
                     borderRadius: 10,
-                    background: `${feat.color}25`,
-                    border: `1px solid ${feat.color}66`,
-                    backdropFilter: 'blur(8px)',
+                    background: `${feat.color}15`,
+                    border: `1px solid ${feat.color}35`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: feat.color,
-                    flexShrink: 0,
-                    boxShadow: `0 4px 12px ${feat.color}33`
+                    flexShrink: 0
                   }}>
                     <IconComp size={19} />
                   </div>
 
-                  <span style={{
-                    fontSize: 9,
-                    fontWeight: 800,
-                    padding: '3px 8px',
-                    borderRadius: 12,
-                    background: 'rgba(9, 15, 29, 0.85)',
-                    backdropFilter: 'blur(6px)',
-                    color: feat.badgeColor || feat.color,
-                    border: `1px solid ${feat.badgeColor || feat.color}60`,
-                    letterSpacing: 0.5
-                  }}>
+                  <span 
+                    className="feature-badge"
+                    style={{
+                      fontSize: 9,
+                      fontWeight: 800,
+                      padding: '3px 8px',
+                      borderRadius: 12,
+                      background: `${feat.badgeColor || feat.color}15`,
+                      color: feat.badgeColor || feat.color,
+                      border: `1px solid ${feat.badgeColor || feat.color}40`,
+                      letterSpacing: 0.5
+                    }}
+                  >
                     {feat.badge}
                   </span>
                 </div>
@@ -217,10 +231,9 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
                 <h3 style={{
                   fontSize: 15,
                   fontWeight: 800,
-                  color: '#fff',
-                  marginBottom: 4,
-                  lineHeight: 1.2,
-                  textShadow: '0 2px 4px rgba(0,0,0,0.6)'
+                  color: 'var(--text-main, #0f172a)',
+                  marginBottom: 6,
+                  lineHeight: 1.3
                 }}>
                   {feat.title}
                 </h3>
@@ -228,10 +241,9 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
                 {/* Description */}
                 <p style={{
                   fontSize: 12,
-                  color: '#cbd5e1',
-                  lineHeight: 1.4,
-                  marginBottom: 12,
-                  textShadow: '0 1px 3px rgba(0,0,0,0.8)'
+                  color: 'var(--text-muted, #475569)',
+                  lineHeight: 1.45,
+                  marginBottom: 14
                 }}>
                   {feat.description}
                 </p>
@@ -245,20 +257,23 @@ export default function FeatureHub({ onSelectFeature, activeFeatureId }) {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 paddingTop: 10,
-                borderTop: '1px solid rgba(255, 255, 255, 0.12)'
+                borderTop: '1px solid var(--card-border, #e2e8f0)'
               }}>
-                <span style={{
-                  fontSize: 12,
-                  fontWeight: 800,
-                  color: feat.color,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 4
-                }}>
+                <span 
+                  className="feature-action-label"
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: feat.color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 4
+                  }}
+                >
                   {feat.actionLabel || 'Launch Feature'}
                 </span>
                 <div style={{
-                  background: `${feat.color}22`,
+                  background: `${feat.color}15`,
                   borderRadius: '50%',
                   width: 24,
                   height: 24,

@@ -70,11 +70,11 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
               <CheckCircle2 size={24} />
             </div>
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: 0 }}>
+              <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                 {showInvoice ? 'Official Tax Invoice & Receipt' : 'E-Ticket & Digital Boarding Pass'}
               </h3>
-              <div style={{ fontSize: 12, color: '#94a3b8' }}>
-                PNR: <strong style={{ color: '#00d2ff' }}>{pnr}</strong> • {safePassengers.length} {safePassengers.length === 1 ? 'Traveler' : 'Travelers'} • SelectMyFlight Verified
+              <div style={{ fontSize: 12, color: 'var(--text-muted, #94a3b8)' }}>
+                PNR: <strong style={{ color: 'var(--accent-cyan, #0284c7)' }}>{pnr}</strong> • {safePassengers.length} {safePassengers.length === 1 ? 'Traveler' : 'Travelers'} • SelectMyFlight Verified
               </div>
             </div>
           </div>
@@ -261,19 +261,20 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
           ) : (
             /* Tax Invoice View */
             <div style={{
-              background: '#0d1527',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
+              background: 'var(--card-subtle-bg, #f8fafc)',
+              border: '1.5px solid var(--card-border, #cbd5e1)',
               borderRadius: 12,
               padding: '24px'
             }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: 16, marginBottom: 16 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--card-border, #cbd5e1)', paddingBottom: 16, marginBottom: 16 }}>
                 <div>
                   <div style={{
                     background: '#ffffff',
                     padding: '4px 10px',
                     borderRadius: 6,
                     display: 'inline-block',
-                    marginBottom: 8
+                    marginBottom: 8,
+                    border: '1px solid #e2e8f0'
                   }}>
                     <img 
                       src="/assets/images/selectmyflight_logo.png" 
@@ -281,67 +282,67 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
                       style={{ height: 26, width: 'auto', objectFit: 'contain', display: 'block' }}
                     />
                   </div>
-                  <h4 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: '4px 0 2px 0' }}>TAX INVOICE / RECEIPT</h4>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>Invoice No: INV-2026-{pnr} • GSTIN: 07AAACS9821L1Z4</div>
+                  <h4 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: '4px 0 2px 0' }}>TAX INVOICE / RECEIPT</h4>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Invoice No: INV-2026-{pnr} • GSTIN: 07AAACS9821L1Z4</div>
                 </div>
-                <div style={{ textAlign: 'right', fontSize: 12, color: '#cbd5e1' }}>
-                  <div style={{ fontWeight: 700, color: '#fff' }}>SelectMyFlight Technologies Ltd.</div>
-                  <div style={{ color: '#94a3b8', fontSize: 11 }}>Date: {new Date().toLocaleDateString()}</div>
+                <div style={{ textAlign: 'right', fontSize: 12, color: 'var(--text-muted, #475569)' }}>
+                  <div style={{ fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>SelectMyFlight Technologies Ltd.</div>
+                  <div style={{ color: 'var(--text-muted, #475569)', fontSize: 11 }}>Date: {new Date().toLocaleDateString()}</div>
                 </div>
               </div>
 
               {/* Passenger & Billing Details */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18, fontSize: 12 }}>
                 <div>
-                  <div style={{ color: '#94a3b8' }}>Billed To:</div>
-                  <div style={{ fontWeight: 700, color: '#fff' }}>{safePassengers.map(p => `${p.title} ${p.firstName} ${p.lastName} (Seat ${p.seatNumber})`).join(', ')}</div>
-                  <div style={{ color: '#cbd5e1' }}>{booking.contactEmail || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com'}</div>
-                  <div style={{ color: '#cbd5e1' }}>{booking.contactPhone || '+91 98765 43210'}</div>
+                  <div style={{ color: 'var(--text-muted, #475569)' }}>Billed To:</div>
+                  <div style={{ fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>{safePassengers.map(p => `${p.title} ${p.firstName} ${p.lastName} (Seat ${p.seatNumber})`).join(', ')}</div>
+                  <div style={{ color: 'var(--text-muted, #475569)' }}>{booking.contactEmail || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com'}</div>
+                  <div style={{ color: 'var(--text-muted, #475569)' }}>{booking.contactPhone || '+91 98765 43210'}</div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ color: '#94a3b8' }}>Payment Reference:</div>
-                  <div style={{ fontWeight: 700, color: '#00e676', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6 }}>
+                  <div style={{ color: 'var(--text-muted, #475569)' }}>Payment Reference:</div>
+                  <div style={{ fontWeight: 700, color: 'var(--accent-green, #059669)', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6 }}>
                     <RazorpayLogo size={14} /> Status: PAID IN FULL
                   </div>
-                  <div style={{ color: '#cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6, marginTop: 2 }}>
+                  <div style={{ color: 'var(--text-muted, #475569)', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6, marginTop: 2 }}>
                     {paymentMethod?.includes('Google Pay') ? <GPayLogo size={16} /> : paymentMethod?.includes('PhonePe') ? <PhonePeLogo size={16} /> : paymentMethod?.includes('Paytm') ? <PaytmLogo size={16} /> : <UpiLogo size={16} />}
                     <span>{paymentMethod || 'Razorpay UPI'}</span>
                   </div>
-                  <div style={{ color: '#00d2ff', fontSize: 11, fontFamily: 'monospace', marginTop: 2 }}>Razorpay ID: {booking.paymentId || `pay_rzp_${Date.now().toString().slice(-8)}`}</div>
+                  <div style={{ color: 'var(--accent-cyan, #0284c7)', fontSize: 11, fontFamily: 'monospace', marginTop: 2 }}>Razorpay ID: {booking.paymentId || `pay_rzp_${Date.now().toString().slice(-8)}`}</div>
                 </div>
               </div>
 
               {/* Itemized Table */}
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12, marginBottom: 16 }}>
                 <thead>
-                  <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.15)', textAlign: 'left', color: '#94a3b8' }}>
+                  <tr style={{ borderBottom: '1px solid var(--card-border, #cbd5e1)', textAlign: 'left', color: 'var(--text-muted, #475569)' }}>
                     <th style={{ padding: '8px 0' }}>Description</th>
                     <th style={{ padding: '8px 0', textAlign: 'right' }}>Amount</th>
                   </tr>
                 </thead>
-                <tbody style={{ color: '#cbd5e1' }}>
-                  <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                <tbody style={{ color: 'var(--text-main, #0f172a)' }}>
+                  <tr style={{ borderBottom: '1px solid var(--card-border, #e2e8f0)' }}>
                     <td style={{ padding: '8px 0' }}>Airfare ({flight.airlineName} {flight.flightNumber} • {flight.originCode} to {flight.destinationCode} • {safePassengers.length} {safePassengers.length === 1 ? 'Traveler' : 'Travelers'})</td>
                     <td style={{ padding: '8px 0', textAlign: 'right' }}>{currencySymbol}{convertPrice(flight.basePrice * safePassengers.length)}</td>
                   </tr>
-                  <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                  <tr style={{ borderBottom: '1px solid var(--card-border, #e2e8f0)' }}>
                     <td style={{ padding: '8px 0' }}>Seat Allocations ({safePassengers.map(p => p.seatNumber).join(', ')}) & Dining Add-ons</td>
                     <td style={{ padding: '8px 0', textAlign: 'right' }}>{currencySymbol}{convertPrice(Math.max(0, totalAmount - (flight.basePrice * safePassengers.length) + (discountAmount || 0)))}</td>
                   </tr>
                   {discountAmount > 0 && (
-                    <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)', color: '#00e676' }}>
+                    <tr style={{ borderBottom: '1px solid var(--card-border, #e2e8f0)', color: 'var(--accent-green, #059669)' }}>
                       <td style={{ padding: '8px 0' }}>Promotional Discount Applied</td>
                       <td style={{ padding: '8px 0', textAlign: 'right' }}>-{currencySymbol}{convertPrice(discountAmount)}</td>
                     </tr>
                   )}
                   <tr>
-                    <td style={{ padding: '12px 0', fontWeight: 800, color: '#fff', fontSize: 14 }}>Total Paid (inclusive of all taxes)</td>
-                    <td style={{ padding: '12px 0', textAlign: 'right', fontWeight: 800, color: '#00d2ff', fontSize: 16 }}>{currencySymbol}{convertPrice(totalAmount).toLocaleString()}</td>
+                    <td style={{ padding: '12px 0', fontWeight: 800, color: 'var(--text-main, #0f172a)', fontSize: 14 }}>Total Paid (inclusive of all taxes)</td>
+                    <td style={{ padding: '12px 0', textAlign: 'right', fontWeight: 800, color: 'var(--accent-cyan, #0284c7)', fontSize: 16 }}>{currencySymbol}{convertPrice(totalAmount).toLocaleString()}</td>
                   </tr>
                 </tbody>
               </table>
 
-              <div style={{ fontSize: 11, color: '#94a3b8', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: 10 }}>
+              <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)', borderTop: '1px solid var(--card-border, #cbd5e1)', paddingTop: 10 }}>
                 This is a computer-generated tax invoice. No physical signature is required.
               </div>
             </div>

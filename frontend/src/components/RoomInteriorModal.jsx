@@ -94,23 +94,23 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
           width: '100%',
           maxWidth: 960,
           maxHeight: '94vh',
-          background: '#090f1e',
-          border: '1px solid rgba(0, 210, 255, 0.4)',
+          background: 'var(--modal-bg, #ffffff)',
+          border: '1px solid var(--card-border, #cbd5e1)',
           borderRadius: 20,
           overflowY: 'auto',
-          boxShadow: '0 25px 70px rgba(0,0,0,0.9), 0 0 40px rgba(0, 210, 255, 0.25)',
-          color: '#f8fafc',
+          boxShadow: '0 25px 70px rgba(0,0,0,0.25)',
+          color: 'var(--text-main, #0f172a)',
           position: 'relative'
         }}
       >
         {/* Header */}
         <div style={{
           padding: '16px 24px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          borderBottom: '1px solid var(--card-border, #cbd5e1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: 'linear-gradient(135deg, rgba(0, 210, 255, 0.12), rgba(245, 175, 25, 0.06))',
+          background: 'var(--card-subtle-bg, #f8fafc)',
           position: 'sticky',
           top: 0,
           zIndex: 20,
@@ -119,8 +119,8 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
               <span style={{
-                background: 'rgba(0, 210, 255, 0.2)',
-                color: '#00d2ff',
+                background: 'rgba(2, 132, 199, 0.12)',
+                color: 'var(--accent-cyan, #0284c7)',
                 fontSize: 11,
                 fontWeight: 800,
                 padding: '2px 8px',
@@ -133,9 +133,9 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
               </span>
               {room.isLiveVerified && (
                 <span style={{
-                  background: 'rgba(0, 230, 118, 0.2)',
-                  color: '#00e676',
-                  border: '1px solid rgba(0, 230, 118, 0.4)',
+                  background: 'rgba(5, 150, 105, 0.12)',
+                  color: 'var(--accent-green, #059669)',
+                  border: '1px solid rgba(5, 150, 105, 0.3)',
                   fontSize: 11,
                   fontWeight: 800,
                   padding: '2px 8px',
@@ -147,11 +147,11 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
                   <ShieldCheck size={12} /> VERIFIED HOTEL ROOM PHOTO
                 </span>
               )}
-              <span style={{ fontSize: 13, color: '#94a3b8' }}>
+              <span style={{ fontSize: 13, color: 'var(--text-muted, #475569)' }}>
                 {hotel?.name || 'Luxury Hotel Suite'}
               </span>
             </div>
-            <h3 style={{ fontSize: 20, fontWeight: 900, color: '#fff', margin: '4px 0 0 0' }}>
+            <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--text-main, #0f172a)', margin: '4px 0 0 0' }}>
               {room.name}
             </h3>
           </div>
@@ -160,9 +160,9 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
             type="button"
             onClick={onClose}
             style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              border: 'none',
-              color: '#cbd5e1',
+              background: 'var(--card-subtle-bg, #f1f5f9)',
+              border: '1px solid var(--card-border, #cbd5e1)',
+              color: 'var(--text-main, #0f172a)',
               width: 36,
               height: 36,
               borderRadius: '50%',
@@ -307,13 +307,13 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
 
           {/* Architectural Specifications Grid */}
           <div style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--card-subtle-bg, #f8fafc)',
+            border: '1px solid var(--card-border, #cbd5e1)',
             borderRadius: 14,
             padding: '18px 20px',
             marginBottom: 20
           }}>
-            <h4 style={{ fontSize: 14, fontWeight: 800, color: '#00d2ff', textTransform: 'uppercase', letterSpacing: 0.5, margin: '0 0 14px 0', display: 'flex', alignItems: 'center', gap: 6 }}>
+            <h4 style={{ fontSize: 14, fontWeight: 800, color: 'var(--accent-cyan, #0284c7)', textTransform: 'uppercase', letterSpacing: 0.5, margin: '0 0 14px 0', display: 'flex', alignItems: 'center', gap: 6 }}>
               <Maximize2 size={15} /> Room Interior Blueprint & Dimensions
             </h4>
 
@@ -324,47 +324,47 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
               fontSize: 12
             }}>
               <div>
-                <span style={{ color: '#94a3b8', display: 'block', fontSize: 11 }}>Floor Area</span>
-                <strong style={{ color: '#fff', fontSize: 13 }}>{room.size || '52 sq.m (560 sq.ft)'}</strong>
+                <span style={{ color: 'var(--text-muted, #475569)', display: 'block', fontSize: 11 }}>Floor Area</span>
+                <strong style={{ color: 'var(--text-main, #0f172a)', fontSize: 13 }}>{room.size || '52 sq.m (560 sq.ft)'}</strong>
               </div>
               <div>
-                <span style={{ color: '#94a3b8', display: 'block', fontSize: 11 }}>Bed Arrangement</span>
-                <strong style={{ color: '#fff', fontSize: 13 }}>{room.bed || '1 Super King Bed'}</strong>
+                <span style={{ color: 'var(--text-muted, #475569)', display: 'block', fontSize: 11 }}>Bed Arrangement</span>
+                <strong style={{ color: 'var(--text-main, #0f172a)', fontSize: 13 }}>{room.bed || '1 Super King Bed'}</strong>
               </div>
               <div>
-                <span style={{ color: '#94a3b8', display: 'block', fontSize: 11 }}>Balcony / Orientation</span>
-                <strong style={{ color: '#fff', fontSize: 13 }}>{room.view || 'Panoramic Skyline'}</strong>
+                <span style={{ color: 'var(--text-muted, #475569)', display: 'block', fontSize: 11 }}>Balcony / Orientation</span>
+                <strong style={{ color: 'var(--text-main, #0f172a)', fontSize: 13 }}>{room.view || 'Panoramic Skyline'}</strong>
               </div>
               <div>
-                <span style={{ color: '#94a3b8', display: 'block', fontSize: 11 }}>Ceiling Height</span>
-                <strong style={{ color: '#fff', fontSize: 13 }}>3.2 Meters (10.5 ft)</strong>
+                <span style={{ color: 'var(--text-muted, #475569)', display: 'block', fontSize: 11 }}>Ceiling Height</span>
+                <strong style={{ color: 'var(--text-main, #0f172a)', fontSize: 13 }}>3.2 Meters (10.5 ft)</strong>
               </div>
               <div>
-                <span style={{ color: '#94a3b8', display: 'block', fontSize: 11 }}>Acoustics & Isolation</span>
-                <strong style={{ color: '#00e676', fontSize: 13 }}>STC 55 Soundproofed</strong>
+                <span style={{ color: 'var(--text-muted, #475569)', display: 'block', fontSize: 11 }}>Acoustics & Isolation</span>
+                <strong style={{ color: 'var(--accent-green, #059669)', fontSize: 13 }}>STC 55 Soundproofed</strong>
               </div>
               <div>
-                <span style={{ color: '#94a3b8', display: 'block', fontSize: 11 }}>Guest Capacity</span>
-                <strong style={{ color: '#fff', fontSize: 13 }}>{room.capacity || '2 Adults, 1 Child'}</strong>
+                <span style={{ color: 'var(--text-muted, #475569)', display: 'block', fontSize: 11 }}>Guest Capacity</span>
+                <strong style={{ color: 'var(--text-main, #0f172a)', fontSize: 13 }}>{room.capacity || '2 Adults, 1 Child'}</strong>
               </div>
             </div>
           </div>
 
           {/* Smart Amenities Matrix */}
           <div style={{ marginBottom: 20 }}>
-            <h4 style={{ fontSize: 14, fontWeight: 800, color: '#fff', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
-              <Sparkles size={15} color="#f5af19" /> High-Spec In-Room Amenities
+            <h4 style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-main, #0f172a)', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
+              <Sparkles size={15} color="var(--accent-gold, #d97706)" /> High-Spec In-Room Amenities
             </h4>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 8 }}>
               {[
-                { icon: <Tv size={14} color="#00d2ff" />, text: '65" 4K OLED Smart TV with AirPlay' },
-                { icon: <Wifi size={14} color="#00e676" />, text: 'Dedicated 1 Gbps Wi-Fi 6' },
-                { icon: <Coffee size={14} color="#f5af19" />, text: 'Nespresso Vertuo & Artisan Teas' },
-                { icon: <Wind size={14} color="#38bdf8" />, text: 'Dual-Zone HEPA Climate Control' },
-                { icon: <VolumeX size={14} color="#a855f7" />, text: 'Triple-Glazed Quiet Acoustic Glass' },
-                { icon: <Bath size={14} color="#00d2ff" />, text: 'Dyson Supersonic & Designer Toiletries' }
+                { icon: <Tv size={14} color="#0284c7" />, text: '65" 4K OLED Smart TV with AirPlay' },
+                { icon: <Wifi size={14} color="#059669" />, text: 'Dedicated 1 Gbps Wi-Fi 6' },
+                { icon: <Coffee size={14} color="#d97706" />, text: 'Nespresso Vertuo & Artisan Teas' },
+                { icon: <Wind size={14} color="#0284c7" />, text: 'Dual-Zone HEPA Climate Control' },
+                { icon: <VolumeX size={14} color="#9333ea" />, text: 'Triple-Glazed Quiet Acoustic Glass' },
+                { icon: <Bath size={14} color="#0284c7" />, text: 'Dyson Supersonic & Designer Toiletries' }
               ].map((am, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255, 255, 255, 0.03)', padding: '8px 12px', borderRadius: 8, fontSize: 12, color: '#cbd5e1' }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--card-subtle-bg, #f1f5f9)', border: '1px solid var(--card-border, #cbd5e1)', padding: '8px 12px', borderRadius: 8, fontSize: 12, color: 'var(--text-main, #0f172a)' }}>
                   {am.icon}
                   <span>{am.text}</span>
                 </div>
@@ -380,13 +380,13 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
             flexWrap: 'wrap',
             gap: 14,
             paddingTop: 16,
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)'
+            borderTop: '1px solid var(--card-border, #cbd5e1)'
           }}>
             <div>
-              <span style={{ fontSize: 11, color: '#94a3b8' }}>Tariff per night:</span>
-              <div style={{ fontSize: 22, fontWeight: 900, color: '#00e676' }}>
+              <span style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Tariff per night:</span>
+              <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent-green, #059669)' }}>
                 {currencySymbol}{convertPrice(room.price).toLocaleString()}
-                <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 500 }}> / night</span>
+                <span style={{ fontSize: 12, color: 'var(--text-muted, #475569)', fontWeight: 500 }}> / night</span>
               </div>
             </div>
 
@@ -395,9 +395,9 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
                 type="button"
                 onClick={onClose}
                 style={{
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  color: '#cbd5e1',
+                  background: 'var(--card-subtle-bg, #f1f5f9)',
+                  border: '1px solid var(--card-border, #cbd5e1)',
+                  color: 'var(--text-main, #0f172a)',
                   padding: '10px 18px',
                   borderRadius: 8,
                   fontSize: 13,

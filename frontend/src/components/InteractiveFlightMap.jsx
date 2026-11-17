@@ -24,17 +24,14 @@ export default function InteractiveFlightMap({ onSelectRoute }) {
   const [selectedCity, setSelectedCity] = useState(CITIES[0]);
 
   return (
-    <div style={{
+    <div className="route-map-container" style={{
       maxWidth: 1240,
       margin: '24px auto 70px auto',
       padding: 'clamp(18px, 3vw, 36px) clamp(16px, 3vw, 32px) 60px clamp(16px, 3vw, 32px)',
       borderRadius: 24,
-      background: "linear-gradient(135deg, rgba(6, 10, 20, 0.88), rgba(11, 18, 38, 0.94)), url('/assets/images/flight_map_bg.jpg')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
-      border: '1px solid rgba(0, 210, 255, 0.25)'
+      background: "var(--card-bg, #ffffff)",
+      border: "1px solid var(--card-border, #e2e8f0)",
+      boxShadow: '0 20px 45px -10px rgba(15, 23, 42, 0.12)'
     }}>
       <div style={{ textAlign: 'center', marginBottom: 28 }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0, 210, 255, 0.1)', color: '#00d2ff', padding: '6px 16px', borderRadius: 20, fontSize: 13, fontWeight: 700, marginBottom: 12 }}>

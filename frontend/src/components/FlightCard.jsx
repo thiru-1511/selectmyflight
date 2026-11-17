@@ -56,12 +56,13 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
             </span>
           )}
           <span style={{
-            background: flight.stops === 0 ? 'rgba(255, 255, 255, 0.08)' : 'rgba(245, 175, 25, 0.15)',
-            color: flight.stops === 0 ? '#cbd5e1' : '#f5af19',
+            background: flight.stops === 0 ? 'var(--card-subtle-bg, rgba(255, 255, 255, 0.08))' : 'rgba(245, 175, 25, 0.15)',
+            color: flight.stops === 0 ? 'var(--text-muted)' : '#f5af19',
             fontSize: 10,
             fontWeight: 700,
             padding: '3px 8px',
-            borderRadius: 20
+            borderRadius: 20,
+            border: '1px solid var(--card-border, rgba(255, 255, 255, 0.1))'
           }}>
             {flight.stops === 0 ? t('flights.nonStop', 'Non-Stop') : `${flight.stops} ${flight.stops > 1 ? t('flights.stops', 'Stops') : t('flights.stop', 'Stop')}`}
           </span>
@@ -91,13 +92,8 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
         </button>
       </div>
 
-      {/* Main Content (Responsive Flex/Grid) */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        gap: 16,
-        alignItems: 'center'
-      }}>
+      {/* Main Content (Responsive Grid: Airline | Times | Baggage | Price) */}
+      <div className="flight-card-inner">
         {/* Airline Info */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {flight.airlineLogo ? (
@@ -140,10 +136,10 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
             </div>
           )}
           <div>
-            <h4 style={{ fontSize: 15, fontWeight: 700, color: '#fff', margin: 0 }}>
+            <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
               {flight.airlineName}
             </h4>
-            <div style={{ fontSize: 12, color: '#94a3b8', display: 'flex', alignItems: 'center', gap: 6, marginTop: 2 }}>
+            <div style={{ fontSize: 12, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6, marginTop: 2 }}>
               <span>{flight.flightNumber}</span>
               <span>•</span>
               <span>{flight.aircraftModel}</span>
@@ -157,23 +153,24 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
           alignItems: 'center',
           gap: 12,
           justifyContent: 'space-between',
-          background: 'rgba(255, 255, 255, 0.03)',
+          background: 'var(--card-subtle-bg, rgba(255, 255, 255, 0.03))',
+          border: '1px solid var(--card-border, rgba(255, 255, 255, 0.08))',
           padding: '10px 14px',
           borderRadius: 10
         }}>
           {/* Departure */}
           <div style={{ textAlign: 'left' }}>
-            <div style={{ fontSize: 18, fontWeight: 800, color: '#fff' }}>
+            <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main)' }}>
               {flight.departureTime}
             </div>
-            <div style={{ fontSize: 12, color: '#00d2ff', fontWeight: 700 }}>
+            <div style={{ fontSize: 12, color: 'var(--accent-cyan, #00d2ff)', fontWeight: 700 }}>
               {flight.originCode}
             </div>
           </div>
 
           {/* Flight Path Line */}
           <div style={{ textAlign: 'center', flex: 1, padding: '0 8px' }}>
-            <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, marginBottom: 2 }}>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600, marginBottom: 2 }}>
               {formatDuration(flight.durationMinutes)}
             </div>
             <div style={{
@@ -196,28 +193,28 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
 
           {/* Arrival */}
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: 18, fontWeight: 800, color: '#fff' }}>
+            <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main)' }}>
               {flight.arrivalTime}
             </div>
-            <div style={{ fontSize: 12, color: '#00d2ff', fontWeight: 700 }}>
+            <div style={{ fontSize: 12, color: 'var(--accent-cyan, #00d2ff)', fontWeight: 700 }}>
               {flight.destinationCode}
             </div>
           </div>
         </div>
 
         {/* Baggage & Policies */}
-        <div style={{ fontSize: 12, color: '#94a3b8', display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <div style={{ fontSize: 12, color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: 4 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Briefcase size={13} color="#00d2ff" />
+            <Briefcase size={13} color="var(--accent-cyan, #00d2ff)" />
             <span>Cabin: <strong>{flight.cabinBaggageKg}kg</strong> | Check-in: <strong>{flight.checkedBaggageKg}kg</strong></span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             {flight.refundable ? (
-              <span style={{ color: '#00e676', display: 'flex', alignItems: 'center', gap: 4, fontSize: 11 }}>
+              <span style={{ color: '#00e676', display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: 600 }}>
                 <CheckCircle2 size={12} /> Free Cancellation Available
               </span>
             ) : (
-              <span style={{ color: '#f5af19', display: 'flex', alignItems: 'center', gap: 4, fontSize: 11 }}>
+              <span style={{ color: '#f5af19', display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: 600 }}>
                 <Info size={12} /> Non-Refundable
               </span>
             )}
@@ -228,7 +225,7 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
             style={{
               background: 'none',
               border: 'none',
-              color: '#00d2ff',
+              color: 'var(--accent-cyan, #00d2ff)',
               fontSize: 11,
               textAlign: 'left',
               cursor: 'pointer',
@@ -241,21 +238,20 @@ export default function FlightCard({ flight, isCheapest, isFastest, currency, on
           </button>
         </div>
 
-        {/* Pricing & Booking Button (Clear & Full-Width on Mobile) */}
-        <div style={{
+        {/* Pricing & Booking Button */}
+        <div className="flight-card-price-col" style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          flexWrap: 'wrap',
           gap: 12,
-          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-          paddingTop: 12
+          borderLeft: '1px solid var(--card-border, rgba(255, 255, 255, 0.08))',
+          paddingLeft: 16
         }}>
           <div>
-            <div style={{ fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 600 }}>
+            <div style={{ fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
               {t('flights.perTraveler', 'Per Traveler')}
             </div>
-            <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', letterSpacing: -0.5 }}>
+            <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-main)', letterSpacing: -0.5 }}>
               {currencySymbol}{convertPrice(flight.basePrice).toLocaleString()}
             </div>
           </div>

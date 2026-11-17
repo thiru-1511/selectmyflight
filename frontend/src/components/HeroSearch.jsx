@@ -34,7 +34,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
         alignItems: 'center',
         justifyContent: 'center',
         padding: '36px 16px 80px 16px',
-        backgroundImage: `linear-gradient(to bottom, rgba(9, 15, 29, 0.45), rgba(9, 15, 29, 0.95)), url('${heroBg}')`,
+        backgroundImage: `linear-gradient(to bottom, var(--hero-overlay-top, rgba(9, 15, 29, 0.45)), var(--hero-overlay-bottom, rgba(9, 15, 29, 0.95))), url('${heroBg}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         transition: 'background-image 0.6s ease-in-out'
@@ -73,13 +73,13 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
             lineHeight: 1.15,
             marginBottom: 12,
             letterSpacing: -0.5,
-            textShadow: '0 4px 20px rgba(0,0,0,0.6)'
+            textShadow: '0 4px 20px rgba(0,0,0,0.85)'
           }}>
             {t('search.heading', 'Fly Smarter. Compare Faster.')} <br />
             <span style={{
-              background: 'linear-gradient(135deg, #00d2ff, #f5af19)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
+              color: '#38bdf8',
+              fontWeight: 900,
+              textShadow: '0 2px 14px rgba(0, 0, 0, 0.95), 0 0 25px rgba(56, 189, 248, 0.6)'
             }}>
               {t('search.subheading', 'Zero Hidden Fees.')}
             </span>
@@ -87,10 +87,12 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
 
           <p className="hero-subheading" style={{
             fontSize: 'clamp(13px, 2vw, 16px)',
-            color: '#cbd5e1',
+            color: '#f8fafc',
             maxWidth: 680,
             margin: '0 auto 24px auto',
-            lineHeight: 1.5
+            lineHeight: 1.5,
+            textShadow: '0 2px 10px rgba(0, 0, 0, 0.9)',
+            fontWeight: 500
           }}>
             {t('search.desc', 'Real-time multi-airline flight comparison, flexible date matrices, and AI travel concierge.')}
           </p>
@@ -105,14 +107,15 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
           }}>
             {/* Trip Type Tabs & Cabin Class Selector */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 18 }}>
-              <div className="scroll-touch-x" style={{ display: 'flex', gap: 6, background: 'rgba(255, 255, 255, 0.05)', padding: 3, borderRadius: 10 }}>
+              <div className="scroll-touch-x" style={{ display: 'flex', gap: 6, background: 'var(--input-bg, rgba(255, 255, 255, 0.05))', padding: 4, borderRadius: 10, border: '1px solid var(--card-border, rgba(255, 255, 255, 0.1))' }}>
                 {['one-way', 'round-trip', 'multi-city'].map((type) => (
                   <button
                     key={type}
+                    type="button"
                     onClick={() => setTripType(type)}
                     style={{
-                      background: tripType === type ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'transparent',
-                      color: tripType === type ? '#fff' : '#94a3b8',
+                      background: tripType === type ? 'linear-gradient(135deg, var(--accent-cyan), var(--accent-blue))' : 'transparent',
+                      color: tripType === type ? '#ffffff' : 'var(--text-muted)',
                       border: 'none',
                       padding: '7px 14px',
                       borderRadius: 8,
@@ -130,15 +133,15 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               </div>
 
               {/* Cabin Class Selector */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>{t('search.cabinClass', 'Class:')}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 700 }}>{t('search.cabinClass', 'Class:')}</span>
                 <select
                   value={searchParams.cabinClass}
                   onChange={(e) => setSearchParams(prev => ({ ...prev, cabinClass: e.target.value }))}
                   style={{
-                    background: 'rgba(255, 255, 255, 0.08)',
-                    color: '#fff',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    background: 'var(--input-bg, rgba(255, 255, 255, 0.08))',
+                    color: 'var(--text-main)',
+                    border: '1px solid var(--input-border, rgba(255, 255, 255, 0.15))',
                     padding: '6px 12px',
                     borderRadius: 8,
                     fontSize: 12,
@@ -148,77 +151,89 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                     minHeight: 36
                   }}
                 >
-                  <option value="All" style={{ background: '#111a33' }}>All Classes (Economy, Business...)</option>
-                  <option value="Economy" style={{ background: '#111a33' }}>Economy</option>
-                  <option value="Premium Economy" style={{ background: '#111a33' }}>Premium Economy</option>
-                  <option value="Business" style={{ background: '#111a33' }}>Business Class</option>
-                  <option value="First" style={{ background: '#111a33' }}>First Class</option>
+                  <option value="All">All Classes (Economy, Business...)</option>
+                  <option value="Economy">Economy</option>
+                  <option value="Premium Economy">Premium Economy</option>
+                  <option value="Business">Business Class</option>
+                  <option value="First">First Class</option>
                 </select>
               </div>
             </div>
 
-            {/* Main Search Inputs Grid (Responsive) */}
+            {/* Main Search Inputs Grid (Responsive & Pixel-Perfect Alignment) */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+              gridTemplateColumns: tripType === 'round-trip' 
+                ? 'repeat(auto-fit, minmax(180px, 1fr))' 
+                : 'repeat(auto-fit, minmax(200px, 1fr))',
               gap: 12,
-              alignItems: 'center'
+              alignItems: 'flex-end'
             }}>
-              {/* Origin Dropdown */}
-              <div style={{ position: 'relative' }}>
-                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
-                  {t('search.from', 'From (Origin)')}
-                </label>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  borderRadius: 10,
-                  padding: '8px 12px'
-                }}>
-                  <select
-                    value={searchParams.origin}
-                    onChange={(e) => setSearchParams(prev => ({ ...prev, origin: e.target.value }))}
-                    style={{
-                      background: 'transparent',
-                      color: '#fff',
-                      border: 'none',
-                      outline: 'none',
-                      width: '100%',
-                      fontSize: 14,
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      minHeight: 32
-                    }}
-                  >
-                    {AIRPORTS.map(a => (
-                      <option key={a.code} value={a.code} style={{ background: '#111a33' }}>
-                        {a.city} ({a.code}) - {a.flag}
-                      </option>
-                    ))}
-                  </select>
+              {/* Origin & Destination Group with Centered Swap Icon */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                gap: 8,
+                gridColumn: 'span 2',
+                minWidth: 280
+              }}>
+                {/* Origin */}
+                <div style={{ flex: 1, minWidth: 120 }}>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 5, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                    {t('search.from', 'From (Origin)')}
+                  </label>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    background: 'var(--input-bg, rgba(255, 255, 255, 0.06))',
+                    border: '1px solid var(--input-border, rgba(255, 255, 255, 0.15))',
+                    borderRadius: 10,
+                    padding: '0 12px',
+                    height: 48,
+                    gap: 8
+                  }}>
+                    <Plane size={16} color="var(--accent-cyan)" />
+                    <select
+                      value={searchParams.origin}
+                      onChange={(e) => setSearchParams(prev => ({ ...prev, origin: e.target.value }))}
+                      style={{
+                        background: 'transparent',
+                        color: 'var(--text-main)',
+                        border: 'none',
+                        outline: 'none',
+                        width: '100%',
+                        fontSize: 14,
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        padding: 0
+                      }}
+                    >
+                      {AIRPORTS.map(a => (
+                        <option key={a.code} value={a.code}>
+                          {a.city} ({a.code}) - {a.flag}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              {/* Swap Button */}
-              <div style={{ display: 'flex', justifyContent: 'center', margin: '2px 0' }}>
+                {/* Swap Button (48px Height Aligned) */}
                 <button
                   type="button"
                   onClick={handleSwap}
                   title="Swap Origin & Destination"
                   style={{
-                    background: 'rgba(0, 210, 255, 0.15)',
-                    border: '1px solid rgba(0, 210, 255, 0.3)',
-                    color: '#00d2ff',
-                    width: 38,
-                    height: 38,
-                    borderRadius: '50%',
+                    background: 'rgba(2, 132, 199, 0.12)',
+                    border: '1px solid var(--card-border, rgba(0, 210, 255, 0.3))',
+                    color: 'var(--accent-cyan, #0284c7)',
+                    width: 44,
+                    height: 48,
+                    borderRadius: 10,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    transition: 'transform 0.2s',
+                    transition: 'transform 0.25s ease, background-color 0.2s',
                     flexShrink: 0
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(180deg)'}
@@ -226,75 +241,78 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                 >
                   <ArrowRightLeft size={16} />
                 </button>
-              </div>
 
-              {/* Destination Dropdown */}
-              <div style={{ position: 'relative' }}>
-                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
-                  {t('search.to', 'To (Destination)')}
-                </label>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  borderRadius: 10,
-                  padding: '8px 12px'
-                }}>
-                  <select
-                    value={searchParams.destination}
-                    onChange={(e) => setSearchParams(prev => ({ ...prev, destination: e.target.value }))}
-                    style={{
-                      background: 'transparent',
-                      color: '#fff',
-                      border: 'none',
-                      outline: 'none',
-                      width: '100%',
-                      fontSize: 14,
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      minHeight: 32
-                    }}
-                  >
-                    {AIRPORTS.map(a => (
-                      <option key={a.code} value={a.code} style={{ background: '#111a33' }}>
-                        {a.city} ({a.code}) - {a.flag}
-                      </option>
-                    ))}
-                  </select>
+                {/* Destination */}
+                <div style={{ flex: 1, minWidth: 120 }}>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 5, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                    {t('search.to', 'To (Destination)')}
+                  </label>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    background: 'var(--input-bg, rgba(255, 255, 255, 0.06))',
+                    border: '1px solid var(--input-border, rgba(255, 255, 255, 0.15))',
+                    borderRadius: 10,
+                    padding: '0 12px',
+                    height: 48,
+                    gap: 8
+                  }}>
+                    <Plane size={16} color="var(--accent-cyan)" style={{ transform: 'rotate(90deg)' }} />
+                    <select
+                      value={searchParams.destination}
+                      onChange={(e) => setSearchParams(prev => ({ ...prev, destination: e.target.value }))}
+                      style={{
+                        background: 'transparent',
+                        color: 'var(--text-main)',
+                        border: 'none',
+                        outline: 'none',
+                        width: '100%',
+                        fontSize: 14,
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        padding: 0
+                      }}
+                    >
+                      {AIRPORTS.map(a => (
+                        <option key={a.code} value={a.code}>
+                          {a.city} ({a.code}) - {a.flag}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </div>
 
               {/* Departure Date */}
               <div>
-                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
+                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 5, textTransform: 'uppercase', letterSpacing: 0.5 }}>
                   {t('search.departure', 'Departure Date')}
                 </label>
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  background: 'var(--input-bg, rgba(255, 255, 255, 0.06))',
+                  border: '1px solid var(--input-border, rgba(255, 255, 255, 0.15))',
                   borderRadius: 10,
-                  padding: '8px 12px',
+                  padding: '0 12px',
+                  height: 48,
                   gap: 8
                 }}>
-                  <Calendar size={16} color="#00d2ff" />
+                  <Calendar size={16} color="var(--accent-cyan)" />
                   <input
                     type="date"
                     value={searchParams.departureDate}
                     onChange={(e) => setSearchParams(prev => ({ ...prev, departureDate: e.target.value }))}
                     style={{
                       background: 'transparent',
-                      color: '#fff',
+                      color: 'var(--text-main)',
                       border: 'none',
                       outline: 'none',
                       width: '100%',
                       fontSize: 14,
                       fontWeight: 600,
                       cursor: 'pointer',
-                      padding: 0,
-                      minHeight: 'auto'
+                      padding: 0
                     }}
                   />
                 </div>
@@ -303,34 +321,34 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               {/* Return Date (Shown for Round-Trip) */}
               {tripType === 'round-trip' && (
                 <div>
-                  <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 5, textTransform: 'uppercase', letterSpacing: 0.5 }}>
                     {t('search.return', 'Return Date')}
                   </label>
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    background: 'rgba(255, 255, 255, 0.06)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    background: 'var(--input-bg, rgba(255, 255, 255, 0.06))',
+                    border: '1px solid var(--input-border, rgba(255, 255, 255, 0.15))',
                     borderRadius: 10,
-                    padding: '8px 12px',
+                    padding: '0 12px',
+                    height: 48,
                     gap: 8
                   }}>
-                    <Calendar size={16} color="#f5af19" />
+                    <Calendar size={16} color="var(--accent-gold)" />
                     <input
                       type="date"
                       value={searchParams.returnDate || new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0]}
                       onChange={(e) => setSearchParams(prev => ({ ...prev, returnDate: e.target.value }))}
                       style={{
                         background: 'transparent',
-                        color: '#fff',
+                        color: 'var(--text-main)',
                         border: 'none',
                         outline: 'none',
                         width: '100%',
                         fontSize: 14,
                         fontWeight: 600,
                         cursor: 'pointer',
-                        padding: 0,
-                        minHeight: 'auto'
+                        padding: 0
                       }}
                     />
                   </div>
@@ -339,44 +357,45 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
 
               {/* Passengers Count */}
               <div>
-                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase' }}>
+                <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 5, textTransform: 'uppercase', letterSpacing: 0.5 }}>
                   {t('search.travelers', 'Travelers')}
                 </label>
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  background: 'var(--input-bg, rgba(255, 255, 255, 0.06))',
+                  border: '1px solid var(--input-border, rgba(255, 255, 255, 0.15))',
                   borderRadius: 10,
-                  padding: '8px 12px',
+                  padding: '0 12px',
+                  height: 48,
                   gap: 8
                 }}>
-                  <Users size={16} color="#f5af19" />
+                  <Users size={16} color="var(--accent-gold)" />
                   <select
                     value={searchParams.passengers}
                     onChange={(e) => setSearchParams(prev => ({ ...prev, passengers: parseInt(e.target.value) }))}
                     style={{
                       background: 'transparent',
-                      color: '#fff',
+                      color: 'var(--text-main)',
                       border: 'none',
                       outline: 'none',
                       width: '100%',
                       fontSize: 14,
                       fontWeight: 700,
                       cursor: 'pointer',
-                      minHeight: 32
+                      padding: 0
                     }}
                   >
-                    <option value={1} style={{ background: '#111a33' }}>1 Adult (12+ yrs)</option>
-                    <option value={2} style={{ background: '#111a33' }}>2 Adults</option>
-                    <option value={3} style={{ background: '#111a33' }}>3 Adults (Family)</option>
-                    <option value={4} style={{ background: '#111a33' }}>4+ Group</option>
+                    <option value={1}>1 Adult (12+ yrs)</option>
+                    <option value={2}>2 Adults</option>
+                    <option value={3}>3 Adults (Family)</option>
+                    <option value={4}>4+ Group</option>
                   </select>
                 </div>
               </div>
 
-              {/* Search Button */}
-              <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: 6 }}>
+              {/* Search Button (48px Height Aligned) */}
+              <div>
                 <button
                   type="button"
                   id="hero-search-flights-btn"
@@ -390,7 +409,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                   className="btn-primary"
                   style={{
                     width: '100%',
-                    minHeight: 48,
+                    height: 48,
                     fontSize: 15,
                     fontWeight: 700,
                     display: 'flex',
@@ -398,11 +417,14 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
                     justifyContent: 'center',
                     gap: 8,
                     cursor: loading ? 'not-allowed' : 'pointer',
-                    opacity: loading ? 0.75 : 1
+                    opacity: loading ? 0.75 : 1,
+                    borderRadius: 10,
+                    padding: '0 18px',
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   {loading ? <RefreshCw size={18} className="spin-anim" /> : <Search size={18} />}
-                  <span>{loading ? t('search.searching', 'Searching Live GDS...') : t('search.searchFlights', 'Search Flights')}</span>
+                  <span>{loading ? t('search.searching', 'Searching...') : t('search.searchFlights', 'Search Flights')}</span>
                 </button>
               </div>
             </div>
@@ -411,9 +433,9 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
             <div style={{
               marginTop: 16,
               paddingTop: 12,
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)'
+              borderTop: '1px solid var(--card-border, rgba(255, 255, 255, 0.08))'
             }}>
-              <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, display: 'block', marginBottom: 6 }}>Quick Searches:</span>
+              <span style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700, display: 'block', marginBottom: 6 }}>Quick Searches:</span>
               <div className="scroll-touch-x" style={{ paddingBottom: 4 }}>
                 <button
                   type="button"

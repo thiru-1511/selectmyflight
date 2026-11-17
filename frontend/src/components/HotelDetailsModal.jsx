@@ -318,24 +318,24 @@ export default function HotelDetailsModal({
           width: '100%',
           maxWidth: 940,
           maxHeight: '94vh',
-          background: '#0d1527',
-          border: '1px solid rgba(0, 210, 255, 0.35)',
+          background: 'var(--modal-bg, #ffffff)',
+          border: '1px solid var(--card-border, #e2e8f0)',
           borderRadius: 20,
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
-          boxShadow: '0 25px 70px rgba(0,0,0,0.85), 0 0 35px rgba(0, 210, 255, 0.2)',
+          boxShadow: '0 25px 70px rgba(0,0,0,0.35)',
           position: 'relative',
-          color: '#f8fafc'
+          color: 'var(--text-main, #0f172a)'
         }}
       >
         {/* Top Header */}
         <div style={{
           padding: '18px 24px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          borderBottom: '1px solid var(--card-border, #e2e8f0)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: 'linear-gradient(135deg, rgba(0, 210, 255, 0.08), rgba(245, 175, 25, 0.05))',
+          background: 'var(--card-subtle-bg, #f8fafc)',
           position: 'sticky',
           top: 0,
           zIndex: 10,
@@ -353,15 +353,15 @@ export default function HotelDetailsModal({
               }}>
                 ⭐ {hotel.starRating || 5}-STAR VERIFIED
               </span>
-              <span style={{ fontSize: 13, color: '#38bdf8', fontWeight: 700 }}>
+              <span style={{ fontSize: 13, color: 'var(--accent-cyan, #0284c7)', fontWeight: 700 }}>
                 {hotel.reviewScore || 9.2}/10 • {hotel.reviewLabel || 'Exceptional'} ({hotel.reviewCount?.toLocaleString() || 1850} reviews)
               </span>
             </div>
-            <h2 style={{ fontSize: 'clamp(18px, 2.5vw, 23px)', fontWeight: 900, color: '#fff', margin: '4px 0 2px 0' }}>
+            <h2 style={{ fontSize: 'clamp(18px, 2.5vw, 23px)', fontWeight: 900, color: 'var(--text-main, #0f172a)', margin: '4px 0 2px 0' }}>
               {hotel.name}
             </h2>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#94a3b8' }}>
-              <MapPin size={14} color="#00d2ff" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--text-muted, #475569)' }}>
+              <MapPin size={14} color="var(--accent-cyan, #0284c7)" />
               <span>{hotel.location}</span>
             </div>
           </div>
@@ -370,9 +370,9 @@ export default function HotelDetailsModal({
             type="button"
             onClick={onClose}
             style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              border: 'none',
-              color: '#cbd5e1',
+              background: 'var(--card-subtle-bg, #f1f5f9)',
+              border: '1px solid var(--card-border, #cbd5e1)',
+              color: 'var(--text-main, #334155)',
               width: 36,
               height: 36,
               borderRadius: '50%',
@@ -405,10 +405,10 @@ export default function HotelDetailsModal({
               <CheckCircle2 size={38} color="#00e676" />
             </div>
 
-            <h3 style={{ fontSize: 24, fontWeight: 800, color: '#fff', marginBottom: 6 }}>
+            <h3 style={{ fontSize: 24, fontWeight: 800, color: 'var(--text-main, #0f172a)', marginBottom: 6 }}>
               Hotel Reservation Confirmed!
             </h3>
-            <p style={{ fontSize: 14, color: '#94a3b8', maxWidth: 500, margin: '0 auto 24px auto' }}>
+            <p style={{ fontSize: 14, color: 'var(--text-muted, #475569)', maxWidth: 500, margin: '0 auto 24px auto' }}>
               Your luxury suite booking voucher is ready. A confirmation SMS & email have been dispatched to <b>{bookingConfirmed.guestEmail}</b>.
             </p>
 
@@ -416,20 +416,20 @@ export default function HotelDetailsModal({
             <div style={{
               maxWidth: 620,
               margin: '0 auto 28px auto',
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))',
-              border: '1px dashed rgba(0, 210, 255, 0.4)',
+              background: 'var(--card-subtle-bg, #f8fafc)',
+              border: '1px dashed var(--card-border, #cbd5e1)',
               borderRadius: 16,
               padding: '24px',
               textAlign: 'left'
             }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: 12 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, borderBottom: '1px solid var(--card-border, #e2e8f0)', paddingBottom: 12 }}>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 700 }}>RESERVATION CODE</div>
-                  <div style={{ fontSize: 18, fontWeight: 900, color: '#00d2ff', letterSpacing: 1 }}>{bookingConfirmed.bookingId}</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)', fontWeight: 700 }}>RESERVATION CODE</div>
+                  <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--accent-cyan, #0284c7)', letterSpacing: 1 }}>{bookingConfirmed.bookingId}</div>
                 </div>
                 <div style={{
-                  background: 'rgba(0, 230, 118, 0.15)',
-                  color: '#00e676',
+                  background: 'rgba(5, 150, 105, 0.12)',
+                  color: 'var(--accent-green, #059669)',
                   padding: '4px 10px',
                   borderRadius: 6,
                   fontSize: 12,
@@ -441,26 +441,26 @@ export default function HotelDetailsModal({
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 14, marginBottom: 16 }}>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>Guest Name</div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>{bookingConfirmed.guestName}</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Guest Name</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>{bookingConfirmed.guestName}</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>Check-In</div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>{bookingConfirmed.checkInDate} (2:00 PM)</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Check-In</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>{bookingConfirmed.checkInDate} (2:00 PM)</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>Check-Out</div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>{bookingConfirmed.checkOutDate} (12:00 PM)</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Check-Out</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>{bookingConfirmed.checkOutDate} (12:00 PM)</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>Total Paid</div>
-                  <div style={{ fontSize: 16, fontWeight: 900, color: '#00e676' }}>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Total Paid</div>
+                  <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--accent-green, #059669)' }}>
                     {currencySymbol}{convertPrice(bookingConfirmed.totalAmount).toLocaleString()}
                   </div>
                 </div>
               </div>
 
-              <div style={{ fontSize: 12, color: '#cbd5e1', background: 'rgba(0, 210, 255, 0.08)', padding: '10px 14px', borderRadius: 8 }}>
+              <div style={{ fontSize: 12, color: 'var(--text-main, #0f172a)', background: 'var(--card-subtle-bg, #f1f5f9)', border: '1px solid var(--card-border, #e2e8f0)', padding: '10px 14px', borderRadius: 8 }}>
                 🏨 <b>Room:</b> {bookingConfirmed.roomName} • {bookingConfirmed.nights} Night(s) • {bookingConfirmed.guests} Guest(s)<br/>
                 ✨ <b>Special Perks:</b> Complimentary Luxury Breakfast • Free High-Speed WiFi • 24h Concierge
               </div>
@@ -491,9 +491,9 @@ export default function HotelDetailsModal({
                 type="button"
                 onClick={() => window.print()}
                 style={{
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  color: '#fff',
+                  background: 'var(--card-subtle-bg, #f1f5f9)',
+                  border: '1px solid var(--card-border, #cbd5e1)',
+                  color: 'var(--text-main, #0f172a)',
                   padding: '11px 22px',
                   borderRadius: 10,
                   fontSize: 13,
@@ -527,13 +527,13 @@ export default function HotelDetailsModal({
           <div className="hotel-modal-grid" style={{ padding: 'clamp(14px, 2.5vw, 24px)' }}>
             {/* Left: Rooms & Amenities */}
             <div>
-              <h4 style={{ fontSize: 16, fontWeight: 800, color: '#fff', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <h4 style={{ fontSize: 16, fontWeight: 800, color: 'var(--text-main, #0f172a)', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                 <Sparkles size={16} color="#f5af19" /> 1. Select Luxury Room Category & View Interior
                 {hasLivePhotos && (
                   <span style={{
-                    background: 'rgba(0, 230, 118, 0.15)',
-                    color: '#00e676',
-                    border: '1px solid rgba(0, 230, 118, 0.4)',
+                    background: 'rgba(5, 150, 105, 0.12)',
+                    color: 'var(--accent-green, #059669)',
+                    border: '1px solid rgba(5, 150, 105, 0.3)',
                     fontSize: 11,
                     fontWeight: 700,
                     padding: '2px 8px',
@@ -559,10 +559,10 @@ export default function HotelDetailsModal({
                         padding: '16px',
                         borderRadius: 14,
                         cursor: 'pointer',
-                        border: isSelected ? '2px solid #00d2ff' : '1px solid rgba(255, 255, 255, 0.1)',
-                        background: isSelected ? 'rgba(0, 210, 255, 0.12)' : 'rgba(255, 255, 255, 0.03)',
+                        border: isSelected ? '2px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, #e2e8f0)',
+                        background: isSelected ? 'rgba(2, 132, 199, 0.1)' : 'var(--card-subtle-bg, #f8fafc)',
                         transition: 'all 0.2s',
-                        boxShadow: isSelected ? '0 0 20px rgba(0, 210, 255, 0.25)' : 'none',
+                        boxShadow: isSelected ? '0 4px 18px rgba(2, 132, 199, 0.2)' : 'none',
                         position: 'relative'
                       }}
                     >
@@ -580,7 +580,7 @@ export default function HotelDetailsModal({
                             overflow: 'hidden',
                             position: 'relative',
                             flexShrink: 0,
-                            border: '1px solid rgba(0, 210, 255, 0.3)',
+                            border: '1px solid var(--card-border, rgba(0, 210, 255, 0.3))',
                             cursor: 'pointer'
                           }}
                           title="Click to view full 360° Room Interior"
@@ -595,8 +595,8 @@ export default function HotelDetailsModal({
                               position: 'absolute',
                               top: 4,
                               left: 4,
-                              background: '#00e676',
-                              color: '#000',
+                              background: '#059669',
+                              color: '#fff',
                               fontSize: 8,
                               fontWeight: 900,
                               padding: '1px 5px',
@@ -632,23 +632,23 @@ export default function HotelDetailsModal({
                         <div style={{ flex: 1 }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                             <div>
-                              <div style={{ fontSize: 15, fontWeight: 800, color: isSelected ? '#00d2ff' : '#fff' }}>
+                              <div style={{ fontSize: 15, fontWeight: 800, color: isSelected ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main, #0f172a)' }}>
                                 {rm.name}
                               </div>
-                              <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+                              <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 2 }}>
                                 🛏️ {rm.bed} • 📐 {rm.size} • 👥 {rm.capacity}
                               </div>
                             </div>
                             <div style={{ textAlign: 'right' }}>
-                              <div style={{ fontSize: 17, fontWeight: 900, color: '#00e676' }}>
+                              <div style={{ fontSize: 17, fontWeight: 900, color: 'var(--accent-green, #059669)' }}>
                                 {currencySymbol}{convertPrice(rm.price).toLocaleString()}
                               </div>
-                              <div style={{ fontSize: 10, color: '#94a3b8' }}>/ night + taxes</div>
+                              <div style={{ fontSize: 10, color: 'var(--text-muted, #475569)' }}>/ night + taxes</div>
                             </div>
                           </div>
 
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, flexWrap: 'wrap', gap: 8 }}>
-                            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', fontSize: 11, color: '#38bdf8' }}>
+                            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', fontSize: 11, color: 'var(--accent-cyan, #0284c7)', fontWeight: 600 }}>
                               <span>🌅 {rm.view}</span>
                               <span>☕ Gourmet Breakfast</span>
                               <span>🛡️ Free Cancellation</span>
@@ -661,9 +661,9 @@ export default function HotelDetailsModal({
                                 setRoomForInteriorModal(rm);
                               }}
                               style={{
-                                background: 'rgba(0, 210, 255, 0.15)',
-                                border: '1px solid #00d2ff',
-                                color: '#00d2ff',
+                                background: 'rgba(2, 132, 199, 0.12)',
+                                border: '1px solid var(--accent-cyan, #0284c7)',
+                                color: 'var(--accent-cyan, #0284c7)',
                                 padding: '4px 10px',
                                 borderRadius: 6,
                                 fontSize: 11,
@@ -686,21 +686,21 @@ export default function HotelDetailsModal({
 
               {/* 2. Room & Stay Management Controls ("How it manage") */}
               <div style={{
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(0, 210, 255, 0.25)',
+                background: 'var(--card-subtle-bg, #f8fafc)',
+                border: '1px solid var(--card-border, #e2e8f0)',
                 borderRadius: 14,
                 padding: '18px 20px',
                 marginBottom: 20
               }}>
-                <h4 style={{ fontSize: 15, fontWeight: 800, color: '#00d2ff', margin: '0 0 14px 0', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--accent-cyan, #0284c7)', margin: '0 0 14px 0', display: 'flex', alignItems: 'center', gap: 6 }}>
                   <Sliders size={16} /> 2. Room Configuration & Stay Management
                 </h4>
 
                 {/* Number of Rooms Selector */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 14, borderBottom: '1px solid rgba(255,255,255,0.06)', marginBottom: 14 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 14, borderBottom: '1px solid var(--card-border, #e2e8f0)', marginBottom: 14 }}>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>Number of Rooms</div>
-                    <div style={{ fontSize: 11, color: '#94a3b8' }}>Each room accommodates up to 2 Adults</div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>Number of Rooms</div>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Each room accommodates up to 2 Adults</div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <button
@@ -708,9 +708,9 @@ export default function HotelDetailsModal({
                       disabled={roomCount <= 1}
                       onClick={() => setRoomCount(prev => Math.max(1, prev - 1))}
                       style={{
-                        background: 'rgba(255, 255, 255, 0.08)',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
-                        color: '#fff',
+                        background: 'var(--card-subtle-bg, #f1f5f9)',
+                        border: '1px solid var(--card-border, #cbd5e1)',
+                        color: 'var(--text-main, #0f172a)',
                         width: 30,
                         height: 30,
                         borderRadius: 6,
@@ -722,7 +722,7 @@ export default function HotelDetailsModal({
                     >
                       <Minus size={14} />
                     </button>
-                    <span style={{ fontSize: 15, fontWeight: 900, color: '#00d2ff', minWidth: 60, textAlign: 'center' }}>
+                    <span style={{ fontSize: 15, fontWeight: 900, color: 'var(--accent-cyan, #0284c7)', minWidth: 60, textAlign: 'center' }}>
                       {roomCount} {roomCount === 1 ? 'Room' : 'Rooms'}
                     </span>
                     <button
@@ -730,9 +730,9 @@ export default function HotelDetailsModal({
                       disabled={roomCount >= 4}
                       onClick={() => setRoomCount(prev => Math.min(4, prev + 1))}
                       style={{
-                        background: 'rgba(255, 255, 255, 0.08)',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
-                        color: '#fff',
+                        background: 'var(--card-subtle-bg, #f1f5f9)',
+                        border: '1px solid var(--card-border, #cbd5e1)',
+                        color: 'var(--text-main, #0f172a)',
                         width: 30,
                         height: 30,
                         borderRadius: 6,
@@ -750,17 +750,17 @@ export default function HotelDetailsModal({
                 {/* Bedding & Floor Dropdowns */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12, marginBottom: 14 }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Bed Preference</label>
+                    <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Bed Preference</label>
                     <select
                       value={bedPreference}
                       onChange={(e) => setBedPreference(e.target.value)}
                       style={{
                         width: '100%',
                         padding: '8px 10px',
-                        background: 'rgba(255, 255, 255, 0.06)',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        background: 'var(--input-bg, #ffffff)',
+                        border: '1px solid var(--card-border, #cbd5e1)',
                         borderRadius: 6,
-                        color: '#fff',
+                        color: 'var(--text-main, #0f172a)',
                         fontSize: 12
                       }}
                     >
@@ -770,17 +770,17 @@ export default function HotelDetailsModal({
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Floor Preference</label>
+                    <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Floor Preference</label>
                     <select
                       value={floorPreference}
                       onChange={(e) => setFloorPreference(e.target.value)}
                       style={{
                         width: '100%',
                         padding: '8px 10px',
-                        background: 'rgba(255, 255, 255, 0.06)',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        background: 'var(--input-bg, #ffffff)',
+                        border: '1px solid var(--card-border, #cbd5e1)',
                         borderRadius: 6,
-                        color: '#fff',
+                        color: 'var(--text-main, #0f172a)',
                         fontSize: 12
                       }}
                     >
@@ -792,36 +792,36 @@ export default function HotelDetailsModal({
                 </div>
 
                 {/* Stay Customization Add-Ons */}
-                <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8, fontWeight: 700 }}>
+                <div style={{ fontSize: 12, color: 'var(--text-main, #0f172a)', marginBottom: 8, fontWeight: 700 }}>
                   Customize Stay Add-Ons:
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#cbd5e1', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--text-main, #0f172a)', cursor: 'pointer' }}>
                     <input 
                       type="checkbox"
                       checked={addOnEarlyCheckIn}
                       onChange={(e) => setAddOnEarlyCheckIn(e.target.checked)}
-                      style={{ accentColor: '#00d2ff' }}
+                      style={{ accentColor: 'var(--accent-cyan, #0284c7)' }}
                     />
                     <span>🌅 Early Check-In at 10:00 AM (+{currencySymbol}{convertPrice(1200).toLocaleString()})</span>
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#cbd5e1', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--text-main, #0f172a)', cursor: 'pointer' }}>
                     <input 
                       type="checkbox"
                       checked={addOnLateCheckOut}
                       onChange={(e) => setAddOnLateCheckOut(e.target.checked)}
-                      style={{ accentColor: '#00d2ff' }}
+                      style={{ accentColor: 'var(--accent-cyan, #0284c7)' }}
                     />
                     <span>🌙 Late Check-Out until 4:00 PM (+{currencySymbol}{convertPrice(1500).toLocaleString()})</span>
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#cbd5e1', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--text-main, #0f172a)', cursor: 'pointer' }}>
                     <input 
                       type="checkbox"
                       checked={addOnLimo}
                       onChange={(e) => setAddOnLimo(e.target.checked)}
-                      style={{ accentColor: '#00d2ff' }}
+                      style={{ accentColor: 'var(--accent-cyan, #0284c7)' }}
                     />
                     <span>🚘 VIP Mercedes Airport Limousine Transfer (+{currencySymbol}{convertPrice(2800).toLocaleString()})</span>
                   </label>
@@ -829,13 +829,13 @@ export default function HotelDetailsModal({
               </div>
 
               {/* Hotel Amenities Matrix */}
-              <h4 style={{ fontSize: 15, fontWeight: 700, color: '#fff', marginBottom: 10 }}>
+              <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-main, #0f172a)', marginBottom: 10 }}>
                 Included Resort Perks
               </h4>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8, marginBottom: 16 }}>
                 {(hotel.amenities || ['Free WiFi', 'Breakfast Included', 'Infinity Pool', '24h Concierge']).map((am, idx) => (
-                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#cbd5e1', background: 'rgba(255,255,255,0.04)', padding: '7px 10px', borderRadius: 6 }}>
-                    <Check size={14} color="#00e676" />
+                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--text-main, #0f172a)', background: 'var(--card-subtle-bg, #f1f5f9)', border: '1px solid var(--card-border, #e2e8f0)', padding: '7px 10px', borderRadius: 6 }}>
+                    <Check size={14} color="var(--accent-green, #059669)" />
                     <span>{am}</span>
                   </div>
                 ))}
@@ -844,19 +844,19 @@ export default function HotelDetailsModal({
 
             {/* Right: Guest Info & Price Summary */}
             <div style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--card-subtle-bg, #f8fafc)',
+              border: '1px solid var(--card-border, #e2e8f0)',
               borderRadius: 16,
               padding: 'clamp(14px, 2vw, 20px)'
             }}>
               <form onSubmit={handleBookingSubmit}>
-                <h4 style={{ fontSize: 15, fontWeight: 800, color: '#fff', marginBottom: 14 }}>
+                <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main, #0f172a)', marginBottom: 14 }}>
                   3. Primary Guest Details
                 </h4>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 18 }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Full Name *</label>
+                    <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Full Name *</label>
                     <input
                       type="text"
                       required
@@ -865,10 +865,10 @@ export default function HotelDetailsModal({
                       style={{
                         width: '100%',
                         padding: '10px 12px',
-                        background: 'rgba(255, 255, 255, 0.06)',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        background: 'var(--input-bg, #ffffff)',
+                        border: '1px solid var(--card-border, #cbd5e1)',
                         borderRadius: 8,
-                        color: '#fff',
+                        color: 'var(--text-main, #0f172a)',
                         fontSize: 13,
                         boxSizing: 'border-box'
                       }}
@@ -877,7 +877,7 @@ export default function HotelDetailsModal({
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 10 }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Email ID *</label>
+                      <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Email ID *</label>
                       <input
                         type="email"
                         required
@@ -886,17 +886,17 @@ export default function HotelDetailsModal({
                         style={{
                           width: '100%',
                           padding: '10px 12px',
-                          background: 'rgba(255, 255, 255, 0.06)',
-                          border: '1px solid rgba(255, 255, 255, 0.15)',
+                          background: 'var(--input-bg, #ffffff)',
+                          border: '1px solid var(--card-border, #cbd5e1)',
                           borderRadius: 8,
-                          color: '#fff',
+                          color: 'var(--text-main, #0f172a)',
                           fontSize: 13,
                           boxSizing: 'border-box'
                         }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Phone *</label>
+                      <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Phone *</label>
                       <input
                         type="tel"
                         required
@@ -905,10 +905,10 @@ export default function HotelDetailsModal({
                         style={{
                           width: '100%',
                           padding: '10px 12px',
-                          background: 'rgba(255, 255, 255, 0.06)',
-                          border: '1px solid rgba(255, 255, 255, 0.15)',
+                          background: 'var(--input-bg, #ffffff)',
+                          border: '1px solid var(--card-border, #cbd5e1)',
                           borderRadius: 8,
-                          color: '#fff',
+                          color: 'var(--text-main, #0f172a)',
                           fontSize: 13,
                           boxSizing: 'border-box'
                         }}
@@ -919,33 +919,33 @@ export default function HotelDetailsModal({
 
                 {/* Price Breakdown */}
                 <div style={{
-                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderTop: '1px solid var(--card-border, #e2e8f0)',
                   paddingTop: 14,
                   marginBottom: 18
                 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 6 }}>
                     <span>{selectedRoom?.name || 'Room'} x {nights} Night(s) {roomCount > 1 && `x ${roomCount} Rooms`}</span>
                     <span>{currencySymbol}{convertPrice(basePricePerNight * nights * roomCount).toLocaleString()}</span>
                   </div>
 
                   {addOnsTotal > 0 && (
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#38bdf8', marginBottom: 6 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--accent-cyan, #0284c7)', marginBottom: 6, fontWeight: 600 }}>
                       <span>Selected Stay Add-Ons</span>
                       <span>+{currencySymbol}{convertPrice(addOnsTotal).toLocaleString()}</span>
                     </div>
                   )}
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 6 }}>
                     <span>Hospitality Taxes & GST (12%)</span>
                     <span>+{currencySymbol}{convertPrice(taxesAndFees).toLocaleString()}</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#00e676', marginBottom: 10 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--accent-green, #059669)', marginBottom: 10, fontWeight: 600 }}>
                     <span>Special SelectMyFlight Discount (10%)</span>
                     <span>-{currencySymbol}{convertPrice(discountAmount).toLocaleString()}</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 16, fontWeight: 900, color: '#fff', borderTop: '1px dashed rgba(255,255,255,0.1)', paddingTop: 8 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 16, fontWeight: 900, color: 'var(--text-main, #0f172a)', borderTop: '1px dashed var(--card-border, #cbd5e1)', paddingTop: 8 }}>
                     <span>Total Amount</span>
-                    <span style={{ color: '#00e676' }}>{currencySymbol}{convertPrice(grandTotal).toLocaleString()}</span>
+                    <span style={{ color: 'var(--accent-green, #059669)' }}>{currencySymbol}{convertPrice(grandTotal).toLocaleString()}</span>
                   </div>
                 </div>
 
@@ -977,8 +977,8 @@ export default function HotelDetailsModal({
                   )}
                 </button>
 
-                <div style={{ fontSize: 11, color: '#64748b', textAlign: 'center', marginTop: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
-                  <ShieldCheck size={14} color="#00e676" />
+                <div style={{ fontSize: 11, color: 'var(--text-muted, #64748b)', textAlign: 'center', marginTop: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                  <ShieldCheck size={14} color="#059669" />
                   <span>Free cancellation up to 24 hours prior to check-in.</span>
                 </div>
               </form>

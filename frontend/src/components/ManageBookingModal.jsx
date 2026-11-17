@@ -183,21 +183,21 @@ export default function ManageBookingModal({
         {/* Header */}
         <div style={{
           padding: '20px 24px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          borderBottom: '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: 'rgba(9, 15, 29, 0.98)'
+          background: 'var(--modal-bg, rgba(9, 15, 29, 0.98))'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{ background: 'rgba(0, 210, 255, 0.15)', color: '#00d2ff', padding: 8, borderRadius: 8 }}>
               <Plane size={20} />
             </div>
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: 0 }}>
+              <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                 Manage Booking & Web Check-In
               </h3>
-              <div style={{ fontSize: 12, color: '#94a3b8' }}>
+              <div style={{ fontSize: 12, color: 'var(--text-muted, #94a3b8)' }}>
                 Retrieve your reservation, print boarding pass, modify dates, or check in
               </div>
             </div>
@@ -401,9 +401,9 @@ export default function ManageBookingModal({
                 marginBottom: 16
               }}>
                 <div>
-                  <div style={{ fontSize: 22, fontWeight: 900, color: '#fff' }}>{foundBooking.originCode}</div>
-                  <div style={{ fontSize: 12, color: '#94a3b8' }}>{foundBooking.originCity || 'Departure'}</div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#00d2ff', marginTop: 4 }}>{foundBooking.departureTime}</div>
+                  <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--text-main, #0f172a)' }}>{foundBooking.originCode}</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted, #94a3b8)' }}>{foundBooking.originCity || 'Departure'}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent-cyan, #0284c7)', marginTop: 4 }}>{foundBooking.departureTime}</div>
                 </div>
 
                 <div style={{ textAlign: 'center', flex: 1, padding: '0 16px' }}>
@@ -413,13 +413,13 @@ export default function ManageBookingModal({
                   <div style={{ height: 2, background: 'linear-gradient(to right, #00d2ff, #f5af19)', position: 'relative' }}>
                     <Plane size={14} color="#00d2ff" style={{ position: 'absolute', top: -6, left: '50%', transform: 'translateX(-50%)' }} />
                   </div>
-                  <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 4 }}>Non-Stop Scheduled Flight</div>
+                  <div style={{ fontSize: 10, color: 'var(--text-muted, #94a3b8)', marginTop: 4 }}>Non-Stop Scheduled Flight</div>
                 </div>
 
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: 22, fontWeight: 900, color: '#fff' }}>{foundBooking.destinationCode}</div>
-                  <div style={{ fontSize: 12, color: '#94a3b8' }}>{foundBooking.destinationCity || 'Arrival'}</div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#00d2ff', marginTop: 4 }}>{foundBooking.arrivalTime}</div>
+                  <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--text-main, #0f172a)' }}>{foundBooking.destinationCode}</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted, #94a3b8)' }}>{foundBooking.destinationCity || 'Arrival'}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent-cyan, #0284c7)', marginTop: 4 }}>{foundBooking.arrivalTime}</div>
                 </div>
               </div>
 
@@ -429,26 +429,26 @@ export default function ManageBookingModal({
                 gridTemplateColumns: 'repeat(4, 1fr)',
                 gap: 10,
                 textAlign: 'center',
-                background: 'rgba(255, 255, 255, 0.02)',
+                background: 'var(--card-subtle-bg, rgba(255, 255, 255, 0.02))',
                 borderRadius: 10,
                 padding: '10px',
                 marginBottom: 20
               }}>
                 <div>
-                  <span style={{ fontSize: 9, color: '#64748b', display: 'block' }}>PRIMARY PASSENGER</span>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>
+                  <span style={{ fontSize: 9, color: 'var(--text-muted, #64748b)', display: 'block', fontWeight: 700 }}>PRIMARY PASSENGER</span>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                     {foundBooking.passengers && foundBooking.passengers[0] ? foundBooking.passengers[0].name : 'Primary Traveler'}
                   </span>
                 </div>
                 <div>
-                  <span style={{ fontSize: 9, color: '#64748b', display: 'block' }}>SEAT ASSIGNMENT</span>
+                  <span style={{ fontSize: 9, color: 'var(--text-muted, #64748b)', display: 'block', fontWeight: 700 }}>SEAT ASSIGNMENT</span>
                   <span style={{ fontSize: 12, fontWeight: 800, color: '#00e676' }}>
                     {foundBooking.seatNumber || (foundBooking.passengers && foundBooking.passengers[0]?.seatNumber) || '04B (Window)'}
                   </span>
                 </div>
                 <div>
-                  <span style={{ fontSize: 9, color: '#64748b', display: 'block' }}>TERMINAL / GATE</span>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: '#cbd5e1' }}>
+                  <span style={{ fontSize: 9, color: 'var(--text-muted, #64748b)', display: 'block', fontWeight: 700 }}>TERMINAL / GATE</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-main, #cbd5e1)' }}>
                     {foundBooking.terminal || 'T3'} • {foundBooking.gate || 'B14'}
                   </span>
                 </div>

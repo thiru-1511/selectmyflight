@@ -95,6 +95,24 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  // Theme state: 'light' (Clean Modern Light - Default), 'dark', 'royal', 'emerald'
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem('smf_theme') || 'light';
+    } catch {
+      return 'light';
+    }
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('smf_theme', theme);
+    } catch {
+      // ignore
+    }
+  }, [theme]);
+
   // Currency & Language
   const [currency, setCurrency] = useState('INR');
   const { language, setLanguage, t } = useLanguage();
@@ -724,6 +742,8 @@ export default function App() {
         unreadNotificationsCount={unreadNotificationsCount}
         currency={currency}
         setCurrency={setCurrency}
+        theme={theme}
+        setTheme={setTheme}
         language={language}
         setLanguage={setLanguage}
         currentUser={currentUser}

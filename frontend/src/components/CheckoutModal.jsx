@@ -307,7 +307,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <h3 style={{ fontSize: 20, fontWeight: 800, color: '#fff', margin: 0 }}>
+              <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                 💳 Passenger Checkout & Razorpay Gateway
               </h3>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -327,7 +327,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                 </span>
               </div>
             </div>
-            <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0 0' }}>
+            <p style={{ fontSize: 13, color: 'var(--text-muted, #475569)', margin: '4px 0 0 0' }}>
               Flight {flight.flightNumber} • {flight.originCode} ➔ {flight.destinationCode} | {passengerCount} {passengerCount === 1 ? 'Traveler' : 'Travelers'} • Seats: <strong style={{ color: '#00d2ff' }}>{selectedSeatsList.join(', ')}</strong>
             </p>
           </div>
@@ -357,8 +357,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
           <div style={{ marginBottom: 24 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14, flexWrap: 'wrap', gap: 8 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Users size={18} color="#00d2ff" />
-                <h4 style={{ fontSize: 15, fontWeight: 800, color: '#fff', margin: 0 }}>
+                <Users size={18} color="var(--accent-cyan, #0284c7)" />
+                <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                   1. Passenger Details ({passengerCount} {passengerCount === 1 ? 'Traveler' : 'Travelers'})
                 </h4>
               </div>
@@ -372,18 +372,18 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                 <div 
                   key={pax.id} 
                   style={{
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'var(--card-subtle-bg, rgba(255, 255, 255, 0.03))',
+                    border: '1px solid var(--card-border, rgba(255, 255, 255, 0.08))',
                     borderRadius: 12,
                     padding: '16px'
                   }}
                 >
                   {/* Passenger Card Header */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: 8 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, borderBottom: '1px solid var(--card-border, rgba(255, 255, 255, 0.06))', paddingBottom: 8 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <span style={{
-                        background: idx === 0 ? '#00d2ff' : '#f5af19',
-                        color: '#000',
+                        background: idx === 0 ? '#0284c7' : '#f5af19',
+                        color: '#ffffff',
                         fontSize: 10,
                         fontWeight: 900,
                         padding: '2px 6px',
@@ -391,15 +391,15 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                       }}>
                         P{idx + 1}
                       </span>
-                      <span style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>
+                      <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                         {idx === 0 ? 'Passenger 1 (Primary Contact Traveler)' : `Passenger ${idx + 1} (Co-Traveler)`}
                       </span>
                     </div>
 
                     <div style={{
-                      background: 'rgba(0, 210, 255, 0.12)',
-                      border: '1px solid rgba(0, 210, 255, 0.3)',
-                      color: '#00d2ff',
+                      background: 'rgba(2, 132, 199, 0.12)',
+                      border: '1px solid rgba(2, 132, 199, 0.3)',
+                      color: 'var(--accent-cyan, #0284c7)',
                       fontSize: 11,
                       fontWeight: 800,
                       padding: '2px 8px',
@@ -412,11 +412,11 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   {/* Name & Title Inputs */}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 10, marginBottom: 10 }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Title</label>
+                      <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Title</label>
                       <select
                         value={pax.title}
                         onChange={(e) => handlePassengerChange(idx, 'title', e.target.value)}
-                        style={{ width: '100%', background: '#111a33', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#fff', padding: '10px', borderRadius: 8, fontSize: 13, minHeight: 42 }}
+                        style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '10px', borderRadius: 8, fontSize: 13, minHeight: 42, fontWeight: 600 }}
                       >
                         <option value="Mr">Mr</option>
                         <option value="Ms">Ms</option>
@@ -427,35 +427,35 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                     </div>
 
                     <div style={{ gridColumn: 'span 2' }}>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>First & Middle Name *</label>
+                      <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>First & Middle Name *</label>
                       <input
                         type="text"
                         required
                         value={pax.firstName}
                         onChange={(e) => handlePassengerChange(idx, 'firstName', e.target.value)}
                         placeholder="e.g. Thiru"
-                        style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#fff', padding: '10px 12px', borderRadius: 8, fontSize: 13, outline: 'none', minHeight: 42 }}
+                        style={{ width: '100%', boxSizing: 'border-box', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '10px 12px', borderRadius: 8, fontSize: 13, outline: 'none', minHeight: 42, fontWeight: 600 }}
                       />
                     </div>
 
                     <div style={{ gridColumn: 'span 2' }}>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Last Name *</label>
+                      <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Last Name *</label>
                       <input
                         type="text"
                         required
                         value={pax.lastName}
                         onChange={(e) => handlePassengerChange(idx, 'lastName', e.target.value)}
                         placeholder="e.g. Sharma"
-                        style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#fff', padding: '10px 12px', borderRadius: 8, fontSize: 13, outline: 'none', minHeight: 42 }}
+                        style={{ width: '100%', boxSizing: 'border-box', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '10px 12px', borderRadius: 8, fontSize: 13, outline: 'none', minHeight: 42, fontWeight: 600 }}
                       />
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Gender</label>
+                      <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Gender</label>
                       <select
                         value={pax.gender}
                         onChange={(e) => handlePassengerChange(idx, 'gender', e.target.value)}
-                        style={{ width: '100%', background: '#111a33', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#fff', padding: '10px', borderRadius: 8, fontSize: 13, minHeight: 42 }}
+                        style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '10px', borderRadius: 8, fontSize: 13, minHeight: 42, fontWeight: 600 }}
                       >
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -466,26 +466,26 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
 
                   {/* Contact Fields for Primary Passenger */}
                   {idx === 0 && (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10, marginTop: 10, paddingTop: 10, borderTop: '1px dashed rgba(255, 255, 255, 0.08)' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10, marginTop: 10, paddingTop: 10, borderTop: '1px dashed var(--card-border, rgba(255, 255, 255, 0.08))' }}>
                       <div>
-                        <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Email (for PDF E-Tickets of all travelers) *</label>
+                        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Email (for PDF E-Tickets of all travelers) *</label>
                         <input
                           type="email"
                           required
                           value={contactInfo.email}
                           onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
-                          style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#fff', padding: '10px 12px', borderRadius: 8, fontSize: 13, outline: 'none', minHeight: 42 }}
+                          style={{ width: '100%', boxSizing: 'border-box', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '10px 12px', borderRadius: 8, fontSize: 13, outline: 'none', minHeight: 42, fontWeight: 600 }}
                         />
                       </div>
 
                       <div>
-                        <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Mobile Number (for SMS & WhatsApp Boarding Passes) *</label>
+                        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Mobile Number (for SMS & WhatsApp Boarding Passes) *</label>
                         <input
                           type="text"
                           required
                           value={contactInfo.phone}
                           onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
-                          style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#fff', padding: '10px 12px', borderRadius: 8, fontSize: 13, outline: 'none', minHeight: 42 }}
+                          style={{ width: '100%', boxSizing: 'border-box', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '10px 12px', borderRadius: 8, fontSize: 13, outline: 'none', minHeight: 42, fontWeight: 600 }}
                         />
                       </div>
                     </div>
@@ -498,11 +498,11 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
           {/* Payment Method Selector with Official Brand Logos */}
           <div style={{ marginBottom: 20 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, flexWrap: 'wrap', gap: 6 }}>
-              <h4 style={{ fontSize: 15, fontWeight: 700, color: '#fff', margin: 0 }}>
+              <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                 2. Select Payment Method
               </h4>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ fontSize: 11, color: '#00d2ff', fontWeight: 800 }}>
+                <span style={{ fontSize: 11, color: 'var(--accent-cyan, #0284c7)', fontWeight: 800 }}>
                   ⚡ Instant Razorpay Gateway
                 </span>
               </div>
@@ -516,8 +516,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   padding: '12px 10px',
                   borderRadius: 12,
                   textAlign: 'center',
-                  background: paymentMethod === 'RAZORPAY_UPI' ? 'rgba(0, 210, 255, 0.18)' : 'rgba(255, 255, 255, 0.04)',
-                  border: paymentMethod === 'RAZORPAY_UPI' ? '2px solid #00d2ff' : '1px solid rgba(255, 255, 255, 0.1)',
+                  background: paymentMethod === 'RAZORPAY_UPI' ? 'rgba(0, 210, 255, 0.18)' : 'var(--card-subtle-bg, rgba(255, 255, 255, 0.04))',
+                  border: paymentMethod === 'RAZORPAY_UPI' ? '2px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   userSelect: 'none',
@@ -535,7 +535,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   <PhonePeLogo size={18} />
                   <PaytmLogo size={18} />
                 </div>
-                <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>UPI / QR</div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>UPI / QR</div>
                 <div style={{ fontSize: 10, color: '#00e676', fontWeight: 800 }}>⚡ 0% Fee • Instant</div>
               </div>
 
@@ -546,8 +546,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   padding: '12px 10px',
                   borderRadius: 12,
                   textAlign: 'center',
-                  background: paymentMethod === 'RAZORPAY_CARD' ? 'rgba(0, 82, 204, 0.22)' : 'rgba(255, 255, 255, 0.04)',
-                  border: paymentMethod === 'RAZORPAY_CARD' ? '2px solid #0052cc' : '1px solid rgba(255, 255, 255, 0.1)',
+                  background: paymentMethod === 'RAZORPAY_CARD' ? 'rgba(0, 82, 204, 0.22)' : 'var(--card-subtle-bg, rgba(255, 255, 255, 0.04))',
+                  border: paymentMethod === 'RAZORPAY_CARD' ? '2px solid #0052cc' : '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   userSelect: 'none',
@@ -565,8 +565,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   <MastercardLogo size={14} />
                   <RupayLogo size={14} />
                 </div>
-                <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>Cards</div>
-                <div style={{ fontSize: 10, color: '#cbd5e1' }}>RuPay / Visa / MC</div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>Cards</div>
+                <div style={{ fontSize: 10, color: 'var(--text-muted, #475569)' }}>RuPay / Visa / MC</div>
               </div>
 
               {/* NetBanking Tab */}
@@ -576,8 +576,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   padding: '12px 10px',
                   borderRadius: 12,
                   textAlign: 'center',
-                  background: paymentMethod === 'RAZORPAY_NETBANKING' ? 'rgba(0, 230, 118, 0.18)' : 'rgba(255, 255, 255, 0.04)',
-                  border: paymentMethod === 'RAZORPAY_NETBANKING' ? '2px solid #00e676' : '1px solid rgba(255, 255, 255, 0.1)',
+                  background: paymentMethod === 'RAZORPAY_NETBANKING' ? 'rgba(0, 230, 118, 0.18)' : 'var(--card-subtle-bg, rgba(255, 255, 255, 0.04))',
+                  border: paymentMethod === 'RAZORPAY_NETBANKING' ? '2px solid #00e676' : '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   userSelect: 'none',
@@ -595,8 +595,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   <SbiBankLogo size={16} />
                   <IciciBankLogo size={16} />
                 </div>
-                <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>NetBanking</div>
-                <div style={{ fontSize: 10, color: '#94a3b8' }}>50+ Indian Banks</div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>NetBanking</div>
+                <div style={{ fontSize: 10, color: 'var(--text-muted, #475569)' }}>50+ Indian Banks</div>
               </div>
 
               {/* Wallets & EMI Tab */}
@@ -606,8 +606,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   padding: '12px 10px',
                   borderRadius: 12,
                   textAlign: 'center',
-                  background: paymentMethod === 'RAZORPAY_WALLET' ? 'rgba(245, 175, 25, 0.18)' : 'rgba(255, 255, 255, 0.04)',
-                  border: paymentMethod === 'RAZORPAY_WALLET' ? '2px solid #f5af19' : '1px solid rgba(255, 255, 255, 0.1)',
+                  background: paymentMethod === 'RAZORPAY_WALLET' ? 'rgba(245, 175, 25, 0.18)' : 'var(--card-subtle-bg, rgba(255, 255, 255, 0.04))',
+                  border: paymentMethod === 'RAZORPAY_WALLET' ? '2px solid #f5af19' : '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   userSelect: 'none',
@@ -625,7 +625,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   <PaytmLogo size={14} />
                   <MobiKwikLogo size={14} />
                 </div>
-                <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>Wallets & EMI</div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>Wallets & EMI</div>
                 <div style={{ fontSize: 10, color: '#f5af19' }}>Amazon/Paytm/EMI</div>
               </div>
             </div>
@@ -679,8 +679,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   }}
                 >
                   <GPayLogo size={32} />
-                  <div style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>Google Pay</div>
-                  <div style={{ fontSize: 10, color: '#94a3b8' }}>@okaxis / @okhdfc</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>Google Pay</div>
+                  <div style={{ fontSize: 10, color: 'var(--text-muted, #475569)' }}>@okaxis / @okhdfc</div>
                 </button>
 
                 {/* PhonePe */}
@@ -688,8 +688,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   type="button"
                   onClick={() => handleSelectUpiApp('PHONEPE')}
                   style={{
-                    background: selectedUpiApp === 'PHONEPE' ? 'rgba(95, 37, 159, 0.35)' : 'rgba(255, 255, 255, 0.04)',
-                    border: selectedUpiApp === 'PHONEPE' ? '2px solid #a855f7' : '1px solid rgba(255, 255, 255, 0.1)',
+                    background: selectedUpiApp === 'PHONEPE' ? 'rgba(95, 37, 159, 0.35)' : 'var(--card-subtle-bg, rgba(255, 255, 255, 0.04))',
+                    border: selectedUpiApp === 'PHONEPE' ? '2px solid #a855f7' : '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
                     borderRadius: 10,
                     padding: '12px 10px',
                     textAlign: 'center',
@@ -703,8 +703,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   }}
                 >
                   <PhonePeLogo size={32} />
-                  <div style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>PhonePe</div>
-                  <div style={{ fontSize: 10, color: '#94a3b8' }}>@ybl / @ibl</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>PhonePe</div>
+                  <div style={{ fontSize: 10, color: 'var(--text-muted, #475569)' }}>@ybl / @ibl</div>
                 </button>
 
                 {/* Paytm UPI */}
@@ -712,8 +712,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   type="button"
                   onClick={() => handleSelectUpiApp('PAYTM')}
                   style={{
-                    background: selectedUpiApp === 'PAYTM' ? 'rgba(0, 186, 242, 0.25)' : 'rgba(255, 255, 255, 0.04)',
-                    border: selectedUpiApp === 'PAYTM' ? '2px solid #00BAF2' : '1px solid rgba(255, 255, 255, 0.1)',
+                    background: selectedUpiApp === 'PAYTM' ? 'rgba(0, 186, 242, 0.25)' : 'var(--card-subtle-bg, rgba(255, 255, 255, 0.04))',
+                    border: selectedUpiApp === 'PAYTM' ? '2px solid #00BAF2' : '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
                     borderRadius: 10,
                     padding: '12px 10px',
                     textAlign: 'center',
@@ -727,8 +727,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   }}
                 >
                   <PaytmLogo size={32} />
-                  <div style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>Paytm UPI</div>
-                  <div style={{ fontSize: 10, color: '#94a3b8' }}>@paytm</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>Paytm UPI</div>
+                  <div style={{ fontSize: 10, color: 'var(--text-muted, #475569)' }}>@paytm</div>
                 </button>
 
                 {/* BHIM / QR Code */}
@@ -736,8 +736,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   type="button"
                   onClick={() => handleSelectUpiApp('QR')}
                   style={{
-                    background: selectedUpiApp === 'QR' ? 'rgba(0, 230, 118, 0.22)' : 'rgba(255, 255, 255, 0.04)',
-                    border: selectedUpiApp === 'QR' ? '2px solid #00e676' : '1px solid rgba(255, 255, 255, 0.1)',
+                    background: selectedUpiApp === 'QR' ? 'rgba(0, 230, 118, 0.22)' : 'var(--card-subtle-bg, rgba(255, 255, 255, 0.04))',
+                    border: selectedUpiApp === 'QR' ? '2px solid #00e676' : '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
                     borderRadius: 10,
                     padding: '12px 10px',
                     textAlign: 'center',
@@ -751,16 +751,16 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   }}
                 >
                   <UpiLogo size={32} />
-                  <div style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>Scan & Pay QR</div>
-                  <div style={{ fontSize: 10, color: '#00e676' }}>Any UPI App</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>Scan & Pay QR</div>
+                  <div style={{ fontSize: 10, color: '#00e676', fontWeight: 700 }}>Any UPI App</div>
                 </button>
               </div>
 
               {/* Dynamic QR Preview Box when QR is selected */}
               {selectedUpiApp === 'QR' ? (
                 <div style={{
-                  background: 'rgba(0, 0, 0, 0.4)',
-                  border: '1px solid rgba(0, 230, 118, 0.3)',
+                  background: 'var(--card-subtle-bg, rgba(0, 0, 0, 0.4))',
+                  border: '1px solid var(--card-border, rgba(0, 230, 118, 0.3))',
                   borderRadius: 12,
                   padding: '16px',
                   display: 'flex',
@@ -774,8 +774,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                       <QrCode size={64} color="#090f1d" />
                     </div>
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>Scan with PhonePe, GPay, Paytm or CRED</div>
-                      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Amount to pay: <strong style={{ color: '#00e676', fontSize: 13 }}>{currencySymbol}{convertPrice(finalPayable).toLocaleString()}</strong></div>
+                      <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>Scan with PhonePe, GPay, Paytm or CRED</div>
+                      <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)', marginTop: 2 }}>Amount to pay: <strong style={{ color: '#00e676', fontSize: 13 }}>{currencySymbol}{convertPrice(finalPayable).toLocaleString()}</strong></div>
                       <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
                         <PhonePeLogo size={16} />
                         <GPayLogo size={16} />
@@ -866,8 +866,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
             }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14, flexWrap: 'wrap', gap: 6 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <Lock size={16} color="#00d2ff" />
-                  <span style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>
+                  <Lock size={16} color="var(--accent-cyan, #0284c7)" />
+                  <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                     Razorpay 256-Bit Encrypted Card Payment
                   </span>
                 </div>
@@ -882,36 +882,36 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               {/* Card Inputs Grid */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 10, marginBottom: 12 }}>
                 <div style={{ gridColumn: 'span 2' }}>
-                  <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Card Number</label>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Card Number</label>
                   <input
                     type="text"
                     required
                     value={cardData.cardNumber}
                     onChange={(e) => setCardData({ ...cardData, cardNumber: e.target.value, rawCardNumber: e.target.value.replace(/\s+/g, '') })}
-                    style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(0, 82, 204, 0.4)', borderRadius: 8, color: '#fff', padding: '10px 12px', fontSize: 13, fontWeight: 700, minHeight: 42 }}
+                    style={{ width: '100%', boxSizing: 'border-box', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', borderRadius: 8, color: 'var(--input-text, #0f172a)', padding: '10px 12px', fontSize: 13, fontWeight: 700, minHeight: 42 }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>MM / YY</label>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>MM / YY</label>
                   <input
                     type="text"
                     required
                     value={cardData.cardExp}
                     onChange={(e) => setCardData({ ...cardData, cardExp: e.target.value })}
-                    style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(0, 82, 204, 0.4)', borderRadius: 8, color: '#fff', padding: '10px 12px', fontSize: 13, textAlign: 'center', minHeight: 42 }}
+                    style={{ width: '100%', boxSizing: 'border-box', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', borderRadius: 8, color: 'var(--input-text, #0f172a)', padding: '10px 12px', fontSize: 13, textAlign: 'center', minHeight: 42, fontWeight: 700 }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>CVV</label>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>CVV</label>
                   <input
                     type="password"
                     maxLength={4}
                     required
                     value={cardData.cardCvc}
                     onChange={(e) => setCardData({ ...cardData, cardCvc: e.target.value })}
-                    style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(0, 82, 204, 0.4)', borderRadius: 8, color: '#fff', padding: '10px 12px', fontSize: 13, textAlign: 'center', minHeight: 42 }}
+                    style={{ width: '100%', boxSizing: 'border-box', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', borderRadius: 8, color: 'var(--input-text, #0f172a)', padding: '10px 12px', fontSize: 13, textAlign: 'center', minHeight: 42, fontWeight: 700 }}
                   />
                 </div>
               </div>
@@ -953,7 +953,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               padding: 'clamp(14px, 2vw, 20px)',
               marginBottom: 20
             }}>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 12 }}>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)', marginBottom: 12 }}>
                 Select NetBanking Institution (Instant Authorization)
               </label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 10 }}>
@@ -972,9 +972,9 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                     style={{
                       padding: '10px 8px',
                       borderRadius: 8,
-                      background: selectedBank === bank.id ? 'rgba(0, 230, 118, 0.22)' : 'rgba(255,255,255,0.04)',
-                      border: selectedBank === bank.id ? '1.5px solid #00e676' : '1px solid rgba(255,255,255,0.1)',
-                      color: selectedBank === bank.id ? '#00e676' : '#cbd5e1',
+                      background: selectedBank === bank.id ? 'rgba(0, 230, 118, 0.22)' : 'var(--card-subtle-bg, rgba(255,255,255,0.04))',
+                      border: selectedBank === bank.id ? '1.5px solid #00e676' : '1px solid var(--card-border, rgba(255,255,255,0.1))',
+                      color: selectedBank === bank.id ? '#00e676' : 'var(--text-main, #cbd5e1)',
                       fontSize: 12,
                       fontWeight: 700,
                       cursor: 'pointer',
@@ -984,7 +984,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                       transition: 'all 0.15s'
                     }}
                   >
-                    <bank.Logo size={20} color={selectedBank === bank.id ? '#00e676' : '#cbd5e1'} />
+                    <bank.Logo size={20} color={selectedBank === bank.id ? '#00e676' : 'var(--text-main, #cbd5e1)'} />
                     <span>{bank.name}</span>
                   </button>
                 ))}
@@ -1001,7 +1001,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               padding: 'clamp(14px, 2vw, 20px)',
               marginBottom: 20
             }}>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 12 }}>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)', marginBottom: 12 }}>
                 Select Digital Wallet / EMI Option
               </label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 10 }}>
@@ -1052,7 +1052,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   placeholder="Enter Promo Code (e.g. FLYSMF10)..."
                   value={promoInput}
                   onChange={(e) => setPromoInput(e.target.value)}
-                  style={{ width: '100%', background: 'transparent', border: 'none', color: '#fff', fontSize: 13, fontWeight: 700, outline: 'none', textTransform: 'uppercase', padding: 0, minHeight: 36 }}
+                  style={{ width: '100%', background: 'transparent', border: 'none', color: 'var(--input-text, #0f172a)', fontSize: 13, fontWeight: 700, outline: 'none', textTransform: 'uppercase', padding: 0, minHeight: 36 }}
                 />
               </div>
               <button
@@ -1127,15 +1127,15 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               </div>
             )}
             <div style={{
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              borderTop: '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
               paddingTop: 10,
               marginTop: 6,
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center'
             }}>
-              <span style={{ fontSize: 15, fontWeight: 800, color: '#fff' }}>Total Payable Amount:</span>
-              <span style={{ fontSize: 22, fontWeight: 900, color: '#00d2ff' }}>
+              <span style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>Total Payable Amount:</span>
+              <span style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent-cyan, #0284c7)' }}>
                 {currencySymbol}{convertPrice(finalPayable).toLocaleString()}
               </span>
             </div>

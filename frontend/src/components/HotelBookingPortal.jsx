@@ -138,16 +138,14 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
   }, [selectedCity]);
 
   return (
-    <div style={{
+    <div className="hotel-portal-container" style={{
       maxWidth: 1360,
       margin: '0 auto',
       padding: 'clamp(14px, 2.5vw, 24px) clamp(12px, 2.5vw, 24px) 80px clamp(12px, 2.5vw, 24px)',
       borderRadius: 24,
-      background: "linear-gradient(135deg, rgba(9, 15, 29, 0.88), rgba(15, 23, 42, 0.94)), url('/assets/images/hotel_marina_bay_sands.jpg')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)'
+      background: "var(--card-bg, #ffffff)",
+      border: "1px solid var(--card-border, #e2e8f0)",
+      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)'
     }}>
       {/* Hero Hotel Search Banner */}
       <div style={{
@@ -208,22 +206,22 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
             <Building2 size={14} /> LUXURY HOTELS, VILLAS & RESORTS
           </div>
 
-          <h1 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 900, color: '#fff', margin: '0 0 8px 0', lineHeight: 1.2 }}>
+          <h1 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 900, color: 'var(--text-main, #ffffff)', margin: '0 0 8px 0', lineHeight: 1.2 }}>
             Reserve World-Class Stays with Instant Confirmation
           </h1>
-          <p style={{ fontSize: 'clamp(13px, 2vw, 15px)', color: '#94a3b8', margin: '0 0 22px 0' }}>
+          <p style={{ fontSize: 'clamp(13px, 2vw, 15px)', color: 'var(--text-muted, #cbd5e1)', margin: '0 0 22px 0' }}>
             Exclusive rates across 5-star suites, private plunge pools, and verified boutique resorts with complimentary gourmet breakfasts.
           </p>
         </div>
 
         {/* Search Controls Container */}
         <div style={{
-          background: 'rgba(13, 22, 43, 0.95)',
+          background: 'var(--card-bg, rgba(13, 22, 43, 0.95))',
           backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(0, 210, 255, 0.3)',
+          border: '1px solid var(--card-border, rgba(0, 210, 255, 0.3))',
           borderRadius: 18,
           padding: 'clamp(14px, 2vw, 20px)',
-          boxShadow: '0 15px 40px rgba(0,0,0,0.5)',
+          boxShadow: '0 15px 40px rgba(0,0,0,0.2)',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
           gap: 14,
@@ -231,11 +229,11 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
         }}>
           {/* Destination */}
           <div>
-            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 6 }}>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #94a3b8)', marginBottom: 6 }}>
               DESTINATION CITY
             </label>
             <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#00d2ff' }}>
+              <div style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--accent-cyan, #0284c7)' }}>
                 <MapPin size={16} />
               </div>
               <select
@@ -244,10 +242,10 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                 style={{
                   width: '100%',
                   padding: '11px 12px 11px 36px',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(0, 210, 255, 0.25)',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1px solid var(--card-border, rgba(0, 210, 255, 0.25))',
                   borderRadius: 10,
-                  color: '#fff',
+                  color: 'var(--text-main, #0f172a)',
                   fontSize: 13,
                   fontWeight: 700,
                   outline: 'none',
@@ -266,11 +264,11 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
 
           {/* Check-In */}
           <div>
-            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 6 }}>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #94a3b8)', marginBottom: 6 }}>
               CHECK-IN DATE
             </label>
             <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#00d2ff' }}>
+              <div style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--accent-cyan, #0284c7)' }}>
                 <Calendar size={16} />
               </div>
               <input
@@ -280,10 +278,10 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                 style={{
                   width: '100%',
                   padding: '11px 12px 11px 36px',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(0, 210, 255, 0.25)',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1px solid var(--card-border, rgba(0, 210, 255, 0.25))',
                   borderRadius: 10,
-                  color: '#fff',
+                  color: 'var(--text-main, #0f172a)',
                   fontSize: 13,
                   fontWeight: 600,
                   outline: 'none',
@@ -295,11 +293,11 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
 
           {/* Check-Out */}
           <div>
-            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 6 }}>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #94a3b8)', marginBottom: 6 }}>
               CHECK-OUT DATE
             </label>
             <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#00d2ff' }}>
+              <div style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--accent-cyan, #0284c7)' }}>
                 <Calendar size={16} />
               </div>
               <input
@@ -309,10 +307,10 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                 style={{
                   width: '100%',
                   padding: '11px 12px 11px 36px',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(0, 210, 255, 0.25)',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1px solid var(--card-border, rgba(0, 210, 255, 0.25))',
                   borderRadius: 10,
-                  color: '#fff',
+                  color: 'var(--text-main, #0f172a)',
                   fontSize: 13,
                   fontWeight: 600,
                   outline: 'none',
@@ -324,7 +322,7 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
 
           {/* Rooms & Guests */}
           <div>
-            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 6 }}>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #94a3b8)', marginBottom: 6 }}>
               ROOMS & GUESTS
             </label>
             <div style={{ display: 'flex', gap: 8 }}>
@@ -334,10 +332,10 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                 style={{
                   flex: 1,
                   padding: '11px 8px',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(0, 210, 255, 0.25)',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1px solid var(--card-border, rgba(0, 210, 255, 0.25))',
                   borderRadius: 10,
-                  color: '#fff',
+                  color: 'var(--text-main, #0f172a)',
                   fontSize: 13,
                   fontWeight: 600,
                   outline: 'none'
@@ -353,10 +351,10 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                 style={{
                   flex: 1,
                   padding: '11px 8px',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(0, 210, 255, 0.25)',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1px solid var(--card-border, rgba(0, 210, 255, 0.25))',
                   borderRadius: 10,
-                  color: '#fff',
+                  color: 'var(--text-main, #0f172a)',
                   fontSize: 13,
                   fontWeight: 600,
                   outline: 'none'
@@ -399,19 +397,19 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
       <div className="hotel-portal-layout">
         {/* Left Filter Sidebar (Sticky on desktop, toggleable on mobile) */}
         <div 
-          className="sticky-sidebar"
+          className="sticky-sidebar glass-card"
           style={{
-            background: '#0d1527',
-            border: '1px solid rgba(0, 210, 255, 0.2)',
+            background: 'var(--card-bg, #ffffff)',
+            border: '1px solid var(--card-border, #e2e8f0)',
             borderRadius: 18,
             padding: '22px',
-            color: '#f8fafc',
+            color: 'var(--text-main, #0f172a)',
             display: (typeof window !== 'undefined' && window.innerWidth < 992 && !showMobileFilters) ? 'none' : 'block'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18, borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18, borderBottom: '1px solid var(--card-border, #e2e8f0)', paddingBottom: 12 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 15, fontWeight: 800 }}>
-              <SlidersHorizontal size={16} color="#00d2ff" />
+              <SlidersHorizontal size={16} color="var(--accent-cyan, #0284c7)" />
               <span>Filter Stays</span>
             </div>
             <button
@@ -422,7 +420,7 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                 setSelectedAmenity('All');
                 setFreeCancelOnly(false);
               }}
-              style={{ background: 'none', border: 'none', color: '#38bdf8', fontSize: 12, cursor: 'pointer', fontWeight: 600 }}
+              style={{ background: 'none', border: 'none', color: 'var(--accent-cyan, #0284c7)', fontSize: 12, cursor: 'pointer', fontWeight: 600 }}
             >
               Reset All
             </button>
@@ -430,18 +428,18 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
 
           {/* Star Rating Filter */}
           <div style={{ marginBottom: 22 }}>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 10 }}>
+            <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 10 }}>
               PROPERTY CLASSIFICATION
             </label>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {['All', '5', '4', '3'].map((s) => (
-                <label key={s} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer' }}>
+                <label key={s} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', color: 'var(--text-main, #0f172a)' }}>
                   <input
                     type="radio"
                     name="starRating"
                     checked={starFilter === s}
                     onChange={() => setStarFilter(s)}
-                    style={{ accentColor: '#00d2ff' }}
+                    style={{ accentColor: 'var(--accent-cyan, #0284c7)' }}
                   />
                   <span>{s === 'All' ? 'All Star Ratings' : `⭐ ${s}-Star Luxury & Premier`}</span>
                 </label>
@@ -451,9 +449,9 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
 
           {/* Max Price Range Slider */}
           <div style={{ marginBottom: 22 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 6 }}>
               <span style={{ fontWeight: 700 }}>MAX PRICE / NIGHT</span>
-              <span style={{ color: '#00e676', fontWeight: 800 }}>{currencySymbol}{convertPrice(maxPrice).toLocaleString()}</span>
+              <span style={{ color: 'var(--accent-green, #059669)', fontWeight: 800 }}>{currencySymbol}{convertPrice(maxPrice).toLocaleString()}</span>
             </div>
             <input
               type="range"
@@ -462,13 +460,13 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
               step={5000}
               value={maxPrice}
               onChange={(e) => setMaxPrice(parseInt(e.target.value, 10))}
-              style={{ width: '100%', accentColor: '#00d2ff', cursor: 'pointer' }}
+              style={{ width: '100%', accentColor: 'var(--accent-cyan, #0284c7)', cursor: 'pointer' }}
             />
           </div>
 
           {/* Top Amenities */}
           <div style={{ marginBottom: 22 }}>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 10 }}>
+            <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 10 }}>
               POPULAR AMENITIES
             </label>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -479,13 +477,13 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                 { id: 'Spa', label: '💆 Luxury Spa & Wellness' },
                 { id: 'Breakfast', label: '☕ Gourmet Breakfast' }
               ].map((am) => (
-                <label key={am.id} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer' }}>
+                <label key={am.id} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', color: 'var(--text-main, #0f172a)' }}>
                   <input
                     type="radio"
                     name="amenityFilter"
                     checked={selectedAmenity === am.id}
                     onChange={() => setSelectedAmenity(am.id)}
-                    style={{ accentColor: '#00d2ff' }}
+                    style={{ accentColor: 'var(--accent-cyan, #0284c7)' }}
                   />
                   <span>{am.label}</span>
                 </label>
@@ -495,17 +493,17 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
 
           {/* Free Cancellation Toggle */}
           <div style={{
-            background: 'rgba(0, 230, 118, 0.08)',
-            border: '1px solid rgba(0, 230, 118, 0.25)',
+            background: 'rgba(5, 150, 105, 0.1)',
+            border: '1px solid rgba(5, 150, 105, 0.3)',
             borderRadius: 10,
             padding: '10px 12px'
           }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 700, color: '#00e676', cursor: 'pointer' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 700, color: 'var(--accent-green, #059669)', cursor: 'pointer' }}>
               <input
                 type="checkbox"
                 checked={freeCancelOnly}
                 onChange={(e) => setFreeCancelOnly(e.target.checked)}
-                style={{ accentColor: '#00e676' }}
+                style={{ accentColor: 'var(--accent-green, #059669)' }}
               />
               <span>100% Free Cancellation Only</span>
             </label>
@@ -516,8 +514,8 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
         <div>
           {/* Live Booking.com API Status Banner */}
           <div style={{
-            background: isLiveConnected ? 'rgba(0, 230, 118, 0.12)' : 'rgba(0, 210, 255, 0.1)',
-            border: `1px solid ${isLiveConnected ? 'rgba(0, 230, 118, 0.4)' : 'rgba(0, 210, 255, 0.3)'}`,
+            background: isLiveConnected ? 'rgba(5, 150, 105, 0.1)' : 'var(--card-subtle-bg, #f1f5f9)',
+            border: `1px solid ${isLiveConnected ? 'rgba(5, 150, 105, 0.3)' : 'var(--card-border, #cbd5e1)'}`,
             borderRadius: 14,
             padding: '12px 18px',
             marginBottom: 20,
@@ -533,14 +531,14 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                 width: 10,
                 height: 10,
                 borderRadius: '50%',
-                background: isLiveConnected ? '#00e676' : '#00d2ff',
-                boxShadow: isLiveConnected ? '0 0 10px #00e676' : '0 0 10px #00d2ff'
+                background: isLiveConnected ? '#059669' : '#0284c7',
+                boxShadow: isLiveConnected ? '0 0 10px #059669' : '0 0 10px #0284c7'
               }} />
               <div>
-                <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>
+                <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                   {isLiveConnected ? '🟢 Live Booking.com API Connected' : '⚡ Local Verified Catalog Active'}
                 </div>
-                <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>
                   {isLiveConnected 
                     ? `Live room inventory, real-time rates, and high-res photos loaded directly from Booking.com API.`
                     : `Verified real-world property catalog with instant reservation engine.`}
@@ -553,20 +551,20 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
               display: 'flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(9, 15, 29, 0.7)',
+              background: 'var(--card-subtle-bg, #ffffff)',
               padding: '6px 12px',
               borderRadius: 10,
-              border: '1px solid rgba(255, 255, 255, 0.1)'
+              border: '1px solid var(--card-border, #cbd5e1)'
             }}>
-              <Percent size={13} color="#f5af19" />
-              <span style={{ fontSize: 11, fontWeight: 700, color: '#cbd5e1' }}>Markup:</span>
+              <Percent size={13} color="var(--accent-gold, #d97706)" />
+              <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>Markup:</span>
               <select
                 value={profitMargin}
                 onChange={(e) => setProfitMargin(parseFloat(e.target.value))}
                 style={{
-                  background: '#0f172a',
-                  color: '#f5af19',
-                  border: '1px solid rgba(245, 175, 25, 0.4)',
+                  background: 'var(--input-bg, #ffffff)',
+                  color: 'var(--accent-gold, #d97706)',
+                  border: '1px solid var(--card-border, #cbd5e1)',
                   borderRadius: 6,
                   padding: '3px 8px',
                   fontSize: 12,
@@ -587,31 +585,31 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18, flexWrap: 'wrap', gap: 10 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <h3 style={{ fontSize: 'clamp(16px, 3vw, 20px)', fontWeight: 800, color: '#fff', margin: 0 }}>
+                <h3 style={{ fontSize: 'clamp(16px, 3vw, 20px)', fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                   {filteredHotels.length} Verified Properties
                 </h3>
                 {isLoadingLive && (
-                  <span style={{ fontSize: 12, color: '#00d2ff', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  <span style={{ fontSize: 12, color: 'var(--accent-cyan, #0284c7)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                     <Loader2 size={14} className="spin-slow" /> Syncing live rates...
                   </span>
                 )}
               </div>
-              <p style={{ fontSize: 12, color: '#94a3b8', margin: '2px 0 0 0' }}>
+              <p style={{ fontSize: 12, color: 'var(--text-muted, #475569)', margin: '2px 0 0 0' }}>
                 Prices include all complimentary amenities, live taxes, and markup
               </p>
             </div>
 
             {/* Sort selector */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>Sort:</span>
+              <span style={{ fontSize: 12, color: 'var(--text-muted, #475569)', fontWeight: 600 }}>Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 style={{
-                  background: '#0d1527',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1px solid var(--card-border, #cbd5e1)',
                   borderRadius: 8,
-                  color: '#00d2ff',
+                  color: 'var(--accent-cyan, #0284c7)',
                   padding: '6px 12px',
                   fontSize: 12,
                   fontWeight: 700,
@@ -637,7 +635,7 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
               color: '#94a3b8'
             }}>
               <Building2 size={48} color="#00d2ff" style={{ margin: '0 auto 16px auto', opacity: 0.6 }} />
-              <h4 style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginBottom: 6 }}>No properties matched your exact filter</h4>
+              <h4 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)', marginBottom: 6 }}>No properties matched your exact filter</h4>
               <p style={{ fontSize: 13, margin: '0 0 16px 0' }}>Try broadening your price range or selecting "All Destinations".</p>
               <button
                 type="button"
@@ -708,26 +706,26 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                       {/* Top ratings row */}
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6, gap: 10 }}>
                         <div>
-                          <h4 style={{ fontSize: 'clamp(16px, 2vw, 18px)', fontWeight: 800, color: '#fff', margin: '0 0 4px 0' }}>
+                          <h4 style={{ fontSize: 'clamp(16px, 2vw, 18px)', fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: '0 0 4px 0' }}>
                             {hotel.name}
                           </h4>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, color: '#94a3b8' }}>
-                            <MapPin size={13} color="#00d2ff" />
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, color: 'var(--text-muted, #475569)' }}>
+                            <MapPin size={13} color="var(--accent-cyan, #0284c7)" />
                             <span>{hotel.location}</span>
                           </div>
                         </div>
 
                         <div style={{
-                          background: 'rgba(0, 210, 255, 0.12)',
-                          border: '1px solid rgba(0, 210, 255, 0.3)',
+                          background: 'rgba(2, 132, 199, 0.1)',
+                          border: '1px solid rgba(2, 132, 199, 0.25)',
                           padding: '4px 10px',
                           borderRadius: 8,
                           textAlign: 'right',
                           flexShrink: 0
                         }}>
-                          <span style={{ fontSize: 14, fontWeight: 900, color: '#00d2ff' }}>{hotel.reviewScore}</span>
-                          <span style={{ fontSize: 10, color: '#94a3b8' }}>/10</span>
-                          <div style={{ fontSize: 10, fontWeight: 700, color: '#fff' }}>{hotel.reviewLabel}</div>
+                          <span style={{ fontSize: 14, fontWeight: 900, color: 'var(--accent-cyan, #0284c7)' }}>{hotel.reviewScore}</span>
+                          <span style={{ fontSize: 10, color: 'var(--text-muted, #64748b)' }}>/10</span>
+                          <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--accent-cyan, #0284c7)' }}>{hotel.reviewLabel}</div>
                         </div>
                       </div>
 
@@ -737,8 +735,9 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                           <span
                             key={i}
                             style={{
-                              background: 'rgba(255, 255, 255, 0.05)',
-                              color: '#cbd5e1',
+                              background: 'var(--card-subtle-bg, #f1f5f9)',
+                              color: 'var(--text-main, #334155)',
+                              border: '1px solid var(--card-border, #e2e8f0)',
                               fontSize: 11,
                               padding: '3px 8px',
                               borderRadius: 6,
@@ -747,14 +746,14 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                               gap: 4
                             }}
                           >
-                            <Check size={11} color="#00e676" />
+                            <Check size={11} color="var(--accent-green, #059669)" />
                             {am}
                           </span>
                         ))}
                       </div>
 
                       {hotel.freeCancellation && (
-                        <div style={{ fontSize: 12, color: '#00e676', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
+                        <div style={{ fontSize: 12, color: 'var(--accent-green, #059669)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
                           <ShieldCheck size={14} /> Free cancellation available
                         </div>
                       )}
@@ -763,14 +762,14 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
                     {/* Bottom Pricing & Action */}
                     <div className="hotel-action-footer">
                       <div>
-                        <div style={{ fontSize: 11, color: '#94a3b8' }}>Starting from</div>
+                        <div style={{ fontSize: 11, color: 'var(--text-muted, #64748b)' }}>Starting from</div>
                         <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                          <span style={{ fontSize: 22, fontWeight: 900, color: '#00e676' }}>
+                          <span style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent-green, #059669)' }}>
                             {currencySymbol}{convertPrice(hotel.pricePerNight).toLocaleString()}
                           </span>
-                          <span style={{ fontSize: 11, color: '#94a3b8' }}>/ night</span>
+                          <span style={{ fontSize: 11, color: 'var(--text-muted, #64748b)' }}>/ night</span>
                         </div>
-                        <div style={{ fontSize: 10, color: '#64748b' }}>Includes complimentary breakfast & WiFi</div>
+                        <div style={{ fontSize: 10, color: 'var(--text-muted, #64748b)' }}>Includes complimentary breakfast & WiFi</div>
                       </div>
 
                       <button

@@ -238,18 +238,18 @@ export default function PersonalizedRecommendations({
             }}>
               <Sparkles size={14} /> AI PERSONALIZED TRIP DISCOVERY
             </div>
-            <h2 style={{ fontSize: 'clamp(22px, 3.5vw, 28px)', fontWeight: 800, color: '#fff', margin: 0, letterSpacing: -0.5 }}>
+            <h2 style={{ fontSize: 'clamp(22px, 3.5vw, 28px)', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: -0.5 }}>
               Handpicked Trips & Holidays for {userName}
             </h2>
-            <p style={{ color: '#94a3b8', fontSize: 13, marginTop: 4, lineHeight: 1.5, maxWidth: 680 }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4, lineHeight: 1.5, maxWidth: 680 }}>
               Tailored routes, bundled flight + stay vacation packages, and verified deals computed by SkyGenie AI based on your home base, tier benefits, and seasonal weather index.
             </p>
           </div>
 
           {/* User Persona Quick Settings */}
           <div style={{
-            background: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--card-subtle-bg, rgba(255, 255, 255, 0.04))',
+            border: '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
             borderRadius: 14,
             padding: '10px 16px',
             display: 'flex',
@@ -258,37 +258,37 @@ export default function PersonalizedRecommendations({
             flexWrap: 'wrap'
           }}>
             <div>
-              <div style={{ fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>
+              <div style={{ fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
                 Home Airport
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 2 }}>
-                <MapPin size={13} color="#00d2ff" />
+                <MapPin size={13} color="var(--accent-cyan, #00d2ff)" />
                 <select
                   value={selectedHomeAirport}
                   onChange={(e) => setSelectedHomeAirport(e.target.value)}
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#fff',
+                    color: 'var(--text-main)',
                     fontWeight: 800,
                     fontSize: 13,
                     cursor: 'pointer',
                     outline: 'none'
                   }}
                 >
-                  <option value="DEL" style={{ background: '#0b132b' }}>DEL (New Delhi)</option>
-                  <option value="BOM" style={{ background: '#0b132b' }}>BOM (Mumbai)</option>
-                  <option value="BLR" style={{ background: '#0b132b' }}>BLR (Bengaluru)</option>
-                  <option value="MAA" style={{ background: '#0b132b' }}>MAA (Chennai)</option>
-                  <option value="HYD" style={{ background: '#0b132b' }}>HYD (Hyderabad)</option>
+                  <option value="DEL">DEL (New Delhi)</option>
+                  <option value="BOM">BOM (Mumbai)</option>
+                  <option value="BLR">BLR (Bengaluru)</option>
+                  <option value="MAA">MAA (Chennai)</option>
+                  <option value="HYD">HYD (Hyderabad)</option>
                 </select>
               </div>
             </div>
 
-            <div style={{ width: 1, height: 28, background: 'rgba(255, 255, 255, 0.1)' }} />
+            <div style={{ width: 1, height: 28, background: 'var(--card-border, #cbd5e1)' }} />
 
             <div>
-              <div style={{ fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>
+              <div style={{ fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
                 Tier Status
               </div>
               <div style={{ color: '#f5af19', fontWeight: 800, fontSize: 13, display: 'flex', alignItems: 'center', gap: 4, marginTop: 2 }}>
@@ -297,10 +297,10 @@ export default function PersonalizedRecommendations({
               </div>
             </div>
 
-            <div style={{ width: 1, height: 28, background: 'rgba(255, 255, 255, 0.1)' }} />
+            <div style={{ width: 1, height: 28, background: 'var(--card-border, #cbd5e1)' }} />
 
             <div>
-              <div style={{ fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>
+              <div style={{ fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
                 Cabin
               </div>
               <div style={{ color: '#00e676', fontWeight: 800, fontSize: 13, marginTop: 2 }}>
@@ -332,9 +332,9 @@ export default function PersonalizedRecommendations({
               key={tab.id}
               onClick={() => setActiveFilter(tab.id)}
               style={{
-                background: activeFilter === tab.id ? 'rgba(0, 210, 255, 0.2)' : 'rgba(255, 255, 255, 0.04)',
-                border: activeFilter === tab.id ? '1px solid #00d2ff' : '1px solid rgba(255, 255, 255, 0.08)',
-                color: activeFilter === tab.id ? '#00d2ff' : '#94a3b8',
+                background: activeFilter === tab.id ? 'rgba(2, 132, 199, 0.15)' : 'var(--card-subtle-bg, #f1f5f9)',
+                border: activeFilter === tab.id ? '1px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, #cbd5e1)',
+                color: activeFilter === tab.id ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main, #334155)',
                 padding: '6px 14px',
                 borderRadius: 20,
                 fontSize: 12,
@@ -363,12 +363,13 @@ export default function PersonalizedRecommendations({
           return (
             <div
               key={item.id}
+              className="glass-card"
               style={{
-                background: 'linear-gradient(135deg, rgba(16, 26, 48, 0.95), rgba(11, 18, 33, 0.98))',
-                border: '1px solid rgba(0, 210, 255, 0.25)',
+                background: 'var(--card-bg, #ffffff)',
+                border: '1px solid var(--card-border, #e2e8f0)',
                 borderRadius: 16,
                 overflow: 'hidden',
-                boxShadow: '0 10px 28px rgba(0, 0, 0, 0.45)',
+                boxShadow: '0 4px 18px rgba(15, 23, 42, 0.05)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
@@ -377,11 +378,11 @@ export default function PersonalizedRecommendations({
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 16px 36px rgba(0, 210, 255, 0.25)';
+                e.currentTarget.style.boxShadow = '0 12px 30px rgba(2, 132, 199, 0.18)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 10px 28px rgba(0, 0, 0, 0.45)';
+                e.currentTarget.style.boxShadow = '0 4px 18px rgba(15, 23, 42, 0.05)';
               }}
             >
               {/* Card Image Banner */}
@@ -488,39 +489,39 @@ export default function PersonalizedRecommendations({
               {/* Card Body */}
               <div style={{ padding: '16px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
-                  <h3 style={{ fontSize: 17, fontWeight: 800, color: '#fff', margin: '0 0 6px 0', lineHeight: 1.3 }}>
+                  <h3 style={{ fontSize: 17, fontWeight: 800, color: 'var(--text-main)', margin: '0 0 6px 0', lineHeight: 1.3 }}>
                     {item.title}
                   </h3>
-                  <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <MapPin size={13} color="#00d2ff" />
+                  <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <MapPin size={13} color="var(--accent-cyan, #00d2ff)" />
                     <span>{item.destination}</span>
                   </div>
 
                   {/* AI Match Reason Box */}
                   <div style={{
-                    background: 'rgba(0, 210, 255, 0.06)',
-                    border: '1px solid rgba(0, 210, 255, 0.15)',
+                    background: 'rgba(2, 132, 199, 0.08)',
+                    border: '1px solid var(--card-border, rgba(0, 210, 255, 0.15))',
                     borderRadius: 10,
                     padding: '10px 12px',
                     fontSize: 12,
-                    color: '#cbd5e1',
+                    color: 'var(--text-main)',
                     lineHeight: 1.4,
                     marginBottom: 12
                   }}>
-                    <span style={{ color: '#00d2ff', fontWeight: 700 }}>Why this fits you:</span> {item.reason}
+                    <span style={{ color: 'var(--accent-cyan, #0284c7)', fontWeight: 700 }}>Why this fits you:</span> {item.reason}
                   </div>
 
                   {/* Key Inclusions Bullets */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginBottom: 14 }}>
                     {item.inclusions.map((inc, i) => (
-                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#cbd5e1' }}>
-                        <CheckCircle2 size={13} color="#00e676" />
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--text-main)' }}>
+                        <CheckCircle2 size={13} color="#059669" />
                         <span>{inc}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div style={{ fontSize: 11, color: '#f5af19', fontWeight: 600, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <div style={{ fontSize: 11, color: '#d97706', fontWeight: 600, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
                     <Calendar size={12} />
                     <span>{item.bestSeason}</span>
                   </div>
@@ -528,7 +529,7 @@ export default function PersonalizedRecommendations({
 
                 {/* Footer Pricing & Actions */}
                 <div style={{
-                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderTop: '1px solid var(--card-border, rgba(255, 255, 255, 0.08))',
                   paddingTop: 14,
                   display: 'flex',
                   alignItems: 'center',
@@ -536,11 +537,11 @@ export default function PersonalizedRecommendations({
                   gap: 10
                 }}>
                   <div>
-                    <div style={{ fontSize: 10, color: '#94a3b8', textTransform: 'uppercase' }}>
+                    <div style={{ fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
                       {isHoliday ? 'All-Inclusive / Person' : 'Fares from'}
                     </div>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                      <span style={{ fontSize: 20, fontWeight: 800, color: '#00e676' }}>
+                      <span style={{ fontSize: 20, fontWeight: 800, color: 'var(--accent-green, #059669)' }}>
                         {formatPrice(item.price)}
                       </span>
                       {item.originalPrice && (

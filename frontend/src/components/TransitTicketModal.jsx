@@ -23,8 +23,8 @@ export default function TransitTicketModal({ booking, onClose, currency = 'INR',
         onClick={(e) => e.stopPropagation()}
         style={{
           maxWidth: 680,
-          background: '#0d1629',
-          border: '1px solid rgba(0, 230, 118, 0.3)',
+          background: 'var(--modal-bg, #ffffff)',
+          border: '1px solid var(--card-border, #cbd5e1)',
           borderRadius: 24,
           padding: 0,
           overflow: 'hidden'
@@ -34,7 +34,7 @@ export default function TransitTicketModal({ booking, onClose, currency = 'INR',
         <div style={{ height: 6, width: '100%', background: isTrain ? 'linear-gradient(to right, #00e676, #00b0ff)' : 'linear-gradient(to right, #f5af19, #e65c00)' }} />
 
         {/* Modal Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 24px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', background: 'rgba(0,0,0,0.3)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 24px', borderBottom: '1px solid var(--card-border, #cbd5e1)', background: 'var(--card-subtle-bg, #f8fafc)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{
               width: 42,
@@ -50,10 +50,10 @@ export default function TransitTicketModal({ booking, onClose, currency = 'INR',
               {isTrain ? '🚆' : '🚌'}
             </div>
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff' }}>
+              <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                 {isTrain ? 'Rail Transit E-Ticket' : 'Luxury Coach Boarding Pass'}
               </h3>
-              <p style={{ fontSize: 12, color: '#94a3b8' }}>PNR #{booking.pnr || 'SMF-TR-982143'} • Instant Confirmed</p>
+              <p style={{ fontSize: 12, color: 'var(--text-muted, #94a3b8)', marginTop: 4 }}>PNR #{booking.pnr || 'SMF-TR-982143'} • Instant Confirmed</p>
             </div>
           </div>
 

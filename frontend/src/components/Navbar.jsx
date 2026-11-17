@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Plane, 
   Bell, 
@@ -32,6 +32,8 @@ export default function Navbar({
   unreadNotificationsCount = 0,
   currency = 'INR', 
   setCurrency, 
+  theme = 'light',
+  setTheme,
   language = 'EN',
   setLanguage,
   currentUser = null,
@@ -47,6 +49,8 @@ export default function Navbar({
   onLogout
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
+  const moreMenuRef = useRef(null);
 
   const { t, language: contextLanguage, setLanguage: contextSetLanguage } = useLanguage();
   const currentLanguage = language || contextLanguage || 'EN';
@@ -55,75 +59,111 @@ export default function Navbar({
   const handleNavClick = (tabId) => {
     setActiveTab(tabId);
     setIsMobileMenuOpen(false);
+    setIsMoreMenuOpen(false);
   };
 
-  const navItems = [
+  // Close dropdown when clicking outside or pressing Escape
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target)) {
+        setIsMoreMenuOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setIsMoreMenuOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  // 1. Primary Travel Nav Items (Always visible on desktop in a single sleek row)
+  const primaryNavItems = [
     { id: 'search', label: t('nav.flights', 'Flights'), icon: Plane },
+    { id: 'hotels', label: t('nav.hotels', 'Hotels'), icon: Building2 },
     { id: 'packages', label: t('nav.holidays', 'Holidays'), icon: Palmtree, badge: 'HOT', badgeColor: '#f5af19' },
     { id: 'visa', label: t('nav.visa', 'Visa Desk'), icon: FileCheck2, badge: 'UAE', badgeColor: '#00e676' },
-    { id: 'manage_booking_action', label: t('nav.manageBooking', 'Manage Booking'), icon: FileText, badge: 'PNR', badgeColor: '#00d2ff', action: onOpenManageBooking },
-    { id: 'hotels', label: t('nav.hotels', 'Hotels'), icon: Building2 },
-    { id: 'itinerary', label: t('nav.tripCraft', 'AI TripCraft'), icon: Sparkles },
-    { id: 'status', label: t('nav.liveStatus', 'Live Status'), icon: Radio, badge: 'RADAR', badgeColor: '#00e676' },
-    { id: 'alerts_action', label: t('nav.priceAlerts', 'Price Alerts'), icon: Bell, badge: 'TRACK', badgeColor: '#f5af19', action: onOpenAlerts },
-    { id: 'refund_action', label: t('nav.refundTracker', 'Refund Tracker'), icon: RefreshCw, badge: 'PNR', badgeColor: '#f5af19', action: onOpenRefundTracker },
+    { id: 'manage_booking_action', label: t('nav.manageBooking', 'Manage Booking'), icon: FileText, badge: 'PNR', badgeColor: '#0284c7', action: onOpenManageBooking },
     { id: 'ai', label: t('nav.skyGenie', 'SkyGenie AI'), icon: Bot },
-    { id: 'explore', label: t('nav.destinations', 'Destinations'), icon: Compass },
-    { id: 'map', label: t('nav.routeMap', 'Route Map'), icon: Globe },
     { id: 'trips', label: t('nav.myTrips', 'My Trips'), icon: Luggage, count: myTripsCount }
   ];
+
+  // 2. Secondary Tools & Exploration (Organized in "More Services ▾" dropdown)
+  const secondaryNavItems = [
+    { id: 'status', label: t('nav.liveStatus', 'Live Flight Radar'), icon: Radio, badge: 'RADAR', badgeColor: '#00e676', desc: 'Real-time airborne telemetry' },
+    { id: 'alerts_action', label: t('nav.priceAlerts', 'Price Alerts'), icon: Bell, badge: 'TRACK', badgeColor: '#f5af19', action: onOpenAlerts, desc: 'Instant fare drop alerts' },
+    { id: 'refund_action', label: t('nav.refundTracker', 'Refund Tracker'), icon: RefreshCw, badge: 'PNR', badgeColor: '#f5af19', action: onOpenRefundTracker, desc: 'Instant bank refund audit' },
+    { id: 'itinerary', label: t('nav.tripCraft', 'AI TripCraft Planner'), icon: Sparkles, desc: 'Personalized multi-day plans' },
+    { id: 'explore', label: t('nav.destinations', 'Explore Destinations'), icon: Compass, desc: 'Curated world highlights' },
+    { id: 'map', label: t('nav.routeMap', 'Interactive Route Map'), icon: Globe, desc: 'Global route visualizer' }
+  ];
+
+  const allNavItems = [...primaryNavItems, ...secondaryNavItems];
+  const activeSecondaryItem = secondaryNavItems.find(item => item.id === activeTab);
+  const isSecondaryActive = Boolean(activeSecondaryItem);
 
   return (
     <header style={{
       position: 'sticky',
       top: 0,
       zIndex: 100,
-      background: 'rgba(9, 15, 29, 0.94)',
+      background: 'var(--header-bg, rgba(9, 15, 29, 0.94))',
       backdropFilter: 'blur(20px)',
       WebkitBackdropFilter: 'blur(20px)',
-      borderBottom: '1px solid rgba(0, 210, 255, 0.15)',
-      padding: '8px 16px'
+      borderBottom: '1px solid var(--header-border, rgba(0, 210, 255, 0.15))',
+      padding: '7px 16px',
+      transition: 'background-color 0.25s ease, border-color 0.25s ease'
     }}>
       <div style={{
-        maxWidth: 1400,
+        maxWidth: 1440,
         margin: '0 auto',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: 12
       }}>
-        {/* Left: Brand Logo & Live Beacon */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        {/* Left: Brand Logo & Live Beacon & Compact Search */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
           <div 
             onClick={() => handleNavClick('search')} 
-            style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', userSelect: 'none' }}
+            style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', userSelect: 'none', flexShrink: 0 }}
           >
-            <div style={{
+            <div className="navbar-logo-container" style={{
               display: 'flex',
               alignItems: 'center',
-              background: '#ffffff',
-              padding: '3px 8px',
+              gap: 8,
               borderRadius: 8,
-              boxShadow: '0 2px 12px rgba(0, 210, 255, 0.28)',
               flexShrink: 0
             }}>
               <img 
                 src="/assets/images/selectmyflight_logo.png" 
-                alt="SelectMyFlight.com" 
-                style={{ height: 32, width: 'auto', objectFit: 'contain', display: 'block' }} 
+                alt="SelectMyFlight" 
+                style={{ height: 28, width: 28, borderRadius: 6, objectFit: 'contain', display: 'block', background: '#ffffff', padding: 2, border: '1px solid rgba(2, 132, 199, 0.2)' }} 
               />
+              <span className="navbar-brand-title" style={{
+                fontSize: 15.5,
+                fontWeight: 800,
+                letterSpacing: -0.4,
+                display: 'inline-flex',
+                alignItems: 'center'
+              }}>
+                Select<span style={{ color: '#0284c7' }}>My</span>Flight
+              </span>
             </div>
-            <div className="desktop-only">
+            <div className="desktop-only" style={{ flexShrink: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                 <span className="live-dot" style={{ width: 6, height: 6 }} />
-                <span style={{ fontSize: 9, color: '#00e676', letterSpacing: 0.8, textTransform: 'uppercase', fontWeight: 800 }}>
+                <span style={{ fontSize: 9, color: 'var(--accent-green, #059669)', letterSpacing: 0.8, textTransform: 'uppercase', fontWeight: 800 }}>
                   {t('nav.liveOperations', 'LIVE OPERATIONS')}
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Quick Feature Command Palette (Desktop Only) */}
+          {/* Quick Feature Command Palette (Compact, never wraps) */}
           <button
             type="button"
             onClick={onOpenFeatureLauncher}
@@ -131,33 +171,43 @@ export default function Navbar({
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 8,
-              background: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
+              gap: 6,
+              background: 'var(--card-subtle-bg, #f1f5f9)',
+              border: '1px solid var(--card-border, #cbd5e1)',
               borderRadius: 20,
-              padding: '6px 12px',
-              color: '#94a3b8',
+              padding: '5px 10px',
+              color: 'var(--text-muted)',
               fontSize: 12,
               cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
               transition: 'all 0.2s'
             }}
-            title="Search any feature, route, or task (Ctrl+K)"
+            title="Search features, routes, or tools (Ctrl+K)"
           >
-            <Search size={13} color="#00d2ff" />
-            <span style={{ color: '#cbd5e1', fontWeight: 500 }}>{t('nav.findFeatures', 'Find Features...')}</span>
+            <Search size={13} color="var(--accent-cyan, #0284c7)" />
+            <span style={{ color: 'var(--text-main)', fontWeight: 600, fontSize: 12 }}>{t('nav.findFeatures', 'Search')}</span>
             <kbd style={{
-              background: 'rgba(255, 255, 255, 0.1)',
+              background: 'var(--card-border, rgba(120, 130, 150, 0.15))',
               padding: '1px 5px',
               borderRadius: 4,
               fontSize: 9,
-              color: '#94a3b8'
-            }}>Ctrl K</kbd>
+              color: 'var(--text-muted)',
+              fontWeight: 700,
+              whiteSpace: 'nowrap'
+            }}>Ctrl+K</kbd>
           </button>
         </div>
 
-        {/* Center: Desktop Navigation Tabs */}
-        <nav className="desktop-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap' }}>
-          {navItems.map(item => {
+        {/* Center: Desktop Navigation Tabs (Strictly Single Row, Never Wraps) */}
+        <nav className="desktop-nav-links" style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: 3, 
+          flexWrap: 'nowrap', 
+          whiteSpace: 'nowrap' 
+        }}>
+          {primaryNavItems.map(item => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
             return (
@@ -165,19 +215,22 @@ export default function Navbar({
                 key={item.id}
                 type="button"
                 onClick={() => item.action ? item.action() : handleNavClick(item.id)}
+                className={`desktop-nav-btn ${isActive ? 'active' : ''}`}
                 style={{
-                  background: isActive ? 'rgba(0, 210, 255, 0.15)' : 'transparent',
-                  color: isActive ? '#00d2ff' : '#cbd5e1',
-                  border: isActive ? '1px solid rgba(0, 210, 255, 0.4)' : '1px solid transparent',
-                  padding: '7px 11px',
+                  background: isActive ? 'rgba(2, 132, 199, 0.12)' : 'transparent',
+                  color: isActive ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main)',
+                  border: isActive ? '1px solid var(--accent-cyan, rgba(0, 210, 255, 0.4))' : '1px solid transparent',
+                  padding: '6px 9px',
                   borderRadius: 8,
-                  fontSize: 13,
-                  fontWeight: 600,
+                  fontSize: 12.5,
+                  fontWeight: isActive ? 700 : 600,
                   cursor: 'pointer',
-                  display: 'flex',
+                  display: 'inline-flex',
                   alignItems: 'center',
-                  gap: 6,
-                  transition: 'all 0.2s'
+                  gap: 5,
+                  transition: 'all 0.2s',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0
                 }}
               >
                 <Icon size={14} />
@@ -210,25 +263,156 @@ export default function Navbar({
               </button>
             );
           })}
+
+          {/* More Services Dropdown */}
+          <div ref={moreMenuRef} style={{ position: 'relative' }}>
+            <button
+              type="button"
+              onClick={() => setIsMoreMenuOpen(prev => !prev)}
+              className={`desktop-nav-btn ${isSecondaryActive ? 'active' : ''}`}
+              style={{
+                background: isSecondaryActive ? 'rgba(2, 132, 199, 0.14)' : (isMoreMenuOpen ? 'var(--card-subtle-bg, #f1f5f9)' : 'transparent'),
+                color: isSecondaryActive ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main)',
+                border: isSecondaryActive ? '1px solid var(--accent-cyan, rgba(0, 210, 255, 0.4))' : '1px solid transparent',
+                padding: '6px 9px',
+                borderRadius: 8,
+                fontSize: 12.5,
+                fontWeight: isSecondaryActive ? 700 : 600,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5,
+                transition: 'all 0.2s',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
+              }}
+              title="More travel tools & services"
+            >
+              <span>{activeSecondaryItem ? activeSecondaryItem.label : t('nav.more', 'More Services')}</span>
+              <ChevronDown 
+                size={13} 
+                style={{ 
+                  transform: isMoreMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)', 
+                  transition: 'transform 0.2s ease' 
+                }} 
+              />
+            </button>
+
+            {isMoreMenuOpen && (
+              <div style={{
+                position: 'absolute',
+                top: 'calc(100% + 8px)',
+                left: 0,
+                minWidth: 260,
+                background: 'var(--modal-bg, #ffffff)',
+                border: '1px solid var(--card-border, #e2e8f0)',
+                borderRadius: 12,
+                boxShadow: '0 12px 36px rgba(15, 23, 42, 0.16)',
+                padding: '8px',
+                zIndex: 200,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 3
+              }}>
+                {secondaryNavItems.map(item => {
+                  const Icon = item.icon;
+                  const isActive = activeTab === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => {
+                        if (item.action) item.action();
+                        else handleNavClick(item.id);
+                        setIsMoreMenuOpen(false);
+                      }}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: 12,
+                        padding: '8px 12px',
+                        borderRadius: 8,
+                        background: isActive ? 'rgba(2, 132, 199, 0.12)' : 'transparent',
+                        color: isActive ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main)',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontSize: 13,
+                        fontWeight: isActive ? 700 : 500,
+                        textAlign: 'left',
+                        width: '100%',
+                        transition: 'background 0.15s'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isActive) e.currentTarget.style.background = 'var(--card-subtle-bg, #f1f5f9)';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) e.currentTarget.style.background = 'transparent';
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <div style={{
+                          width: 28,
+                          height: 28,
+                          borderRadius: 6,
+                          background: `${item.badgeColor || 'var(--accent-cyan, #0284c7)'}18`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0
+                        }}>
+                          <Icon size={15} color={item.badgeColor || 'var(--accent-cyan, #0284c7)'} />
+                        </div>
+                        <div>
+                          <div style={{ lineHeight: 1.2 }}>{item.label}</div>
+                          {item.desc && (
+                            <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2, fontWeight: 400 }}>
+                              {item.desc}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {item.badge && (
+                        <span style={{
+                          fontSize: 9,
+                          background: `${item.badgeColor}22`,
+                          color: item.badgeColor,
+                          border: `1px solid ${item.badgeColor}55`,
+                          padding: '1px 5px',
+                          borderRadius: 4,
+                          fontWeight: 800,
+                          flexShrink: 0
+                        }}>
+                          {item.badge}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </nav>
 
         {/* Right: Quick Tools & User Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
           {/* Wishlist Icon */}
           <button 
             type="button"
             onClick={onOpenWishlist}
             title="Saved Flights / Wishlist"
             style={{
-              background: wishlistCount > 0 ? 'rgba(255, 59, 48, 0.12)' : 'rgba(255, 255, 255, 0.05)',
-              color: wishlistCount > 0 ? '#ff4d6d' : '#cbd5e1',
-              border: wishlistCount > 0 ? '1px solid rgba(255, 59, 48, 0.3)' : '1px solid rgba(255, 255, 255, 0.1)',
+              background: wishlistCount > 0 ? 'rgba(255, 59, 48, 0.12)' : 'var(--card-subtle-bg, #f1f5f9)',
+              color: wishlistCount > 0 ? '#ff4d6d' : 'var(--text-main)',
+              border: wishlistCount > 0 ? '1px solid rgba(255, 59, 48, 0.3)' : '1px solid var(--card-border, #cbd5e1)',
               padding: '6px 9px',
               borderRadius: 8,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: 4
+              gap: 4,
+              height: 32,
+              flexShrink: 0
             }}
           >
             <Heart size={15} fill={wishlistCount > 0 ? '#ff4d6d' : 'none'} color="#ff4d6d" />
@@ -243,25 +427,27 @@ export default function Navbar({
             onClick={onOpenNotifications}
             title="Notifications"
             style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              color: '#cbd5e1',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--card-subtle-bg, #f1f5f9)',
+              color: 'var(--text-main)',
+              border: '1px solid var(--card-border, #cbd5e1)',
               padding: '6px 9px',
               borderRadius: 8,
               cursor: 'pointer',
               position: 'relative',
               display: 'flex',
-              alignItems: 'center'
+              alignItems: 'center',
+              height: 32,
+              flexShrink: 0
             }}
           >
-            <Bell size={15} color="#00d2ff" />
+            <Bell size={15} color="var(--accent-cyan, #0284c7)" />
             {unreadNotificationsCount > 0 && (
               <span style={{
                 position: 'absolute',
                 top: -3,
                 right: -3,
-                background: '#00d2ff',
-                color: '#090f1d',
+                background: 'var(--accent-cyan, #0284c7)',
+                color: '#ffffff',
                 fontSize: 9,
                 fontWeight: 900,
                 width: 15,
@@ -276,21 +462,21 @@ export default function Navbar({
             )}
           </button>
 
-          {/* Desktop Currency / Language */}
-          <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          {/* Desktop Currency / Language / Theme */}
+          <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
             <select
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
               style={{
-                background: 'rgba(255, 255, 255, 0.06)',
-                color: '#00d2ff',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                padding: '5px 8px',
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                color: 'var(--accent-cyan, #0284c7)',
+                border: '1px solid var(--card-border, #cbd5e1)',
+                padding: '4px 6px',
                 borderRadius: 8,
                 fontSize: 12,
                 fontWeight: 700,
                 cursor: 'pointer',
-                minHeight: 34
+                height: 32
               }}
             >
               <option value="INR">₹ INR</option>
@@ -303,15 +489,15 @@ export default function Navbar({
               value={currentLanguage}
               onChange={(e) => handleLanguageChange(e.target.value)}
               style={{
-                background: 'rgba(255, 255, 255, 0.06)',
-                color: '#cbd5e1',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                padding: '5px 8px',
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                color: 'var(--text-main)',
+                border: '1px solid var(--card-border, #cbd5e1)',
+                padding: '4px 6px',
                 borderRadius: 8,
                 fontSize: 12,
                 fontWeight: 600,
                 cursor: 'pointer',
-                minHeight: 34
+                height: 32
               }}
             >
               <option value="EN">EN</option>
@@ -319,43 +505,77 @@ export default function Navbar({
               <option value="ES">ES</option>
               <option value="FR">FR</option>
             </select>
+
+            {/* Theme Selector */}
+            <select
+              value={theme}
+              onChange={(e) => setTheme && setTheme(e.target.value)}
+              title="Change Color Theme"
+              style={{
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                color: 'var(--text-main)',
+                border: '1px solid var(--card-border, #cbd5e1)',
+                padding: '4px 6px',
+                borderRadius: 8,
+                fontSize: 12,
+                fontWeight: 700,
+                cursor: 'pointer',
+                height: 32
+              }}
+            >
+              <option value="light">☀️ Light</option>
+              <option value="dark">🌙 Dark</option>
+              <option value="royal">👑 Royal</option>
+              <option value="emerald">🌿 Emerald</option>
+            </select>
           </div>
 
           {/* User Account / Profile */}
           {currentUser ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
               <button 
                 type="button"
                 onClick={onOpenProfile}
+                className="navbar-user-profile-btn"
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 6,
-                  background: 'rgba(0, 210, 255, 0.1)',
-                  border: '1px solid rgba(0, 210, 255, 0.3)',
-                  padding: '5px 10px',
+                  gap: 7,
+                  padding: '4px 12px 4px 6px',
                   borderRadius: 20,
                   cursor: 'pointer',
-                  color: '#fff',
-                  fontSize: 12,
-                  fontWeight: 600
+                  height: 32,
+                  whiteSpace: 'nowrap',
+                  background: 'var(--card-subtle-bg, #f1f5f9)',
+                  border: '1.5px solid var(--card-border, #cbd5e1)',
+                  color: 'var(--text-main, #0f172a)'
                 }}
               >
                 <div style={{
                   width: 22,
                   height: 22,
                   borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #00d2ff, #3a7bd5)',
+                  background: 'linear-gradient(135deg, #0284c7, #2563eb)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 800,
-                  color: '#fff'
+                  color: '#ffffff',
+                  flexShrink: 0
                 }}>
                   {currentUser.name ? currentUser.name[0].toUpperCase() : 'U'}
                 </div>
-                <span className="desktop-only">{currentUser.name ? currentUser.name.split(' ')[0] : 'User'}</span>
+                <span 
+                  className="desktop-only navbar-user-name" 
+                  style={{ 
+                    fontWeight: 700, 
+                    fontSize: 12.5,
+                    color: 'var(--text-main, #0f172a)'
+                  }}
+                >
+                  {currentUser.name ? currentUser.name.split(' ')[0] : 'User'}
+                </span>
               </button>
             </div>
           ) : (
@@ -366,15 +586,18 @@ export default function Navbar({
                 display: 'flex',
                 alignItems: 'center',
                 gap: 6,
-                background: 'linear-gradient(135deg, #00d2ff, #3a7bd5)',
+                background: 'linear-gradient(135deg, var(--accent-cyan, #0284c7), var(--accent-blue, #2563eb))',
                 color: '#ffffff',
                 border: 'none',
-                padding: '7px 14px',
-                borderRadius: 8,
+                padding: '6px 14px',
+                borderRadius: 20,
                 fontSize: 12,
                 fontWeight: 700,
                 cursor: 'pointer',
-                boxShadow: '0 2px 10px rgba(0, 210, 255, 0.25)'
+                boxShadow: '0 2px 10px rgba(2, 132, 199, 0.25)',
+                height: 32,
+                whiteSpace: 'nowrap',
+                flexShrink: 0
               }}
             >
               <User size={14} />
@@ -391,24 +614,24 @@ export default function Navbar({
               display: 'none',
               alignItems: 'center',
               justifyContent: 'center',
-              background: 'rgba(255, 255, 255, 0.08)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              color: '#fff',
-              width: 38,
-              height: 38,
+              background: 'var(--card-subtle-bg, #f1f5f9)',
+              border: '1px solid var(--card-border, #cbd5e1)',
+              color: 'var(--text-main)',
+              width: 36,
+              height: 36,
               borderRadius: 8,
               cursor: 'pointer'
             }}
             aria-label="Toggle navigation menu"
           >
-            {isMobileMenuOpen ? <X size={20} color="#00d2ff" /> : <Menu size={20} />}
+            {isMobileMenuOpen ? <X size={20} color="var(--accent-cyan, #0284c7)" /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Horizontal Quick Tab Bar */}
       <div className="mobile-menu-btn scroll-touch-x" style={{ display: 'none', marginTop: 8, paddingBottom: 4 }}>
-        {navItems.map(item => {
+        {allNavItems.map(item => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
           return (
@@ -417,9 +640,9 @@ export default function Navbar({
               type="button"
               onClick={() => item.action ? item.action() : handleNavClick(item.id)}
               style={{
-                background: isActive ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'rgba(255, 255, 255, 0.06)',
-                color: isActive ? '#fff' : '#cbd5e1',
-                border: isActive ? '1px solid #00d2ff' : '1px solid rgba(255, 255, 255, 0.1)',
+                background: isActive ? 'linear-gradient(135deg, #0284c7, #2563eb)' : 'var(--card-subtle-bg, #f1f5f9)',
+                color: isActive ? '#fff' : 'var(--text-main, #334155)',
+                border: isActive ? '1px solid #0284c7' : '1px solid var(--card-border, #cbd5e1)',
                 padding: '6px 12px',
                 borderRadius: 20,
                 fontSize: 12,
@@ -435,7 +658,7 @@ export default function Navbar({
               <Icon size={13} />
               <span>{item.label}</span>
               {item.badge && (
-                <span style={{ fontSize: 8, background: 'rgba(0,0,0,0.3)', padding: '1px 4px', borderRadius: 4, fontWeight: 800 }}>
+                <span style={{ fontSize: 8, background: 'rgba(0,0,0,0.15)', padding: '1px 4px', borderRadius: 4, fontWeight: 800 }}>
                   {item.badge}
                 </span>
               )}
@@ -448,15 +671,15 @@ export default function Navbar({
       {isMobileMenuOpen && (
         <div style={{
           marginTop: 10,
-          background: '#0d1629',
-          border: '1px solid rgba(0, 210, 255, 0.25)',
+          background: 'var(--modal-bg, #ffffff)',
+          border: '1px solid var(--card-border, #e2e8f0)',
           borderRadius: 14,
           padding: '16px',
-          boxShadow: '0 20px 40px rgba(0,0,0,0.8)',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
           animation: 'slideUp 0.2s ease-out'
         }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
-            {navItems.map(item => {
+            {allNavItems.map(item => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
               return (
@@ -465,9 +688,9 @@ export default function Navbar({
                   type="button"
                   onClick={() => item.action ? item.action() : handleNavClick(item.id)}
                   style={{
-                    background: isActive ? 'rgba(0, 210, 255, 0.15)' : 'rgba(255, 255, 255, 0.04)',
-                    color: isActive ? '#00d2ff' : '#f8fafc',
-                    border: isActive ? '1px solid #00d2ff' : '1px solid rgba(255, 255, 255, 0.08)',
+                    background: isActive ? 'rgba(2, 132, 199, 0.12)' : 'var(--card-subtle-bg, #f1f5f9)',
+                    color: isActive ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main)',
+                    border: isActive ? '1px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, #e2e8f0)',
                     padding: '10px 12px',
                     borderRadius: 10,
                     fontSize: 13,
@@ -479,7 +702,7 @@ export default function Navbar({
                     textAlign: 'left'
                   }}
                 >
-                  <Icon size={16} color={isActive ? '#00d2ff' : '#94a3b8'} />
+                  <Icon size={16} color={isActive ? 'var(--accent-cyan, #0284c7)' : 'var(--text-muted)'} />
                   <span>{item.label}</span>
                 </button>
               );
@@ -491,14 +714,14 @@ export default function Navbar({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'rgba(255, 255, 255, 0.03)',
+            background: 'var(--card-subtle-bg, #f1f5f9)',
             padding: '12px',
             borderRadius: 10,
             marginBottom: 12,
             gap: 10
           }}>
             <div style={{ flex: 1 }}>
-              <label style={{ display: 'block', fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>
+              <label style={{ display: 'block', fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>
                 Currency
               </label>
               <select
@@ -514,7 +737,7 @@ export default function Navbar({
             </div>
 
             <div style={{ flex: 1 }}>
-              <label style={{ display: 'block', fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>
+              <label style={{ display: 'block', fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>
                 {t('nav.language', 'Language')}
               </label>
               <select
@@ -526,6 +749,22 @@ export default function Navbar({
                 <option value="HI">हिन्दी (HI)</option>
                 <option value="ES">Español (ES)</option>
                 <option value="FR">Français (FR)</option>
+              </select>
+            </div>
+
+            <div style={{ flex: 1 }}>
+              <label style={{ display: 'block', fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>
+                Theme
+              </label>
+              <select
+                value={theme}
+                onChange={(e) => setTheme && setTheme(e.target.value)}
+                style={{ width: '100%', padding: '6px 10px', fontSize: 13, fontWeight: 700 }}
+              >
+                <option value="light">☀️ Light</option>
+                <option value="dark">🌙 Dark</option>
+                <option value="royal">👑 Royal</option>
+                <option value="emerald">🌿 Emerald</option>
               </select>
             </div>
           </div>
@@ -540,9 +779,9 @@ export default function Navbar({
               }}
               style={{
                 flex: 1,
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#cbd5e1',
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                border: '1px solid var(--card-border, #e2e8f0)',
+                color: 'var(--text-main)',
                 padding: '10px',
                 borderRadius: 8,
                 fontSize: 13,

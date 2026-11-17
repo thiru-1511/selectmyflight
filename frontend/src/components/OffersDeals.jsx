@@ -61,10 +61,10 @@ export default function OffersDeals({ onApplyCode }) {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(245, 175, 25, 0.12)', color: '#f5af19', padding: '4px 14px', borderRadius: 20, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>
             <Tag size={14} /> EXCLUSIVE AIRLINE OFFERS & PROMO CODES
           </div>
-          <h2 style={{ fontSize: 24, fontWeight: 800, color: '#fff' }}>
+          <h2 style={{ fontSize: 24, fontWeight: 800, color: 'var(--text-main)' }}>
             Featured Deals & Flight Coupons
           </h2>
-          <p style={{ color: '#94a3b8', fontSize: 13, marginTop: 2 }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 2 }}>
             Copy promotional codes to claim instant airline discounts, student concessions, and bank rebates at checkout.
           </p>
         </div>
@@ -123,16 +123,16 @@ export default function OffersDeals({ onApplyCode }) {
                     <IconComponent size={20} />
                   </div>
                   <div>
-                    <div style={{ fontSize: 16, fontWeight: 800, color: '#fff' }}>
+                    <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--text-main)' }}>
                       {deal.discount}
                     </div>
-                    <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>
                       {deal.title}
                     </div>
                   </div>
                 </div>
 
-                <p style={{ fontSize: 12, color: '#cbd5e1', lineHeight: 1.5, marginBottom: 16 }}>
+                <p style={{ fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: 16 }}>
                   {deal.desc}
                 </p>
               </div>
@@ -142,8 +142,8 @@ export default function OffersDeals({ onApplyCode }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px dashed rgba(255, 255, 255, 0.2)',
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                border: '1px dashed var(--card-border, #cbd5e1)',
                 borderRadius: 8,
                 padding: '8px 12px'
               }}>
@@ -155,9 +155,9 @@ export default function OffersDeals({ onApplyCode }) {
                   type="button"
                   onClick={() => handleCopy(deal.code)}
                   style={{
-                    background: isCopied ? '#00e676' : 'rgba(255, 255, 255, 0.1)',
-                    color: isCopied ? '#090f1d' : '#fff',
-                    border: 'none',
+                    background: isCopied ? '#059669' : 'var(--card-subtle-bg, #ffffff)',
+                    color: isCopied ? '#ffffff' : 'var(--text-main, #0f172a)',
+                    border: isCopied ? 'none' : '1px solid var(--card-border, #cbd5e1)',
                     borderRadius: 6,
                     padding: '5px 10px',
                     fontSize: 11,

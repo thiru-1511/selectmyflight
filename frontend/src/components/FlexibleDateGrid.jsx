@@ -33,15 +33,15 @@ export default function FlexibleDateGrid({ flexibleDates, selectedDate, onSelect
               <TrendingDown size={18} />
             </div>
             <div>
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-main)' }}>
                 Flexible Dates Fare Matrix (±3 Days)
               </h3>
-              <p style={{ fontSize: 11, color: '#94a3b8' }}>
+              <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>
                 Compare prices across dates to save up to 25%.
               </p>
             </div>
           </div>
-          <span style={{ fontSize: 11, color: '#00d2ff', fontWeight: 600 }}>
+          <span style={{ fontSize: 11, color: 'var(--accent-cyan, #00d2ff)', fontWeight: 700 }}>
             🟢 Lowest Fare
           </span>
         </div>
@@ -56,15 +56,15 @@ export default function FlexibleDateGrid({ flexibleDates, selectedDate, onSelect
                 onClick={() => onSelectDate(item.date)}
                 style={{
                   background: isSelected 
-                    ? 'rgba(0, 210, 255, 0.18)' 
+                    ? 'rgba(2, 132, 199, 0.18)' 
                     : item.isCheapest 
-                      ? 'rgba(0, 230, 118, 0.1)' 
-                      : 'rgba(255, 255, 255, 0.04)',
+                      ? 'rgba(5, 150, 105, 0.12)' 
+                      : 'var(--card-subtle-bg, rgba(255, 255, 255, 0.04))',
                   border: isSelected 
-                    ? '2px solid #00d2ff' 
+                    ? '2px solid var(--accent-cyan, #00d2ff)' 
                     : item.isCheapest 
-                      ? '1px solid rgba(0, 230, 118, 0.4)' 
-                      : '1px solid rgba(255, 255, 255, 0.08)',
+                      ? '1px solid rgba(5, 150, 105, 0.45)' 
+                      : '1px solid var(--card-border, rgba(255, 255, 255, 0.08))',
                   borderRadius: 10,
                   padding: '10px 14px',
                   textAlign: 'center',
@@ -93,16 +93,16 @@ export default function FlexibleDateGrid({ flexibleDates, selectedDate, onSelect
                     CHEAPEST
                   </div>
                 )}
-                <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase' }}>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>
                   {item.dayOfWeek}
                 </div>
-                <div style={{ fontSize: 13, color: '#fff', fontWeight: 700, margin: '2px 0' }}>
+                <div style={{ fontSize: 13, color: 'var(--text-main)', fontWeight: 700, margin: '2px 0' }}>
                   {item.date.split('-').slice(1).join('/')}
                 </div>
                 <div style={{
                   fontSize: 13,
                   fontWeight: 800,
-                  color: item.isCheapest ? '#00e676' : isSelected ? '#00d2ff' : '#f8fafc'
+                  color: item.isCheapest ? '#059669' : isSelected ? 'var(--accent-cyan, #00d2ff)' : 'var(--text-main)'
                 }}>
                   {currencySymbol}{convertPrice(item.price).toLocaleString()}
                 </div>

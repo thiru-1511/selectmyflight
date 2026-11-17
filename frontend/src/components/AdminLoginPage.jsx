@@ -128,19 +128,22 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
       </div>
 
       {/* Card Container */}
-      <div style={{
-        width: '100%',
-        maxWidth: 480,
-        background: 'rgba(13, 20, 36, 0.92)',
-        backdropFilter: 'blur(25px)',
-        WebkitBackdropFilter: 'blur(25px)',
-        border: '1px solid rgba(245, 175, 25, 0.28)',
-        borderRadius: 22,
-        boxShadow: '0 20px 70px rgba(0, 0, 0, 0.7), 0 0 35px rgba(245, 175, 25, 0.1)',
-        padding: '40px 36px',
-        position: 'relative',
-        zIndex: 10
-      }}>
+      <div 
+        className="admin-portal-card"
+        style={{
+          width: '100%',
+          maxWidth: 480,
+          background: 'rgba(13, 20, 36, 0.92)',
+          backdropFilter: 'blur(25px)',
+          WebkitBackdropFilter: 'blur(25px)',
+          border: '1px solid rgba(245, 175, 25, 0.28)',
+          borderRadius: 22,
+          boxShadow: '0 20px 70px rgba(0, 0, 0, 0.7), 0 0 35px rgba(245, 175, 25, 0.1)',
+          padding: '40px 36px',
+          position: 'relative',
+          zIndex: 10
+        }}
+      >
         {/* Top Gold Bar */}
         <div style={{
           position: 'absolute',
@@ -174,10 +177,10 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
             />
           </div>
 
-          <h1 style={{ fontSize: 24, fontWeight: 800, color: '#fff', margin: '0 0 6px 0', letterSpacing: -0.5 }}>
+          <h1 style={{ fontSize: 24, fontWeight: 800, color: 'var(--text-main, #ffffff)', margin: '0 0 6px 0', letterSpacing: -0.5 }}>
             Administrator Sign In
           </h1>
-          <p style={{ fontSize: 13, color: '#94a3b8', margin: 0 }}>
+          <p className="auth-subtext" style={{ fontSize: 13, color: 'var(--text-muted, #475569)', margin: 0 }}>
             Commercial Timetable, Passenger Manifest & Operations Center
           </p>
         </div>
@@ -185,11 +188,11 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
         {/* Authentication Mode Switcher */}
         <div style={{
           display: 'flex',
-          background: 'rgba(255, 255, 255, 0.04)',
+          background: 'var(--card-subtle-bg, rgba(255, 255, 255, 0.04))',
           padding: 4,
           borderRadius: 10,
           marginBottom: 20,
-          border: '1px solid rgba(255, 255, 255, 0.08)'
+          border: '1px solid var(--card-border, rgba(255, 255, 255, 0.08))'
         }}>
           <button
             type="button"
@@ -203,7 +206,7 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
               border: 'none',
               cursor: 'pointer',
               background: !useOtp ? 'linear-gradient(135deg, #f5af19, #e65100)' : 'transparent',
-              color: !useOtp ? '#fff' : '#94a3b8',
+              color: !useOtp ? '#ffffff' : 'var(--text-muted, #475569)',
               transition: 'all 0.2s'
             }}
           >
@@ -221,7 +224,7 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
               border: 'none',
               cursor: 'pointer',
               background: useOtp ? 'linear-gradient(135deg, #f5af19, #e65100)' : 'transparent',
-              color: useOtp ? '#fff' : '#94a3b8',
+              color: useOtp ? '#ffffff' : 'var(--text-muted, #475569)',
               transition: 'all 0.2s'
             }}
           >
@@ -270,7 +273,7 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Admin Email */}
           <div>
-            <label style={{ fontSize: 12, fontWeight: 700, color: '#cbd5e1', marginBottom: 6, display: 'block' }}>
+            <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-main, #0f172a)', marginBottom: 6, display: 'block' }}>
               Administrator Email ID
             </label>
             <div style={{ position: 'relative' }}>
@@ -286,10 +289,10 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
                 style={{
                   width: '100%',
                   padding: '12px 14px 12px 42px',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(245, 175, 25, 0.3)',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1.5px solid var(--input-border, #cbd5e1)',
                   borderRadius: 10,
-                  color: '#fff',
+                  color: 'var(--input-text, #0f172a)',
                   fontSize: 13,
                   outline: 'none',
                   boxSizing: 'border-box'
@@ -301,7 +304,7 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
           {/* Password OR OTP */}
           {!useOtp ? (
             <div>
-              <label style={{ fontSize: 12, fontWeight: 700, color: '#cbd5e1', marginBottom: 6, display: 'block' }}>
+              <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-main, #0f172a)', marginBottom: 6, display: 'block' }}>
                 Master Security Password
               </label>
               <div style={{ position: 'relative' }}>
@@ -317,10 +320,10 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
                   style={{
                     width: '100%',
                     padding: '12px 14px 12px 42px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(245, 175, 25, 0.3)',
+                    background: 'var(--input-bg, #ffffff)',
+                    border: '1.5px solid var(--input-border, #cbd5e1)',
                     borderRadius: 10,
-                    color: '#fff',
+                    color: 'var(--input-text, #0f172a)',
                     fontSize: 13,
                     outline: 'none',
                     boxSizing: 'border-box'
@@ -330,7 +333,7 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
             </div>
           ) : (
             <div>
-              <label style={{ fontSize: 12, fontWeight: 700, color: '#cbd5e1', marginBottom: 6, display: 'block' }}>
+              <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-main, #0f172a)', marginBottom: 6, display: 'block' }}>
                 Security OTP Code
               </label>
               <div style={{ position: 'relative' }}>
@@ -347,10 +350,10 @@ export default function AdminLoginPage({ onAdminLoginSuccess, onNavigateToCustom
                   style={{
                     width: '100%',
                     padding: '12px 14px 12px 42px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(245, 175, 25, 0.5)',
+                    background: 'var(--input-bg, #ffffff)',
+                    border: '1.5px solid #f5af19',
                     borderRadius: 10,
-                    color: '#f5af19',
+                    color: '#d97706',
                     fontSize: 15,
                     fontWeight: 800,
                     letterSpacing: 2,

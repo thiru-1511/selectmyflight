@@ -194,22 +194,22 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
               <FileCheck2 size={13} />
               <span>OFFICIAL VISA & IMMIGRATION DESK</span>
             </div>
-            <h1 style={{ fontSize: 'clamp(24px, 4vw, 32px)', fontWeight: 800, color: '#fff', margin: 0, letterSpacing: -0.5 }}>
+            <h1 style={{ fontSize: 'clamp(24px, 4vw, 32px)', fontWeight: 800, color: 'var(--text-main, #ffffff)', margin: 0, letterSpacing: -0.5 }}>
               UAE & Global Tourist Visa Services
             </h1>
-            <p style={{ color: '#94a3b8', fontSize: 14, marginTop: 6, lineHeight: 1.5 }}>
+            <p style={{ color: 'var(--text-muted, #94a3b8)', fontSize: 14, marginTop: 6, lineHeight: 1.5 }}>
               SelectMyFlight authorized visa facilitation with 99.2% approval rate. UAE 30 & 60-Day tourist visas, Airport-to-Airport (A2A) status changes, Singapore eVisas, and Schengen document verification.
             </p>
           </div>
 
           {/* Navigation Pill Switches */}
-          <div style={{ display: 'flex', gap: 8, background: 'rgba(255, 255, 255, 0.05)', padding: 6, borderRadius: 12, border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+          <div style={{ display: 'flex', gap: 8, background: 'var(--card-subtle-bg, rgba(255, 255, 255, 0.05))', padding: 6, borderRadius: 12, border: '1px solid var(--card-border, rgba(255, 255, 255, 0.1))' }}>
             <button
               type="button"
               onClick={() => setActiveTab('browse')}
               style={{
                 background: activeTab === 'browse' ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'transparent',
-                color: activeTab === 'browse' ? '#fff' : '#cbd5e1',
+                color: activeTab === 'browse' ? '#fff' : 'var(--text-main, #cbd5e1)',
                 border: 'none',
                 padding: '8px 16px',
                 borderRadius: 8,
@@ -229,7 +229,7 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
               onClick={() => setActiveTab('track')}
               style={{
                 background: activeTab === 'track' ? 'linear-gradient(135deg, #00e676, #00b0ff)' : 'transparent',
-                color: activeTab === 'track' ? '#090f1d' : '#cbd5e1',
+                color: activeTab === 'track' ? '#090f1d' : 'var(--text-main, #cbd5e1)',
                 border: 'none',
                 padding: '8px 16px',
                 borderRadius: 8,
@@ -331,22 +331,23 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
               <div
                 key={visa.id}
                 style={{
-                  background: 'rgba(15, 23, 42, 0.75)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  background: 'var(--card-bg, #ffffff)',
+                  border: '1px solid var(--card-border, #e2e8f0)',
                   borderRadius: 16,
                   padding: '24px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   transition: 'all 0.2s',
-                  position: 'relative'
+                  position: 'relative',
+                  boxShadow: '0 4px 16px rgba(15, 23, 42, 0.06)'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(0, 210, 255, 0.4)';
+                  e.currentTarget.style.borderColor = 'var(--accent-cyan, #0284c7)';
                   e.currentTarget.style.transform = 'translateY(-3px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.borderColor = 'var(--card-border, #e2e8f0)';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
@@ -355,10 +356,10 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <span style={{ fontSize: 28 }}>{visa.flag}</span>
                       <div>
-                        <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>
+                        <div style={{ fontSize: 11, color: 'var(--text-muted, #64748b)', textTransform: 'uppercase', fontWeight: 700 }}>
                           {visa.country}
                         </div>
-                        <div style={{ fontSize: 12, color: '#00d2ff', fontWeight: 600 }}>
+                        <div style={{ fontSize: 12, color: 'var(--accent-cyan, #0284c7)', fontWeight: 600 }}>
                           {visa.category}
                         </div>
                       </div>
@@ -378,17 +379,17 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                     )}
                   </div>
 
-                  <h3 style={{ fontSize: 17, fontWeight: 800, color: '#fff', margin: '8px 0', lineHeight: 1.3 }}>
+                  <h3 style={{ fontSize: 17, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: '8px 0', lineHeight: 1.3 }}>
                     {visa.title}
                   </h3>
-                  <p style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.5, marginBottom: 14 }}>
+                  <p style={{ fontSize: 12, color: 'var(--text-muted, #475569)', lineHeight: 1.5, marginBottom: 14 }}>
                     {visa.description}
                   </p>
 
                   {/* Highlights Grid */}
                   <div style={{
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.06)',
+                    background: 'var(--card-subtle-bg, #f1f5f9)',
+                    border: '1px solid var(--card-border, #cbd5e1)',
                     borderRadius: 10,
                     padding: '10px 14px',
                     display: 'grid',
@@ -397,26 +398,26 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                     marginBottom: 16
                   }}>
                     <div>
-                      <span style={{ display: 'block', fontSize: 10, color: '#64748b' }}>PROCESSING TIME</span>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: '#00e676', display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ display: 'block', fontSize: 10, color: 'var(--text-muted, #64748b)' }}>PROCESSING TIME</span>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent-green, #059669)', display: 'flex', alignItems: 'center', gap: 4 }}>
                         <Clock size={12} /> {visa.processingTime}
                       </span>
                     </div>
                     <div>
-                      <span style={{ display: 'block', fontSize: 10, color: '#64748b' }}>STAY DURATION</span>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: '#cbd5e1' }}>
+                      <span style={{ display: 'block', fontSize: 10, color: 'var(--text-muted, #64748b)' }}>STAY DURATION</span>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>
                         {visa.stayDuration}
                       </span>
                     </div>
                     <div>
-                      <span style={{ display: 'block', fontSize: 10, color: '#64748b' }}>VALIDITY</span>
-                      <span style={{ fontSize: 11, color: '#94a3b8' }}>
+                      <span style={{ display: 'block', fontSize: 10, color: 'var(--text-muted, #64748b)' }}>VALIDITY</span>
+                      <span style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>
                         {visa.validity}
                       </span>
                     </div>
                     <div>
-                      <span style={{ display: 'block', fontSize: 10, color: '#64748b' }}>ONLINE FILING</span>
-                      <span style={{ fontSize: 11, color: '#00d2ff', fontWeight: 600 }}>
+                      <span style={{ display: 'block', fontSize: 10, color: 'var(--text-muted, #64748b)' }}>ONLINE FILING</span>
+                      <span style={{ fontSize: 11, color: 'var(--accent-cyan, #0284c7)', fontWeight: 600 }}>
                         100% Paperless
                       </span>
                     </div>
@@ -424,12 +425,12 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
 
                   {/* Key Requirements List */}
                   <div style={{ marginBottom: 16 }}>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: '#cbd5e1', marginBottom: 6 }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-main, #334155)', marginBottom: 6 }}>
                       Document Checklist:
                     </div>
                     {visa.requirements.slice(0, 3).map((req, idx) => (
-                      <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: '#94a3b8', marginBottom: 3 }}>
-                        <CheckCircle2 size={12} color="#00e676" style={{ flexShrink: 0 }} />
+                      <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 3 }}>
+                        <CheckCircle2 size={12} color="var(--accent-green, #059669)" style={{ flexShrink: 0 }} />
                         <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{req}</span>
                       </div>
                     ))}
@@ -437,10 +438,10 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                 </div>
 
                 {/* Pricing & Apply Action */}
-                <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: 14, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ borderTop: '1px solid var(--card-border, #e2e8f0)', paddingTop: 14, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    <span style={{ fontSize: 10, color: '#94a3b8', display: 'block' }}>Total Govt & Processing Fee</span>
-                    <span style={{ fontSize: 20, fontWeight: 900, color: '#fff' }}>
+                    <span style={{ fontSize: 10, color: 'var(--text-muted, #64748b)', display: 'block' }}>Total Govt & Processing Fee</span>
+                    <span style={{ fontSize: 20, fontWeight: 900, color: 'var(--text-main, #0f172a)' }}>
                       {formatPrice(visa.price)}
                     </span>
                   </div>
@@ -481,16 +482,17 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
         <div style={{ maxWidth: 840, margin: '0 auto' }}>
           {/* Search Box */}
           <div style={{
-            background: 'rgba(15, 23, 42, 0.8)',
-            border: '1px solid rgba(0, 210, 255, 0.25)',
+            background: 'var(--card-bg, #ffffff)',
+            border: '1px solid var(--card-border, #e2e8f0)',
             borderRadius: 16,
             padding: 24,
-            marginBottom: 24
+            marginBottom: 24,
+            boxShadow: '0 4px 16px rgba(15, 23, 42, 0.06)'
           }}>
-            <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: 0 }}>
+            <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
               Track Visa Application Status
             </h3>
-            <p style={{ fontSize: 12, color: '#94a3b8', marginTop: 4, marginBottom: 16 }}>
+            <p style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 4, marginBottom: 16 }}>
               Enter your SMF Application ID or Passport Number to check real-time embassy & GDRFA immigration status.
             </p>
 
@@ -502,11 +504,11 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                 onChange={(e) => setTrackingIdInput(e.target.value)}
                 style={{
                   flex: 1,
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  background: 'var(--input-bg, #ffffff)',
+                  border: '1.5px solid var(--input-border, #cbd5e1)',
                   padding: '10px 14px',
                   borderRadius: 8,
-                  color: '#fff',
+                  color: 'var(--input-text, #0f172a)',
                   fontSize: 14,
                   fontWeight: 600
                 }}
@@ -559,22 +561,22 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
           {/* Tracked Result Display */}
           {trackedApplication && (
             <div style={{
-              background: 'rgba(15, 23, 42, 0.9)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
+              background: 'var(--card-bg, #ffffff)',
+              border: '1px solid var(--card-border, #e2e8f0)',
               borderRadius: 16,
               padding: '28px',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.4)'
+              boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)'
             }}>
               {/* Header Status Bar */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 24, borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: 18 }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 24, borderBottom: '1px solid var(--card-border, #e2e8f0)', paddingBottom: 18 }}>
                 <div>
-                  <span style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>
+                  <span style={{ fontSize: 11, color: 'var(--text-muted, #64748b)', textTransform: 'uppercase', fontWeight: 700 }}>
                     Application Reference
                   </span>
-                  <div style={{ fontSize: 22, fontWeight: 900, color: '#00d2ff' }}>
+                  <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent-cyan, #0284c7)' }}>
                     {trackedApplication.applicationId}
                   </div>
-                  <div style={{ fontSize: 13, color: '#cbd5e1', fontWeight: 600, marginTop: 2 }}>
+                  <div style={{ fontSize: 13, color: 'var(--text-main, #334155)', fontWeight: 600, marginTop: 2 }}>
                     {trackedApplication.visaType}
                   </div>
                 </div>
@@ -582,9 +584,9 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                 <div style={{ textAlign: 'right' }}>
                   <span style={{
                     display: 'inline-block',
-                    background: trackedApplication.status === 'APPROVED' ? 'rgba(0, 230, 118, 0.15)' : 'rgba(0, 210, 255, 0.15)',
-                    color: trackedApplication.status === 'APPROVED' ? '#00e676' : '#00d2ff',
-                    border: trackedApplication.status === 'APPROVED' ? '1px solid #00e676' : '1px solid #00d2ff',
+                    background: trackedApplication.status === 'APPROVED' ? 'rgba(5, 150, 105, 0.15)' : 'rgba(2, 132, 199, 0.15)',
+                    color: trackedApplication.status === 'APPROVED' ? 'var(--accent-green, #059669)' : 'var(--accent-cyan, #0284c7)',
+                    border: trackedApplication.status === 'APPROVED' ? '1px solid #059669' : '1px solid #0284c7',
                     padding: '4px 12px',
                     borderRadius: 20,
                     fontSize: 12,
@@ -593,7 +595,7 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                   }}>
                     {trackedApplication.statusLabel}
                   </span>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted, #64748b)' }}>
                     Submitted on {trackedApplication.submissionDate}
                   </div>
                 </div>
@@ -601,7 +603,7 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
 
               {/* 4-Stage Visual Timeline */}
               <div style={{ marginBottom: 28 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-muted, #64748b)', marginBottom: 12 }}>
                   IMMIGRATION PROCESSING PIPELINE:
                 </div>
                 <div style={{
@@ -622,8 +624,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                       <div
                         key={step.stage}
                         style={{
-                          background: isCurrent ? 'rgba(0, 210, 255, 0.12)' : isPassed ? 'rgba(0, 230, 118, 0.08)' : 'rgba(255, 255, 255, 0.03)',
-                          border: isCurrent ? '1px solid #00d2ff' : isPassed ? '1px solid #00e676' : '1px solid rgba(255, 255, 255, 0.08)',
+                          background: isCurrent ? 'rgba(2, 132, 199, 0.12)' : isPassed ? 'rgba(5, 150, 105, 0.1)' : 'var(--card-subtle-bg, #f1f5f9)',
+                          border: isCurrent ? '1.5px solid var(--accent-cyan, #0284c7)' : isPassed ? '1px solid var(--accent-green, #059669)' : '1px solid var(--card-border, #e2e8f0)',
                           borderRadius: 10,
                           padding: '12px 10px',
                           textAlign: 'center'
@@ -633,8 +635,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                           width: 24,
                           height: 24,
                           borderRadius: '50%',
-                          background: isPassed ? '#00e676' : 'rgba(255, 255, 255, 0.1)',
-                          color: isPassed ? '#090f1d' : '#94a3b8',
+                          background: isPassed ? 'var(--accent-green, #059669)' : 'var(--card-border, #cbd5e1)',
+                          color: isPassed ? '#ffffff' : 'var(--text-muted, #64748b)',
                           fontSize: 11,
                           fontWeight: 900,
                           display: 'flex',
@@ -644,10 +646,10 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                         }}>
                           {isPassed ? '✓' : step.stage}
                         </div>
-                        <div style={{ fontSize: 11, fontWeight: 800, color: isCurrent ? '#00d2ff' : isPassed ? '#fff' : '#64748b' }}>
+                        <div style={{ fontSize: 11, fontWeight: 800, color: isCurrent ? 'var(--accent-cyan, #0284c7)' : isPassed ? 'var(--text-main, #0f172a)' : 'var(--text-muted, #64748b)' }}>
                           {step.title}
                         </div>
-                        <div style={{ fontSize: 9, color: '#94a3b8', marginTop: 2 }}>
+                        <div style={{ fontSize: 9, color: 'var(--text-muted, #64748b)', marginTop: 2 }}>
                           {step.desc}
                         </div>
                       </div>
@@ -658,7 +660,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
 
               {/* Traveler & Application Specs */}
               <div style={{
-                background: 'rgba(255, 255, 255, 0.03)',
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                border: '1px solid var(--card-border, #cbd5e1)',
                 borderRadius: 10,
                 padding: '14px 18px',
                 display: 'grid',
@@ -667,24 +670,24 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                 marginBottom: 20
               }}>
                 <div>
-                  <span style={{ fontSize: 10, color: '#64748b' }}>APPLICANT NAME</span>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>{trackedApplication.applicantName}</div>
+                  <span style={{ fontSize: 10, color: 'var(--text-muted, #64748b)' }}>APPLICANT NAME</span>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>{trackedApplication.applicantName}</div>
                 </div>
                 <div>
-                  <span style={{ fontSize: 10, color: '#64748b' }}>PASSPORT NUMBER</span>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>{trackedApplication.passportNumber}</div>
+                  <span style={{ fontSize: 10, color: 'var(--text-muted, #64748b)' }}>PASSPORT NUMBER</span>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>{trackedApplication.passportNumber}</div>
                 </div>
                 <div>
-                  <span style={{ fontSize: 10, color: '#64748b' }}>ESTIMATED READY DATE</span>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#00e676' }}>{trackedApplication.estimatedCompletion}</div>
+                  <span style={{ fontSize: 10, color: 'var(--text-muted, #64748b)' }}>ESTIMATED READY DATE</span>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent-green, #059669)' }}>{trackedApplication.estimatedCompletion}</div>
                 </div>
                 <div>
-                  <span style={{ fontSize: 10, color: '#64748b' }}>FEES PAID</span>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#00d2ff' }}>{formatPrice(trackedApplication.feesPaid)}</div>
+                  <span style={{ fontSize: 10, color: 'var(--text-muted, #64748b)' }}>FEES PAID</span>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent-cyan, #0284c7)' }}>{formatPrice(trackedApplication.feesPaid)}</div>
                 </div>
               </div>
 
-              <div style={{ fontSize: 12, color: '#94a3b8', background: 'rgba(0, 210, 255, 0.05)', padding: 10, borderRadius: 8, marginBottom: 20 }}>
+              <div style={{ fontSize: 12, color: 'var(--text-main, #0f172a)', background: 'rgba(2, 132, 199, 0.08)', border: '1px solid rgba(2, 132, 199, 0.2)', padding: 10, borderRadius: 8, marginBottom: 20 }}>
                 💡 <strong>Officer Notes:</strong> {trackedApplication.notes}
               </div>
 
@@ -755,16 +758,16 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
             {/* Header */}
             <div style={{
               padding: '20px 24px',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+              borderBottom: '1px solid var(--card-border, #e2e8f0)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between'
             }}>
               <div>
-                <span style={{ fontSize: 11, color: '#00d2ff', fontWeight: 800, textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 11, color: 'var(--accent-cyan, #0284c7)', fontWeight: 800, textTransform: 'uppercase' }}>
                   {activeVisaForApply.country} IMMIGRATION FILING
                 </span>
-                <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: '2px 0 0 0' }}>
+                <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: '2px 0 0 0' }}>
                   {activeVisaForApply.title}
                 </h3>
               </div>
@@ -772,9 +775,9 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                 type="button"
                 onClick={() => setActiveVisaForApply(null)}
                 style={{
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: 'none',
-                  color: '#cbd5e1',
+                  background: 'var(--card-subtle-bg, #f1f5f9)',
+                  border: '1px solid var(--card-border, #cbd5e1)',
+                  color: 'var(--text-main, #0f172a)',
                   width: 32,
                   height: 32,
                   borderRadius: '50%',
@@ -795,23 +798,23 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                     width: 60,
                     height: 60,
                     borderRadius: '50%',
-                    background: 'rgba(0, 230, 118, 0.15)',
-                    border: '2px solid #00e676',
+                    background: 'rgba(5, 150, 105, 0.15)',
+                    border: '2px solid #059669',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 16px auto',
-                    color: '#00e676'
+                    color: '#059669'
                   }}>
                     <CheckCircle2 size={34} />
                   </div>
-                  <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff' }}>
+                  <h3 style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                     Visa Application Lodged!
                   </h3>
-                  <div style={{ fontSize: 18, fontWeight: 900, color: '#00d2ff', margin: '8px 0' }}>
+                  <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--accent-cyan, #0284c7)', margin: '8px 0' }}>
                     Application ID: {applicationSuccess.applicationId}
                   </div>
-                  <p style={{ fontSize: 13, color: '#94a3b8', maxWidth: 440, margin: '0 auto 20px auto', lineHeight: 1.5 }}>
+                  <p style={{ fontSize: 13, color: 'var(--text-muted, #475569)', maxWidth: 440, margin: '0 auto 20px auto', lineHeight: 1.5 }}>
                     Your documents have been encrypted and submitted to the SelectMyFlight visa desk. Estimated resolution: <strong>{applicationSuccess.estimatedCompletion}</strong>.
                   </p>
                   <div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
@@ -841,57 +844,57 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                   {/* Personal details */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Full Name (as per Passport)</label>
+                      <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Full Name (as per Passport)</label>
                       <input
                         type="text"
                         required
                         value={applicantForm.fullName}
                         onChange={(e) => setApplicantForm({ ...applicantForm, fullName: e.target.value })}
-                        style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                        style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Passport Number</label>
+                      <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Passport Number</label>
                       <input
                         type="text"
                         required
                         value={applicantForm.passportNumber}
                         onChange={(e) => setApplicantForm({ ...applicantForm, passportNumber: e.target.value })}
-                        style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                        style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
                       />
                     </div>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Email Address</label>
+                      <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Email Address</label>
                       <input
                         type="email"
                         required
                         value={applicantForm.email}
                         onChange={(e) => setApplicantForm({ ...applicantForm, email: e.target.value })}
-                        style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                        style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Mobile Number (with Country Code)</label>
+                      <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Mobile Number (with Country Code)</label>
                       <input
                         type="tel"
                         required
                         value={applicantForm.phone}
                         onChange={(e) => setApplicantForm({ ...applicantForm, phone: e.target.value })}
-                        style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                        style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
                       />
                     </div>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Nationality</label>
+                      <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Nationality</label>
                       <select
                         value={applicantForm.nationality}
                         onChange={(e) => setApplicantForm({ ...applicantForm, nationality: e.target.value })}
-                        style={{ width: '100%', background: '#111a33', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                        style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
                       >
                         <option value="Indian">Indian (IN)</option>
                         <option value="Emirati">Emirati (UAE)</option>
@@ -901,13 +904,13 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                       </select>
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Intended Departure Date</label>
+                      <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Intended Departure Date</label>
                       <input
                         type="date"
                         required
                         value={applicantForm.travelDate}
                         onChange={(e) => setApplicantForm({ ...applicantForm, travelDate: e.target.value })}
-                        style={{ width: '100%', background: '#111a33', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                        style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13, boxSizing: 'border-box' }}
                       />
                     </div>
                   </div>
@@ -915,10 +918,10 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                   {/* Real Interactive Document Choosers */}
                   <div style={{ marginBottom: 18 }}>
                     <div style={{ marginBottom: 10 }}>
-                      <div style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>
+                      <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                         Choose Verification Documents <span style={{ color: '#ff4d6d' }}>*</span>
                       </div>
-                      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+                      <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)', marginTop: 2 }}>
                         Select documents from your device (PDF, JPG, PNG up to 10MB)
                       </div>
                     </div>
@@ -952,8 +955,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                       />
                       {!applicantForm.passportFront ? (
                         <div style={{
-                          background: 'rgba(255, 255, 255, 0.03)',
-                          border: '1px dashed rgba(0, 210, 255, 0.35)',
+                          background: 'var(--card-subtle-bg, #f1f5f9)',
+                          border: '1.5px dashed var(--accent-cyan, #0284c7)',
                           borderRadius: 10,
                           padding: '12px 16px',
                           display: 'flex',
@@ -962,14 +965,14 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                           gap: 12
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                            <div style={{ background: 'rgba(0, 210, 255, 0.12)', padding: 8, borderRadius: 8, color: '#00d2ff' }}>
+                            <div style={{ background: 'rgba(2, 132, 199, 0.12)', padding: 8, borderRadius: 8, color: 'var(--accent-cyan, #0284c7)' }}>
                               <FileText size={18} />
                             </div>
                             <div>
-                              <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>
-                                Passport Bio Page (Front) <span style={{ color: '#00d2ff' }}>*</span>
+                              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>
+                                Passport Bio Page (Front) <span style={{ color: 'var(--accent-cyan, #0284c7)' }}>*</span>
                               </div>
-                              <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                              <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>
                                 Color photo & personal details page (PDF, JPG, PNG)
                               </div>
                             </div>
@@ -977,8 +980,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                           <label
                             htmlFor="upload-passportFront"
                             style={{
-                              background: 'linear-gradient(135deg, #00d2ff, #3a7bd5)',
-                              color: '#fff',
+                              background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                              color: '#ffffff',
                               padding: '8px 16px',
                               borderRadius: 8,
                               fontSize: 12,
@@ -987,7 +990,7 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                               display: 'inline-flex',
                               alignItems: 'center',
                               gap: 6,
-                              boxShadow: '0 2px 8px rgba(0, 210, 255, 0.25)'
+                              boxShadow: '0 2px 8px rgba(2, 132, 199, 0.25)'
                             }}
                           >
                             <FolderOpen size={14} />
@@ -996,8 +999,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                         </div>
                       ) : (
                         <div style={{
-                          background: 'rgba(0, 230, 118, 0.06)',
-                          border: '1px solid rgba(0, 230, 118, 0.4)',
+                          background: 'rgba(5, 150, 105, 0.08)',
+                          border: '1.5px solid var(--accent-green, #059669)',
                           borderRadius: 10,
                           padding: '12px 16px',
                           display: 'flex',
@@ -1006,15 +1009,15 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                           gap: 12
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
-                            <div style={{ background: 'rgba(0, 230, 118, 0.15)', padding: 8, borderRadius: 8, color: '#00e676' }}>
+                            <div style={{ background: 'rgba(5, 150, 105, 0.15)', padding: 8, borderRadius: 8, color: 'var(--accent-green, #059669)' }}>
                               <CheckCircle2 size={18} />
                             </div>
                             <div style={{ minWidth: 0 }}>
-                              <div style={{ fontSize: 11, color: '#00e676', fontWeight: 700 }}>✓ Passport Bio Page Attached</div>
-                              <div style={{ fontSize: 13, fontWeight: 700, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                              <div style={{ fontSize: 11, color: 'var(--accent-green, #059669)', fontWeight: 700 }}>✓ Passport Bio Page Attached</div>
+                              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                 {applicantForm.passportFront.name}
                               </div>
-                              <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                              <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>
                                 {applicantForm.passportFront.size} • Ready for upload
                               </div>
                             </div>
@@ -1070,8 +1073,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                       />
                       {!applicantForm.passportBack ? (
                         <div style={{
-                          background: 'rgba(255, 255, 255, 0.03)',
-                          border: '1px dashed rgba(255, 255, 255, 0.15)',
+                          background: 'var(--card-subtle-bg, #f1f5f9)',
+                          border: '1.5px dashed var(--card-border, #cbd5e1)',
                           borderRadius: 10,
                           padding: '12px 16px',
                           display: 'flex',
@@ -1080,14 +1083,14 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                           gap: 12
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                            <div style={{ background: 'rgba(255, 255, 255, 0.06)', padding: 8, borderRadius: 8, color: '#94a3b8' }}>
+                            <div style={{ background: 'var(--card-border, #e2e8f0)', padding: 8, borderRadius: 8, color: 'var(--text-muted, #64748b)' }}>
                               <FileText size={18} />
                             </div>
                             <div>
-                              <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>
+                              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>
                                 Passport Address Page (Back)
                               </div>
-                              <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                              <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>
                                 Address & parent details page (PDF, JPG, PNG)
                               </div>
                             </div>
@@ -1095,9 +1098,9 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                           <label
                             htmlFor="upload-passportBack"
                             style={{
-                              background: 'rgba(255, 255, 255, 0.08)',
-                              border: '1px solid rgba(255, 255, 255, 0.2)',
-                              color: '#fff',
+                              background: 'var(--card-subtle-bg, #e2e8f0)',
+                              border: '1px solid var(--card-border, #cbd5e1)',
+                              color: 'var(--text-main, #0f172a)',
                               padding: '8px 16px',
                               borderRadius: 8,
                               fontSize: 12,
@@ -1114,8 +1117,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                         </div>
                       ) : (
                         <div style={{
-                          background: 'rgba(0, 230, 118, 0.06)',
-                          border: '1px solid rgba(0, 230, 118, 0.4)',
+                          background: 'rgba(5, 150, 105, 0.08)',
+                          border: '1.5px solid var(--accent-green, #059669)',
                           borderRadius: 10,
                           padding: '12px 16px',
                           display: 'flex',
@@ -1124,15 +1127,15 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                           gap: 12
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
-                            <div style={{ background: 'rgba(0, 230, 118, 0.15)', padding: 8, borderRadius: 8, color: '#00e676' }}>
+                            <div style={{ background: 'rgba(5, 150, 105, 0.15)', padding: 8, borderRadius: 8, color: 'var(--accent-green, #059669)' }}>
                               <CheckCircle2 size={18} />
                             </div>
                             <div style={{ minWidth: 0 }}>
-                              <div style={{ fontSize: 11, color: '#00e676', fontWeight: 700 }}>✓ Passport Address Page Attached</div>
-                              <div style={{ fontSize: 13, fontWeight: 700, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                              <div style={{ fontSize: 11, color: 'var(--accent-green, #059669)', fontWeight: 700 }}>✓ Passport Address Page Attached</div>
+                              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                 {applicantForm.passportBack.name}
                               </div>
-                              <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                              <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>
                                 {applicantForm.passportBack.size} • Ready for upload
                               </div>
                             </div>
@@ -1142,9 +1145,9 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                               htmlFor="upload-passportBack"
                               title="Choose different file"
                               style={{
-                                background: 'rgba(255, 255, 255, 0.08)',
-                                border: '1px solid rgba(255, 255, 255, 0.15)',
-                                color: '#cbd5e1',
+                                background: 'var(--card-subtle-bg, #f1f5f9)',
+                                border: '1px solid var(--card-border, #cbd5e1)',
+                                color: 'var(--text-main, #0f172a)',
                                 padding: '6px 10px',
                                 borderRadius: 6,
                                 fontSize: 11,
@@ -1188,8 +1191,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                       />
                       {!applicantForm.passportPhoto ? (
                         <div style={{
-                          background: 'rgba(255, 255, 255, 0.03)',
-                          border: '1px dashed rgba(0, 210, 255, 0.35)',
+                          background: 'var(--card-subtle-bg, #f1f5f9)',
+                          border: '1.5px dashed var(--accent-cyan, #0284c7)',
                           borderRadius: 10,
                           padding: '12px 16px',
                           display: 'flex',
@@ -1198,14 +1201,14 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                           gap: 12
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                            <div style={{ background: 'rgba(0, 210, 255, 0.12)', padding: 8, borderRadius: 8, color: '#00d2ff' }}>
+                            <div style={{ background: 'rgba(2, 132, 199, 0.12)', padding: 8, borderRadius: 8, color: 'var(--accent-cyan, #0284c7)' }}>
                               <User size={18} />
                             </div>
                             <div>
-                              <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>
-                                Passport Size Photograph <span style={{ color: '#00d2ff' }}>*</span>
+                              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>
+                                Passport Size Photograph <span style={{ color: 'var(--accent-cyan, #0284c7)' }}>*</span>
                               </div>
-                              <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                              <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>
                                 Recent color photo with clear white background (JPG, PNG)
                               </div>
                             </div>
@@ -1213,8 +1216,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                           <label
                             htmlFor="upload-passportPhoto"
                             style={{
-                              background: 'linear-gradient(135deg, #00d2ff, #3a7bd5)',
-                              color: '#fff',
+                              background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                              color: '#ffffff',
                               padding: '8px 16px',
                               borderRadius: 8,
                               fontSize: 12,
@@ -1223,7 +1226,7 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                               display: 'inline-flex',
                               alignItems: 'center',
                               gap: 6,
-                              boxShadow: '0 2px 8px rgba(0, 210, 255, 0.25)'
+                              boxShadow: '0 2px 8px rgba(2, 132, 199, 0.25)'
                             }}
                           >
                             <FolderOpen size={14} />
@@ -1232,8 +1235,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                         </div>
                       ) : (
                         <div style={{
-                          background: 'rgba(0, 230, 118, 0.06)',
-                          border: '1px solid rgba(0, 230, 118, 0.4)',
+                          background: 'rgba(5, 150, 105, 0.08)',
+                          border: '1.5px solid var(--accent-green, #059669)',
                           borderRadius: 10,
                           padding: '12px 16px',
                           display: 'flex',
@@ -1242,15 +1245,15 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                           gap: 12
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
-                            <div style={{ background: 'rgba(0, 230, 118, 0.15)', padding: 8, borderRadius: 8, color: '#00e676' }}>
+                            <div style={{ background: 'rgba(5, 150, 105, 0.15)', padding: 8, borderRadius: 8, color: 'var(--accent-green, #059669)' }}>
                               <CheckCircle2 size={18} />
                             </div>
                             <div style={{ minWidth: 0 }}>
-                              <div style={{ fontSize: 11, color: '#00e676', fontWeight: 700 }}>✓ Photograph Attached</div>
-                              <div style={{ fontSize: 13, fontWeight: 700, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                              <div style={{ fontSize: 11, color: 'var(--accent-green, #059669)', fontWeight: 700 }}>✓ Photograph Attached</div>
+                              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                 {applicantForm.passportPhoto.name}
                               </div>
-                              <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                              <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>
                                 {applicantForm.passportPhoto.size} • Ready for upload
                               </div>
                             </div>
@@ -1260,6 +1263,41 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                               htmlFor="upload-passportPhoto"
                               title="Choose different photo"
                               style={{
+                                background: 'var(--card-subtle-bg, #f1f5f9)',
+                                border: '1px solid var(--card-border, #cbd5e1)',
+                                color: 'var(--text-main, #0f172a)',
+                                padding: '6px 10px',
+                                borderRadius: 6,
+                                fontSize: 11,
+                                fontWeight: 700,
+                                cursor: 'pointer',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: 4
+                              }}
+                            >
+                              <Edit3 size={12} />
+                              <span>Change</span>
+                            </label>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveFile('passportPhoto')}
+                              title="Remove document"
+                              style={{
+                                background: 'rgba(239, 68, 68, 0.12)',
+                                border: '1px solid rgba(239, 68, 68, 0.3)',
+                                color: '#f87171',
+                                padding: '6px 8px',
+                                borderRadius: 6,
+                                fontSize: 11,
+                                cursor: 'pointer'
+                              }}
+                            >
+                              <Trash2 size={13} />
+                            </button>
+                          </div>
+                        </div>
+                      )}
                                 background: 'rgba(255, 255, 255, 0.08)',
                                 border: '1px solid rgba(255, 255, 255, 0.15)',
                                 color: '#cbd5e1',
@@ -1301,8 +1339,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                   {/* Express Toggle */}
                   {activeVisaForApply.expressAvailable && (
                     <div style={{
-                      background: 'rgba(0, 230, 118, 0.08)',
-                      border: '1px solid rgba(0, 230, 118, 0.3)',
+                      background: 'rgba(5, 150, 105, 0.08)',
+                      border: '1.5px solid var(--accent-green, #059669)',
                       borderRadius: 10,
                       padding: '12px 14px',
                       display: 'flex',
@@ -1311,10 +1349,10 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                       marginBottom: 16
                     }}>
                       <div>
-                        <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>
                           ⚡ Add 24-Hour Express Fast-Track
                         </div>
-                        <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                        <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>
                           Priority queue filing directly with Immigration department.
                         </div>
                       </div>
@@ -1322,9 +1360,9 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                         type="button"
                         onClick={() => setIsExpressSelected(prev => !prev)}
                         style={{
-                          background: isExpressSelected ? '#00e676' : 'rgba(255,255,255,0.1)',
-                          color: isExpressSelected ? '#090f1d' : '#fff',
-                          border: 'none',
+                          background: isExpressSelected ? 'var(--accent-green, #059669)' : 'var(--card-subtle-bg, #f1f5f9)',
+                          color: isExpressSelected ? '#ffffff' : 'var(--text-main, #0f172a)',
+                          border: isExpressSelected ? 'none' : '1px solid var(--card-border, #cbd5e1)',
                           padding: '6px 12px',
                           borderRadius: 6,
                           fontSize: 12,
@@ -1339,15 +1377,15 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
 
                   {/* Summary & Submit */}
                   <div style={{
-                    borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderTop: '1px solid var(--card-border, #e2e8f0)',
                     paddingTop: 14,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between'
                   }}>
                     <div>
-                      <span style={{ fontSize: 10, color: '#94a3b8', display: 'block' }}>Total Payable Amount</span>
-                      <span style={{ fontSize: 22, fontWeight: 900, color: '#00d2ff' }}>
+                      <span style={{ fontSize: 10, color: 'var(--text-muted, #64748b)', display: 'block' }}>Total Payable Amount</span>
+                      <span style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent-cyan, #0284c7)' }}>
                         {formatPrice(activeVisaForApply.price + (isExpressSelected ? (activeVisaForApply.expressFee || 0) : 0))}
                       </span>
                     </div>
@@ -1355,8 +1393,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                     <button
                       type="submit"
                       style={{
-                        background: 'linear-gradient(135deg, #00d2ff, #3a7bd5)',
-                        color: '#fff',
+                        background: 'linear-gradient(135deg, var(--accent-cyan, #0284c7), var(--accent-blue, #2563eb))',
+                        color: '#ffffff',
                         border: 'none',
                         padding: '12px 24px',
                         borderRadius: 8,
@@ -1365,7 +1403,8 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 8
+                        gap: 8,
+                        boxShadow: '0 4px 15px rgba(2, 132, 199, 0.35)'
                       }}
                     >
                       <CreditCard size={16} /> Submit & Pay Online

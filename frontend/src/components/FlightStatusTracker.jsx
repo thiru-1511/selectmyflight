@@ -186,27 +186,24 @@ export default function FlightStatusTracker() {
   };
 
   return (
-    <div style={{
+    <div className="flight-tracker-container" style={{
       maxWidth: 1100,
       margin: '24px auto 70px auto',
       padding: 'clamp(18px, 3vw, 36px) clamp(16px, 3vw, 32px) 60px clamp(16px, 3vw, 32px)',
       borderRadius: 24,
-      background: "linear-gradient(135deg, rgba(7, 12, 24, 0.88), rgba(11, 18, 36, 0.94)), url('/assets/images/flight_radar_bg.jpg')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
-      border: '1px solid rgba(0, 210, 255, 0.25)'
+      background: "var(--card-bg, #ffffff)",
+      border: "1px solid var(--card-border, #e2e8f0)",
+      boxShadow: '0 20px 45px -10px rgba(15, 23, 42, 0.12)'
     }}>
       {/* Header */}
       <div style={{ textAlign: 'center', marginBottom: 24 }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0, 210, 255, 0.1)', color: '#00d2ff', padding: '6px 16px', borderRadius: 20, fontSize: 13, fontWeight: 700, marginBottom: 12 }}>
           <Radio size={16} color="#00e676" /> {t('tracker.badge', 'REAL-TIME FLIGHT RADAR & TELEMETRY')}
         </div>
-        <h2 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 800, color: '#fff' }}>
+        <h2 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
           {t('tracker.title', 'Real-Time Flight Tracker')}
         </h2>
-        <p style={{ color: '#94a3b8', fontSize: 'clamp(13px, 2vw, 14px)', maxWidth: 580, margin: '4px auto 0 auto' }}>
+        <p style={{ color: 'var(--text-muted, #475569)', fontSize: 'clamp(13px, 2vw, 14px)', maxWidth: 580, margin: '4px auto 0 auto' }}>
           {t('tracker.subtitle', 'Track real-time flight gates, delays, and baggage carousels, connect your own Live Flight API Key, or monitor live aircraft transmitting ADS-B transponder telemetry in the sky right now.')}
         </p>
 
@@ -275,7 +272,7 @@ export default function FlightStatusTracker() {
               <Key size={16} />
             </div>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#fff', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main, #0f172a)', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span>{t('tracker.liveApi', 'Live Flight API')}: <strong>{apiProvider === 'aviationstack' ? 'AviationStack API' : 'AirLabs API'}</strong></span>
                 {apiKey ? (
                   <span style={{ background: 'rgba(0, 230, 118, 0.15)', color: '#00e676', border: '1px solid rgba(0, 230, 118, 0.3)', padding: '2px 8px', borderRadius: 10, fontSize: 11, fontWeight: 800 }}>
@@ -501,11 +498,11 @@ export default function FlightStatusTracker() {
                 borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
               }}>
                 <div>
-                  <div style={{ fontSize: 12, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.5 }}>{t('tracker.commercialCarrier', 'Commercial Carrier')}</div>
-                  <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff', margin: '2px 0' }}>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)', textTransform: 'uppercase', letterSpacing: 0.5 }}>{t('tracker.commercialCarrier', 'Commercial Carrier')}</div>
+                  <h3 style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: '2px 0' }}>
                     {activeFlight.airlineName} • {activeFlight.flightNumber}
                   </h3>
-                  <div style={{ fontSize: 13, color: '#00d2ff' }}>{activeFlight.aircraftModel}</div>
+                  <div style={{ fontSize: 13, color: 'var(--accent-cyan, #0284c7)' }}>{activeFlight.aircraftModel}</div>
                 </div>
 
                 {/* Status Pill */}
@@ -534,16 +531,16 @@ export default function FlightStatusTracker() {
                 alignItems: 'center'
               }}>
                 <div>
-                  <div style={{ fontSize: 12, color: '#94a3b8' }}>{t('tracker.origin', 'ORIGIN')}</div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: '#fff' }}>{activeFlight.originCode}</div>
-                  <div style={{ fontSize: 16, fontWeight: 700, color: '#00d2ff' }}>{activeFlight.departureTime}</div>
-                  <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)' }}>{t('tracker.origin', 'ORIGIN')}</div>
+                  <div style={{ fontSize: 28, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>{activeFlight.originCode}</div>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--accent-cyan, #0284c7)' }}>{activeFlight.departureTime}</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 4 }}>
                     {activeFlight.originName || t('tracker.scheduledDeparture', 'Scheduled Departure')}
                   </div>
                 </div>
 
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 4 }}>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>
                     {activeFlight.durationMinutes ? `${t('tracker.flightDuration', 'Flight Duration:')} ${Math.floor(activeFlight.durationMinutes / 60)}h ${activeFlight.durationMinutes % 60}m` : t('tracker.enRoute', 'Flight En Route')}
                   </div>
                   <div style={{
@@ -560,10 +557,10 @@ export default function FlightStatusTracker() {
                 </div>
 
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: 12, color: '#94a3b8' }}>{t('tracker.destination', 'DESTINATION')}</div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: '#fff' }}>{activeFlight.destinationCode}</div>
-                  <div style={{ fontSize: 16, fontWeight: 700, color: '#00d2ff' }}>{activeFlight.arrivalTime}</div>
-                  <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)' }}>{t('tracker.destination', 'DESTINATION')}</div>
+                  <div style={{ fontSize: 28, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>{activeFlight.destinationCode}</div>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--accent-cyan, #0284c7)' }}>{activeFlight.arrivalTime}</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 4 }}>
                     {activeFlight.destinationName || t('tracker.estimatedArrival', 'Estimated Arrival')}
                   </div>
                 </div>
@@ -574,21 +571,21 @@ export default function FlightStatusTracker() {
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
                 gap: 12,
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                border: '1px solid var(--card-border, #cbd5e1)',
                 borderRadius: 12,
                 padding: '16px 20px',
                 textAlign: 'center'
               }}>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{t('tracker.terminal', 'TERMINAL')}</div>
-                  <div style={{ fontSize: 16, fontWeight: 800, color: '#fff', marginTop: 2 }}>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>{t('tracker.terminal', 'TERMINAL')}</div>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--text-main, #0f172a)', marginTop: 2 }}>
                     {activeFlight.terminal || 'T3'}
                   </div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{t('tracker.gate', 'DEPARTURE GATE')}</div>
-                  <div style={{ fontSize: 16, fontWeight: 800, color: '#00d2ff', marginTop: 2 }}>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>{t('tracker.gate', 'DEPARTURE GATE')}</div>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--accent-cyan, #0284c7)', marginTop: 2 }}>
                     {activeFlight.gate || 'Gate B22'}
                   </div>
                 </div>
@@ -617,11 +614,11 @@ export default function FlightStatusTracker() {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span className="live-dot" />
-                <h3 style={{ fontSize: 20, fontWeight: 800, color: '#fff', margin: 0 }}>
+                <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                   {t('tracker.liveAircraftTitle', 'Live Aircraft Currently Airborne in the Sky')}
                 </h3>
               </div>
-              <p style={{ color: '#94a3b8', fontSize: 13, marginTop: 4 }}>
+              <p style={{ color: 'var(--text-muted, #475569)', fontSize: 13, marginTop: 4 }}>
                 {t('tracker.liveAircraftDesc', 'Real-time ADS-B transponder telemetry showing actual commercial planes flying right now with live altitude, speed, and GPS coordinates.')}
               </p>
             </div>
@@ -642,7 +639,7 @@ export default function FlightStatusTracker() {
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', textAlign: 'left', color: '#94a3b8' }}>
+                <tr style={{ borderBottom: '1px solid var(--card-border, #cbd5e1)', textAlign: 'left', color: 'var(--text-muted, #475569)' }}>
                   <th style={{ padding: '10px' }}>{t('tracker.thCallsign', 'Callsign')}</th>
                   <th style={{ padding: '10px' }}>{t('tracker.thCountry', 'Country / Airline')}</th>
                   <th style={{ padding: '10px' }}>{t('tracker.thAltitude', 'Current Altitude')}</th>
@@ -656,17 +653,17 @@ export default function FlightStatusTracker() {
                   <tr
                     key={plane.id}
                     style={{
-                      borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                      borderBottom: '1px solid var(--card-border, #e2e8f0)',
                       transition: 'background 0.2s'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0, 210, 255, 0.05)'}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(2, 132, 199, 0.06)'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                   >
-                    <td style={{ padding: '12px 10px', fontWeight: 800, color: '#00d2ff', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <td style={{ padding: '12px 10px', fontWeight: 800, color: 'var(--accent-cyan, #0284c7)', display: 'flex', alignItems: 'center', gap: 6 }}>
                       <Plane size={15} style={{ transform: `rotate(${plane.heading || 45}deg)` }} />
                       {plane.callsign}
                     </td>
-                    <td style={{ padding: '12px 10px', color: '#fff' }}>
+                    <td style={{ padding: '12px 10px', color: 'var(--text-main, #0f172a)' }}>
                       {plane.airline ? `${plane.airline} (${plane.country})` : plane.country}
                     </td>
                     <td style={{ padding: '12px 10px', color: '#00e676', fontWeight: 700 }}>

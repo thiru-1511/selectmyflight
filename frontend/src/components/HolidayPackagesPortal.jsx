@@ -278,10 +278,10 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
               <Palmtree size={13} />
               <span>HANDPICKED & AI-CURATED VACATIONS</span>
             </div>
-            <h1 style={{ fontSize: 'clamp(24px, 4vw, 32px)', fontWeight: 800, color: '#fff', margin: 0, letterSpacing: -0.5 }}>
+            <h1 style={{ fontSize: 'clamp(24px, 4vw, 32px)', fontWeight: 800, color: 'var(--text-main, #ffffff)', margin: 0, letterSpacing: -0.5 }}>
               All-Inclusive Holiday Packages & AI Vacation Planner
             </h1>
-            <p style={{ color: '#94a3b8', fontSize: 14, marginTop: 6, lineHeight: 1.5 }}>
+            <p style={{ color: 'var(--text-muted, #94a3b8)', fontSize: 14, marginTop: 6, lineHeight: 1.5 }}>
               Choose from ready-to-book bestseller tour packages or generate a custom AI holiday package with confirmed flights, 4★/5★ luxury resorts, daily breakfast, and private transfers.
             </p>
           </div>
@@ -317,7 +317,7 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
           display: 'flex',
           gap: 10,
           marginTop: 22,
-          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.1)',
           paddingTop: 18,
           flexWrap: 'wrap'
         }}>
@@ -325,9 +325,9 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
             type="button"
             onClick={() => setViewMode('curated')}
             style={{
-              background: viewMode === 'curated' ? 'linear-gradient(135deg, #f5af19, #f12711)' : 'rgba(255, 255, 255, 0.05)',
-              border: viewMode === 'curated' ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#fff',
+              background: viewMode === 'curated' ? 'linear-gradient(135deg, #f5af19, #f12711)' : 'var(--card-subtle-bg, rgba(255, 255, 255, 0.05))',
+              border: viewMode === 'curated' ? 'none' : '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
+              color: viewMode === 'curated' ? '#ffffff' : 'var(--text-main, #cbd5e1)',
               padding: '10px 18px',
               borderRadius: 10,
               fontSize: 13,
@@ -351,9 +351,9 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
               if (!generatedPackage) handleGenerateAiHoliday();
             }}
             style={{
-              background: viewMode === 'ai-planner' ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'rgba(255, 255, 255, 0.05)',
-              border: viewMode === 'ai-planner' ? 'none' : '1px solid rgba(0, 210, 255, 0.3)',
-              color: '#fff',
+              background: viewMode === 'ai-planner' ? 'linear-gradient(135deg, #00d2ff, #3a7bd5)' : 'var(--card-subtle-bg, rgba(255, 255, 255, 0.05))',
+              border: viewMode === 'ai-planner' ? 'none' : '1px solid var(--card-border, rgba(0, 210, 255, 0.3))',
+              color: viewMode === 'ai-planner' ? '#ffffff' : 'var(--text-main, #cbd5e1)',
               padding: '10px 18px',
               borderRadius: 10,
               fontSize: 13,
@@ -433,21 +433,21 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
               <div
                 key={pkg.id}
                 style={{
-                  background: 'rgba(15, 23, 42, 0.8)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  background: 'var(--card-bg, #ffffff)',
+                  border: '1px solid var(--card-border, #e2e8f0)',
                   borderRadius: 18,
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
-                  boxShadow: '0 12px 28px rgba(0, 0, 0, 0.4)',
+                  boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)',
                   transition: 'transform 0.2s, border-color 0.2s'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(245, 175, 25, 0.5)';
+                  e.currentTarget.style.borderColor = 'var(--accent-gold, #d97706)';
                   e.currentTarget.style.transform = 'translateY(-4px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.borderColor = 'var(--card-border, #e2e8f0)';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
@@ -461,15 +461,15 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                   <div style={{
                     position: 'absolute',
                     inset: 0,
-                    background: 'linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%)'
+                    background: 'linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.15) 60%, transparent 100%)'
                   }} />
 
                   <span style={{
                     position: 'absolute',
                     top: 12,
                     left: 12,
-                    background: pkg.badgeColor || '#00d2ff',
-                    color: '#000000',
+                    background: pkg.badgeColor || '#0284c7',
+                    color: '#ffffff',
                     fontSize: 10,
                     fontWeight: 800,
                     padding: '3px 10px',
@@ -483,12 +483,13 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                     position: 'absolute',
                     bottom: 12,
                     left: 14,
-                    color: '#cbd5e1',
+                    color: '#f8fafc',
                     fontSize: 12,
                     fontWeight: 600,
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 4
+                    gap: 4,
+                    textShadow: '0 1px 4px rgba(0,0,0,0.8)'
                   }}>
                     <Clock size={13} color="#f5af19" />
                     <span>{pkg.duration}</span>
@@ -501,7 +502,7 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                     display: 'flex',
                     alignItems: 'center',
                     gap: 4,
-                    background: 'rgba(0, 0, 0, 0.6)',
+                    background: 'rgba(0, 0, 0, 0.65)',
                     padding: '3px 8px',
                     borderRadius: 8,
                     color: '#f5af19',
@@ -516,23 +517,23 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                 {/* Content */}
                 <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 style={{ fontSize: 19, fontWeight: 800, color: '#fff', margin: '0 0 6px 0', lineHeight: 1.3 }}>
+                    <h3 style={{ fontSize: 19, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: '0 0 6px 0', lineHeight: 1.3 }}>
                       {pkg.title}
                     </h3>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#00d2ff', marginBottom: 12 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--accent-cyan, #0284c7)', marginBottom: 12 }}>
                       <MapPin size={14} />
                       <span>{pkg.destination}</span>
                     </div>
 
-                    <p style={{ color: '#94a3b8', fontSize: 13, lineHeight: 1.5, margin: '0 0 16px 0', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    <p style={{ color: 'var(--text-muted, #475569)', fontSize: 13, lineHeight: 1.5, margin: '0 0 16px 0', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                       {pkg.overview}
                     </p>
 
                     {/* Quick Inclusions */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 16 }}>
                       {pkg.inclusions.slice(0, 3).map((inc, i) => (
-                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#e2e8f0' }}>
-                          <CheckCircle2 size={14} color="#00e676" style={{ flexShrink: 0 }} />
+                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--text-main, #334155)' }}>
+                          <CheckCircle2 size={14} color="var(--accent-green, #059669)" style={{ flexShrink: 0 }} />
                           <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{inc}</span>
                         </div>
                       ))}
@@ -541,21 +542,21 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
 
                   {/* Price & Action Footer */}
                   <div style={{
-                    borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderTop: '1px solid var(--card-border, #e2e8f0)',
                     paddingTop: 16,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between'
                   }}>
                     <div>
-                      <div style={{ fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                      <div style={{ fontSize: 10, color: 'var(--text-muted, #64748b)', textTransform: 'uppercase', letterSpacing: 0.5 }}>
                         Starting from / person
                       </div>
                       <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                        <span style={{ fontSize: 22, fontWeight: 800, color: '#00e676' }}>
+                        <span style={{ fontSize: 22, fontWeight: 800, color: 'var(--accent-green, #059669)' }}>
                           {formatPrice(pkg.pricePerPerson)}
                         </span>
-                        <span style={{ fontSize: 13, color: '#64748b', textDecoration: 'line-through' }}>
+                        <span style={{ fontSize: 13, color: 'var(--text-muted, #94a3b8)', textDecoration: 'line-through' }}>
                           {formatPrice(pkg.originalPrice)}
                         </span>
                       </div>
@@ -881,11 +882,11 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
           {/* GENERATED PACKAGE RESULT CARD */}
           {generatedPackage && !isGenerating && (
             <div style={{
-              background: 'linear-gradient(135deg, rgba(16, 26, 48, 0.98), rgba(9, 15, 29, 0.98))',
-              border: '2px solid rgba(0, 210, 255, 0.45)',
+              background: 'var(--card-bg, #ffffff)',
+              border: '2px solid var(--accent-cyan, #0284c7)',
               borderRadius: 20,
               overflow: 'hidden',
-              boxShadow: '0 24px 60px rgba(0, 0, 0, 0.6)'
+              boxShadow: '0 24px 60px rgba(0, 0, 0, 0.15)'
             }}>
               {/* Hero Banner Header */}
               <div style={{ position: 'relative', height: 260, overflow: 'hidden' }}>
@@ -897,13 +898,13 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                 <div style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'linear-gradient(to top, rgba(9, 15, 29, 0.98) 0%, rgba(9, 15, 29, 0.3) 60%, transparent 100%)'
+                  background: 'linear-gradient(to top, rgba(9, 15, 29, 0.95) 0%, rgba(9, 15, 29, 0.2) 60%, transparent 100%)'
                 }} />
 
                 <div style={{ position: 'absolute', top: 16, left: 16, display: 'flex', gap: 8 }}>
                   <span style={{
-                    background: 'linear-gradient(135deg, #00d2ff, #3a7bd5)',
-                    color: '#fff',
+                    background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                    color: '#ffffff',
                     fontWeight: 900,
                     fontSize: 11,
                     padding: '4px 12px',
@@ -916,9 +917,9 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                     <Sparkles size={13} /> AI CUSTOM BESPOKE PACKAGE
                   </span>
                   <span style={{
-                    background: 'rgba(0, 230, 118, 0.25)',
-                    border: '1px solid #00e676',
-                    color: '#00e676',
+                    background: 'rgba(5, 150, 105, 0.25)',
+                    border: '1px solid #059669',
+                    color: '#059669',
                     fontWeight: 800,
                     fontSize: 11,
                     padding: '4px 10px',
@@ -929,17 +930,17 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                 </div>
 
                 <div style={{ position: 'absolute', bottom: 16, left: 20, right: 20 }}>
-                  <h2 style={{ fontSize: 'clamp(22px, 3.5vw, 30px)', fontWeight: 800, color: '#fff', margin: 0 }}>
+                  <h2 style={{ fontSize: 'clamp(22px, 3.5vw, 30px)', fontWeight: 800, color: '#ffffff', margin: 0, textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {generatedPackage.title}
                   </h2>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 6, flexWrap: 'wrap' }}>
-                    <span style={{ color: '#00d2ff', fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <span style={{ color: '#38bdf8', fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4, textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
                       <MapPin size={14} /> {generatedPackage.destination}
                     </span>
-                    <span style={{ color: '#f5af19', fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <span style={{ color: '#fbbf24', fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4, textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
                       <Clock size={14} /> {generatedPackage.duration}
                     </span>
-                    <span style={{ color: '#cbd5e1', fontSize: 13, display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <span style={{ color: '#f1f5f9', fontSize: 13, display: 'flex', alignItems: 'center', gap: 4, textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
                       <Users size={14} /> {generatedPackage.travelers} Guests
                     </span>
                   </div>
@@ -947,48 +948,48 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
               </div>
 
               {/* Package Details Body */}
-              <div style={{ padding: '24px' }}>
+              <div style={{ padding: '24px', background: 'var(--card-bg, #ffffff)' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 18, marginBottom: 24 }}>
                   {/* Flight Corridor Card */}
                   <div style={{
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(0, 210, 255, 0.2)',
+                    background: 'var(--card-subtle-bg, #f1f5f9)',
+                    border: '1px solid var(--card-border, #cbd5e1)',
                     borderRadius: 14,
                     padding: '16px'
                   }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#00d2ff', fontSize: 13, fontWeight: 800, marginBottom: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--accent-cyan, #0284c7)', fontSize: 13, fontWeight: 800, marginBottom: 8 }}>
                       <Plane size={16} />
                       <span>INCLUDED FLIGHT CORRIDOR</span>
                     </div>
-                    <div style={{ fontSize: 15, fontWeight: 800, color: '#fff' }}>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                       {generatedPackage.airline} • {generatedPackage.flightNum}
                     </div>
-                    <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
+                    <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 4 }}>
                       Roundtrip: {generatedPackage.originCity} (08:30) ⇄ {generatedPackage.destinationCode} (13:00)
                     </div>
-                    <div style={{ fontSize: 11, color: '#00e676', fontWeight: 600, marginTop: 6 }}>
+                    <div style={{ fontSize: 11, color: 'var(--accent-green, #059669)', fontWeight: 600, marginTop: 6 }}>
                       ✓ Includes 20kg Checked Baggage & Inflight Meal
                     </div>
                   </div>
 
                   {/* Luxury Resort Stay Card */}
                   <div style={{
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(245, 175, 25, 0.25)',
+                    background: 'var(--card-subtle-bg, #f1f5f9)',
+                    border: '1px solid var(--card-border, #cbd5e1)',
                     borderRadius: 14,
                     padding: '16px'
                   }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#f5af19', fontSize: 13, fontWeight: 800, marginBottom: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--accent-gold, #d97706)', fontSize: 13, fontWeight: 800, marginBottom: 8 }}>
                       <Building2 size={16} />
                       <span>HANDPICKED LUXURY STAY</span>
                     </div>
-                    <div style={{ fontSize: 15, fontWeight: 800, color: '#fff' }}>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                       {generatedPackage.hotelName}
                     </div>
-                    <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
+                    <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 4 }}>
                       {generatedPackage.nightsCount} Nights in Deluxe Scenic Suite
                     </div>
-                    <div style={{ fontSize: 11, color: '#00e676', fontWeight: 600, marginTop: 6 }}>
+                    <div style={{ fontSize: 11, color: 'var(--accent-green, #059669)', fontWeight: 600, marginTop: 6 }}>
                       ✓ Daily International Breakfast & Welcome Cocktail
                     </div>
                   </div>
@@ -996,8 +997,8 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
 
                 {/* Day-by-Day Accordion Itinerary */}
                 <div style={{ marginBottom: 24 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#fff', fontSize: 16, fontWeight: 800, marginBottom: 12 }}>
-                    <Calendar size={18} color="#00d2ff" />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--text-main, #0f172a)', fontSize: 16, fontWeight: 800, marginBottom: 12 }}>
+                    <Calendar size={18} color="var(--accent-cyan, #0284c7)" />
                     <span>Day-by-Day Curated Holiday Schedule</span>
                   </div>
 
@@ -1008,8 +1009,8 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                         <div
                           key={item.day}
                           style={{
-                            background: isExpanded ? 'rgba(0, 210, 255, 0.06)' : 'rgba(255, 255, 255, 0.03)',
-                            border: isExpanded ? '1px solid rgba(0, 210, 255, 0.35)' : '1px solid rgba(255, 255, 255, 0.08)',
+                            background: isExpanded ? 'rgba(2, 132, 199, 0.08)' : 'var(--card-subtle-bg, #f8fafc)',
+                            border: isExpanded ? '1px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, #e2e8f0)',
                             borderRadius: 12,
                             overflow: 'hidden',
                             transition: 'all 0.2s'
@@ -1028,8 +1029,8 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                           >
                             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                               <span style={{
-                                background: isExpanded ? '#00d2ff' : 'rgba(255, 255, 255, 0.1)',
-                                color: isExpanded ? '#000' : '#fff',
+                                background: isExpanded ? 'var(--accent-cyan, #0284c7)' : 'var(--card-border, #cbd5e1)',
+                                color: isExpanded ? '#ffffff' : 'var(--text-main, #0f172a)',
                                 fontWeight: 900,
                                 fontSize: 12,
                                 width: 28,
@@ -1041,23 +1042,23 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                               }}>
                                 {item.day}
                               </span>
-                              <span style={{ fontSize: 14, fontWeight: 800, color: '#fff' }}>
+                              <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
                                 {item.title}
                               </span>
                             </div>
-                            {isExpanded ? <ChevronUp size={18} color="#00d2ff" /> : <ChevronDown size={18} color="#94a3b8" />}
+                            {isExpanded ? <ChevronUp size={18} color="var(--accent-cyan, #0284c7)" /> : <ChevronDown size={18} color="var(--text-muted, #94a3b8)" />}
                           </div>
 
                           {isExpanded && (
                             <div style={{ padding: '0 18px 16px 18px', display: 'flex', flexDirection: 'column', gap: 8, fontSize: 13 }}>
-                              <div style={{ color: '#cbd5e1' }}>
-                                <strong style={{ color: '#f5af19' }}>🌅 Morning:</strong> {item.morning}
+                              <div style={{ color: 'var(--text-main, #334155)' }}>
+                                <strong style={{ color: 'var(--accent-gold, #d97706)' }}>🌅 Morning:</strong> {item.morning}
                               </div>
-                              <div style={{ color: '#cbd5e1' }}>
-                                <strong style={{ color: '#38bdf8' }}>☀️ Afternoon:</strong> {item.afternoon}
+                              <div style={{ color: 'var(--text-main, #334155)' }}>
+                                <strong style={{ color: 'var(--accent-cyan, #0284c7)' }}>☀️ Afternoon:</strong> {item.afternoon}
                               </div>
-                              <div style={{ color: '#cbd5e1' }}>
-                                <strong style={{ color: '#c084fc' }}>🌙 Evening:</strong> {item.evening}
+                              <div style={{ color: 'var(--text-main, #334155)' }}>
+                                <strong style={{ color: '#7c3aed' }}>🌙 Evening:</strong> {item.evening}
                               </div>
                             </div>
                           )}
@@ -1206,36 +1207,36 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
               <CheckCircle2 size={36} />
             </div>
 
-            <h3 style={{ fontSize: 22, fontWeight: 900, color: '#fff', margin: '0 0 8px 0' }}>
+            <h3 style={{ fontSize: 22, fontWeight: 900, color: 'var(--text-main, #0f172a)', margin: '0 0 8px 0' }}>
               Holiday Package Confirmed!
             </h3>
-            <p style={{ color: '#94a3b8', fontSize: 14, margin: '0 0 20px 0', lineHeight: 1.5 }}>
+            <p style={{ color: 'var(--text-muted, #475569)', fontSize: 14, margin: '0 0 20px 0', lineHeight: 1.5 }}>
               Your flight tickets, luxury resort stay, and private transfer vouchers have been issued and saved to your account.
             </p>
 
             <div style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--card-subtle-bg, #f1f5f9)',
+              border: '1px solid var(--card-border, #cbd5e1)',
               borderRadius: 12,
               padding: '14px',
               textAlign: 'left',
               marginBottom: 20
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span style={{ color: '#94a3b8', fontSize: 12 }}>Booking Reference (PNR):</span>
-                <span style={{ color: '#f5af19', fontWeight: 800, fontSize: 13 }}>{confirmedBooking.pnr}</span>
+                <span style={{ color: 'var(--text-muted, #475569)', fontSize: 12 }}>Booking Reference (PNR):</span>
+                <span style={{ color: 'var(--accent-gold, #d97706)', fontWeight: 800, fontSize: 13 }}>{confirmedBooking.pnr}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span style={{ color: '#94a3b8', fontSize: 12 }}>Destination:</span>
-                <span style={{ color: '#fff', fontWeight: 700, fontSize: 12 }}>{confirmedBooking.destinationCity}</span>
+                <span style={{ color: 'var(--text-muted, #475569)', fontSize: 12 }}>Destination:</span>
+                <span style={{ color: 'var(--text-main, #0f172a)', fontWeight: 700, fontSize: 12 }}>{confirmedBooking.destinationCity}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span style={{ color: '#94a3b8', fontSize: 12 }}>Guests:</span>
-                <span style={{ color: '#fff', fontWeight: 700, fontSize: 12 }}>{confirmedBooking.passengersCount} Travelers</span>
+                <span style={{ color: 'var(--text-muted, #475569)', fontSize: 12 }}>Guests:</span>
+                <span style={{ color: 'var(--text-main, #0f172a)', fontWeight: 700, fontSize: 12 }}>{confirmedBooking.passengersCount} Travelers</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: '#94a3b8', fontSize: 12 }}>Total Amount:</span>
-                <span style={{ color: '#00e676', fontWeight: 900, fontSize: 14 }}>{formatPrice(confirmedBooking.totalAmount)}</span>
+                <span style={{ color: 'var(--text-muted, #475569)', fontSize: 12 }}>Total Amount:</span>
+                <span style={{ color: 'var(--accent-green, #059669)', fontWeight: 900, fontSize: 14 }}>{formatPrice(confirmedBooking.totalAmount)}</span>
               </div>
             </div>
 
@@ -1296,8 +1297,8 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
           padding: '16px'
         }}>
           <div style={{
-            background: 'linear-gradient(135deg, #0d1527, #070c18)',
-            border: '1px solid rgba(245, 175, 25, 0.4)',
+            background: 'var(--modal-bg, #ffffff)',
+            border: '1px solid var(--card-border, #cbd5e1)',
             borderRadius: 20,
             maxWidth: 720,
             width: '100%',
@@ -1305,7 +1306,7 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
             overflowY: 'auto',
             padding: '24px',
             position: 'relative',
-            boxShadow: '0 24px 60px rgba(0, 0, 0, 0.7)'
+            boxShadow: '0 24px 60px rgba(0, 0, 0, 0.35)'
           }}>
             <button
               onClick={() => setActivePackageModal(null)}
@@ -1313,9 +1314,9 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                 position: 'absolute',
                 top: 16,
                 right: 16,
-                background: 'rgba(255, 255, 255, 0.1)',
-                border: 'none',
-                color: '#fff',
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                border: '1px solid var(--card-border, #cbd5e1)',
+                color: 'var(--text-main, #0f172a)',
                 width: 32,
                 height: 32,
                 borderRadius: '50%',
@@ -1330,30 +1331,30 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
 
             <div style={{ height: 200, borderRadius: 14, overflow: 'hidden', marginBottom: 18, position: 'relative' }}>
               <img src={activePackageModal.heroImage} alt={activePackageModal.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #070c18 0%, transparent 60%)' }} />
-              <span style={{ position: 'absolute', bottom: 12, left: 14, color: '#f5af19', fontWeight: 800, fontSize: 13 }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, transparent 60%)' }} />
+              <span style={{ position: 'absolute', bottom: 12, left: 14, color: '#f5af19', fontWeight: 800, fontSize: 13, textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
                 {activePackageModal.duration}
               </span>
             </div>
 
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: '#fff', margin: '0 0 6px 0' }}>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: '0 0 6px 0' }}>
               {activePackageModal.title}
             </h2>
-            <div style={{ fontSize: 13, color: '#00d2ff', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ fontSize: 13, color: 'var(--accent-cyan, #0284c7)', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 6 }}>
               <MapPin size={14} /> {activePackageModal.destination}
             </div>
 
-            <p style={{ color: '#cbd5e1', fontSize: 13, lineHeight: 1.6, marginBottom: 18 }}>
+            <p style={{ color: 'var(--text-muted, #475569)', fontSize: 13, lineHeight: 1.6, marginBottom: 18 }}>
               {activePackageModal.overview}
             </p>
 
             {/* Inclusions */}
             <div style={{ marginBottom: 18 }}>
-              <div style={{ fontSize: 13, fontWeight: 800, color: '#00e676', marginBottom: 8 }}>Package Inclusions:</div>
+              <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent-green, #059669)', marginBottom: 8 }}>Package Inclusions:</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                 {activePackageModal.inclusions.map((inc, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#e2e8f0' }}>
-                    <CheckCircle2 size={13} color="#00e676" />
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--text-main, #334155)' }}>
+                    <CheckCircle2 size={13} color="var(--accent-green, #059669)" />
                     <span>{inc}</span>
                   </div>
                 ))}
@@ -1407,13 +1408,14 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
           padding: '16px'
         }}>
           <div style={{
-            background: 'linear-gradient(135deg, #0d1527, #070c18)',
-            border: '1px solid rgba(245, 175, 25, 0.4)',
+            background: 'var(--modal-bg, #ffffff)',
+            border: '1px solid var(--card-border, #cbd5e1)',
             borderRadius: 20,
             maxWidth: 580,
             width: '100%',
             padding: '24px',
-            position: 'relative'
+            position: 'relative',
+            boxShadow: '0 24px 60px rgba(0, 0, 0, 0.35)'
           }}>
             <button
               onClick={() => setIsCustomQuoteOpen(false)}
@@ -1421,9 +1423,9 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                 position: 'absolute',
                 top: 16,
                 right: 16,
-                background: 'rgba(255, 255, 255, 0.1)',
-                border: 'none',
-                color: '#fff',
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                border: '1px solid var(--card-border, #cbd5e1)',
+                color: 'var(--text-main, #0f172a)',
                 width: 32,
                 height: 32,
                 borderRadius: '50%',
@@ -1436,21 +1438,21 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
               <X size={18} />
             </button>
 
-            <h3 style={{ fontSize: 20, fontWeight: 800, color: '#fff', margin: '0 0 6px 0' }}>
+            <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: '0 0 6px 0' }}>
               Request Custom Holiday Quotation
             </h3>
-            <p style={{ color: '#94a3b8', fontSize: 13, margin: '0 0 16px 0' }}>
+            <p style={{ color: 'var(--text-muted, #475569)', fontSize: 13, margin: '0 0 16px 0' }}>
               Tell our destination specialists your dream itinerary and hotel preferences.
             </p>
 
             {quoteSuccessId ? (
               <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                <CheckCircle2 size={48} color="#00e676" style={{ margin: '0 auto 12px auto' }} />
-                <h4 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: '0 0 6px 0' }}>
+                <CheckCircle2 size={48} color="var(--accent-green, #059669)" style={{ margin: '0 auto 12px auto' }} />
+                <h4 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: '0 0 6px 0' }}>
                   Quotation Request Dispatched!
                 </h4>
-                <p style={{ color: '#94a3b8', fontSize: 13 }}>
-                  Reference: <strong style={{ color: '#f5af19' }}>{quoteSuccessId}</strong>. Our senior holiday planner will email your custom plan within 3 business hours.
+                <p style={{ color: 'var(--text-muted, #475569)', fontSize: 13 }}>
+                  Reference: <strong style={{ color: 'var(--accent-gold, #d97706)' }}>{quoteSuccessId}</strong>. Our senior holiday planner will email your custom plan within 3 business hours.
                 </p>
                 <button
                   type="button"
@@ -1458,7 +1460,7 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                   style={{
                     marginTop: 14,
                     background: 'linear-gradient(135deg, #f5af19, #f12711)',
-                    color: '#fff',
+                    color: '#ffffff',
                     border: 'none',
                     padding: '10px 24px',
                     borderRadius: 8,
@@ -1474,67 +1476,67 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
               <form onSubmit={handleCustomQuoteSubmit}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Full Name</label>
+                    <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Full Name</label>
                     <input
                       type="text"
                       required
                       value={quoteForm.name}
                       onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
-                      style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                      style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13, boxSizing: 'border-box' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Email Address</label>
+                    <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Email Address</label>
                     <input
                       type="email"
                       required
                       value={quoteForm.email}
                       onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
-                      style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                      style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13, boxSizing: 'border-box' }}
                     />
                   </div>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Target Destination</label>
+                    <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Target Destination</label>
                     <input
                       type="text"
                       required
                       value={quoteForm.destination}
                       onChange={(e) => setQuoteForm({ ...quoteForm, destination: e.target.value })}
-                      style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                      style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13, boxSizing: 'border-box' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Mobile Number</label>
+                    <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Mobile Number</label>
                     <input
                       type="tel"
                       required
                       value={quoteForm.phone}
                       onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
-                      style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                      style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13, boxSizing: 'border-box' }}
                     />
                   </div>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Travel Date</label>
+                    <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Travel Date</label>
                     <input
                       type="date"
                       required
                       value={quoteForm.travelDate}
                       onChange={(e) => setQuoteForm({ ...quoteForm, travelDate: e.target.value })}
-                      style={{ width: '100%', background: '#111a33', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                      style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13, boxSizing: 'border-box' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Budget per person</label>
+                    <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Budget per person</label>
                     <select
                       value={quoteForm.budgetPerPerson}
                       onChange={(e) => setQuoteForm({ ...quoteForm, budgetPerPerson: e.target.value })}
-                      style={{ width: '100%', background: '#111a33', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13 }}
+                      style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13, boxSizing: 'border-box' }}
                     >
                       <option value="₹25,000 – ₹40,000">₹25,000 – ₹40,000 (Value)</option>
                       <option value="₹40,000 – ₹60,000">₹40,000 – ₹60,000 (Comfort 4★)</option>
@@ -1545,12 +1547,12 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                 </div>
 
                 <div style={{ marginBottom: 18 }}>
-                  <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>Specific Requests / Inclusions</label>
+                  <label style={{ display: 'block', fontSize: 11, color: 'var(--text-muted, #475569)', marginBottom: 4, fontWeight: 700 }}>Specific Requests / Inclusions</label>
                   <textarea
                     rows="3"
                     value={quoteForm.specialNotes}
                     onChange={(e) => setQuoteForm({ ...quoteForm, specialNotes: e.target.value })}
-                    style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', padding: '9px 12px', borderRadius: 8, fontSize: 13, resize: 'none' }}
+                    style={{ width: '100%', background: 'var(--input-bg, #ffffff)', border: '1.5px solid var(--input-border, #cbd5e1)', color: 'var(--input-text, #0f172a)', padding: '9px 12px', borderRadius: 8, fontSize: 13, resize: 'none', boxSizing: 'border-box' }}
                   />
                 </div>
 
@@ -1559,7 +1561,7 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
                   style={{
                     width: '100%',
                     background: 'linear-gradient(135deg, #f5af19, #f12711)',
-                    color: '#fff',
+                    color: '#ffffff',
                     border: 'none',
                     padding: '12px',
                     borderRadius: 8,

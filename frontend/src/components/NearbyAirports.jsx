@@ -41,10 +41,10 @@ export default function NearbyAirports({ currentOrigin, onSelectAirport, currenc
             <Navigation size={16} />
           </div>
           <div>
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-main)' }}>
               📍 Alternative Airports around {currentOrigin}
             </div>
-            <div style={{ fontSize: 10, color: '#94a3b8' }}>
+            <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>
               Compare nearby hubs to save on fares.
             </div>
           </div>

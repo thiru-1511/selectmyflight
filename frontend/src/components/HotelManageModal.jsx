@@ -83,23 +83,23 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
             width: '100%',
             maxWidth: 880,
             maxHeight: '94vh',
-            background: '#0d1527',
-            border: '1px solid rgba(0, 210, 255, 0.4)',
+            background: 'var(--modal-bg, #ffffff)',
+            border: '1px solid var(--card-border, #cbd5e1)',
             borderRadius: 20,
             overflowY: 'auto',
-            boxShadow: '0 25px 70px rgba(0,0,0,0.9), 0 0 35px rgba(0, 210, 255, 0.2)',
-            color: '#f8fafc',
+            boxShadow: '0 25px 70px rgba(0,0,0,0.25)',
+            color: 'var(--text-main, #0f172a)',
             position: 'relative'
           }}
         >
           {/* Header */}
           <div style={{
             padding: '18px 24px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            borderBottom: '1px solid var(--card-border, #cbd5e1)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'linear-gradient(135deg, rgba(0, 210, 255, 0.12), rgba(245, 175, 25, 0.08))',
+            background: 'var(--card-subtle-bg, #f8fafc)',
             position: 'sticky',
             top: 0,
             zIndex: 10,
@@ -108,7 +108,7 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{
-                  background: 'linear-gradient(135deg, #00d2ff, #0052cc)',
+                  background: 'linear-gradient(135deg, #0284c7, #2563eb)',
                   color: '#fff',
                   fontSize: 10,
                   fontWeight: 900,
@@ -117,15 +117,15 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                 }}>
                   🏨 STAY MANAGEMENT
                 </span>
-                <span style={{ fontSize: 13, color: '#00e676', fontWeight: 800 }}>
+                <span style={{ fontSize: 13, color: 'var(--accent-green, #059669)', fontWeight: 800 }}>
                   ● CONFIRMED & ALLOCATED
                 </span>
               </div>
-              <h2 style={{ fontSize: 20, fontWeight: 900, color: '#fff', margin: '4px 0 2px 0' }}>
+              <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--text-main, #0f172a)', margin: '4px 0 2px 0' }}>
                 {booking.hotelName || 'Grand Luxury Resort & Spa'}
               </h2>
-              <div style={{ fontSize: 12, color: '#94a3b8' }}>
-                Voucher Code: <strong style={{ color: '#00d2ff' }}>{booking.bookingId || booking.voucherCode || 'HTL-SMF-8921'}</strong> • {roomNumber}
+              <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)' }}>
+                Voucher Code: <strong style={{ color: 'var(--accent-cyan, #0284c7)' }}>{booking.bookingId || booking.voucherCode || 'HTL-SMF-8921'}</strong> • {roomNumber}
               </div>
             </div>
 
@@ -133,9 +133,9 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
               type="button"
               onClick={onClose}
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: 'none',
-                color: '#cbd5e1',
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                border: '1px solid var(--card-border, #cbd5e1)',
+                color: 'var(--text-main, #0f172a)',
                 width: 36,
                 height: 36,
                 borderRadius: '50%',
@@ -217,8 +217,8 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
             <div style={{ padding: '24px' }}>
               {/* Room Card Showcase */}
               <div style={{
-                background: 'linear-gradient(135deg, rgba(0, 210, 255, 0.08), rgba(255, 255, 255, 0.02))',
-                border: '1px solid rgba(0, 210, 255, 0.25)',
+                background: 'var(--card-subtle-bg, #f8fafc)',
+                border: '1px solid var(--card-border, #cbd5e1)',
                 borderRadius: 16,
                 padding: '20px',
                 display: 'flex',
@@ -229,16 +229,16 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                 marginBottom: 24
               }}>
                 <div>
-                  <div style={{ fontSize: 11, color: '#f5af19', fontWeight: 800, textTransform: 'uppercase' }}>
+                  <div style={{ fontSize: 11, color: 'var(--accent-gold, #d97706)', fontWeight: 800, textTransform: 'uppercase' }}>
                     YOUR CONFIRMED SUITE
                   </div>
-                  <h3 style={{ fontSize: 20, fontWeight: 900, color: '#fff', margin: '4px 0' }}>
+                  <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--text-main, #0f172a)', margin: '4px 0' }}>
                     {roomName}
                   </h3>
-                  <div style={{ fontSize: 13, color: '#38bdf8', fontWeight: 700 }}>
+                  <div style={{ fontSize: 13, color: 'var(--accent-cyan, #0284c7)', fontWeight: 700 }}>
                     {roomNumber} • {bedChoice} • {floorPreference}
                   </div>
-                  <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 4 }}>
                     Includes: Free High-Speed Wi-Fi 6 • Daily Gourmet Breakfast • Access to Executive Infinity Pool
                   </div>
                 </div>
@@ -270,36 +270,36 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                 gap: 14,
                 marginBottom: 24
               }}>
-                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '14px 16px', borderRadius: 12, border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                  <span style={{ fontSize: 11, color: '#94a3b8' }}>Check-In</span>
-                  <div style={{ fontSize: 14, fontWeight: 800, color: '#fff', marginTop: 2 }}>
+                <div style={{ background: 'var(--card-subtle-bg, #f1f5f9)', padding: '14px 16px', borderRadius: 12, border: '1px solid var(--card-border, #cbd5e1)' }}>
+                  <span style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Check-In</span>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-main, #0f172a)', marginTop: 2 }}>
                     {booking.checkInDate || 'Upcoming Stay'}
                   </div>
-                  <span style={{ fontSize: 11, color: '#00e676' }}>2:00 PM (Early Check-In ready)</span>
+                  <span style={{ fontSize: 11, color: 'var(--accent-green, #059669)', fontWeight: 600 }}>2:00 PM (Early Check-In ready)</span>
                 </div>
 
-                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '14px 16px', borderRadius: 12, border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                  <span style={{ fontSize: 11, color: '#94a3b8' }}>Check-Out</span>
-                  <div style={{ fontSize: 14, fontWeight: 800, color: '#fff', marginTop: 2 }}>
+                <div style={{ background: 'var(--card-subtle-bg, #f1f5f9)', padding: '14px 16px', borderRadius: 12, border: '1px solid var(--card-border, #cbd5e1)' }}>
+                  <span style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Check-Out</span>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-main, #0f172a)', marginTop: 2 }}>
                     {booking.checkOutDate || 'Confirmed'}
                   </div>
-                  <span style={{ fontSize: 11, color: '#38bdf8' }}>12:00 PM (Late Check-Out optional)</span>
+                  <span style={{ fontSize: 11, color: 'var(--accent-cyan, #0284c7)', fontWeight: 600 }}>12:00 PM (Late Check-Out optional)</span>
                 </div>
 
-                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '14px 16px', borderRadius: 12, border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                  <span style={{ fontSize: 11, color: '#94a3b8' }}>Primary Guest</span>
-                  <div style={{ fontSize: 14, fontWeight: 800, color: '#fff', marginTop: 2 }}>
+                <div style={{ background: 'var(--card-subtle-bg, #f1f5f9)', padding: '14px 16px', borderRadius: 12, border: '1px solid var(--card-border, #cbd5e1)' }}>
+                  <span style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Primary Guest</span>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-main, #0f172a)', marginTop: 2 }}>
                     {booking.guestName || 'Traveler'}
                   </div>
-                  <span style={{ fontSize: 11, color: '#94a3b8' }}>{booking.guestEmail || 'Verified Guest'}</span>
+                  <span style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>{booking.guestEmail || 'Verified Guest'}</span>
                 </div>
 
-                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '14px 16px', borderRadius: 12, border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                  <span style={{ fontSize: 11, color: '#94a3b8' }}>Total Tariff Paid</span>
-                  <div style={{ fontSize: 16, fontWeight: 900, color: '#00e676', marginTop: 2 }}>
+                <div style={{ background: 'var(--card-subtle-bg, #f1f5f9)', padding: '14px 16px', borderRadius: 12, border: '1px solid var(--card-border, #cbd5e1)' }}>
+                  <span style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Total Tariff Paid</span>
+                  <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--accent-green, #059669)', marginTop: 2 }}>
                     {currencySymbol}{convertPrice(booking.totalAmount || 38500).toLocaleString()}
                   </div>
-                  <span style={{ fontSize: 11, color: '#00d2ff' }}>Taxes & Amenities Paid</span>
+                  <span style={{ fontSize: 11, color: 'var(--accent-cyan, #0284c7)', fontWeight: 600 }}>Taxes & Amenities Paid</span>
                 </div>
               </div>
 
@@ -378,17 +378,17 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
           {/* Tab 2: Room & Interior Preferences */}
           {activeTab === 'room-settings' && (
             <div style={{ padding: '24px' }}>
-              <h3 style={{ fontSize: 16, fontWeight: 900, color: '#fff', marginBottom: 6 }}>
+              <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--text-main, #0f172a)', marginBottom: 6 }}>
                 Customize & Manage Your Room Setup
               </h3>
-              <p style={{ fontSize: 13, color: '#94a3b8', margin: '0 0 20px 0' }}>
+              <p style={{ fontSize: 13, color: 'var(--text-muted, #475569)', margin: '0 0 20px 0' }}>
                 Your room setup is synced directly with hotel housekeeping and reception ahead of your arrival.
               </p>
 
               <form onSubmit={handleSavePreferences}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16, marginBottom: 20 }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>
+                    <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 6, fontWeight: 700 }}>
                       Bed Configuration
                     </label>
                     <select
@@ -397,10 +397,10 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                       style={{
                         width: '100%',
                         padding: '10px 12px',
-                        background: 'rgba(255, 255, 255, 0.06)',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        background: 'var(--input-bg, #ffffff)',
+                        border: '1.5px solid var(--input-border, #cbd5e1)',
                         borderRadius: 8,
-                        color: '#fff',
+                        color: 'var(--input-text, #0f172a)',
                         fontSize: 13
                       }}
                     >
@@ -410,7 +410,7 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>
+                    <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 6, fontWeight: 700 }}>
                       Pillow Menu Preference
                     </label>
                     <select
@@ -419,10 +419,10 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                       style={{
                         width: '100%',
                         padding: '10px 12px',
-                        background: 'rgba(255, 255, 255, 0.06)',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        background: 'var(--input-bg, #ffffff)',
+                        border: '1.5px solid var(--input-border, #cbd5e1)',
                         borderRadius: 8,
-                        color: '#fff',
+                        color: 'var(--input-text, #0f172a)',
                         fontSize: 13
                       }}
                     >
@@ -433,7 +433,7 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>
+                    <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 6, fontWeight: 700 }}>
                       Floor & Orientation
                     </label>
                     <select
@@ -442,10 +442,10 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                       style={{
                         width: '100%',
                         padding: '10px 12px',
-                        background: 'rgba(255, 255, 255, 0.06)',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        background: 'var(--input-bg, #ffffff)',
+                        border: '1.5px solid var(--input-border, #cbd5e1)',
                         borderRadius: 8,
-                        color: '#fff',
+                        color: 'var(--input-text, #0f172a)',
                         fontSize: 13
                       }}
                     >
@@ -456,7 +456,7 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>
+                    <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 6, fontWeight: 700 }}>
                       Pre-Arrival Climate Setting
                     </label>
                     <select
@@ -465,10 +465,10 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                       style={{
                         width: '100%',
                         padding: '10px 12px',
-                        background: 'rgba(255, 255, 255, 0.06)',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        background: 'var(--input-bg, #ffffff)',
+                        border: '1.5px solid var(--input-border, #cbd5e1)',
                         borderRadius: 8,
-                        color: '#fff',
+                        color: 'var(--input-text, #0f172a)',
                         fontSize: 13
                       }}
                     >
@@ -480,7 +480,7 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                 </div>
 
                 <div style={{ marginBottom: 20 }}>
-                  <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>
+                  <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted, #475569)', marginBottom: 6, fontWeight: 700 }}>
                     Special In-Room Dietary / Arrival Requests
                   </label>
                   <textarea
@@ -491,10 +491,10 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                     style={{
                       width: '100%',
                       padding: '10px 12px',
-                      background: 'rgba(255, 255, 255, 0.06)',
-                      border: '1px solid rgba(255, 255, 255, 0.15)',
+                      background: 'var(--input-bg, #ffffff)',
+                      border: '1.5px solid var(--input-border, #cbd5e1)',
                       borderRadius: 8,
-                      color: '#fff',
+                      color: 'var(--input-text, #0f172a)',
                       fontSize: 13,
                       boxSizing: 'border-box'
                     }}
@@ -525,10 +525,10 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
           {/* Tab 3: Upgrade Suite */}
           {activeTab === 'upgrade' && (
             <div style={{ padding: '24px' }}>
-              <h3 style={{ fontSize: 16, fontWeight: 900, color: '#fff', marginBottom: 6 }}>
+              <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--text-main, #0f172a)', marginBottom: 6 }}>
                 Exclusive Room Upgrade Offers
               </h3>
-              <p style={{ fontSize: 13, color: '#94a3b8', margin: '0 0 20px 0' }}>
+              <p style={{ fontSize: 13, color: 'var(--text-muted, #475569)', margin: '0 0 20px 0' }}>
                 As a SelectMyFlight guest, unlock promotional upgrade rates with VIP lounge privileges:
               </p>
 
@@ -552,8 +552,8 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                   <div
                     key={idx}
                     style={{
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      border: '1px solid rgba(245, 175, 25, 0.3)',
+                      background: 'var(--card-subtle-bg, #f8fafc)',
+                      border: '1.5px solid var(--card-border, #cbd5e1)',
                       borderRadius: 14,
                       padding: '18px 20px',
                       display: 'flex',
@@ -565,22 +565,22 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                   >
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <span style={{ fontSize: 15, fontWeight: 800, color: '#f5af19' }}>
+                        <span style={{ fontSize: 15, fontWeight: 800, color: 'var(--accent-gold, #d97706)' }}>
                           ⭐ {upg.name}
                         </span>
-                        <span style={{ fontSize: 11, color: '#94a3b8' }}>
+                        <span style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>
                           📐 {upg.size} • 🛏️ {upg.bed}
                         </span>
                       </div>
-                      <div style={{ fontSize: 12, color: '#cbd5e1', marginTop: 4 }}>
+                      <div style={{ fontSize: 12, color: 'var(--text-main, #0f172a)', marginTop: 4 }}>
                         ✨ <b>VIP Privileges:</b> {upg.perks}
                       </div>
                     </div>
 
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: 16, fontWeight: 900, color: '#00e676' }}>
+                      <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--accent-green, #059669)' }}>
                         +{currencySymbol}{convertPrice(upg.extraPerNight).toLocaleString()}
-                        <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 500 }}> / night</span>
+                        <span style={{ fontSize: 11, color: 'var(--text-muted, #475569)', fontWeight: 500 }}> / night</span>
                       </div>
                       <button
                         type="button"
@@ -590,9 +590,9 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
                         }}
                         style={{
                           marginTop: 6,
-                          background: 'linear-gradient(135deg, #f5af19, #e65100)',
+                          background: 'linear-gradient(135deg, #d97706, #b45309)',
                           border: 'none',
-                          color: '#000',
+                          color: '#ffffff',
                           fontWeight: 900,
                           fontSize: 11,
                           padding: '6px 14px',
@@ -615,7 +615,7 @@ export default function HotelManageModal({ booking, currency = 'INR', onClose, o
               <div style={{
                 maxWidth: 420,
                 margin: '0 auto',
-                background: 'linear-gradient(135deg, #1e293b, #0f172a)',
+                background: 'linear-gradient(135deg, #0f172a, #1e293b)',
                 border: '2px solid rgba(0, 210, 255, 0.4)',
                 borderRadius: 20,
                 padding: '24px',

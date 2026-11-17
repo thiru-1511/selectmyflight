@@ -13,11 +13,149 @@
   --text-muted: #94a3b8;
   --glow-cyan: 0 0 25px rgba(0, 210, 255, 0.25);
   --glow-gold: 0 0 25px rgba(245, 175, 25, 0.25);
+  --header-bg: rgba(9, 15, 29, 0.94);
+  --header-border: rgba(0, 210, 255, 0.15);
+  --input-bg: #0d1629;
+  --input-border: rgba(255, 255, 255, 0.15);
+  --input-text: #f8fafc;
+  --modal-bg: #111a33;
+  --ticker-bg: rgba(6, 11, 22, 0.96);
+  --ticker-border: rgba(0, 210, 255, 0.15);
+  --ticker-text: #cbd5e1;
+  --footer-bg: #060a14;
+  --hero-overlay-top: rgba(9, 15, 29, 0.45);
+  --hero-overlay-bottom: rgba(9, 15, 29, 0.95);
+  --card-subtle-bg: rgba(255, 255, 255, 0.05);
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ==========================================================================
+   THEME 1: CLEAN MODERN LIGHT (Default Selected Theme)
+   Crisp White, Cloud Slate & Sky Blue (MakeMyTrip / Google Flights / Skyscanner)
+   ========================================================================== */
+[data-theme="light"] {
+  --primary-navy: #f8fafc;
+  --secondary-navy: #ffffff;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --accent-cyan: #0284c7;
+  --accent-blue: #2563eb;
+  --accent-gold: #d97706;
+  --accent-green: #059669;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --glow-cyan: 0 4px 20px rgba(2, 132, 199, 0.15);
+  --glow-gold: 0 4px 20px rgba(217, 119, 6, 0.15);
+  --header-bg: rgba(255, 255, 255, 0.94);
+  --header-border: rgba(226, 232, 240, 0.9);
+  --input-bg: #ffffff;
+  --input-border: #cbd5e1;
+  --input-text: #0f172a;
+  --modal-bg: #ffffff;
+  --ticker-bg: #091326;
+  --ticker-border: rgba(2, 132, 199, 0.25);
+  --ticker-text: #e2e8f0;
+  --footer-bg: #0b1329;
+  --hero-overlay-top: rgba(15, 23, 42, 0.60);
+  --hero-overlay-bottom: rgba(15, 23, 42, 0.88);
+  --card-subtle-bg: #f1f5f9;
+}
+
+/* ==========================================================================
+   THEME 2: ROYAL LUXURY GOLD (Emirates / Singapore Airlines Luxury)
+   ========================================================================== */
+[data-theme="royal"] {
+  --primary-navy: #050b18;
+  --secondary-navy: #0b152d;
+  --card-bg: rgba(11, 21, 45, 0.85);
+  --card-border: rgba(212, 175, 55, 0.25);
+  --accent-cyan: #d4af37;
+  --accent-blue: #b38728;
+  --accent-gold: #f5af19;
+  --accent-green: #10b981;
+  --text-main: #fcfbf7;
+  --text-muted: #c5bba8;
+  --glow-cyan: 0 0 25px rgba(212, 175, 55, 0.35);
+  --glow-gold: 0 0 25px rgba(245, 175, 25, 0.45);
+  --header-bg: rgba(5, 11, 24, 0.94);
+  --header-border: rgba(212, 175, 55, 0.25);
+  --input-bg: #081122;
+  --input-border: rgba(212, 175, 55, 0.25);
+  --input-text: #fcfbf7;
+  --modal-bg: #0b152d;
+  --ticker-bg: #040813;
+  --ticker-border: rgba(212, 175, 55, 0.3);
+  --ticker-text: #e6dfcf;
+  --footer-bg: #040813;
+  --hero-overlay-top: rgba(5, 11, 24, 0.5);
+  --hero-overlay-bottom: rgba(5, 11, 24, 0.95);
+  --card-subtle-bg: rgba(212, 175, 55, 0.08);
+}
+
+/* ==========================================================================
+   THEME 3: EMERALD OASIS (Cathay Pacific / Eco-Modern Mint)
+   ========================================================================== */
+[data-theme="emerald"] {
+  --primary-navy: #031410;
+  --secondary-navy: #07261e;
+  --card-bg: rgba(7, 38, 30, 0.85);
+  --card-border: rgba(52, 211, 153, 0.25);
+  --accent-cyan: #10b981;
+  --accent-blue: #059669;
+  --accent-gold: #fbbf24;
+  --accent-green: #34d399;
+  --text-main: #f0fdf4;
+  --text-muted: #a7f3d0;
+  --glow-cyan: 0 0 25px rgba(16, 185, 129, 0.35);
+  --glow-gold: 0 0 25px rgba(251, 191, 36, 0.35);
+  --header-bg: rgba(3, 20, 16, 0.94);
+  --header-border: rgba(52, 211, 153, 0.25);
+  --input-bg: #041d17;
+  --input-border: rgba(52, 211, 153, 0.25);
+  --input-text: #f0fdf4;
+  --modal-bg: #07261e;
+  --ticker-bg: #020f0c;
+  --ticker-border: rgba(52, 211, 153, 0.3);
+  --ticker-text: #d1fae5;
+  --footer-bg: #020f0c;
+  --hero-overlay-top: rgba(3, 20, 16, 0.5);
+  --hero-overlay-bottom: rgba(3, 20, 16, 0.95);
+  --card-subtle-bg: rgba(52, 211, 153, 0.08);
+}
+
+/* ==========================================================================
+   THEME 4: CYBER NAVY DARK (Original Deep Space Dark)
+   ========================================================================== */
+[data-theme="dark"] {
+  --primary-navy: #090f1d;
+  --secondary-navy: #111a33;
+  --card-bg: rgba(18, 28, 54, 0.75);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --accent-cyan: #00d2ff;
+  --accent-blue: #3a7bd5;
+  --accent-gold: #f5af19;
+  --accent-green: #00e676;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --glow-cyan: 0 0 25px rgba(0, 210, 255, 0.25);
+  --glow-gold: 0 0 25px rgba(245, 175, 25, 0.25);
+  --header-bg: rgba(9, 15, 29, 0.94);
+  --header-border: rgba(0, 210, 255, 0.15);
+  --input-bg: #0d1629;
+  --input-border: rgba(255, 255, 255, 0.15);
+  --input-text: #f8fafc;
+  --modal-bg: #111a33;
+  --ticker-bg: rgba(6, 11, 22, 0.96);
+  --ticker-border: rgba(0, 210, 255, 0.15);
+  --ticker-text: #cbd5e1;
+  --footer-bg: #060a14;
+  --hero-overlay-top: rgba(9, 15, 29, 0.45);
+  --hero-overlay-bottom: rgba(9, 15, 29, 0.95);
+  --card-subtle-bg: rgba(255, 255, 255, 0.05);
 }
 
 * {
@@ -178,7 +316,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .modal-content {
-  background: #111a33;
+  background: var(--modal-bg, #111a33);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), var(--glow-cyan);
@@ -187,6 +325,7 @@ h1, h2, h3, h4, h5, h6 {
   max-height: 90vh;
   overflow-y: auto;
   animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--text-main);
 }
 
 /* Pulse animation for live indicators */
@@ -222,34 +361,47 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Global Form & Input Enhancements */
 input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
 input[type="number"],
 input[type="date"],
+input[type="search"],
+input[type="url"],
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
 select,
 textarea {
-  background-color: #0d1629;
-  color: #f8fafc;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: var(--input-bg, #0d1629);
+  color: var(--input-text, #f8fafc);
+  border: 1px solid var(--input-border, rgba(255, 255, 255, 0.15));
   border-radius: 10px;
   padding: 12px 14px;
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 14.5px;
   outline: none;
+  box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
   min-height: 44px;
 }
 
 input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):focus,
 select:focus,
 textarea:focus {
-  border-color: #00d2ff;
-  box-shadow: 0 0 10px rgba(0, 210, 255, 0.25);
+  border-color: var(--accent-cyan, #00d2ff);
+  box-shadow: 0 0 10px var(--glow-cyan, rgba(0, 210, 255, 0.25));
 }
 
 select option {
-  background-color: #0d1629;
-  color: #f8fafc;
+  background-color: var(--input-bg, #0d1629);
+  color: var(--input-text, #f8fafc);
 }
 
 /* Horizontal Smooth Touch Scrolling */
@@ -284,7 +436,7 @@ select option {
 
 .flight-card-inner {
   display: grid;
-  grid-template-columns: 1.2fr 2fr 1fr;
+  grid-template-columns: 1.2fr 2fr 1.2fr 1.3fr;
   gap: 20px;
   align-items: center;
 }
@@ -445,6 +597,13 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
   .flight-card-inner {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  .flight-card-price-col {
+    border-left: none !important;
+    border-top: 1px solid var(--card-border, rgba(255, 255, 255, 0.08)) !important;
+    padding-left: 0 !important;
+    padding-top: 14px !important;
   }
 
   .hero-search-grid {
@@ -697,4 +856,755 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
   from { transform: perspective(1200px) rotateX(70deg) rotateY(-15deg) rotate(0deg); }
   to { transform: perspective(1200px) rotateX(70deg) rotateY(-15deg) rotate(360deg); }
 }
+
+/* ==========================================================================
+   THEME STYLES & OVERRIDES (Light, Dark, Royal, Emerald)
+   ========================================================================== */
+
+/* --- 1. CLEAN MODERN LIGHT THEME (MakeMyTrip / Google Flights / Skyscanner) --- */
+[data-theme="light"] body {
+  background-color: var(--primary-navy) !important;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(2, 132, 199, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(37, 99, 235, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(217, 119, 6, 0.05) 0px, transparent 50%) !important;
+  color: var(--text-main) !important;
+}
+
+[data-theme="light"] .glass-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04) !important;
+}
+
+[data-theme="light"] .glass-card:hover {
+  border-color: #0284c7 !important;
+  box-shadow: 0 12px 28px -4px rgba(2, 132, 199, 0.18), 0 4px 10px -2px rgba(15, 23, 42, 0.08) !important;
+}
+
+[data-theme="light"] .btn-primary {
+  background: linear-gradient(135deg, #0284c7, #2563eb) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
+}
+
+[data-theme="light"] .btn-primary:hover {
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.45) !important;
+}
+
+[data-theme="light"] .btn-secondary {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+[data-theme="light"] .btn-secondary:hover {
+  background: #e2e8f0 !important;
+  border-color: #94a3b8 !important;
+}
+
+[data-theme="light"] .btn-gold {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .badge-cheapest {
+  background: #ecfdf5 !important;
+  color: #059669 !important;
+  border: 1px solid #a7f3d0 !important;
+}
+
+[data-theme="light"] .badge-fastest {
+  background: #f0f9ff !important;
+  color: #0284c7 !important;
+  border: 1px solid #bae6fd !important;
+}
+
+[data-theme="light"] input[type="text"],
+[data-theme="light"] input[type="email"],
+[data-theme="light"] input[type="password"],
+[data-theme="light"] input[type="tel"],
+[data-theme="light"] input[type="number"],
+[data-theme="light"] input[type="date"],
+[data-theme="light"] input[type="search"],
+[data-theme="light"] input[type="url"],
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #94a3b8 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="light"] input[type="text"]:focus,
+[data-theme="light"] input[type="email"]:focus,
+[data-theme="light"] input[type="password"]:focus,
+[data-theme="light"] input[type="tel"]:focus,
+[data-theme="light"] input[type="number"]:focus,
+[data-theme="light"] input[type="date"]:focus,
+[data-theme="light"] input[type="search"]:focus,
+[data-theme="light"] input[type="url"]:focus,
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):focus,
+[data-theme="light"] select:focus,
+[data-theme="light"] textarea:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18) !important;
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .modal-overlay {
+  background: rgba(15, 23, 42, 0.65) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+[data-theme="light"] .modal-content,
+[data-theme="light"] .modal-overlay > div:not(.modal-overlay) {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 25px 70px rgba(15, 23, 42, 0.22) !important;
+  color: #0f172a !important;
+}
+
+/* Modals: Headers */
+[data-theme="light"] .modal-overlay h1,
+[data-theme="light"] .modal-overlay h2,
+[data-theme="light"] .modal-overlay h3,
+[data-theme="light"] .modal-overlay h4,
+[data-theme="light"] .modal-overlay h5,
+[data-theme="light"] .modal-overlay h6 {
+  color: #0f172a !important;
+}
+
+/* Modals: Body text & labels */
+[data-theme="light"] .modal-overlay p,
+[data-theme="light"] .modal-overlay label,
+[data-theme="light"] .modal-overlay strong,
+[data-theme="light"] .modal-overlay b,
+[data-theme="light"] .modal-overlay li,
+[data-theme="light"] .modal-overlay td,
+[data-theme="light"] .modal-overlay th {
+  color: #1e293b !important;
+}
+
+/* Modals: Form controls */
+[data-theme="light"] .modal-overlay input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+[data-theme="light"] .modal-overlay select,
+[data-theme="light"] .modal-overlay textarea {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .modal-overlay input::placeholder,
+[data-theme="light"] .modal-overlay textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+[data-theme="light"] .modal-overlay select option {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Modals: Sub-cards, inner sections, and table rows */
+[data-theme="light"] .modal-overlay div[style*="rgba(255, 255, 255, 0.0"],
+[data-theme="light"] .modal-overlay div[style*="rgba(255,255,255,0.0"],
+[data-theme="light"] .modal-overlay div[style*="rgba(255, 255, 255, 0.1"],
+[data-theme="light"] .modal-overlay div[style*="rgba(255,255,255,0.1"],
+[data-theme="light"] .modal-overlay div[style*="rgba(18, 28, 54"],
+[data-theme="light"] .modal-overlay div[style*="rgba(18,28,54"],
+[data-theme="light"] .modal-overlay div[style*="rgba(13, 22, 43"],
+[data-theme="light"] .modal-overlay div[style*="rgba(13,22,43"],
+[data-theme="light"] .modal-overlay div[style*="rgba(17, 26, 51"],
+[data-theme="light"] .modal-overlay div[style*="rgba(17,26,51"],
+[data-theme="light"] .modal-overlay div[style*="rgba(9, 15, 29"],
+[data-theme="light"] .modal-overlay div[style*="rgba(9,15,29"],
+[data-theme="light"] .modal-overlay div[style*="#111a33"],
+[data-theme="light"] .modal-overlay div[style*="#0d1527"],
+[data-theme="light"] .modal-overlay div[style*="#0d1629"] {
+  background: #f8fafc !important;
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Modals: Inner chips, pills, badges that don't have gradient */
+[data-theme="light"] .modal-overlay span[style*="rgba(255, 255, 255, 0.0"],
+[data-theme="light"] .modal-overlay span[style*="rgba(255,255,255,0.0"],
+[data-theme="light"] .modal-overlay span[style*="rgba(255, 255, 255, 0.1"],
+[data-theme="light"] .modal-overlay span[style*="rgba(255,255,255,0.1"] {
+  background: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+[data-theme="light"] .hotel-card-layout {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06) !important;
+}
+
+[data-theme="light"] .hotel-card-layout:hover {
+  border-color: #0284c7 !important;
+  box-shadow: 0 12px 30px rgba(2, 132, 199, 0.18) !important;
+}
+
+[data-theme="light"] .hotel-action-footer {
+  border-top-color: #f1f5f9 !important;
+}
+
+[data-theme="light"] .skygenie-chat-window {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2) !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .skygenie-chat-window h3,
+[data-theme="light"] .skygenie-chat-window h4,
+[data-theme="light"] .skygenie-chat-window strong {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .skygenie-chat-window p {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .skygenie-chat-window input {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+[data-theme="light"] .flight-card-timing {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+[data-theme="light"] .flight-card-price-action {
+  border-top-color: #f1f5f9 !important;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #f1f5f9 !important;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: #0284c7 !important;
+}
+
+/* Light Theme Typography & Content Contrast Overhauls */
+[data-theme="light"] h1:not(.hero-heading):not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]), 
+[data-theme="light"] h2:not(.hero-heading):not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]), 
+[data-theme="light"] h3:not(.hero-heading):not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]), 
+[data-theme="light"] h4:not(.hero-heading):not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]), 
+[data-theme="light"] h5:not(.hero-heading):not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]), 
+[data-theme="light"] h6:not(.hero-heading):not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]) {
+  color: #0f172a !important;
+}
+
+/* Ensure text overlaid on photos/banners ALWAYS stays crisp bright white */
+[data-theme="light"] .hero-heading,
+[data-theme="light"] .photo-overlay-title,
+[data-theme="light"] .dest-card-city,
+[data-theme="light"] .dest-photo-badge,
+[data-theme="light"] [class*="photo-overlay-title"],
+[data-theme="light"] [class*="dest-card-city"] {
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95) !important;
+}
+
+[data-theme="light"] .hero-subheading,
+[data-theme="light"] .photo-overlay-subtitle,
+[data-theme="light"] .dest-card-country,
+[data-theme="light"] [class*="photo-overlay-subtitle"],
+[data-theme="light"] [class*="dest-card-country"] {
+  color: #f1f5f9 !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.95) !important;
+}
+
+/* Clear readable labels across all search inputs & forms */
+[data-theme="light"] label {
+  color: #334155 !important;
+  font-weight: 700 !important;
+}
+
+/* Glass card text & headings contrast */
+[data-theme="light"] .glass-card h1:not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]),
+[data-theme="light"] .glass-card h2:not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]),
+[data-theme="light"] .glass-card h3:not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]),
+[data-theme="light"] .glass-card h4:not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]),
+[data-theme="light"] .glass-card h5:not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]),
+[data-theme="light"] .glass-card h6:not(.photo-overlay-title):not(.dest-card-city):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]) {
+  color: #0f172a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="light"] .glass-card p:not(.photo-overlay-subtitle):not(.dest-card-country):not([class*="photo"]):not([class*="overlay"]):not([class*="dest"]) {
+  color: #334155 !important;
+  text-shadow: none !important;
+}
+
+/* Header & Navbar Contrast in Light Mode */
+[data-theme="light"] header {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05) !important;
+}
+
+[data-theme="light"] header button {
+  color: #334155;
+}
+
+[data-theme="light"] header select {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Dropdown option text must always be clear dark on white */
+[data-theme="light"] select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Flight Card Contrast in Light Mode */
+[data-theme="light"] .flight-card-inner h4 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .flight-card-timing div {
+  color: #0f172a;
+}
+
+/* Intelligent text override on light mode - covers both Hex and Chromium RGB serialization */
+[data-theme="light"] div[style*="color: #fff"]:not(.badge):not([class*="badge"]):not(button):not(.btn-primary):not(.btn-gold),
+[data-theme="light"] div[style*="color:#fff"]:not(.badge):not([class*="badge"]):not(button):not(.btn-primary):not(.btn-gold),
+[data-theme="light"] div[style*="color: #ffffff"]:not(.badge):not([class*="badge"]):not(button):not(.btn-primary):not(.btn-gold),
+[data-theme="light"] div[style*="color:#ffffff"]:not(.badge):not([class*="badge"]):not(button):not(.btn-primary):not(.btn-gold),
+[data-theme="light"] div[style*="rgb(255, 255, 255)"]:not(.badge):not([class*="badge"]):not(button):not(.btn-primary):not(.btn-gold),
+[data-theme="light"] div[style*="rgb(255,255,255)"]:not(.badge):not([class*="badge"]):not(button):not(.btn-primary):not(.btn-gold),
+[data-theme="light"] span[style*="color: #fff"]:not(.live-dot):not(.badge):not([class*="badge"]):not(button *):not(.btn-primary *):not(.btn-gold *),
+[data-theme="light"] span[style*="color:#fff"]:not(.live-dot):not(.badge):not([class*="badge"]):not(button *):not(.btn-primary *):not(.btn-gold *),
+[data-theme="light"] span[style*="color: #ffffff"]:not(.live-dot):not(.badge):not([class*="badge"]):not(button *):not(.btn-primary *):not(.btn-gold *),
+[data-theme="light"] span[style*="color:#ffffff"]:not(.live-dot):not(.badge):not([class*="badge"]):not(button *):not(.btn-primary *):not(.btn-gold *),
+[data-theme="light"] span[style*="rgb(255, 255, 255)"]:not(.live-dot):not(.badge):not([class*="badge"]):not(button *):not(.btn-primary *):not(.btn-gold *),
+[data-theme="light"] span[style*="rgb(255,255,255)"]:not(.live-dot):not(.badge):not([class*="badge"]):not(button *):not(.btn-primary *):not(.btn-gold *),
+[data-theme="light"] p[style*="color: #fff"],
+[data-theme="light"] p[style*="color:#fff"],
+[data-theme="light"] p[style*="color: #ffffff"],
+[data-theme="light"] p[style*="color:#ffffff"],
+[data-theme="light"] p[style*="rgb(255, 255, 255)"],
+[data-theme="light"] p[style*="rgb(255,255,255)"],
+[data-theme="light"] h1[style*="color: #fff"]:not([class*="photo"]):not([class*="dest"]),
+[data-theme="light"] h2[style*="color: #fff"]:not([class*="photo"]):not([class*="dest"]),
+[data-theme="light"] h3[style*="color: #fff"]:not([class*="photo"]):not([class*="dest"]),
+[data-theme="light"] h4[style*="color: #fff"]:not([class*="photo"]):not([class*="dest"]),
+[data-theme="light"] h5[style*="color: #fff"]:not([class*="photo"]):not([class*="dest"]),
+[data-theme="light"] h1[style*="rgb(255, 255, 255)"]:not([class*="photo"]):not([class*="dest"]),
+[data-theme="light"] h2[style*="rgb(255, 255, 255)"]:not([class*="photo"]):not([class*="dest"]),
+[data-theme="light"] h3[style*="rgb(255, 255, 255)"]:not([class*="photo"]):not([class*="dest"]),
+[data-theme="light"] h4[style*="rgb(255, 255, 255)"]:not([class*="photo"]):not([class*="dest"]),
+[data-theme="light"] h5[style*="rgb(255, 255, 255)"]:not([class*="photo"]):not([class*="dest"]),
+[data-theme="light"] strong[style*="color: #fff"],
+[data-theme="light"] strong[style*="rgb(255, 255, 255)"],
+[data-theme="light"] b[style*="color: #fff"],
+[data-theme="light"] b[style*="rgb(255, 255, 255)"],
+[data-theme="light"] td[style*="color: #fff"],
+[data-theme="light"] td[style*="rgb(255, 255, 255)"],
+[data-theme="light"] th[style*="color: #fff"],
+[data-theme="light"] th[style*="rgb(255, 255, 255)"],
+[data-theme="light"] li[style*="color: #fff"],
+[data-theme="light"] li[style*="rgb(255, 255, 255)"],
+[data-theme="light"] div[style*="color: #f8fafc"],
+[data-theme="light"] div[style*="rgb(248, 250, 252)"],
+[data-theme="light"] span[style*="color: #f8fafc"]:not(.live-dot):not(.badge),
+[data-theme="light"] span[style*="rgb(248, 250, 252)"]:not(.live-dot):not(.badge),
+[data-theme="light"] p[style*="color: #f8fafc"],
+[data-theme="light"] p[style*="rgb(248, 250, 252)"],
+[data-theme="light"] div[style*="color: #cbd5e1"],
+[data-theme="light"] div[style*="rgb(203, 213, 225)"],
+[data-theme="light"] span[style*="color: #cbd5e1"]:not(.live-dot):not(.badge),
+[data-theme="light"] span[style*="rgb(203, 213, 225)"]:not(.live-dot):not(.badge),
+[data-theme="light"] p[style*="color: #cbd5e1"],
+[data-theme="light"] p[style*="rgb(203, 213, 225)"] {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] div[style*="color: #94a3b8"],
+[data-theme="light"] div[style*="rgb(148, 163, 184)"],
+[data-theme="light"] span[style*="color: #94a3b8"],
+[data-theme="light"] span[style*="rgb(148, 163, 184)"],
+[data-theme="light"] p[style*="color: #94a3b8"],
+[data-theme="light"] p[style*="rgb(148, 163, 184)"],
+[data-theme="light"] div[style*="color: #64748b"],
+[data-theme="light"] div[style*="rgb(100, 116, 139)"],
+[data-theme="light"] span[style*="color: #64748b"],
+[data-theme="light"] span[style*="rgb(100, 116, 139)"],
+[data-theme="light"] p[style*="color: #64748b"],
+[data-theme="light"] p[style*="rgb(100, 116, 139)"] {
+  color: #475569 !important;
+}
+
+/* Ensure buttons keep their crisp white text */
+[data-theme="light"] button[style*="linear-gradient"],
+[data-theme="light"] button[style*="linear-gradient"] *,
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .btn-primary *,
+[data-theme="light"] .btn-gold,
+[data-theme="light"] .btn-gold * {
+  color: #ffffff !important;
+}
+
+/* Light Mode Background Surfaces - Convert dark navy/black cards to clean white */
+[data-theme="light"] div[style*="background: rgba(15, 23, 42"],
+[data-theme="light"] div[style*="background:rgba(15, 23, 42"],
+[data-theme="light"] div[style*="background: rgba(18, 28, 54"],
+[data-theme="light"] div[style*="background:rgba(18, 28, 54"],
+[data-theme="light"] div[style*="background: rgba(9, 15, 29"],
+[data-theme="light"] div[style*="background:rgba(9, 15, 29"],
+[data-theme="light"] div[style*="background: rgba(17, 26, 51"],
+[data-theme="light"] div[style*="background:rgba(17, 26, 51"],
+[data-theme="light"] div[style*="background: rgba(13, 22, 41"],
+[data-theme="light"] div[style*="background:rgba(13, 22, 41"],
+[data-theme="light"] div[style*="background: rgba(13, 22, 43"],
+[data-theme="light"] div[style*="background:rgba(13, 22, 43"],
+[data-theme="light"] div[style*="background: rgba(6, 10, 20"],
+[data-theme="light"] div[style*="background:rgba(6, 10, 20"],
+[data-theme="light"] div[style*="background: rgba(10, 16, 32"],
+[data-theme="light"] div[style*="background:rgba(10, 16, 32"],
+[data-theme="light"] div[style*="background: rgba(7, 12, 24"],
+[data-theme="light"] div[style*="background:rgba(7, 12, 24"],
+[data-theme="light"] div[style*="background: rgba(8, 15, 32"],
+[data-theme="light"] div[style*="background:rgba(8, 15, 32"],
+[data-theme="light"] div[style*="background: rgba(3, 7, 18"],
+[data-theme="light"] div[style*="background:rgba(3, 7, 18"],
+[data-theme="light"] div[style*="background: #111a33"],
+[data-theme="light"] div[style*="background:#111a33"],
+[data-theme="light"] div[style*="background: #0d1629"],
+[data-theme="light"] div[style*="background:#0d1629"],
+[data-theme="light"] div[style*="background: #0d1527"],
+[data-theme="light"] div[style*="background:#0d1527"],
+[data-theme="light"] div[style*="background: #090f1d"],
+[data-theme="light"] div[style*="background:#090f1d"],
+[data-theme="light"] div[style*="background: #050b18"],
+[data-theme="light"] div[style*="background:#050b18"],
+[data-theme="light"] div[style*="background: #080d1a"],
+[data-theme="light"] div[style*="background:#080d1a"] {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Translucent dark pill backgrounds turned into crisp slate pills */
+[data-theme="light"] div[style*="background: rgba(255, 255, 255, 0.0"],
+[data-theme="light"] div[style*="background:rgba(255, 255, 255, 0.0"],
+[data-theme="light"] div[style*="background: rgba(255, 255, 255, 0.1"],
+[data-theme="light"] div[style*="background:rgba(255, 255, 255, 0.1"],
+[data-theme="light"] span[style*="background: rgba(255, 255, 255, 0.0"],
+[data-theme="light"] span[style*="background:rgba(255, 255, 255, 0.0"],
+[data-theme="light"] span[style*="background: rgba(255, 255, 255, 0.1"],
+[data-theme="light"] span[style*="background:rgba(255, 255, 255, 0.1"],
+[data-theme="light"] button[style*="background: rgba(255, 255, 255, 0.0"],
+[data-theme="light"] button[style*="background:rgba(255, 255, 255, 0.0"],
+[data-theme="light"] button[style*="background: rgba(255, 255, 255, 0.1"],
+[data-theme="light"] button[style*="background:rgba(255, 255, 255, 0.1"] {
+  background: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+/* 3D Booking Backdrop on Light Theme */
+[data-theme="light"] .booking-3d-backdrop {
+  background-color: #ffffff !important;
+  background-image: 
+    radial-gradient(circle at 50% 20%, rgba(2, 132, 199, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 85% 75%, rgba(217, 119, 6, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.98)) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.15) !important;
+}
+
+[data-theme="light"] .booking-3d-backdrop::-webkit-scrollbar-track {
+  background: #f8fafc !important;
+}
+
+[data-theme="light"] .booking-3d-backdrop::-webkit-scrollbar-thumb {
+  background: #94a3b8 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* All Full-Page Portal Containers in Light Mode */
+[data-theme="light"] .explore-destinations-container,
+[data-theme="light"] .hotel-portal-container,
+[data-theme="light"] .flight-tracker-container,
+[data-theme="light"] .tripcraft-container,
+[data-theme="light"] .route-map-container,
+[data-theme="light"] .mytrips-container,
+[data-theme="light"] .dest-card,
+[data-theme="light"] .auth-portal-card,
+[data-theme="light"] .admin-portal-card {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08) !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .auth-portal-left {
+  background: linear-gradient(160deg, #f0f9ff 0%, #e2e8f0 100%) !important;
+  border-right: 1px solid #e2e8f0 !important;
+}
+
+[data-theme="light"] .auth-portal-left h2,
+[data-theme="light"] .auth-portal-left .auth-trust-title,
+[data-theme="light"] .auth-portal-card h1,
+[data-theme="light"] .admin-portal-card h1 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .auth-portal-left p,
+[data-theme="light"] .auth-portal-left .auth-trust-desc,
+[data-theme="light"] .auth-portal-card .auth-subtext,
+[data-theme="light"] .admin-portal-card .auth-subtext {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .auth-portal-footer {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .explore-destinations-container h2,
+[data-theme="light"] .flight-tracker-container h2,
+[data-theme="light"] .tripcraft-container h2,
+[data-theme="light"] .route-map-container h2,
+[data-theme="light"] .mytrips-container h2 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .explore-destinations-container p,
+[data-theme="light"] .flight-tracker-container p,
+[data-theme="light"] .tripcraft-container p,
+[data-theme="light"] .route-map-container p,
+[data-theme="light"] .mytrips-container p {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .booking-3d-grid {
+  opacity: 0.25 !important;
+  background-image: 
+    linear-gradient(rgba(2, 132, 199, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(2, 132, 199, 0.12) 1px, transparent 1px) !important;
+}
+
+/* --- 2. ROYAL LUXURY THEME (Emirates / Qatar Sapphire & Gold) --- */
+[data-theme="royal"] body {
+  background-color: var(--primary-navy) !important;
+  color: var(--text-main) !important;
+}
+
+[data-theme="royal"] .glass-card {
+  background: rgba(11, 21, 45, 0.88) !important;
+  border-color: rgba(212, 175, 55, 0.25) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), var(--glow-gold) !important;
+}
+
+[data-theme="royal"] .btn-primary {
+  background: linear-gradient(135deg, #d4af37, #996515) !important;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4) !important;
+  color: #050b18 !important;
+  font-weight: 800 !important;
+}
+
+/* --- 3. EMERALD OASIS THEME (Cathay Pacific / Mint) --- */
+[data-theme="emerald"] body {
+  background-color: var(--primary-navy) !important;
+  color: var(--text-main) !important;
+}
+
+[data-theme="emerald"] .glass-card {
+  background: rgba(7, 38, 30, 0.88) !important;
+  border-color: rgba(52, 211, 153, 0.25) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), var(--glow-cyan) !important;
+}
+
+[data-theme="emerald"] .btn-primary {
+  background: linear-gradient(135deg, #10b981, #047857) !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4) !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   FEATURE HUB & NAVBAR UNIVERSAL CONTRAST & RESPONSIVENESS FIXES
+   ========================================================================== */
+
+/* 1. Navbar Single-Row Lock (Never wraps into multi-line) */
+.desktop-nav-links {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+
+.desktop-nav-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 6px 10px !important;
+  border-radius: 8px !important;
+  font-size: 12.5px !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  transition: all 0.2s ease !important;
+}
+
+.desktop-nav-btn:hover {
+  background: var(--card-subtle-bg, #f1f5f9) !important;
+}
+
+[data-theme="light"] .desktop-nav-btn.active {
+  background: rgba(2, 132, 199, 0.12) !important;
+  color: #0284c7 !important;
+  border: 1px solid rgba(2, 132, 199, 0.3) !important;
+}
+
+/* 2. Logo container styling per theme */
+[data-theme="light"] .navbar-logo-container {
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+[data-theme="dark"] .navbar-logo-container,
+[data-theme="royal"] .navbar-logo-container,
+[data-theme="emerald"] .navbar-logo-container {
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.navbar-brand-title {
+  color: var(--text-main, #0f172a) !important;
+}
+
+/* User Profile Pill in Top Navbar */
+.navbar-user-profile-btn {
+  background: var(--card-subtle-bg, #f1f5f9) !important;
+  border: 1.5px solid var(--card-border, #cbd5e1) !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-theme="light"] .navbar-user-profile-btn {
+  background: #f1f5f9 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08) !important;
+}
+
+[data-theme="light"] .navbar-user-profile-btn .navbar-user-name,
+[data-theme="light"] .navbar-user-profile-btn span {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="dark"] .navbar-user-profile-btn,
+[data-theme="royal"] .navbar-user-profile-btn,
+[data-theme="emerald"] .navbar-user-profile-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-theme="dark"] .navbar-user-profile-btn .navbar-user-name,
+[data-theme="dark"] .navbar-user-profile-btn span,
+[data-theme="royal"] .navbar-user-profile-btn .navbar-user-name,
+[data-theme="royal"] .navbar-user-profile-btn span,
+[data-theme="emerald"] .navbar-user-profile-btn .navbar-user-name,
+[data-theme="emerald"] .navbar-user-profile-btn span {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* 3. FeatureHub Cards - High Contrast Crisp Light Mode */
+[data-theme="light"] .feature-card-dark-bg {
+  display: none !important;
+}
+
+[data-theme="light"] .feature-hub-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04) !important;
+}
+
+[data-theme="light"] .feature-hub-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(2, 132, 199, 0.12) !important;
+  border-color: #38bdf8 !important;
+}
+
+[data-theme="light"] .feature-hub-card h3 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .feature-hub-card p {
+  color: #475569 !important;
+}
+
+/* 4. Form Selects & Option Contrast across browsers */
+select {
+  background-color: var(--card-subtle-bg, #f1f5f9) !important;
+  color: var(--text-main, #0f172a) !important;
+  border-color: var(--card-border, #cbd5e1) !important;
+}
+
+select option {
+  background-color: var(--modal-bg, #ffffff) !important;
+  color: var(--text-main, #0f172a) !important;
+}
+
+/* 5. FeatureHub Badges & Labels Contrast */
+[data-theme="light"] .feature-hub-card .feature-badge {
+  background: #f1f5f9 !important;
+  color: #0284c7 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+[data-theme="light"] .feature-hub-card .feature-action-label {
+  color: #0284c7 !important;
+  font-weight: 700 !important;
+}
+
+/* 6. Explore Global Destinations High-Contrast Light Mode */
+[data-theme="light"] .explore-destinations-container {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
+}
+
+[data-theme="light"] .explore-destinations-container h2 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .dest-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06) !important;
+}
+
 

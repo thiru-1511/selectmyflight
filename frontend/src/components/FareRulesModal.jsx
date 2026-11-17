@@ -19,22 +19,22 @@ export default function FareRulesModal({ flight, currency, onClose }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: 'rgba(255, 255, 255, 0.02)'
+          background: 'var(--card-subtle-bg, #f8fafc)'
         }}>
           <div>
-            <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff' }}>
+            <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)' }}>
               🧳 Baggage & Fare Policies
             </h3>
-            <p style={{ fontSize: 12, color: '#94a3b8' }}>
+            <p style={{ fontSize: 12, color: 'var(--text-muted, #475569)' }}>
               Flight {flight.airlineName} {flight.flightNumber} • {flight.cabinClass}
             </p>
           </div>
           <button
             onClick={onClose}
             style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              border: 'none',
-              color: '#cbd5e1',
+              background: 'var(--card-subtle-bg, #f1f5f9)',
+              border: '1px solid var(--card-border, #cbd5e1)',
+              color: 'var(--text-main, #0f172a)',
               width: 32,
               height: 32,
               borderRadius: '50%',
@@ -52,46 +52,46 @@ export default function FareRulesModal({ flight, currency, onClose }) {
         <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 20 }}>
           {/* Baggage Allowances */}
           <div>
-            <h4 style={{ fontSize: 14, fontWeight: 700, color: '#00d2ff', textTransform: 'uppercase', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <h4 style={{ fontSize: 14, fontWeight: 700, color: 'var(--accent-cyan, #0284c7)', textTransform: 'uppercase', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
               <Briefcase size={16} /> Baggage Allowances (Included in Fare)
             </h4>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
               <div style={{
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                border: '1px solid var(--card-border, #cbd5e1)',
                 borderRadius: 10,
                 padding: '14px'
               }}>
-                <div style={{ fontSize: 12, color: '#94a3b8' }}>Cabin Baggage (Carry-on)</div>
-                <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', margin: '4px 0' }}>
+                <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)' }}>Cabin Baggage (Carry-on)</div>
+                <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: '4px 0' }}>
                   {flight.cabinBaggageKg} KG
                 </div>
-                <div style={{ fontSize: 11, color: '#94a3b8' }}>1 piece (max 55 x 35 x 25 cm) + 1 laptop bag</div>
+                <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>1 piece (max 55 x 35 x 25 cm) + 1 laptop bag</div>
               </div>
 
               <div style={{
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--card-subtle-bg, #f1f5f9)',
+                border: '1px solid var(--card-border, #cbd5e1)',
                 borderRadius: 10,
                 padding: '14px'
               }}>
-                <div style={{ fontSize: 12, color: '#94a3b8' }}>Checked Baggage</div>
-                <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', margin: '4px 0' }}>
+                <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)' }}>Checked Baggage</div>
+                <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: '4px 0' }}>
                   {flight.checkedBaggageKg} KG
                 </div>
-                <div style={{ fontSize: 11, color: '#94a3b8' }}>Standard check-in allowance included</div>
+                <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)' }}>Standard check-in allowance included</div>
               </div>
             </div>
           </div>
 
           {/* Cancellation Policy */}
           <div>
-            <h4 style={{ fontSize: 14, fontWeight: 700, color: '#00d2ff', textTransform: 'uppercase', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <h4 style={{ fontSize: 14, fontWeight: 700, color: 'var(--accent-cyan, #0284c7)', textTransform: 'uppercase', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
               <RefreshCw size={16} /> Cancellation & Date Change Conditions
             </h4>
             <div style={{
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--card-subtle-bg, #f1f5f9)',
+              border: '1px solid var(--card-border, #cbd5e1)',
               borderRadius: 10,
               padding: '14px',
               display: 'flex',
@@ -100,22 +100,22 @@ export default function FareRulesModal({ flight, currency, onClose }) {
               fontSize: 13
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ color: '#cbd5e1' }}>Cancellation Fee (up to 24h before flight):</span>
-                <strong style={{ color: flight.refundable ? '#fff' : '#f5af19' }}>
+                <span style={{ color: 'var(--text-muted, #475569)' }}>Cancellation Fee (up to 24h before flight):</span>
+                <strong style={{ color: flight.refundable ? 'var(--text-main, #0f172a)' : 'var(--accent-gold, #d97706)' }}>
                   {flight.refundable ? `${currencySymbol}${convertPrice(flight.cancellationFee)}` : 'Non-Refundable'}
                 </strong>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ color: '#cbd5e1' }}>Date Change / Rescheduling Fee:</span>
-                <strong style={{ color: '#fff' }}>
+                <span style={{ color: 'var(--text-muted, #475569)' }}>Date Change / Rescheduling Fee:</span>
+                <strong style={{ color: 'var(--text-main, #0f172a)' }}>
                   {currencySymbol}{convertPrice(flight.changeFee)} + fare difference
                 </strong>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ color: '#cbd5e1' }}>Refund Processing Speed:</span>
-                <strong style={{ color: '#00e676' }}>Instant via My Trips dashboard</strong>
+                <span style={{ color: 'var(--text-muted, #475569)' }}>Refund Processing Speed:</span>
+                <strong style={{ color: 'var(--accent-green, #059669)' }}>Instant via My Trips dashboard</strong>
               </div>
             </div>
           </div>

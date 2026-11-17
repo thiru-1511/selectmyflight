@@ -103,21 +103,21 @@ export default function RefundTrackerModal({ isOpen, onClose, pnr: initialPnr = 
         {/* Header */}
         <div style={{
           padding: '20px 24px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          borderBottom: '1px solid var(--card-border, #cbd5e1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: 'rgba(255, 255, 255, 0.02)'
+          background: 'var(--card-subtle-bg, #f8fafc)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ background: 'rgba(0, 230, 118, 0.15)', color: '#00e676', padding: 8, borderRadius: 8 }}>
+            <div style={{ background: 'rgba(5, 150, 105, 0.15)', color: 'var(--accent-green, #059669)', padding: 8, borderRadius: 8 }}>
               <RefreshCw size={22} className={isSearching ? 'spin-anim' : ''} />
             </div>
             <div>
-              <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff', margin: 0 }}>
+              <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                 Live Refund Status Tracker
               </h3>
-              <div style={{ fontSize: 12, color: '#94a3b8' }}>
+              <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)' }}>
                 Real-Time Banking & Airline Refund Gateway Sync
               </div>
             </div>
@@ -125,9 +125,9 @@ export default function RefundTrackerModal({ isOpen, onClose, pnr: initialPnr = 
           <button
             onClick={onClose}
             style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              border: 'none',
-              color: '#cbd5e1',
+              background: 'var(--card-subtle-bg, #f1f5f9)',
+              border: '1px solid var(--card-border, #cbd5e1)',
+              color: 'var(--text-main, #0f172a)',
               width: 32,
               height: 32,
               borderRadius: '50%',
@@ -148,13 +148,13 @@ export default function RefundTrackerModal({ isOpen, onClose, pnr: initialPnr = 
               flex: '1 1 200px',
               display: 'flex',
               alignItems: 'center',
-              background: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(0, 210, 255, 0.3)',
+              background: 'var(--input-bg, #ffffff)',
+              border: '1.5px solid var(--input-border, #cbd5e1)',
               borderRadius: 10,
               padding: '8px 14px',
               gap: 8
             }}>
-              <Search size={16} color="#00d2ff" style={{ flexShrink: 0 }} />
+              <Search size={16} color="var(--accent-cyan, #0284c7)" style={{ flexShrink: 0 }} />
               <input
                 type="text"
                 placeholder="Enter Booking PNR (e.g. SMF-9021)..."
@@ -164,7 +164,7 @@ export default function RefundTrackerModal({ isOpen, onClose, pnr: initialPnr = 
                   background: 'transparent',
                   border: 'none',
                   outline: 'none',
-                  color: '#fff',
+                  color: 'var(--input-text, #0f172a)',
                   fontSize: 14,
                   fontWeight: 700,
                   width: '100%',
@@ -228,16 +228,16 @@ export default function RefundTrackerModal({ isOpen, onClose, pnr: initialPnr = 
               marginBottom: 20
             }}>
               <div>
-                <div style={{ fontSize: 12, color: '#94a3b8' }}>
-                  Approved Refund for <strong style={{ color: '#fff' }}>{activeRefundData.pnr}</strong> ({activeRefundData.airline})
+                <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)' }}>
+                  Approved Refund for <strong style={{ color: 'var(--text-main, #0f172a)' }}>{activeRefundData.pnr}</strong> ({activeRefundData.airline})
                 </div>
-                <div style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, color: '#00e676', marginTop: 2 }}>
+                <div style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, color: 'var(--accent-green, #059669)', marginTop: 2 }}>
                   {currencySymbol}{convertPrice(activeRefundData.amount).toLocaleString()}
                 </div>
               </div>
-              <div style={{ textAlign: 'right', fontSize: 12, color: '#cbd5e1' }}>
+              <div style={{ textAlign: 'right', fontSize: 12, color: 'var(--text-muted, #475569)' }}>
                 <div>Original Mode: <strong>UPI / NetBanking</strong></div>
-                <div style={{ color: '#00d2ff', fontSize: 11, fontWeight: 700, marginTop: 2 }}>
+                <div style={{ color: 'var(--accent-cyan, #0284c7)', fontSize: 11, fontWeight: 700, marginTop: 2 }}>
                   ARN: {activeRefundData.arn}
                 </div>
               </div>
@@ -254,11 +254,11 @@ export default function RefundTrackerModal({ isOpen, onClose, pnr: initialPnr = 
                   height: 30,
                   borderRadius: '50%',
                   background: s.status === 'completed' 
-                    ? '#00e676' 
+                    ? '#059669' 
                     : s.status === 'current' 
-                      ? '#00d2ff' 
-                      : 'rgba(255, 255, 255, 0.1)',
-                  color: s.status === 'pending' ? '#64748b' : '#090f1d',
+                      ? '#0284c7' 
+                      : 'var(--card-subtle-bg, #f1f5f9)',
+                  color: s.status === 'pending' ? 'var(--text-muted, #64748b)' : '#ffffff',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -266,25 +266,25 @@ export default function RefundTrackerModal({ isOpen, onClose, pnr: initialPnr = 
                   fontSize: 13,
                   flexShrink: 0,
                   marginTop: 2,
-                  boxShadow: s.status === 'current' ? '0 0 12px rgba(0, 210, 255, 0.5)' : 'none'
+                  boxShadow: s.status === 'current' ? '0 0 12px rgba(2, 132, 199, 0.4)' : 'none'
                 }}>
                   {s.status === 'completed' ? <CheckCircle2 size={16} /> : s.step}
                 </div>
 
                 <div style={{ flex: 1 }}>
                   <div className="refund-step-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 6 }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: s.status === 'pending' ? '#94a3b8' : '#fff' }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: s.status === 'pending' ? 'var(--text-muted, #475569)' : 'var(--text-main, #0f172a)' }}>
                       {s.title}
                     </div>
                     <div style={{ 
                       fontSize: 11, 
-                      color: s.status === 'current' ? '#00d2ff' : s.status === 'completed' ? '#00e676' : '#94a3b8', 
+                      color: s.status === 'current' ? 'var(--accent-cyan, #0284c7)' : s.status === 'completed' ? 'var(--accent-green, #059669)' : 'var(--text-muted, #475569)', 
                       fontWeight: 600 
                     }}>
                       {s.date}
                     </div>
                   </div>
-                  <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted, #475569)', marginTop: 2 }}>
                     {s.desc}
                   </div>
                 </div>
