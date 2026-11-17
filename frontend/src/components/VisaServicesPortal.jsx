@@ -1298,41 +1298,6 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
                           </div>
                         </div>
                       )}
-                                background: 'rgba(255, 255, 255, 0.08)',
-                                border: '1px solid rgba(255, 255, 255, 0.15)',
-                                color: '#cbd5e1',
-                                padding: '6px 10px',
-                                borderRadius: 6,
-                                fontSize: 11,
-                                fontWeight: 700,
-                                cursor: 'pointer',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: 4
-                              }}
-                            >
-                              <Edit3 size={12} />
-                              <span>Change</span>
-                            </label>
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveFile('passportPhoto')}
-                              title="Remove photo"
-                              style={{
-                                background: 'rgba(239, 68, 68, 0.12)',
-                                border: '1px solid rgba(239, 68, 68, 0.3)',
-                                color: '#f87171',
-                                padding: '6px 8px',
-                                borderRadius: 6,
-                                fontSize: 11,
-                                cursor: 'pointer'
-                              }}
-                            >
-                              <Trash2 size={13} />
-                            </button>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
 
