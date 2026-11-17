@@ -1462,15 +1462,16 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
   align-items: center !important;
   flex-wrap: nowrap !important;
   white-space: nowrap !important;
+  gap: 3px !important;
 }
 
 .desktop-nav-btn {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 5px !important;
-  padding: 6px 10px !important;
+  gap: 4px !important;
+  padding: 5px 8px !important;
   border-radius: 8px !important;
-  font-size: 12.5px !important;
+  font-size: 12px !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
   transition: all 0.2s ease !important;
@@ -1486,7 +1487,37 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
   border: 1px solid rgba(2, 132, 199, 0.3) !important;
 }
 
-/* 2. Logo container styling per theme */
+/* 2. Responsive Navbar Adaptations (Prevents truncation on laptop screens) */
+@media (max-width: 1340px) {
+  .navbar-live-text {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1220px) {
+  .navbar-search-kbd {
+    display: none !important;
+  }
+  .desktop-nav-btn .nav-badge {
+    display: none !important;
+  }
+  .desktop-nav-btn {
+    padding: 5px 6px !important;
+    font-size: 11.5px !important;
+    gap: 3px !important;
+  }
+}
+
+@media (max-width: 1080px) {
+  .navbar-search-text {
+    display: none !important;
+  }
+  .navbar-search-btn {
+    padding: 4px 7px !important;
+  }
+}
+
+/* 3. Logo container styling per theme */
 [data-theme="light"] .navbar-logo-container {
   background: transparent !important;
   padding: 0 !important;
@@ -1505,40 +1536,98 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
   color: var(--text-main, #0f172a) !important;
 }
 
-/* User Profile Pill in Top Navbar */
+/* 4. User Profile Button & Username (Ultra-clear, High Contrast across all 4 themes) */
 .navbar-user-profile-btn {
-  background: var(--card-subtle-bg, #f1f5f9) !important;
-  border: 1.5px solid var(--card-border, #cbd5e1) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 3px 10px 3px 5px !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  height: 32px !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
   transition: all 0.2s ease !important;
 }
 
+.navbar-user-name {
+  display: inline-block !important;
+  font-weight: 800 !important;
+  font-size: 13px !important;
+  letter-spacing: -0.2px !important;
+}
+
+/* Light Theme: Crisp White Pill with vivid Azure Border & Deep Slate Text */
 [data-theme="light"] .navbar-user-profile-btn {
-  background: #f1f5f9 !important;
-  border: 1.5px solid #cbd5e1 !important;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08) !important;
+  background: #ffffff !important;
+  border: 1.5px solid #0284c7 !important;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.18) !important;
 }
 
 [data-theme="light"] .navbar-user-profile-btn .navbar-user-name,
 [data-theme="light"] .navbar-user-profile-btn span {
   color: #0f172a !important;
-  font-weight: 700 !important;
+  font-weight: 800 !important;
 }
 
-[data-theme="dark"] .navbar-user-profile-btn,
-[data-theme="royal"] .navbar-user-profile-btn,
-[data-theme="emerald"] .navbar-user-profile-btn {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+[data-theme="light"] .navbar-user-profile-btn:hover {
+  background: #f0f9ff !important;
+  border-color: #0369a1 !important;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.28) !important;
+}
+
+/* Dark Theme: Deep Navy with Cyan Glow */
+[data-theme="dark"] .navbar-user-profile-btn {
+  background: rgba(18, 28, 54, 0.95) !important;
+  border: 1.5px solid rgba(0, 210, 255, 0.5) !important;
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.2) !important;
 }
 
 [data-theme="dark"] .navbar-user-profile-btn .navbar-user-name,
-[data-theme="dark"] .navbar-user-profile-btn span,
+[data-theme="dark"] .navbar-user-profile-btn span {
+  color: #f8fafc !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="dark"] .navbar-user-profile-btn:hover {
+  background: rgba(0, 210, 255, 0.15) !important;
+  border-color: #00d2ff !important;
+}
+
+/* Royal Luxury Gold Theme */
+[data-theme="royal"] .navbar-user-profile-btn {
+  background: rgba(11, 21, 45, 0.95) !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.5) !important;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2) !important;
+}
+
 [data-theme="royal"] .navbar-user-profile-btn .navbar-user-name,
-[data-theme="royal"] .navbar-user-profile-btn span,
+[data-theme="royal"] .navbar-user-profile-btn span {
+  color: #fcfbf7 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="royal"] .navbar-user-profile-btn:hover {
+  background: rgba(212, 175, 55, 0.15) !important;
+  border-color: #d4af37 !important;
+}
+
+/* Emerald Oasis Theme */
+[data-theme="emerald"] .navbar-user-profile-btn {
+  background: rgba(7, 38, 30, 0.95) !important;
+  border: 1.5px solid rgba(52, 211, 153, 0.5) !important;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.2) !important;
+}
+
 [data-theme="emerald"] .navbar-user-profile-btn .navbar-user-name,
 [data-theme="emerald"] .navbar-user-profile-btn span {
-  color: #ffffff !important;
-  font-weight: 700 !important;
+  color: #f0fdf4 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="emerald"] .navbar-user-profile-btn:hover {
+  background: rgba(52, 211, 153, 0.15) !important;
+  border-color: #34d399 !important;
 }
 
 /* 3. FeatureHub Cards - High Contrast Crisp Light Mode */

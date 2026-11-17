@@ -87,12 +87,12 @@ export default function Navbar({
     { id: 'packages', label: t('nav.holidays', 'Holidays'), icon: Palmtree, badge: 'HOT', badgeColor: '#f5af19' },
     { id: 'visa', label: t('nav.visa', 'Visa Desk'), icon: FileCheck2, badge: 'UAE', badgeColor: '#00e676' },
     { id: 'manage_booking_action', label: t('nav.manageBooking', 'Manage Booking'), icon: FileText, badge: 'PNR', badgeColor: '#0284c7', action: onOpenManageBooking },
-    { id: 'ai', label: t('nav.skyGenie', 'SkyGenie AI'), icon: Bot },
     { id: 'trips', label: t('nav.myTrips', 'My Trips'), icon: Luggage, count: myTripsCount }
   ];
 
   // 2. Secondary Tools & Exploration (Organized in "More Services ▾" dropdown)
   const secondaryNavItems = [
+    { id: 'ai', label: t('nav.skyGenie', 'SkyGenie AI Assistant'), icon: Bot, badge: 'AI 24/7', badgeColor: '#00d2ff', desc: 'Conversational travel concierge' },
     { id: 'status', label: t('nav.liveStatus', 'Live Flight Radar'), icon: Radio, badge: 'RADAR', badgeColor: '#00e676', desc: 'Real-time airborne telemetry' },
     { id: 'alerts_action', label: t('nav.priceAlerts', 'Price Alerts'), icon: Bell, badge: 'TRACK', badgeColor: '#f5af19', action: onOpenAlerts, desc: 'Instant fare drop alerts' },
     { id: 'refund_action', label: t('nav.refundTracker', 'Refund Tracker'), icon: RefreshCw, badge: 'PNR', badgeColor: '#f5af19', action: onOpenRefundTracker, desc: 'Instant bank refund audit' },
@@ -126,15 +126,15 @@ export default function Navbar({
         gap: 12
       }}>
         {/* Left: Brand Logo & Live Beacon & Compact Search */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
           <div 
             onClick={() => handleNavClick('search')} 
-            style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', userSelect: 'none', flexShrink: 0 }}
+            style={{ display: 'flex', alignItems: 'center', gap: 7, cursor: 'pointer', userSelect: 'none', flexShrink: 0 }}
           >
             <div className="navbar-logo-container" style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 8,
+              gap: 7,
               borderRadius: 8,
               flexShrink: 0
             }}>
@@ -144,7 +144,7 @@ export default function Navbar({
                 style={{ height: 28, width: 28, borderRadius: 6, objectFit: 'contain', display: 'block', background: '#ffffff', padding: 2, border: '1px solid rgba(2, 132, 199, 0.2)' }} 
               />
               <span className="navbar-brand-title" style={{
-                fontSize: 15.5,
+                fontSize: 15,
                 fontWeight: 800,
                 letterSpacing: -0.4,
                 display: 'inline-flex',
@@ -153,45 +153,44 @@ export default function Navbar({
                 Select<span style={{ color: '#0284c7' }}>My</span>Flight
               </span>
             </div>
-            <div className="desktop-only" style={{ flexShrink: 0 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                <span className="live-dot" style={{ width: 6, height: 6 }} />
-                <span style={{ fontSize: 9, color: 'var(--accent-green, #059669)', letterSpacing: 0.8, textTransform: 'uppercase', fontWeight: 800 }}>
-                  {t('nav.liveOperations', 'LIVE OPERATIONS')}
-                </span>
-              </div>
+            <div className="navbar-live-status-pill" style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
+              <span className="live-dot" style={{ width: 6, height: 6 }} />
+              <span className="navbar-live-text" style={{ fontSize: 9, color: 'var(--accent-green, #059669)', letterSpacing: 0.8, textTransform: 'uppercase', fontWeight: 800 }}>
+                {t('nav.liveOperations', 'LIVE')}
+              </span>
             </div>
           </div>
 
-          {/* Quick Feature Command Palette (Compact, never wraps) */}
+          {/* Quick Feature Command Palette (Compact, responsive) */}
           <button
             type="button"
             onClick={onOpenFeatureLauncher}
-            className="desktop-only"
+            className="navbar-search-btn"
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 6,
+              gap: 5,
               background: 'var(--card-subtle-bg, #f1f5f9)',
               border: '1px solid var(--card-border, #cbd5e1)',
               borderRadius: 20,
-              padding: '5px 10px',
+              padding: '4px 9px',
               color: 'var(--text-muted)',
-              fontSize: 12,
+              fontSize: 11.5,
               cursor: 'pointer',
               whiteSpace: 'nowrap',
               flexShrink: 0,
+              height: 30,
               transition: 'all 0.2s'
             }}
             title="Search features, routes, or tools (Ctrl+K)"
           >
             <Search size={13} color="var(--accent-cyan, #0284c7)" />
-            <span style={{ color: 'var(--text-main)', fontWeight: 600, fontSize: 12 }}>{t('nav.findFeatures', 'Search')}</span>
-            <kbd style={{
+            <span className="navbar-search-text" style={{ color: 'var(--text-main)', fontWeight: 600, fontSize: 11.5 }}>{t('nav.findFeatures', 'Search')}</span>
+            <kbd className="navbar-search-kbd" style={{
               background: 'var(--card-border, rgba(120, 130, 150, 0.15))',
-              padding: '1px 5px',
+              padding: '1px 4px',
               borderRadius: 4,
-              fontSize: 9,
+              fontSize: 8.5,
               color: 'var(--text-muted)',
               fontWeight: 700,
               whiteSpace: 'nowrap'
@@ -220,28 +219,28 @@ export default function Navbar({
                   background: isActive ? 'rgba(2, 132, 199, 0.12)' : 'transparent',
                   color: isActive ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main)',
                   border: isActive ? '1px solid var(--accent-cyan, rgba(0, 210, 255, 0.4))' : '1px solid transparent',
-                  padding: '6px 9px',
+                  padding: '5px 8px',
                   borderRadius: 8,
-                  fontSize: 12.5,
+                  fontSize: 12,
                   fontWeight: isActive ? 700 : 600,
                   cursor: 'pointer',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: 5,
+                  gap: 4,
                   transition: 'all 0.2s',
                   whiteSpace: 'nowrap',
                   flexShrink: 0
                 }}
               >
-                <Icon size={14} />
+                <Icon size={13.5} />
                 <span>{item.label}</span>
                 {item.badge && (
-                  <span style={{
-                    fontSize: 9,
+                  <span className="nav-badge" style={{
+                    fontSize: 8.5,
                     background: `${item.badgeColor}22`,
                     color: item.badgeColor,
                     border: `1px solid ${item.badgeColor}55`,
-                    padding: '1px 5px',
+                    padding: '1px 4px',
                     borderRadius: 4,
                     fontWeight: 800
                   }}>
@@ -252,9 +251,9 @@ export default function Navbar({
                   <span style={{
                     background: '#00e676',
                     color: '#090f1d',
-                    fontSize: 10,
+                    fontSize: 9.5,
                     fontWeight: 800,
-                    padding: '1px 6px',
+                    padding: '1px 5px',
                     borderRadius: 10
                   }}>
                     {item.count}
@@ -274,14 +273,14 @@ export default function Navbar({
                 background: isSecondaryActive ? 'rgba(2, 132, 199, 0.14)' : (isMoreMenuOpen ? 'var(--card-subtle-bg, #f1f5f9)' : 'transparent'),
                 color: isSecondaryActive ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main)',
                 border: isSecondaryActive ? '1px solid var(--accent-cyan, rgba(0, 210, 255, 0.4))' : '1px solid transparent',
-                padding: '6px 9px',
+                padding: '5px 8px',
                 borderRadius: 8,
-                fontSize: 12.5,
+                fontSize: 12,
                 fontWeight: isSecondaryActive ? 700 : 600,
                 cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 5,
+                gap: 4,
                 transition: 'all 0.2s',
                 whiteSpace: 'nowrap',
                 flexShrink: 0
@@ -394,8 +393,8 @@ export default function Navbar({
           </div>
         </nav>
 
-        {/* Right: Quick Tools & User Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+        {/* Right: Quick Tools & User Controls (Strictly pinned, never overflows or wraps) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
           {/* Wishlist Icon */}
           <button 
             type="button"
@@ -405,19 +404,19 @@ export default function Navbar({
               background: wishlistCount > 0 ? 'rgba(255, 59, 48, 0.12)' : 'var(--card-subtle-bg, #f1f5f9)',
               color: wishlistCount > 0 ? '#ff4d6d' : 'var(--text-main)',
               border: wishlistCount > 0 ? '1px solid rgba(255, 59, 48, 0.3)' : '1px solid var(--card-border, #cbd5e1)',
-              padding: '6px 9px',
+              padding: '4px 7px',
               borderRadius: 8,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               gap: 4,
-              height: 32,
+              height: 30,
               flexShrink: 0
             }}
           >
-            <Heart size={15} fill={wishlistCount > 0 ? '#ff4d6d' : 'none'} color="#ff4d6d" />
+            <Heart size={14} fill={wishlistCount > 0 ? '#ff4d6d' : 'none'} color="#ff4d6d" />
             {wishlistCount > 0 && (
-              <span style={{ fontSize: 10, fontWeight: 700, color: '#ff4d6d' }}>{wishlistCount}</span>
+              <span style={{ fontSize: 9.5, fontWeight: 700, color: '#ff4d6d' }}>{wishlistCount}</span>
             )}
           </button>
 
@@ -430,17 +429,17 @@ export default function Navbar({
               background: 'var(--card-subtle-bg, #f1f5f9)',
               color: 'var(--text-main)',
               border: '1px solid var(--card-border, #cbd5e1)',
-              padding: '6px 9px',
+              padding: '4px 7px',
               borderRadius: 8,
               cursor: 'pointer',
               position: 'relative',
               display: 'flex',
               alignItems: 'center',
-              height: 32,
+              height: 30,
               flexShrink: 0
             }}
           >
-            <Bell size={15} color="var(--accent-cyan, #0284c7)" />
+            <Bell size={14} color="var(--accent-cyan, #0284c7)" />
             {unreadNotificationsCount > 0 && (
               <span style={{
                 position: 'absolute',
@@ -448,10 +447,10 @@ export default function Navbar({
                 right: -3,
                 background: 'var(--accent-cyan, #0284c7)',
                 color: '#ffffff',
-                fontSize: 9,
+                fontSize: 8.5,
                 fontWeight: 900,
-                width: 15,
-                height: 15,
+                width: 14,
+                height: 14,
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
@@ -463,7 +462,7 @@ export default function Navbar({
           </button>
 
           {/* Desktop Currency / Language / Theme */}
-          <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+          <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
             <select
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
@@ -471,12 +470,12 @@ export default function Navbar({
                 background: 'var(--card-subtle-bg, #f1f5f9)',
                 color: 'var(--accent-cyan, #0284c7)',
                 border: '1px solid var(--card-border, #cbd5e1)',
-                padding: '4px 6px',
+                padding: '2px 5px',
                 borderRadius: 8,
-                fontSize: 12,
+                fontSize: 11.5,
                 fontWeight: 700,
                 cursor: 'pointer',
-                height: 32
+                height: 30
               }}
             >
               <option value="INR">₹ INR</option>
@@ -492,12 +491,12 @@ export default function Navbar({
                 background: 'var(--card-subtle-bg, #f1f5f9)',
                 color: 'var(--text-main)',
                 border: '1px solid var(--card-border, #cbd5e1)',
-                padding: '4px 6px',
+                padding: '2px 5px',
                 borderRadius: 8,
-                fontSize: 12,
+                fontSize: 11.5,
                 fontWeight: 600,
                 cursor: 'pointer',
-                height: 32
+                height: 30
               }}
             >
               <option value="EN">EN</option>
@@ -515,12 +514,12 @@ export default function Navbar({
                 background: 'var(--card-subtle-bg, #f1f5f9)',
                 color: 'var(--text-main)',
                 border: '1px solid var(--card-border, #cbd5e1)',
-                padding: '4px 6px',
+                padding: '2px 5px',
                 borderRadius: 8,
-                fontSize: 12,
+                fontSize: 11.5,
                 fontWeight: 700,
                 cursor: 'pointer',
-                height: 32
+                height: 30
               }}
             >
               <option value="light">☀️ Light</option>
@@ -530,80 +529,81 @@ export default function Navbar({
             </select>
           </div>
 
-          {/* User Account / Profile */}
-          {currentUser ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+          {/* User Account / Profile Button (Prominently styled, high contrast, never cut off) */}
+          <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+            {currentUser ? (
               <button 
                 type="button"
                 onClick={onOpenProfile}
                 className="navbar-user-profile-btn"
+                title={`Logged in as ${currentUser.name || 'Thiru'} (${currentUser.email || 'thiru1511@gmail.com'}) - Click to view profile`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 7,
-                  padding: '4px 12px 4px 6px',
+                  gap: 6,
+                  padding: '3px 10px 3px 5px',
                   borderRadius: 20,
                   cursor: 'pointer',
                   height: 32,
                   whiteSpace: 'nowrap',
-                  background: 'var(--card-subtle-bg, #f1f5f9)',
-                  border: '1.5px solid var(--card-border, #cbd5e1)',
-                  color: 'var(--text-main, #0f172a)'
+                  flexShrink: 0
                 }}
               >
                 <div style={{
-                  width: 22,
-                  height: 22,
+                  width: 24,
+                  height: 24,
                   borderRadius: '50%',
                   background: 'linear-gradient(135deg, #0284c7, #2563eb)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 800,
                   color: '#ffffff',
+                  boxShadow: '0 1px 4px rgba(2, 132, 199, 0.35)',
                   flexShrink: 0
                 }}>
-                  {currentUser.name ? currentUser.name[0].toUpperCase() : 'U'}
+                  {currentUser.name ? currentUser.name[0].toUpperCase() : 'T'}
                 </div>
                 <span 
-                  className="desktop-only navbar-user-name" 
+                  className="navbar-user-name" 
                   style={{ 
-                    fontWeight: 700, 
-                    fontSize: 12.5,
-                    color: 'var(--text-main, #0f172a)'
+                    fontWeight: 800, 
+                    fontSize: 13,
+                    letterSpacing: -0.2
                   }}
                 >
-                  {currentUser.name ? currentUser.name.split(' ')[0] : 'User'}
+                  {currentUser.name ? currentUser.name.split(' ')[0] : 'Thiru'}
                 </span>
+                <ChevronDown size={11} style={{ opacity: 0.65 }} />
               </button>
-            </div>
-          ) : (
-            <button 
-              type="button"
-              onClick={onOpenAuth}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                background: 'linear-gradient(135deg, var(--accent-cyan, #0284c7), var(--accent-blue, #2563eb))',
-                color: '#ffffff',
-                border: 'none',
-                padding: '6px 14px',
-                borderRadius: 20,
-                fontSize: 12,
-                fontWeight: 700,
-                cursor: 'pointer',
-                boxShadow: '0 2px 10px rgba(2, 132, 199, 0.25)',
-                height: 32,
-                whiteSpace: 'nowrap',
-                flexShrink: 0
-              }}
-            >
-              <User size={14} />
-              <span>{t('nav.signIn', 'Sign In')}</span>
-            </button>
-          )}
+            ) : (
+              <button 
+                type="button"
+                onClick={onOpenAuth}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  background: 'linear-gradient(135deg, var(--accent-cyan, #0284c7), var(--accent-blue, #2563eb))',
+                  color: '#ffffff',
+                  border: 'none',
+                  padding: '5px 12px',
+                  borderRadius: 20,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 10px rgba(2, 132, 199, 0.25)',
+                  height: 30,
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0
+                }}
+              >
+                <User size={13} />
+                <span>{t('nav.signIn', 'Sign In')}</span>
+              </button>
+            )}
+          </div>
 
           {/* Mobile Hamburger Menu Toggle Button */}
           <button

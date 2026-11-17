@@ -37,7 +37,7 @@ export default function PersonalizedRecommendations({
 
   const preferredClass = user?.preferredClass || 'Economy';
   const frequentFlyerTier = user?.frequentFlyerTier || 'Gold Elite';
-  const userName = user?.name ? user.name.split(' ')[0] : 'Traveler';
+  const userName = user?.name ? user.name.split(' ')[0] : 'Thiru';
 
   const formatPrice = (amount) => {
     if (currency === 'USD') return `$${Math.round(amount / 83)}`;
@@ -239,7 +239,7 @@ export default function PersonalizedRecommendations({
               <Sparkles size={14} /> AI PERSONALIZED TRIP DISCOVERY
             </div>
             <h2 style={{ fontSize: 'clamp(22px, 3.5vw, 28px)', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: -0.5 }}>
-              Handpicked Trips & Holidays for {userName}
+              Handpicked Trips & Holidays for <span style={{ color: 'var(--accent-cyan, #0284c7)' }}>{userName}</span>
             </h2>
             <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4, lineHeight: 1.5, maxWidth: 680 }}>
               Tailored routes, bundled flight + stay vacation packages, and verified deals computed by SkyGenie AI based on your home base, tier benefits, and seasonal weather index.

@@ -133,13 +133,29 @@ export default function App() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // User Profile & Authentication State (Defaults to null if unauthenticated)
+  // User Profile & Authentication State (Defaults to verified profile or Thiru)
   const [currentUser, setCurrentUser] = useState(() => {
     try {
       const saved = localStorage.getItem('smf_user');
-      return saved ? JSON.parse(saved) : null;
+      if (saved) return JSON.parse(saved);
+      const verifiedName = localStorage.getItem('smf_verified_name');
+      const verifiedEmail = localStorage.getItem('smf_verified_email');
+      return {
+        name: verifiedName || 'Thiru',
+        email: verifiedEmail || 'thiru1511@gmail.com',
+        phone: '+91 98765 43210',
+        role: 'ROLE_TRAVELER',
+        passportNumber: 'Z8923411',
+        frequentFlyerTier: 'Gold Elite',
+        totalBookings: 3
+      };
     } catch {
-      return null;
+      return {
+        name: 'Thiru',
+        email: 'thiru1511@gmail.com',
+        phone: '+91 98765 43210',
+        role: 'ROLE_TRAVELER'
+      };
     }
   });
 
