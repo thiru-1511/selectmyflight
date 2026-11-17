@@ -80,18 +80,18 @@ export default function Navbar({
     };
   }, []);
 
-  // 1. Primary Travel Nav Items (Always visible on desktop in a single sleek row)
+  // 1. Primary Travel Nav Items (Focused & sleek core travel links)
   const primaryNavItems = [
     { id: 'search', label: t('nav.flights', 'Flights'), icon: Plane },
     { id: 'hotels', label: t('nav.hotels', 'Hotels'), icon: Building2 },
     { id: 'packages', label: t('nav.holidays', 'Holidays'), icon: Palmtree, badge: 'HOT', badgeColor: '#f5af19' },
     { id: 'visa', label: t('nav.visa', 'Visa Desk'), icon: FileCheck2, badge: 'UAE', badgeColor: '#00e676' },
-    { id: 'manage_booking_action', label: t('nav.manageBooking', 'Manage Booking'), icon: FileText, badge: 'PNR', badgeColor: '#0284c7', action: onOpenManageBooking },
-    { id: 'trips', label: t('nav.myTrips', 'My Trips'), icon: Luggage, count: myTripsCount }
+    { id: 'manage_booking_action', label: t('nav.manageBooking', 'Manage Booking'), icon: FileText, badge: 'PNR', badgeColor: '#0284c7', action: onOpenManageBooking }
   ];
 
   // 2. Secondary Tools & Exploration (Organized in "More Services ▾" dropdown)
   const secondaryNavItems = [
+    { id: 'trips', label: t('nav.myTrips', 'My Trips & Bookings'), icon: Luggage, count: myTripsCount, desc: 'Manage your active & past bookings' },
     { id: 'ai', label: t('nav.skyGenie', 'SkyGenie AI Assistant'), icon: Bot, badge: 'AI 24/7', badgeColor: '#00d2ff', desc: 'Conversational travel concierge' },
     { id: 'status', label: t('nav.liveStatus', 'Live Flight Radar'), icon: Radio, badge: 'RADAR', badgeColor: '#00e676', desc: 'Real-time airborne telemetry' },
     { id: 'alerts_action', label: t('nav.priceAlerts', 'Price Alerts'), icon: Bell, badge: 'TRACK', badgeColor: '#f5af19', action: onOpenAlerts, desc: 'Instant fare drop alerts' },
@@ -461,6 +461,55 @@ export default function Navbar({
             )}
           </button>
 
+          {/* User Account / Profile Button (PINNED & PLACED IMMEDIATELY AFTER NOTIFICATIONS!) */}
+          <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+            <button 
+              type="button"
+              onClick={currentUser ? onOpenProfile : onOpenAuth}
+              className="navbar-user-profile-btn"
+              title={`Logged in as ${currentUser?.name || 'Thiru'} (${currentUser?.email || 'thiru1511@gmail.com'}) - Click to view profile`}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '3px 10px 3px 5px',
+                borderRadius: 20,
+                cursor: 'pointer',
+                height: 32,
+                whiteSpace: 'nowrap',
+                flexShrink: 0
+              }}
+            >
+              <div style={{
+                width: 24,
+                height: 24,
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 12,
+                fontWeight: 800,
+                color: '#ffffff',
+                boxShadow: '0 1px 4px rgba(2, 132, 199, 0.35)',
+                flexShrink: 0
+              }}>
+                {(currentUser?.name || 'Thiru')[0].toUpperCase()}
+              </div>
+              <span 
+                className="navbar-user-name" 
+                style={{ 
+                  fontWeight: 800, 
+                  fontSize: 13,
+                  letterSpacing: -0.2
+                }}
+              >
+                {currentUser?.name ? currentUser.name.split(' ')[0] : 'Thiru'}
+              </span>
+              <ChevronDown size={11} style={{ opacity: 0.65 }} />
+            </button>
+          </div>
+
           {/* Desktop Currency / Language / Theme */}
           <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
             <select
@@ -527,55 +576,6 @@ export default function Navbar({
               <option value="royal">👑 Royal</option>
               <option value="emerald">🌿 Emerald</option>
             </select>
-          </div>
-
-          {/* User Account / Profile Button (Prominently styled, high contrast, never cut off) */}
-          <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-            <button 
-              type="button"
-              onClick={currentUser ? onOpenProfile : onOpenAuth}
-              className="navbar-user-profile-btn"
-              title={`Logged in as ${currentUser?.name || 'Thiru'} (${currentUser?.email || 'thiru1511@gmail.com'}) - Click to view profile`}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                padding: '3px 10px 3px 5px',
-                borderRadius: 20,
-                cursor: 'pointer',
-                height: 32,
-                whiteSpace: 'nowrap',
-                flexShrink: 0
-              }}
-            >
-              <div style={{
-                width: 24,
-                height: 24,
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #0284c7, #2563eb)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 12,
-                fontWeight: 800,
-                color: '#ffffff',
-                boxShadow: '0 1px 4px rgba(2, 132, 199, 0.35)',
-                flexShrink: 0
-              }}>
-                {(currentUser?.name || 'Thiru')[0].toUpperCase()}
-              </div>
-              <span 
-                className="navbar-user-name" 
-                style={{ 
-                  fontWeight: 800, 
-                  fontSize: 13,
-                  letterSpacing: -0.2
-                }}
-              >
-                {currentUser?.name ? currentUser.name.split(' ')[0] : 'Thiru'}
-              </span>
-              <ChevronDown size={11} style={{ opacity: 0.65 }} />
-            </button>
           </div>
 
           {/* Mobile Hamburger Menu Toggle Button */}
