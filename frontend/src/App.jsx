@@ -948,6 +948,7 @@ export default function App() {
         {activeTab === 'map' && (
           <InteractiveFlightMap
             onSelectRoute={(from, to) => handleQuickPrompt(from, to)}
+            onNavigateToStatus={() => navigateTo('status')}
           />
         )}
 

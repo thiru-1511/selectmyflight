@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Globe, Plane, Navigation, ArrowRight } from 'lucide-react';
+import { Globe, Plane, Navigation, ArrowRight, Radio } from 'lucide-react';
 
 const CITIES = [
   { code: 'DEL', name: 'New Delhi', x: 670, y: 220, flights: 8 },
@@ -20,7 +20,7 @@ const ROUTES = [
   { from: 'LHR', to: 'JFK', d: 'M 420 130 Q 330 100 250 160' }
 ];
 
-export default function InteractiveFlightMap({ onSelectRoute }) {
+export default function InteractiveFlightMap({ onSelectRoute, onNavigateToStatus }) {
   const [selectedCity, setSelectedCity] = useState(CITIES[0]);
 
   return (
@@ -146,13 +146,38 @@ export default function InteractiveFlightMap({ onSelectRoute }) {
             </div>
           </div>
 
-          <button
-            onClick={() => onSelectRoute(selectedCity.code)}
-            className="btn-primary"
-            style={{ padding: '10px 20px', fontSize: 13 }}
-          >
-            Search Flights from {selectedCity.name} <ArrowRight size={14} />
-          </button>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            <button
+              onClick={() => onNavigateToStatus ? onNavigateToStatus() : (window.location.hash = '#status')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 7,
+                background: 'rgba(0, 230, 118, 0.12)',
+                border: '1.5px solid rgba(0, 230, 118, 0.45)',
+                color: '#00e676',
+                padding: '10px 18px',
+                borderRadius: 8,
+                fontSize: 13,
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              title="Track real flights live on airborne radar"
+            >
+              <Radio size={15} color="#00e676" />
+              <span>Track Real Flights on Live Radar</span>
+              <span className="live-dot" style={{ width: 6, height: 6 }} />
+            </button>
+
+            <button
+              onClick={() => onSelectRoute(selectedCity.code)}
+              className="btn-primary"
+              style={{ padding: '10px 20px', fontSize: 13 }}
+            >
+              Search Flights from {selectedCity.name} <ArrowRight size={14} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
