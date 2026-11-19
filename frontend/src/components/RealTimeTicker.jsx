@@ -115,7 +115,12 @@ export default function RealTimeTicker({ onOpenFeature }) {
           <span style={{ color: '#00e676', letterSpacing: 0.5, fontSize: 10 }}>{t('ticker.network', 'AIR NETWORK')}</span>
         </div>
 
-        <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(255, 255, 255, 0.05)', padding: '2px 6px', borderRadius: 4, color: '#94a3b8', fontSize: 11 }}>
+        <div 
+          onClick={() => onOpenFeature && onOpenFeature('status')}
+          className="desktop-only" 
+          style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(255, 255, 255, 0.05)', padding: '2px 6px', borderRadius: 4, color: '#94a3b8', fontSize: 11, cursor: 'pointer' }}
+          title="Click to open Live Flight Radar"
+        >
           <Plane size={11} color="#00d2ff" />
           <span><strong>{activeFlightsCount}</strong> {t('ticker.airborne', 'Airborne')}</span>
           <span style={{ color: '#475569', margin: '0 2px' }}>•</span>

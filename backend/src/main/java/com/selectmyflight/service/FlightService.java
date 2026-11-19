@@ -161,4 +161,45 @@ public class FlightService {
 
         return result;
     }
+
+    // Real-Time OpenSky ADS-B Radar Proxy (Bypasses browser CORS & rate limits)
+    public Map<String, Object> fetchLiveRadarAirbornePlanes(Double lamin, Double lomin, Double lamax, Double lomax) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            double minLat = (lamin != null) ? lamin : 18.0;
+            double minLon = (lomin != null) ? lomin : 70.0;
+            double maxLat = (lamax != null) ? lamax : 30.0;
+            double maxLon = (lomax != null) ? lomax : 88.0;
+
+            String targetUrl = String.format(java.util.Locale.US,
+                    "https://opensky-network.org/api/states/all?lamin=%.2f&lomin=%.2f&lamax=%.2f&lomax=%.2f",
+                    minLat, minLon, maxLat, maxLon);
+
+            java.net.http.HttpClient client = java.net.http.HttpClient.newBuilder()
+                    .connectTimeout(java.time.Duration.ofSeconds(6))
+                    .build();
+
+            java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
+                    .uri(java.net.URI.create(targetUrl))
+                    .timeout(java.time.Duration.ofSeconds(8))
+                    .header("User-Agent", "SelectMyFlight-LiveRadar/1.0")
+                    .GET()
+                    .build();
+
+            java.net.http.HttpResponse<String> response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
+
+            result.put("statusCode", response.statusCode());
+            if (response.statusCode() == 200) {
+                result.put("success", true);
+                result.put("rawBody", response.body());
+            } else {
+                result.put("success", false);
+                result.put("error", "OpenSky returned status: " + response.statusCode());
+            }
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("error", "Failed to contact OpenSky Network: " + e.getMessage());
+        }
+        return result;
+    }
 }

@@ -70,4 +70,14 @@ public class FlightController {
             @RequestParam(required = false, defaultValue = "aviationstack") String provider) {
         return ResponseEntity.ok(flightService.fetchLiveRealTimeFlight(flightNumber, apiKey, provider));
     }
+
+    // Real-Time OpenSky ADS-B Radar Proxy
+    @GetMapping("/live-radar")
+    public ResponseEntity<Map<String, Object>> getLiveRadarPlanes(
+            @RequestParam(required = false) Double lamin,
+            @RequestParam(required = false) Double lomin,
+            @RequestParam(required = false) Double lamax,
+            @RequestParam(required = false) Double lomax) {
+        return ResponseEntity.ok(flightService.fetchLiveRadarAirbornePlanes(lamin, lomin, lamax, lomax));
+    }
 }

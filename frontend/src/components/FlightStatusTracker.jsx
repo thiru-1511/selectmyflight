@@ -21,11 +21,22 @@ import { INITIAL_FLIGHTS } from '../data/mockFlights';
 import { API_BASE_URL } from '../services/api';
 import { useLanguage } from '../context/LanguageContext';
 
-export default function FlightStatusTracker() {
+export default function FlightStatusTracker({ initialFlightNumber = '', initialMode = 'airline' }) {
   const { t } = useLanguage();
-  const [trackerMode, setTrackerMode] = useState('airline'); // 'airline' or 'live_radar'
-  const [searchQuery, setSearchQuery] = useState('6E-2041');
+  const [trackerMode, setTrackerMode] = useState(initialMode || 'airline'); // 'airline' or 'live_radar'
+  const [searchQuery, setSearchQuery] = useState(initialFlightNumber || '6E-2041');
   const [activeFlight, setActiveFlight] = useState(INITIAL_FLIGHTS[0]);
+
+  // Synchronize with external navigation props
+  useEffect(() => {
+    if (initialMode) setTrackerMode(initialMode);
+    if (initialFlightNumber) {
+      setSearchQuery(initialFlightNumber);
+      const clean = initialFlightNumber.replace('-', '').replace(' ', '').toUpperCase();
+      const match = INITIAL_FLIGHTS.find(f => f.flightNumber.replace('-', '').toUpperCase() === clean);
+      if (match) setActiveFlight(match);
+    }
+  }, [initialFlightNumber, initialMode]);
 
   // Real-Time API Key & Provider Configuration
   const [apiKey, setApiKey] = useState(() => localStorage.getItem('smf_flight_api_key') || '');
@@ -115,17 +126,49 @@ export default function FlightStatusTracker() {
     return false;
   };
 
-  // Fetch real live aircraft airborne in the sky from OpenSky ADS-B API
+  // Fetch real live aircraft airborne in the sky from OpenSky ADS-B API (Backend Proxy -> Direct Fallback)
   const fetchLiveAirbornePlanes = async () => {
     setLoadingPlanes(true);
     try {
-      const res = await fetch('https://opensky-network.org/api/states/all?lamin=18&lomin=70&lamax=30&lomax=88', {
+      // 1. Try Spring Boot Backend Proxy first (bypasses browser CORS & rate limits)
+      const proxyRes = await fetch(`${API_BASE_URL}/flights/live-radar?lamin=18&lomin=70&lamax=30&lomax=88`, {
         signal: AbortSignal.timeout(6000)
+      });
+      if (proxyRes.ok) {
+        const proxyData = await proxyRes.json();
+        if (proxyData && proxyData.success && proxyData.rawBody) {
+          const parsedBody = typeof proxyData.rawBody === 'string' ? JSON.parse(proxyData.rawBody) : proxyData.rawBody;
+          if (parsedBody && parsedBody.states && parsedBody.states.length > 0) {
+            const parsed = parsedBody.states.slice(0, 12).map((st, idx) => ({
+              id: st[0] || `HEX-${idx}`,
+              callsign: (st[1] || 'COMMERCIAL').trim() || `FLIGHT-${idx + 101}`,
+              country: st[2] || 'International',
+              longitude: st[5] ? st[5].toFixed(2) : '77.10',
+              latitude: st[6] ? st[6].toFixed(2) : '28.55',
+              altitudeFt: st[7] ? Math.round(st[7] * 3.28084) : 32000,
+              speedKmh: st[9] ? Math.round(st[9] * 3.6) : 840,
+              heading: st[10] ? Math.round(st[10]) : 180,
+              onGround: Boolean(st[8])
+            }));
+            setLivePlanes(parsed);
+            setLastRefreshed(new Date().toLocaleTimeString());
+            return;
+          }
+        }
+      }
+    } catch (errProxy) {
+      console.warn('Backend live-radar proxy unavailable, trying direct fetch...', errProxy);
+    }
+
+    // 2. Direct browser fetch
+    try {
+      const res = await fetch('https://opensky-network.org/api/states/all?lamin=18&lomin=70&lamax=30&lomax=88', {
+        signal: AbortSignal.timeout(5000)
       });
       if (res.ok) {
         const data = await res.json();
         if (data && data.states && data.states.length > 0) {
-          const parsed = data.states.slice(0, 8).map((st, idx) => ({
+          const parsed = data.states.slice(0, 10).map((st, idx) => ({
             id: st[0] || `HEX-${idx}`,
             callsign: (st[1] || 'COMMERCIAL').trim() || `FLIGHT-${idx + 101}`,
             country: st[2] || 'International',
@@ -147,7 +190,7 @@ export default function FlightStatusTracker() {
       setLoadingPlanes(false);
     }
 
-    // Telemetry fallback
+    // 3. Telemetry fallback
     setLivePlanes([
       { id: '801645', callsign: 'AIC9WZ', airline: 'Air India', country: 'India', altitudeFt: 33025, speedKmh: 771, latitude: '25.65', longitude: '76.88', heading: 178, onGround: false },
       { id: '801648', callsign: 'IGO79MA', airline: 'IndiGo', country: 'India', altitudeFt: 37950, speedKmh: 796, latitude: '23.85', longitude: '72.84', heading: 226, onGround: false },
@@ -164,9 +207,38 @@ export default function FlightStatusTracker() {
     }
   }, [trackerMode]);
 
+  // Load a live ADS-B plane directly into the telemetry inspection view
+  const handleSelectLivePlane = (plane) => {
+    setActiveFlight({
+      airlineName: plane.airline || plane.country || 'Live Commercial Flight',
+      flightNumber: plane.callsign,
+      aircraftModel: 'Commercial Jetliner (ADS-B Transponder)',
+      originCode: 'AIR',
+      originName: 'Live Airspace',
+      destinationCode: 'RADAR',
+      destinationName: `${plane.country} Air Corridor`,
+      departureTime: 'Airborne',
+      arrivalTime: 'Cruising',
+      status: 'AIRBORNE',
+      terminal: 'Active Sky',
+      gate: 'ADS-B',
+      baggage: 'In Transit',
+      delayMinutes: 0,
+      liveTelemetry: {
+        altitude: plane.altitudeFt,
+        speed: plane.speedKmh,
+        lat: plane.latitude,
+        lon: plane.longitude
+      },
+      isLiveApi: true
+    });
+    setTrackerMode('airline');
+  };
+
   const handleSearch = async (e) => {
     e.preventDefault();
     const query = searchQuery.trim().toUpperCase();
+    if (!query) return;
 
     // 1. If user provided a live API key, query the real external API first!
     if (apiKey && apiKey.trim()) {
@@ -174,7 +246,15 @@ export default function FlightStatusTracker() {
       if (found) return;
     }
 
-    // 2. Otherwise search internal flights repository
+    // 2. Check if query matches any live ADS-B airborne plane on radar
+    const cleanQ = query.replace('-', '').replace(' ', '');
+    const liveMatch = livePlanes.find(p => p.callsign.toUpperCase().replace('-', '').replace(' ', '').includes(cleanQ));
+    if (liveMatch) {
+      handleSelectLivePlane(liveMatch);
+      return;
+    }
+
+    // 3. Otherwise search internal flights repository
     const match = INITIAL_FLIGHTS.find(f => 
       f.flightNumber.toUpperCase().includes(query) || 
       f.airlineName.toUpperCase().includes(query) ||
@@ -183,6 +263,7 @@ export default function FlightStatusTracker() {
     if (match) {
       setActiveFlight(match);
     }
+  };
   };
 
   return (
@@ -646,18 +727,22 @@ export default function FlightStatusTracker() {
                   <th style={{ padding: '10px' }}>{t('tracker.thSpeed', 'Ground Speed')}</th>
                   <th style={{ padding: '10px' }}>{t('tracker.thCoords', 'Coordinates (Lat, Lon)')}</th>
                   <th style={{ padding: '10px' }}>{t('tracker.thTransponder', 'Transponder')}</th>
+                  <th style={{ padding: '10px', textAlign: 'right' }}>Live Tracking</th>
                 </tr>
               </thead>
               <tbody>
                 {livePlanes.map((plane) => (
                   <tr
                     key={plane.id}
+                    onClick={() => handleSelectLivePlane(plane)}
                     style={{
                       borderBottom: '1px solid var(--card-border, #e2e8f0)',
-                      transition: 'background 0.2s'
+                      transition: 'background 0.2s',
+                      cursor: 'pointer'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(2, 132, 199, 0.06)'}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(2, 132, 199, 0.08)'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                    title={`Click to track ${plane.callsign} live`}
                   >
                     <td style={{ padding: '12px 10px', fontWeight: 800, color: 'var(--accent-cyan, #0284c7)', display: 'flex', alignItems: 'center', gap: 6 }}>
                       <Plane size={15} style={{ transform: `rotate(${plane.heading || 45}deg)` }} />
@@ -687,6 +772,30 @@ export default function FlightStatusTracker() {
                       }}>
                         LIVE ADS-B
                       </span>
+                    </td>
+                    <td style={{ padding: '12px 10px', textAlign: 'right' }}>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleSelectLivePlane(plane);
+                        }}
+                        style={{
+                          background: 'rgba(0, 210, 255, 0.12)',
+                          color: '#00d2ff',
+                          border: '1px solid rgba(0, 210, 255, 0.35)',
+                          padding: '5px 12px',
+                          borderRadius: 6,
+                          fontSize: 11,
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 4
+                        }}
+                      >
+                        Track Live ↗
+                      </button>
                     </td>
                   </tr>
                 ))}

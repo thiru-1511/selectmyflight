@@ -82,6 +82,19 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Real Flight Tracker parameters (Flight number & radar mode)
+  const [trackerConfig, setTrackerConfig] = useState({ flightNumber: '6E-2041', mode: 'airline' });
+
+  const handleOpenRadarStatus = (mode = 'live_radar', flightNumber = '') => {
+    setTrackerConfig({ flightNumber: flightNumber || '6E-2041', mode: mode || 'live_radar' });
+    navigateTo('status');
+  };
+
+  const handleTrackFlightNumber = (flightNumber) => {
+    setTrackerConfig({ flightNumber: flightNumber, mode: 'airline' });
+    navigateTo('status');
+  };
+
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
@@ -348,7 +361,7 @@ export default function App() {
         navigateTo('itinerary');
         break;
       case 'status':
-        navigateTo('status');
+        handleOpenRadarStatus('live_radar');
         break;
       case 'refund':
         setIsRefundTrackerOpen(true);
@@ -941,14 +954,18 @@ export default function App() {
 
         {/* TAB 3: Real-Time Flight Status Tracker */}
         {activeTab === 'status' && (
-          <FlightStatusTracker />
+          <FlightStatusTracker
+            initialFlightNumber={trackerConfig.flightNumber}
+            initialMode={trackerConfig.mode}
+          />
         )}
 
         {/* TAB 4: Interactive Global Flight Map */}
         {activeTab === 'map' && (
           <InteractiveFlightMap
             onSelectRoute={(from, to) => handleQuickPrompt(from, to)}
-            onNavigateToStatus={() => navigateTo('status')}
+            onNavigateToStatus={(mode) => handleOpenRadarStatus(mode || 'live_radar')}
+            onTrackFlight={handleTrackFlightNumber}
           />
         )}
 
