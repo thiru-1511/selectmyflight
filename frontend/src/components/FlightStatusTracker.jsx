@@ -264,7 +264,6 @@ export default function FlightStatusTracker({ initialFlightNumber = '', initialM
       setActiveFlight(match);
     }
   };
-  };
 
   return (
     <div className="flight-tracker-container" style={{

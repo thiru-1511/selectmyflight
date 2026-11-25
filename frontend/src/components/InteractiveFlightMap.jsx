@@ -359,7 +359,3 @@ export default function InteractiveFlightMap({ onSelectRoute, onNavigateToStatus
     </div>
   );
 }
-      </div>
-    </div>
-  );
-}

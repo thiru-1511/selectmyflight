@@ -1,19 +1,20 @@
+
 import React, { useState } from 'react';
-import { 
-  X, 
-  Bed, 
-  Bath, 
-  Maximize2, 
-  Eye, 
-  ShieldCheck, 
-  Sparkles, 
-  Check, 
-  Coffee, 
-  Tv, 
-  Wifi, 
-  Compass, 
-  Sliders, 
-  ChevronLeft, 
+import {
+  X,
+  Bed,
+  Bath,
+  Maximize2,
+  Eye,
+  ShieldCheck,
+  Sparkles,
+  Check,
+  Coffee,
+  Tv,
+  Wifi,
+  Compass,
+  Sliders,
+  ChevronLeft,
   ChevronRight,
   Sun,
   VolumeX,
@@ -73,9 +74,9 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
   const currencySymbol = currency === 'USD' ? '$' : currency === 'EUR' ? '€' : currency === 'GBP' ? '£' : '₹';
 
   return (
-    <div 
-      className="modal-overlay" 
-      onClick={onClose} 
+    <div
+      className="modal-overlay"
+      onClick={onClose}
       style={{
         zIndex: 1800,
         padding: 'clamp(8px, 2vw, 20px)',
@@ -87,9 +88,9 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
         WebkitBackdropFilter: 'blur(20px)'
       }}
     >
-      <div 
-        className="modal-content" 
-        onClick={(e) => e.stopPropagation()} 
+      <div
+        className="modal-content"
+        onClick={(e) => e.stopPropagation()}
         style={{
           width: '100%',
           maxWidth: 960,
@@ -189,8 +190,8 @@ export default function RoomInteriorModal({ room, hotel, currency = 'INR', onClo
             border: '1px solid rgba(255, 255, 255, 0.12)',
             boxShadow: 'inset 0 0 60px rgba(0,0,0,0.6)'
           }}>
-            <img 
-              src={currentView.image} 
+            <img
+              src={currentView.image}
               alt={currentView.title}
               style={{
                 width: '100%',
