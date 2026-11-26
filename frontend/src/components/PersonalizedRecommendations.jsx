@@ -37,7 +37,7 @@ export default function PersonalizedRecommendations({
 
   const preferredClass = user?.preferredClass || 'Economy';
   const frequentFlyerTier = user?.frequentFlyerTier || 'Gold Elite';
-  const userName = user?.name ? user.name.split(' ')[0] : 'Thiru';
+  const userName = user?.name ? user.name.split(' ')[0] : 'Traveler';
 
   const formatPrice = (amount) => {
     if (currency === 'USD') return `$${Math.round(amount / 83)}`;

@@ -51,9 +51,9 @@ export default function HolidayPackagesPortal({ currency = 'INR', _onClose, onPa
 
   // Custom Quote Form State
   const [quoteForm, setQuoteForm] = useState({
-    name: localStorage.getItem('smf_verified_name') || 'Thiru Selvan',
-    email: localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com',
-    phone: '+91 98765 43210',
+    name: localStorage.getItem('smf_verified_name') || '',
+    email: localStorage.getItem('smf_verified_email') || '',
+    phone: '',
     destination: 'Dubai & Abu Dhabi',
     travelDate: new Date(Date.now() + 15 * 86400000).toISOString().split('T')[0],
     adults: 2,

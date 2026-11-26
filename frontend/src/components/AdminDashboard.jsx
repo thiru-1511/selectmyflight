@@ -67,8 +67,8 @@ const getRealCustomers = (currentUser = null) => {
     });
 
     // Include the real verified user or administrator
-    const verifiedEmail = currentUser?.email || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com';
-    const verifiedName = currentUser?.name || localStorage.getItem('smf_verified_name') || 'Thiru (Admin)';
+    const verifiedEmail = currentUser?.email || localStorage.getItem('smf_verified_email');
+    const verifiedName = currentUser?.name || localStorage.getItem('smf_verified_name') || 'Administrator';
     
     if (verifiedEmail && !list.some(c => c.email && c.email.toLowerCase().trim() === verifiedEmail.toLowerCase().trim())) {
       list.unshift({

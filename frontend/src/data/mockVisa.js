@@ -144,7 +144,7 @@ export const VISA_TYPES = [
 export const INITIAL_VISA_APPLICATIONS = [
   {
     applicationId: 'SMF-VISA-4091',
-    applicantName: 'Thiru Selvan',
+    applicantName: 'Alex Johnson',
     passportNumber: 'Z8942150',
     visaType: 'Dubai / UAE 30-Day Tourist Visa',
     country: 'United Arab Emirates',

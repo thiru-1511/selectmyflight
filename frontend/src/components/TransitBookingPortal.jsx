@@ -34,7 +34,7 @@ export default function TransitBookingPortal({
   // Booking details modal
   const [activeBookingRoute, setActiveBookingRoute] = useState(null);
   const [passengerForm, setPassengerForm] = useState({
-    name: currentUser?.name || localStorage.getItem('smf_verified_name') || 'Thiru',
+    name: currentUser?.name || localStorage.getItem('smf_verified_name') || '',
     age: '28',
     gender: 'Male',
     berthPref: 'Window / Lower'

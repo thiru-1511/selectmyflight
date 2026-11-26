@@ -207,9 +207,9 @@ export default function HotelDetailsModal({
   const [addOnLimo, setAddOnLimo] = useState(false);
 
   const [guestForm, setGuestForm] = useState({
-    name: localStorage.getItem('smf_verified_name') || 'Thiru',
-    email: localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com',
-    phone: '+91 98765 43210',
+    name: localStorage.getItem('smf_verified_name') || '',
+    email: localStorage.getItem('smf_verified_email') || '',
+    phone: '',
     specialRequest: 'Quiet high-floor room preferred'
   });
 

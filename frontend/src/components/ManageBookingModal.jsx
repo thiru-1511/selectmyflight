@@ -106,11 +106,11 @@ export default function ManageBookingModal({
             gate: 'Gate A08',
             seatNumber: '02A (Suite)',
             passengers: [
-              { name: 'Thiru Selvan', seatNumber: '02A', type: 'Adult' }
+              { name: 'Alex Johnson', seatNumber: '02A', type: 'Adult' }
             ],
             totalAmount: 18500,
             status: 'CONFIRMED',
-            contactEmail: 'thiru1511@gmail.com',
+            contactEmail: 'alex.johnson@example.com',
             contactPhone: '+91 98765 43210'
           };
         }

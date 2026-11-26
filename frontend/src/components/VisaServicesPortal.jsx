@@ -49,10 +49,10 @@ export default function VisaServicesPortal({ currency = 'INR', _onClose, onNavig
   const [isExpressSelected, setIsExpressSelected] = useState(false);
   const [uploadError, setUploadError] = useState(null);
   const [applicantForm, setApplicantForm] = useState({
-    fullName: localStorage.getItem('smf_verified_name') || 'Thiru Selvan',
-    passportNumber: 'Z8942150',
-    email: localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com',
-    phone: '+91 98765 43210',
+    fullName: localStorage.getItem('smf_verified_name') || '',
+    passportNumber: '',
+    email: localStorage.getItem('smf_verified_email') || '',
+    phone: '',
     nationality: 'Indian',
     travelDate: new Date(Date.now() + 10 * 86400000).toISOString().split('T')[0],
     passportFront: null,

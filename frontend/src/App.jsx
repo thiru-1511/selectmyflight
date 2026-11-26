@@ -151,36 +151,31 @@ export default function App() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // User Profile & Authentication State (Guaranteed default to Thiru)
+  // User Profile & Authentication State (Default to null / guest unless user explicitly logged in)
   const [currentUser, setCurrentUser] = useState(() => {
     try {
+      // Purge any legacy hardcoded/personal default email from localStorage
+      const savedEmail = localStorage.getItem('smf_verified_email');
+      if (savedEmail === 'thiru1511@gmail.com' || savedEmail === 'thiruvasan07@gmail.com') {
+        localStorage.removeItem('smf_verified_email');
+        localStorage.removeItem('smf_verified_name');
+        localStorage.removeItem('smf_user');
+      }
+
       const saved = localStorage.getItem('smf_user');
       if (saved && saved !== 'null' && saved !== 'undefined') {
         const parsed = JSON.parse(saved);
-        if (parsed && typeof parsed === 'object' && parsed.name) {
+        if (parsed && typeof parsed === 'object' && parsed.email) {
+          if (parsed.email === 'thiru1511@gmail.com' || parsed.email === 'thiruvasan07@gmail.com') {
+            localStorage.removeItem('smf_user');
+            return null;
+          }
           return parsed;
         }
       }
-      const verifiedName = localStorage.getItem('smf_verified_name');
-      const verifiedEmail = localStorage.getItem('smf_verified_email');
-      const defaultUser = {
-        name: verifiedName || 'Thiru',
-        email: verifiedEmail || 'thiru1511@gmail.com',
-        phone: '+91 98765 43210',
-        role: 'ROLE_TRAVELER',
-        passportNumber: 'Z8923411',
-        frequentFlyerTier: 'Gold Elite',
-        totalBookings: 3
-      };
-      localStorage.setItem('smf_user', JSON.stringify(defaultUser));
-      return defaultUser;
+      return null;
     } catch {
-      return {
-        name: 'Thiru',
-        email: 'thiru1511@gmail.com',
-        phone: '+91 98765 43210',
-        role: 'ROLE_TRAVELER'
-      };
+      return null;
     }
   });
 
@@ -548,8 +543,8 @@ export default function App() {
       setConfirmedETicket(safeConfirmed);
       
       // Add confirmation notification with Email and SMS dispatch confirmation
-      const customerEmail = currentUser?.email || localStorage.getItem('smf_verified_email') || safeConfirmed.contactEmail || 'customer@gmail.com';
-      const customerPhone = currentUser?.phone || safeConfirmed.contactPhone || '+91 98765 43210';
+      const customerEmail = safeConfirmed.contactEmail || currentUser?.email || localStorage.getItem('smf_verified_email') || 'customer@selectmyflight.com';
+      const customerPhone = safeConfirmed.contactPhone || currentUser?.phone || '+91 98765 43210';
       setNotifications(prev => [
         {
           id: Date.now(),

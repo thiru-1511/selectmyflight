@@ -470,7 +470,7 @@ export default function Navbar({
               type="button"
               onClick={currentUser ? onOpenProfile : onOpenAuth}
               className="navbar-user-profile-btn"
-              title={currentUser ? `Logged in as ${currentUser.name || 'Thiru'} (${currentUser.email || ''}) - Click to view profile` : 'Sign In or Create Account'}
+              title={currentUser ? `Logged in as ${currentUser.name || 'User'} (${currentUser.email || ''}) - Click to view profile` : 'Sign In or Create Account'}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -509,7 +509,7 @@ export default function Navbar({
                       letterSpacing: -0.2
                     }}
                   >
-                    {currentUser.name ? currentUser.name.split(' ')[0] : 'Thiru'}
+                    {currentUser.name ? currentUser.name.split(' ')[0] : 'User'}
                   </span>
                   <ChevronDown size={11} style={{ opacity: 0.65 }} />
                 </>
