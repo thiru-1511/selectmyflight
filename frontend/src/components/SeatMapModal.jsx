@@ -240,13 +240,14 @@ export default function SeatMapModal({
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose} style={{ zIndex: 1500, padding: 'clamp(10px, 2vw, 20px)' }}>
+    <div className="modal-overlay" onClick={onClose} style={{ zIndex: 1500, padding: 'clamp(6px, 2vw, 20px)' }}>
       <div 
-        className="modal-content booking-3d-backdrop" 
+        className="modal-content booking-3d-backdrop seat-map-modal-card" 
         onClick={(e) => e.stopPropagation()} 
         style={{ 
           maxWidth: 980, 
-          maxHeight: '94vh', 
+          width: '100%',
+          maxHeight: '96vh', 
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
           position: 'relative',
@@ -268,8 +269,8 @@ export default function SeatMapModal({
 
         {/* Header */}
         <div style={{
-          padding: '18px 24px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          padding: 'clamp(12px, 2.5vw, 18px) clamp(14px, 3vw, 24px)',
+          borderBottom: '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -277,7 +278,8 @@ export default function SeatMapModal({
           position: 'sticky',
           top: 0,
           zIndex: 10,
-          backdropFilter: 'blur(16px)'
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             {activeFlight?.airlineLogo ? (
@@ -320,7 +322,7 @@ export default function SeatMapModal({
             )}
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                <h3 style={{ fontSize: 'clamp(17px, 2.5vw, 21px)', fontWeight: 900, color: 'var(--text-main, #0f172a)', margin: 0 }}>
+                <h3 style={{ fontSize: 'clamp(16px, 2.5vw, 21px)', fontWeight: 900, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                   💺 {activeFlight?.airlineName || 'Airline'} {t('seatmap.title', 'Seat Selection')}
                 </h3>
                 {activeFlight?.isLiveDuffel && (
@@ -353,7 +355,7 @@ export default function SeatMapModal({
                   </span>
                 )}
               </div>
-              <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0 0' }}>
+              <p style={{ fontSize: 12.5, color: 'var(--text-muted, #94a3b8)', margin: '4px 0 0 0' }}>
                 Flight {activeFlight?.flightNumber || 'SM-101'} • {activeFlight?.originCode} ➔ {activeFlight?.destinationCode} ({activeFlight?.aircraftModel || 'Boeing 787-9 Dreamliner'})
               </p>
             </div>
@@ -381,21 +383,21 @@ export default function SeatMapModal({
 
         {/* Passenger Count & Active Passenger Assignment Strip */}
         <div style={{
-          padding: '14px 24px',
+          padding: 'clamp(10px, 2vw, 14px) clamp(12px, 3vw, 24px)',
           background: 'linear-gradient(90deg, rgba(0, 210, 255, 0.07) 0%, rgba(245, 175, 25, 0.05) 100%)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          borderBottom: '1px solid var(--card-border, rgba(255, 255, 255, 0.08))',
           display: 'flex',
           flexDirection: 'column',
-          gap: 12
+          gap: 10
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
             {/* Passenger Counter */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#00d2ff', fontSize: 13, fontWeight: 800 }}>
-                <Users size={18} />
-                <span>{t('seatmap.travelersCount', 'Number of Travelers:')}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--accent-cyan, #00d2ff)', fontSize: 13, fontWeight: 800 }}>
+                <Users size={16} />
+                <span>{t('seatmap.travelersCount', 'Travelers:')}</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(0, 0, 0, 0.4)', borderRadius: 8, border: '1px solid rgba(0, 210, 255, 0.3)', padding: '2px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(0, 0, 0, 0.4)', borderRadius: 8, border: '1px solid var(--accent-cyan, rgba(0, 210, 255, 0.3))', padding: '2px' }}>
                 <button
                   type="button"
                   onClick={() => handlePassengerCountChange(passengerCount - 1)}
@@ -403,7 +405,7 @@ export default function SeatMapModal({
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: passengerCount <= 1 ? '#475569' : '#00d2ff',
+                    color: passengerCount <= 1 ? '#475569' : 'var(--accent-cyan, #00d2ff)',
                     padding: '4px 8px',
                     cursor: passengerCount <= 1 ? 'not-allowed' : 'pointer',
                     display: 'flex',
@@ -411,9 +413,9 @@ export default function SeatMapModal({
                   }}
                   title="Remove passenger"
                 >
-                  <Minus size={14} />
+                  <Minus size={13} />
                 </button>
-                <span style={{ color: '#fff', fontWeight: 900, fontSize: 14, minWidth: 24, textAlign: 'center' }}>
+                <span style={{ color: '#fff', fontWeight: 900, fontSize: 13, minWidth: 22, textAlign: 'center' }}>
                   {passengerCount}
                 </span>
                 <button
@@ -423,7 +425,7 @@ export default function SeatMapModal({
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: passengerCount >= 6 ? '#475569' : '#00d2ff',
+                    color: passengerCount >= 6 ? '#475569' : 'var(--accent-cyan, #00d2ff)',
                     padding: '4px 8px',
                     cursor: passengerCount >= 6 ? 'not-allowed' : 'pointer',
                     display: 'flex',
@@ -431,23 +433,23 @@ export default function SeatMapModal({
                   }}
                   title="Add passenger"
                 >
-                  <Plus size={14} />
+                  <Plus size={13} />
                 </button>
               </div>
-              <span style={{ fontSize: 11, color: '#94a3b8' }}>
-                ({passengerCount} {passengerCount === 1 ? 'Passenger' : 'Passengers • Multi-Seat Enabled'})
+              <span style={{ fontSize: 11, color: 'var(--text-muted, #94a3b8)' }}>
+                ({passengerCount} {passengerCount === 1 ? 'Traveler' : 'Travelers • Multi-Seat'})
               </span>
             </div>
 
             {/* Hint */}
-            <div style={{ fontSize: 12, color: '#00e676', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
-              <Sparkles size={14} />
-              <span>{t('seatmap.assignHint', 'Tap a passenger tab below to assign their individual seat:')}</span>
+            <div style={{ fontSize: 11.5, color: '#00e676', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 5 }}>
+              <Sparkles size={13} />
+              <span>{t('seatmap.assignHint', 'Tap passenger below to assign seat:')}</span>
             </div>
           </div>
 
-          {/* Passenger Tabs */}
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {/* Passenger Tabs (Touch-Scrollable Horizontal Bar) */}
+          <div className="scroll-touch-x" style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 4 }}>
             {Array.from({ length: passengerCount }).map((_, idx) => {
               const seatCode = selectedSeats[idx] || 'Not Selected';
               const isSelected = activePassengerIndex === idx;
@@ -459,23 +461,25 @@ export default function SeatMapModal({
                   type="button"
                   onClick={() => setActivePassengerIndex(idx)}
                   style={{
-                    display: 'flex',
+                    display: 'inline-flex',
                     alignItems: 'center',
-                    gap: 8,
-                    padding: '6px 14px',
+                    gap: 6,
+                    padding: '5px 10px',
                     borderRadius: 8,
                     background: isSelected ? colorInfo.bg : 'rgba(255, 255, 255, 0.04)',
-                    border: isSelected ? `2px solid ${colorInfo.border}` : '1px solid rgba(255, 255, 255, 0.1)',
+                    border: isSelected ? `2px solid ${colorInfo.border}` : '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
                     color: isSelected ? '#fff' : '#cbd5e1',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease',
-                    boxShadow: isSelected ? `0 0 14px ${colorInfo.border}44` : 'none'
+                    boxShadow: isSelected ? `0 0 12px ${colorInfo.border}44` : 'none',
+                    flexShrink: 0,
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   <span style={{
                     background: colorInfo.border,
                     color: '#000',
-                    fontSize: 10,
+                    fontSize: 9.5,
                     fontWeight: 900,
                     padding: '1px 5px',
                     borderRadius: 4
@@ -486,11 +490,11 @@ export default function SeatMapModal({
                     <div style={{ fontSize: 11, fontWeight: 800, color: isSelected ? colorInfo.text : '#fff' }}>
                       Passenger {idx + 1}
                     </div>
-                    <div style={{ fontSize: 10, color: seatCode !== 'Not Selected' ? '#00e676' : '#94a3b8', fontWeight: 700 }}>
+                    <div style={{ fontSize: 10, color: seatCode !== 'Not Selected' ? '#00e676' : 'var(--text-muted, #94a3b8)', fontWeight: 700 }}>
                       Seat: {seatCode}
                     </div>
                   </div>
-                  {isSelected && <CheckCircle2 size={13} color={colorInfo.border} />}
+                  {isSelected && <CheckCircle2 size={12} color={colorInfo.border} />}
                 </button>
               );
             })}
@@ -499,18 +503,18 @@ export default function SeatMapModal({
 
         {/* Fleet Model Selector & Quick Pick Groups */}
         <div style={{
-          padding: '10px 24px',
+          padding: '8px clamp(12px, 3vw, 24px)',
           background: 'rgba(0, 0, 0, 0.2)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+          borderBottom: '1px solid var(--card-border, rgba(255, 255, 255, 0.06))',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: 10
+          gap: 8
         }}>
           {/* Quick Preset Pairs */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-            <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 700 }}>Quick Pick Groups:</span>
+          <div className="scroll-touch-x" style={{ display: 'flex', alignItems: 'center', gap: 6, overflowX: 'auto', flex: '1 1 auto', minWidth: 0, paddingBottom: 2 }}>
+            <span style={{ fontSize: 11, color: 'var(--text-muted, #94a3b8)', fontWeight: 700, flexShrink: 0 }}>Quick Pick:</span>
             <button
               type="button"
               onClick={() => handleQuickPickGroup(['01A', '01C'])}
@@ -518,11 +522,13 @@ export default function SeatMapModal({
                 background: selectedSeats.includes('01A') && selectedSeats.includes('01C') ? 'rgba(245, 175, 25, 0.3)' : 'rgba(245, 175, 25, 0.1)',
                 border: '1px solid #f5af19',
                 color: '#f5af19',
-                padding: '3px 9px',
+                padding: '3px 8px',
                 borderRadius: 6,
-                fontSize: 11,
+                fontSize: 10.5,
                 fontWeight: 800,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
               }}
             >
               👑 2 Business (01A, 01C)
@@ -532,16 +538,18 @@ export default function SeatMapModal({
               onClick={() => handleQuickPickGroup(['03A', '03B'])}
               style={{
                 background: selectedSeats.includes('03A') && selectedSeats.includes('03B') ? 'rgba(0, 210, 255, 0.3)' : 'rgba(0, 210, 255, 0.1)',
-                border: '1px solid #00d2ff',
-                color: '#00d2ff',
-                padding: '3px 9px',
+                border: '1px solid var(--accent-cyan, #00d2ff)',
+                color: 'var(--accent-cyan, #00d2ff)',
+                padding: '3px 8px',
                 borderRadius: 6,
-                fontSize: 11,
+                fontSize: 10.5,
                 fontWeight: 800,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
               }}
             >
-              🚀 2 Extra Legroom (03A, 03B)
+              🚀 2 Legroom (03A, 03B)
             </button>
             <button
               type="button"
@@ -550,11 +558,13 @@ export default function SeatMapModal({
                 background: selectedSeats.includes('04A') && selectedSeats.includes('04B') && selectedSeats.includes('04D') ? 'rgba(0, 230, 118, 0.3)' : 'rgba(255, 255, 255, 0.06)',
                 border: '1px solid #00e676',
                 color: '#00e676',
-                padding: '3px 9px',
+                padding: '3px 8px',
                 borderRadius: 6,
-                fontSize: 11,
+                fontSize: 10.5,
                 fontWeight: 800,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
               }}
             >
               👨‍👩‍👦 3 Family (Row 4)
@@ -562,15 +572,15 @@ export default function SeatMapModal({
           </div>
 
           {/* Aircraft Switcher */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Plane size={13} color="#00d2ff" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+            <Plane size={13} color="var(--accent-cyan, #00d2ff)" />
             <select
               value={activeFlight?.aircraftModel || 'Boeing 787-9 Dreamliner'}
               onChange={(e) => setActiveFlight(prev => ({ ...prev, aircraftModel: e.target.value }))}
               style={{
-                background: '#111a33',
-                border: '1px solid rgba(0, 210, 255, 0.3)',
-                color: '#00d2ff',
+                background: 'var(--modal-bg, #111a33)',
+                border: '1px solid var(--accent-cyan, rgba(0, 210, 255, 0.3))',
+                color: 'var(--accent-cyan, #00d2ff)',
                 fontSize: 11,
                 fontWeight: 700,
                 padding: '3px 8px',
@@ -589,11 +599,11 @@ export default function SeatMapModal({
         </div>
 
         {/* Modal Body */}
-        <div style={{
+        <div className="seat-modal-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
-          gap: 20,
-          padding: 'clamp(14px, 2.5vw, 24px)'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: 16,
+          padding: 'clamp(12px, 2.5vw, 20px)'
         }}>
           {/* Left: Aircraft Visual Seat Grid */}
           <div>
@@ -657,24 +667,26 @@ export default function SeatMapModal({
             </div>
 
             {/* Visual Aircraft Body Frame */}
-            <div style={{
+            <div className="aircraft-fuselage-frame" style={{
               background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(13, 22, 43, 0.8) 100%)',
               border: '2px solid rgba(0, 210, 255, 0.25)',
-              borderRadius: '70px 70px 24px 24px',
-              padding: '22px 14px',
+              borderRadius: '50px 50px 20px 20px',
+              padding: 'clamp(14px, 3vw, 20px) clamp(6px, 2vw, 14px)',
               position: 'relative',
-              overflowX: 'auto'
+              overflowX: 'auto',
+              maxWidth: '100%',
+              margin: '0 auto'
             }}>
               {/* Cockpit Nose Indicator */}
               <div style={{
                 textAlign: 'center',
-                fontSize: 11,
-                color: '#00d2ff',
+                fontSize: 10,
+                color: 'var(--accent-cyan, #00d2ff)',
                 fontWeight: 900,
-                letterSpacing: 2,
+                letterSpacing: 1.5,
                 textTransform: 'uppercase',
-                marginBottom: 16,
-                padding: '4px',
+                marginBottom: 14,
+                padding: '4px 8px',
                 background: 'rgba(0, 210, 255, 0.08)',
                 borderRadius: 20
               }}>
@@ -682,15 +694,15 @@ export default function SeatMapModal({
               </div>
 
               {/* Rows Container */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 260 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 220, alignItems: 'center' }}>
                 {rows.map((rowNum) => {
                   const isBusiness = rowNum <= 2;
                   const isExtraLegroom = rowNum === 3;
 
                   return (
-                    <div key={rowNum} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                    <div key={rowNum} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'clamp(3px, 1vw, 6px)', width: '100%' }}>
                       {/* Left 3 Seats (A, B, C) */}
-                      <div style={{ display: 'flex', gap: 6 }}>
+                      <div style={{ display: 'flex', gap: 'clamp(3px, 1vw, 6px)' }}>
                         {leftCols.map((col) => {
                           const seatCode = `${rowNum < 10 ? '0' + rowNum : rowNum}${col}`;
                           const isBooked = bookedSeats.includes(seatCode);
@@ -721,14 +733,15 @@ export default function SeatMapModal({
                               disabled={isBooked}
                               onClick={() => handleSeatClick(seatCode)}
                               title={isBooked ? `${seatCode} (Occupied)` : isSelected ? `${seatCode} (Passenger ${seatPassengerIndex + 1})` : `${seatCode} - ${getSeatClass(rowNum)} (+${currencySymbol}${convertPrice(getSeatPrice(rowNum, col))})`}
+                              className="cabin-seat-btn"
                               style={{
-                                width: 38,
-                                height: 38,
-                                borderRadius: 7,
+                                width: 'clamp(32px, 7.8vw, 38px)',
+                                height: 'clamp(32px, 7.8vw, 38px)',
+                                borderRadius: 6,
                                 background: bgColor,
                                 border: isSelected ? `2px solid ${passengerColor.border}` : `1px solid ${borderColor}`,
                                 color: isSelected ? '#000' : isBooked ? '#475569' : '#fff',
-                                fontSize: 10,
+                                fontSize: 'clamp(9px, 2.2vw, 10.5px)',
                                 fontWeight: 900,
                                 cursor: isBooked ? 'not-allowed' : 'pointer',
                                 transition: 'all 0.15s ease',
@@ -737,12 +750,13 @@ export default function SeatMapModal({
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 position: 'relative',
-                                boxShadow: isSelected ? `0 0 12px ${passengerColor.border}` : 'none'
+                                boxShadow: isSelected ? `0 0 10px ${passengerColor.border}` : 'none',
+                                padding: 0
                               }}
                             >
                               <span>{seatCode}</span>
                               {isSelected ? (
-                                <span style={{ fontSize: 9, fontWeight: 900, background: '#000', color: passengerColor.border, padding: '0 3px', borderRadius: 3, marginTop: 1 }}>
+                                <span style={{ fontSize: 8, fontWeight: 900, background: '#000', color: passengerColor.border, padding: '0 2px', borderRadius: 2, marginTop: 1, lineHeight: 1 }}>
                                   {passengerColor.badge}
                                 </span>
                               ) : null}
@@ -752,12 +766,12 @@ export default function SeatMapModal({
                       </div>
 
                       {/* Aisle */}
-                      <div style={{ width: 22, textAlign: 'center', fontSize: 11, color: '#00d2ff', fontWeight: 800 }}>
+                      <div style={{ width: 'clamp(14px, 3.5vw, 20px)', textAlign: 'center', fontSize: 'clamp(9.5px, 2.2vw, 11px)', color: 'var(--accent-cyan, #00d2ff)', fontWeight: 800 }}>
                         {rowNum}
                       </div>
 
                       {/* Right 3 Seats (D, E, F) */}
-                      <div style={{ display: 'flex', gap: 6 }}>
+                      <div style={{ display: 'flex', gap: 'clamp(3px, 1vw, 6px)' }}>
                         {rightCols.map((col) => {
                           const seatCode = `${rowNum < 10 ? '0' + rowNum : rowNum}${col}`;
                           const isBooked = bookedSeats.includes(seatCode);
@@ -788,14 +802,15 @@ export default function SeatMapModal({
                               disabled={isBooked}
                               onClick={() => handleSeatClick(seatCode)}
                               title={isBooked ? `${seatCode} (Occupied)` : isSelected ? `${seatCode} (Passenger ${seatPassengerIndex + 1})` : `${seatCode} - ${getSeatClass(rowNum)} (+${currencySymbol}${convertPrice(getSeatPrice(rowNum, col))})`}
+                              className="cabin-seat-btn"
                               style={{
-                                width: 38,
-                                height: 38,
-                                borderRadius: 7,
+                                width: 'clamp(32px, 7.8vw, 38px)',
+                                height: 'clamp(32px, 7.8vw, 38px)',
+                                borderRadius: 6,
                                 background: bgColor,
                                 border: isSelected ? `2px solid ${passengerColor.border}` : `1px solid ${borderColor}`,
                                 color: isSelected ? '#000' : isBooked ? '#475569' : '#fff',
-                                fontSize: 10,
+                                fontSize: 'clamp(9px, 2.2vw, 10.5px)',
                                 fontWeight: 900,
                                 cursor: isBooked ? 'not-allowed' : 'pointer',
                                 transition: 'all 0.15s ease',
@@ -804,12 +819,13 @@ export default function SeatMapModal({
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 position: 'relative',
-                                boxShadow: isSelected ? `0 0 12px ${passengerColor.border}` : 'none'
+                                boxShadow: isSelected ? `0 0 10px ${passengerColor.border}` : 'none',
+                                padding: 0
                               }}
                             >
                               <span>{seatCode}</span>
                               {isSelected ? (
-                                <span style={{ fontSize: 9, fontWeight: 900, background: '#000', color: passengerColor.border, padding: '0 3px', borderRadius: 3, marginTop: 1 }}>
+                                <span style={{ fontSize: 8, fontWeight: 900, background: '#000', color: passengerColor.border, padding: '0 2px', borderRadius: 2, marginTop: 1, lineHeight: 1 }}>
                                   {passengerColor.badge}
                                 </span>
                               ) : null}
@@ -825,11 +841,11 @@ export default function SeatMapModal({
               <div style={{
                 textAlign: 'center',
                 fontSize: 11,
-                color: '#94a3b8',
-                marginTop: 14,
+                color: 'var(--text-muted, #94a3b8)',
+                marginTop: 12,
                 fontWeight: 700
               }}>
-                💡 Click any seat above to assign for the selected passenger badge (P1, P2, etc.).
+                💡 Tap any seat above to assign for the selected passenger badge (P1, P2, etc.).
               </div>
             </div>
           </div>
@@ -965,13 +981,13 @@ export default function SeatMapModal({
         </div>
 
         {/* Sticky Footer with Price Summary and Continue Button */}
-        <div style={{
-          padding: '18px 24px',
+        <div className="seat-modal-footer" style={{
+          padding: '14px 20px',
           borderTop: '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: 'rgba(9, 15, 29, 0.98)',
+          background: 'var(--modal-bg, rgba(9, 15, 29, 0.98))',
           position: 'sticky',
           bottom: 0,
           zIndex: 10,
@@ -979,15 +995,15 @@ export default function SeatMapModal({
           gap: 14
         }}>
           <div>
-            <div style={{ fontSize: 12, color: '#94a3b8' }}>
+            <div style={{ fontSize: 12, color: 'var(--text-muted, #94a3b8)' }}>
               Base: {currencySymbol}{convertPrice(activeFlight?.basePrice || 4850)} × {passengerCount} {passengerCount === 1 ? 'passenger' : 'passengers'} ({currencySymbol}{convertPrice(baseAirfareTotal)}) + Add-ons: {currencySymbol}{convertPrice(totalAddonAmount)}
             </div>
-            <div style={{ fontSize: 22, fontWeight: 900, color: '#00e676' }}>
+            <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent-green, #00e676)' }}>
               Total: {currencySymbol}{convertPrice(grandTotal).toLocaleString()}
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: 10 }}>
+          <div className="seat-modal-footer-btns" style={{ display: 'flex', gap: 10 }}>
             <button
               type="button"
               onClick={onClose}

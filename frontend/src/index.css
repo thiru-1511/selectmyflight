@@ -1793,4 +1793,59 @@ select option {
   box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06) !important;
 }
 
+/* ==========================================================================
+   SEAT MAP MODAL - MOBILE RESPONSIVENESS & ROYAL THEME
+   ========================================================================== */
+.seat-map-modal-card {
+  width: 100% !important;
+  max-width: 980px !important;
+  max-height: 96vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+@media (max-width: 768px) {
+  .seat-modal-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 12px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .seat-map-modal-card {
+    max-height: 98vh !important;
+    border-radius: 12px !important;
+  }
+  .seat-modal-footer {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    padding: 12px 14px !important;
+  }
+  .seat-modal-footer-btns {
+    width: 100% !important;
+    display: flex !important;
+    gap: 8px !important;
+  }
+  .seat-modal-footer-btns button {
+    flex: 1 !important;
+    justify-content: center !important;
+    min-height: 44px !important;
+    padding: 10px 14px !important;
+  }
+}
+
+[data-theme="royal"] .booking-3d-backdrop {
+  background-color: #0b152d !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
+}
+
+[data-theme="royal"] .seat-map-modal-card {
+  border-color: rgba(212, 175, 55, 0.35) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(212, 175, 55, 0.15) !important;
+}
+
+
 

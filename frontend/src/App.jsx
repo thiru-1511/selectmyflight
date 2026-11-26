@@ -108,12 +108,17 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  // Theme state: 'emerald' (Cathay Pacific / Eco-Modern Mint - Default), 'light', 'dark', 'royal'
+  // Theme state: 'royal' (Royal Luxury Gold - Default), 'light', 'dark', 'emerald'
   const [theme, setTheme] = useState(() => {
     try {
-      return localStorage.getItem('smf_theme') || 'emerald';
+      const saved = localStorage.getItem('smf_theme');
+      // If user previously had emerald or nothing saved, default to royal
+      if (!saved || saved === 'emerald') {
+        return 'royal';
+      }
+      return saved;
     } catch {
-      return 'emerald';
+      return 'royal';
     }
   });
 
