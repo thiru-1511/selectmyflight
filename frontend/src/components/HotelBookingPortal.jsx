@@ -371,7 +371,7 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
       </div>
 
       {/* Mobile Filter Toggle Button */}
-      <div className="mobile-menu-btn" style={{ marginBottom: 16, display: 'none', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="mobile-filter-bar" style={{ marginBottom: 16 }}>
         <button
           type="button"
           onClick={() => setShowMobileFilters(!showMobileFilters)}
@@ -397,14 +397,13 @@ export default function HotelBookingPortal({ currency = 'INR', onBookHotelSucces
       <div className="hotel-portal-layout">
         {/* Left Filter Sidebar (Sticky on desktop, toggleable on mobile) */}
         <div 
-          className="sticky-sidebar glass-card"
+          className={`sticky-sidebar glass-card filter-sidebar ${showMobileFilters ? 'mobile-visible' : ''}`}
           style={{
             background: 'var(--card-bg, #ffffff)',
             border: '1px solid var(--card-border, #e2e8f0)',
             borderRadius: 18,
             padding: '22px',
-            color: 'var(--text-main, #0f172a)',
-            display: (typeof window !== 'undefined' && window.innerWidth < 992 && !showMobileFilters) ? 'none' : 'block'
+            color: 'var(--text-main, #0f172a)'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18, borderBottom: '1px solid var(--card-border, #e2e8f0)', paddingBottom: 12 }}>

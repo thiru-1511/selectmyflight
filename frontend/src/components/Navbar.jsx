@@ -20,7 +20,8 @@ import {
   LogOut,
   Palmtree,
   FileCheck2,
-  FileText
+  FileText,
+  Shield
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -45,6 +46,7 @@ export default function Navbar({
   onOpenManageBooking,
   onOpenFeatureLauncher,
   onOpenAuth,
+  onOpenAdmin,
   onOpenProfile,
   onLogout
 }) {
@@ -98,7 +100,8 @@ export default function Navbar({
     { id: 'refund_action', label: t('nav.refundTracker', 'Refund Tracker'), icon: RefreshCw, badge: 'PNR', badgeColor: '#f5af19', action: onOpenRefundTracker, desc: 'Instant bank refund audit' },
     { id: 'itinerary', label: t('nav.tripCraft', 'AI TripCraft Planner'), icon: Sparkles, desc: 'Personalized multi-day plans' },
     { id: 'explore', label: t('nav.destinations', 'Explore Destinations'), icon: Compass, desc: 'Curated world highlights' },
-    { id: 'map', label: t('nav.routeMap', 'Interactive Route Map'), icon: Globe, desc: 'Global route visualizer' }
+    { id: 'map', label: t('nav.routeMap', 'Interactive Route Map'), icon: Globe, desc: 'Global route visualizer' },
+    ...(onOpenAdmin ? [{ id: 'admin', label: t('nav.adminPortal', 'Admin Operations'), icon: Shield, badge: 'ADMIN', badgeColor: '#ec4899', action: onOpenAdmin, desc: 'Fleet control, bookings & refund override' }] : [])
   ];
 
   const allNavItems = [...primaryNavItems, ...secondaryNavItems];
@@ -461,18 +464,18 @@ export default function Navbar({
             )}
           </button>
 
-          {/* User Account / Profile Button (PINNED & PLACED IMMEDIATELY AFTER NOTIFICATIONS!) */}
+          {/* User Account / Profile Button */}
           <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
             <button 
               type="button"
               onClick={currentUser ? onOpenProfile : onOpenAuth}
               className="navbar-user-profile-btn"
-              title={`Logged in as ${currentUser?.name || 'Thiru'} (${currentUser?.email || 'thiru1511@gmail.com'}) - Click to view profile`}
+              title={currentUser ? `Logged in as ${currentUser.name || 'Thiru'} (${currentUser.email || ''}) - Click to view profile` : 'Sign In or Create Account'}
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: 6,
-                padding: '3px 10px 3px 5px',
+                padding: currentUser ? '3px 10px 3px 5px' : '4px 12px',
                 borderRadius: 20,
                 cursor: 'pointer',
                 height: 32,
@@ -480,33 +483,44 @@ export default function Navbar({
                 flexShrink: 0
               }}
             >
-              <div style={{
-                width: 24,
-                height: 24,
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #0284c7, #2563eb)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 12,
-                fontWeight: 800,
-                color: '#ffffff',
-                boxShadow: '0 1px 4px rgba(2, 132, 199, 0.35)',
-                flexShrink: 0
-              }}>
-                {(currentUser?.name || 'Thiru')[0].toUpperCase()}
-              </div>
-              <span 
-                className="navbar-user-name" 
-                style={{ 
-                  fontWeight: 800, 
-                  fontSize: 13,
-                  letterSpacing: -0.2
-                }}
-              >
-                {currentUser?.name ? currentUser.name.split(' ')[0] : 'Thiru'}
-              </span>
-              <ChevronDown size={11} style={{ opacity: 0.65 }} />
+              {currentUser ? (
+                <>
+                  <div style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 12,
+                    fontWeight: 800,
+                    color: '#ffffff',
+                    boxShadow: '0 1px 4px rgba(2, 132, 199, 0.35)',
+                    flexShrink: 0
+                  }}>
+                    {(currentUser.name || 'T')[0].toUpperCase()}
+                  </div>
+                  <span 
+                    className="navbar-user-name" 
+                    style={{ 
+                      fontWeight: 800, 
+                      fontSize: 13,
+                      letterSpacing: -0.2
+                    }}
+                  >
+                    {currentUser.name ? currentUser.name.split(' ')[0] : 'Thiru'}
+                  </span>
+                  <ChevronDown size={11} style={{ opacity: 0.65 }} />
+                </>
+              ) : (
+                <>
+                  <User size={14} color="var(--accent-cyan, #0284c7)" />
+                  <span className="navbar-user-name" style={{ fontWeight: 700, fontSize: 12 }}>
+                    {t('nav.signIn', 'Sign In')}
+                  </span>
+                </>
+              )}
             </button>
           </div>
 
@@ -590,10 +604,11 @@ export default function Navbar({
               background: 'var(--card-subtle-bg, #f1f5f9)',
               border: '1px solid var(--card-border, #cbd5e1)',
               color: 'var(--text-main)',
-              width: 36,
-              height: 36,
+              width: 34,
+              height: 34,
               borderRadius: 8,
-              cursor: 'pointer'
+              cursor: 'pointer',
+              flexShrink: 0
             }}
             aria-label="Toggle navigation menu"
           >
@@ -603,7 +618,7 @@ export default function Navbar({
       </div>
 
       {/* Mobile Horizontal Quick Tab Bar */}
-      <div className="mobile-menu-btn scroll-touch-x" style={{ display: 'none', marginTop: 8, paddingBottom: 4 }}>
+      <div className="mobile-quick-nav scroll-touch-x" style={{ marginTop: 6, paddingBottom: 4, display: 'none', gap: 6 }}>
         {allNavItems.map(item => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -612,26 +627,36 @@ export default function Navbar({
               key={item.id}
               type="button"
               onClick={() => item.action ? item.action() : handleNavClick(item.id)}
+              className={`mobile-quick-nav-pill ${isActive ? 'active' : ''}`}
               style={{
-                background: isActive ? 'linear-gradient(135deg, #0284c7, #2563eb)' : 'var(--card-subtle-bg, #f1f5f9)',
-                color: isActive ? '#fff' : 'var(--text-main, #334155)',
-                border: isActive ? '1px solid #0284c7' : '1px solid var(--card-border, #cbd5e1)',
+                background: isActive ? 'linear-gradient(135deg, var(--accent-cyan, #0284c7), var(--accent-blue, #2563eb))' : 'var(--card-subtle-bg, #f1f5f9)',
+                color: isActive ? '#ffffff' : 'var(--text-main, #334155)',
+                border: isActive ? '1px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, #cbd5e1)',
                 padding: '6px 12px',
                 borderRadius: 20,
                 fontSize: 12,
-                fontWeight: 600,
+                fontWeight: isActive ? 700 : 600,
                 whiteSpace: 'nowrap',
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
                 gap: 5,
                 flexShrink: 0,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                transition: 'all 0.2s'
               }}
             >
-              <Icon size={13} />
+              <Icon size={13} color={isActive ? '#ffffff' : (item.badgeColor || 'var(--accent-cyan, #0284c7)')} />
               <span>{item.label}</span>
               {item.badge && (
-                <span style={{ fontSize: 8, background: 'rgba(0,0,0,0.15)', padding: '1px 4px', borderRadius: 4, fontWeight: 800 }}>
+                <span style={{
+                  fontSize: 8.5,
+                  background: isActive ? 'rgba(255, 255, 255, 0.25)' : `${item.badgeColor}22`,
+                  color: isActive ? '#ffffff' : item.badgeColor,
+                  border: isActive ? '1px solid rgba(255, 255, 255, 0.4)' : `1px solid ${item.badgeColor}44`,
+                  padding: '1px 4px',
+                  borderRadius: 4,
+                  fontWeight: 800
+                }}>
                   {item.badge}
                 </span>
               )}
@@ -651,7 +676,121 @@ export default function Navbar({
           boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
           animation: 'slideUp 0.2s ease-out'
         }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
+          {/* User Status Card */}
+          <div style={{
+            background: 'var(--card-subtle-bg, #f8fafc)',
+            border: '1px solid var(--card-border, #e2e8f0)',
+            borderRadius: 12,
+            padding: '12px 14px',
+            marginBottom: 14,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 10
+          }}>
+            {currentUser ? (
+              <>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
+                  <div style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 15,
+                    fontWeight: 800,
+                    color: '#ffffff',
+                    flexShrink: 0
+                  }}>
+                    {(currentUser.name || 'T')[0].toUpperCase()}
+                  </div>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {currentUser.name || 'Traveler'}
+                    </div>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {currentUser.email || 'Frequent Flyer Gold'}
+                    </div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      onOpenProfile();
+                    }}
+                    style={{
+                      background: 'rgba(2, 132, 199, 0.12)',
+                      border: '1px solid rgba(2, 132, 199, 0.3)',
+                      color: 'var(--accent-cyan, #0284c7)',
+                      padding: '6px 10px',
+                      borderRadius: 8,
+                      fontSize: 12,
+                      fontWeight: 700,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Profile
+                  </button>
+                  {onLogout && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        onLogout();
+                      }}
+                      title="Sign Out"
+                      style={{
+                        background: 'rgba(239, 68, 68, 0.12)',
+                        border: '1px solid rgba(239, 68, 68, 0.25)',
+                        color: '#f87171',
+                        padding: '6px 8px',
+                        borderRadius: 8,
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
+                    >
+                      <LogOut size={14} />
+                    </button>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', gap: 10 }}>
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--text-main)' }}>Welcome to SelectMyFlight</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Sign in to view saved bookings & VIP offers</div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onOpenAuth();
+                  }}
+                  style={{
+                    background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                    color: '#ffffff',
+                    border: 'none',
+                    padding: '8px 14px',
+                    borderRadius: 8,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  Sign In
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* All Travel Services Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8, marginBottom: 14 }}>
             {allNavItems.map(item => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -661,13 +800,13 @@ export default function Navbar({
                   type="button"
                   onClick={() => item.action ? item.action() : handleNavClick(item.id)}
                   style={{
-                    background: isActive ? 'rgba(2, 132, 199, 0.12)' : 'var(--card-subtle-bg, #f1f5f9)',
+                    background: isActive ? 'rgba(2, 132, 199, 0.14)' : 'var(--card-subtle-bg, #f1f5f9)',
                     color: isActive ? 'var(--accent-cyan, #0284c7)' : 'var(--text-main)',
                     border: isActive ? '1px solid var(--accent-cyan, #0284c7)' : '1px solid var(--card-border, #e2e8f0)',
-                    padding: '10px 12px',
+                    padding: '9px 10px',
                     borderRadius: 10,
-                    fontSize: 13,
-                    fontWeight: 600,
+                    fontSize: 12.5,
+                    fontWeight: isActive ? 700 : 600,
                     display: 'flex',
                     alignItems: 'center',
                     gap: 8,
@@ -675,64 +814,77 @@ export default function Navbar({
                     textAlign: 'left'
                   }}
                 >
-                  <Icon size={16} color={isActive ? 'var(--accent-cyan, #0284c7)' : 'var(--text-muted)'} />
-                  <span>{item.label}</span>
+                  <Icon size={16} color={isActive ? 'var(--accent-cyan, #0284c7)' : (item.badgeColor || 'var(--text-muted)')} style={{ flexShrink: 0 }} />
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>{item.label}</span>
+                  {item.badge && (
+                    <span style={{
+                      fontSize: 8,
+                      background: `${item.badgeColor || '#0284c7'}22`,
+                      color: item.badgeColor || '#0284c7',
+                      border: `1px solid ${item.badgeColor || '#0284c7'}44`,
+                      padding: '1px 4px',
+                      borderRadius: 4,
+                      fontWeight: 800,
+                      flexShrink: 0
+                    }}>
+                      {item.badge}
+                    </span>
+                  )}
                 </button>
               );
             })}
           </div>
 
-          {/* Mobile Currency & Language Selector */}
+          {/* Mobile Currency, Language & Theme Selector */}
           <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(95px, 1fr))',
             background: 'var(--card-subtle-bg, #f1f5f9)',
-            padding: '12px',
+            padding: '10px',
             borderRadius: 10,
             marginBottom: 12,
-            gap: 10
+            gap: 8
           }}>
-            <div style={{ flex: 1 }}>
+            <div>
               <label style={{ display: 'block', fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>
                 Currency
               </label>
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                style={{ width: '100%', padding: '6px 10px', fontSize: 13, fontWeight: 700 }}
+                style={{ width: '100%', padding: '6px 8px', fontSize: 12, fontWeight: 700, borderRadius: 6, border: '1px solid var(--card-border, #cbd5e1)' }}
               >
-                <option value="INR">₹ INR (Indian Rupee)</option>
-                <option value="USD">$ USD (US Dollar)</option>
-                <option value="EUR">€ EUR (Euro)</option>
-                <option value="GBP">£ GBP (British Pound)</option>
+                <option value="INR">₹ INR</option>
+                <option value="USD">$ USD</option>
+                <option value="EUR">€ EUR</option>
+                <option value="GBP">£ GBP</option>
               </select>
             </div>
 
-            <div style={{ flex: 1 }}>
+            <div>
               <label style={{ display: 'block', fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>
                 {t('nav.language', 'Language')}
               </label>
               <select
                 value={currentLanguage}
                 onChange={(e) => handleLanguageChange(e.target.value)}
-                style={{ width: '100%', padding: '6px 10px', fontSize: 13 }}
+                style={{ width: '100%', padding: '6px 8px', fontSize: 12, fontWeight: 600, borderRadius: 6, border: '1px solid var(--card-border, #cbd5e1)' }}
               >
-                <option value="EN">English (EN)</option>
-                <option value="HI">हिन्दी (HI)</option>
-                <option value="ES">Español (ES)</option>
-                <option value="FR">Français (FR)</option>
+                <option value="EN">English</option>
+                <option value="HI">हिन्दी</option>
+                <option value="ES">Español</option>
+                <option value="FR">Français</option>
               </select>
             </div>
 
-            <div style={{ flex: 1 }}>
+            <div>
               <label style={{ display: 'block', fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>
                 Theme
               </label>
               <select
                 value={theme}
                 onChange={(e) => setTheme && setTheme(e.target.value)}
-                style={{ width: '100%', padding: '6px 10px', fontSize: 13, fontWeight: 700 }}
+                style={{ width: '100%', padding: '6px 8px', fontSize: 12, fontWeight: 700, borderRadius: 6, border: '1px solid var(--card-border, #cbd5e1)' }}
               >
                 <option value="light">☀️ Light</option>
                 <option value="dark">🌙 Dark</option>
@@ -742,7 +894,7 @@ export default function Navbar({
             </div>
           </div>
 
-          {/* Quick Help & Logout */}
+          {/* Quick Help Desk & Admin Operations */}
           <div style={{ display: 'flex', gap: 8 }}>
             <button
               type="button"
@@ -755,9 +907,9 @@ export default function Navbar({
                 background: 'var(--card-subtle-bg, #f1f5f9)',
                 border: '1px solid var(--card-border, #e2e8f0)',
                 color: 'var(--text-main)',
-                padding: '10px',
+                padding: '9px',
                 borderRadius: 8,
-                fontSize: 13,
+                fontSize: 12.5,
                 fontWeight: 600,
                 display: 'flex',
                 alignItems: 'center',
@@ -769,28 +921,30 @@ export default function Navbar({
               <HelpCircle size={15} /> Help Desk
             </button>
 
-            {currentUser && onLogout && (
+            {onOpenAdmin && (
               <button
                 type="button"
                 onClick={() => {
                   setIsMobileMenuOpen(false);
-                  onLogout();
+                  onOpenAdmin();
                 }}
                 style={{
-                  background: 'rgba(239, 68, 68, 0.15)',
-                  border: '1px solid rgba(239, 68, 68, 0.3)',
-                  color: '#f87171',
-                  padding: '10px 14px',
+                  flex: 1,
+                  background: 'rgba(236, 72, 153, 0.1)',
+                  border: '1px solid rgba(236, 72, 153, 0.3)',
+                  color: '#ec4899',
+                  padding: '9px',
                   borderRadius: 8,
-                  fontSize: 13,
+                  fontSize: 12.5,
                   fontWeight: 700,
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   gap: 6,
                   cursor: 'pointer'
                 }}
               >
-                <LogOut size={15} /> Sign Out
+                <Shield size={15} /> Admin Portal
               </button>
             )}
           </div>

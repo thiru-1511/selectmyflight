@@ -591,6 +591,10 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
   }
   
   .mobile-menu-btn {
+    display: inline-flex !important;
+  }
+
+  .mobile-quick-nav {
     display: flex !important;
   }
 
@@ -1456,13 +1460,24 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
    FEATURE HUB & NAVBAR UNIVERSAL CONTRAST & RESPONSIVENESS FIXES
    ========================================================================== */
 
-/* 1. Navbar Single-Row Lock (Never wraps into multi-line) */
-.desktop-nav-links {
-  display: flex !important;
-  align-items: center !important;
-  flex-wrap: nowrap !important;
-  white-space: nowrap !important;
-  gap: 3px !important;
+/* 1. Navbar Single-Row Lock (Desktop only: 993px and up) */
+@media (min-width: 993px) {
+  .desktop-nav-links {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    gap: 3px !important;
+  }
+  .mobile-menu-btn {
+    display: none !important;
+  }
+  .mobile-quick-nav {
+    display: none !important;
+  }
+  .mobile-filter-bar {
+    display: none !important;
+  }
 }
 
 .desktop-nav-btn {
@@ -1487,7 +1502,25 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
   border: 1px solid rgba(2, 132, 199, 0.3) !important;
 }
 
-/* 2. Responsive Navbar Adaptations (Prevents truncation on laptop screens) */
+[data-theme="dark"] .desktop-nav-btn.active {
+  background: rgba(0, 210, 255, 0.15) !important;
+  color: #00d2ff !important;
+  border: 1px solid rgba(0, 210, 255, 0.4) !important;
+}
+
+[data-theme="royal"] .desktop-nav-btn.active {
+  background: rgba(212, 175, 55, 0.15) !important;
+  color: #d4af37 !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+}
+
+[data-theme="emerald"] .desktop-nav-btn.active {
+  background: rgba(52, 211, 153, 0.15) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(52, 211, 153, 0.4) !important;
+}
+
+/* 2. Responsive Navbar & Mobile Layout Adaptations */
 @media (max-width: 1340px) {
   .navbar-live-text {
     display: none !important;
@@ -1514,6 +1547,70 @@ button:disabled, .btn-primary:disabled, .btn-secondary:disabled {
   }
   .navbar-search-btn {
     padding: 4px 7px !important;
+  }
+}
+
+/* Tablet & Mobile Breakpoint (992px and below) */
+@media (max-width: 992px) {
+  .desktop-nav-links {
+    display: none !important;
+  }
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: inline-flex !important;
+  }
+  .mobile-quick-nav {
+    display: flex !important;
+  }
+  .mobile-filter-bar {
+    display: flex !important;
+  }
+  .filter-sidebar {
+    display: none !important;
+  }
+  .filter-sidebar.mobile-visible {
+    display: block !important;
+  }
+}
+
+/* Phone Breakpoint (640px and below) */
+@media (max-width: 640px) {
+  .navbar-user-name {
+    display: none !important;
+  }
+  .navbar-user-profile-btn {
+    padding: 3px 6px !important;
+  }
+  .navbar-search-btn {
+    padding: 4px 8px !important;
+    min-width: 32px;
+    justify-content: center;
+  }
+  .hero-search-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .hero-route-box {
+    grid-column: 1 / -1 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* Small Phone Breakpoint (480px and below) */
+@media (max-width: 480px) {
+  .navbar-live-status-pill {
+    display: none !important;
+  }
+  .navbar-brand-title {
+    font-size: 13.5px !important;
+  }
+  .hero-route-box {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
   }
 }
 

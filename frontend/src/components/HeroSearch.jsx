@@ -208,7 +208,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
             </div>
 
             {/* Main Search Inputs Grid (Responsive & Pixel-Perfect Alignment) */}
-            <div style={{
+            <div className="hero-search-grid" style={{
               display: 'grid',
               gridTemplateColumns: tripType === 'round-trip' 
                 ? 'repeat(auto-fit, minmax(180px, 1fr))' 
@@ -217,7 +217,7 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
               alignItems: 'flex-end'
             }}>
               {/* Origin & Destination Group with Centered Swap Icon */}
-              <div style={{
+              <div className="hero-route-box" style={{
                 display: 'flex',
                 alignItems: 'flex-end',
                 gap: 8,

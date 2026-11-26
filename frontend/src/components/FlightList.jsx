@@ -139,7 +139,7 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
       </div>
 
       {/* Mobile Filter Toggle Button */}
-      <div style={{ display: 'none', marginBottom: 14 }} className="mobile-menu-btn">
+      <div style={{ marginBottom: 14 }} className="mobile-filter-bar">
         <button
           type="button"
           onClick={() => setShowMobileFilters(prev => !prev)}
@@ -176,10 +176,9 @@ export default function FlightList({ flights = [], currency, onSelectFlight, onV
       <div className="responsive-flight-layout">
         {/* Filter Sidebar (Desktop or when toggled on Mobile) */}
         <div 
-          className="glass-card sticky-sidebar" 
+          className={`glass-card sticky-sidebar filter-sidebar ${showMobileFilters ? 'mobile-visible' : ''}`}
           style={{ 
-            padding: '18px', 
-            display: (typeof window !== 'undefined' && window.innerWidth < 992 && !showMobileFilters) ? 'none' : 'block'
+            padding: '18px'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
