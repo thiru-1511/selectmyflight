@@ -68,53 +68,51 @@ export default function HeroSearch({ searchParams, setSearchParams, onSearch, on
           </div>
 
           {/* Home Page Prominent Traveler Greeting Badge */}
-          {currentUser && (
-            <div style={{ margin: '0 auto 16px auto', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ margin: '0 auto 16px auto', display: 'flex', justifyContent: 'center' }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(9, 15, 29, 0.75)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              border: '1.5px solid var(--accent-cyan, #0284c7)',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(2, 132, 199, 0.25)',
+              padding: '6px 16px',
+              borderRadius: 30
+            }}>
               <div style={{
-                display: 'inline-flex',
+                width: 22,
+                height: 22,
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                display: 'flex',
                 alignItems: 'center',
-                gap: 8,
-                background: 'rgba(9, 15, 29, 0.75)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                border: '1.5px solid var(--accent-cyan, #0284c7)',
-                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(2, 132, 199, 0.25)',
-                padding: '6px 16px',
-                borderRadius: 30
+                justifyContent: 'center',
+                color: '#ffffff',
+                fontWeight: 800,
+                fontSize: 11
               }}>
-                <div style={{
-                  width: 22,
-                  height: 22,
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #0284c7, #2563eb)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ffffff',
-                  fontWeight: 800,
-                  fontSize: 11
-                }}>
-                  {(currentUser.name || 'U')[0].toUpperCase()}
-                </div>
-                <span style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc' }}>
-                  👋 Welcome back, <strong style={{ color: '#38bdf8', fontWeight: 800 }}>{currentUser.name}</strong>!
-                </span>
-                <span style={{
-                  fontSize: 10,
-                  background: 'rgba(245, 175, 25, 0.2)',
-                  color: '#f5af19',
-                  border: '1px solid rgba(245, 175, 25, 0.4)',
-                  fontWeight: 800,
-                  padding: '2px 8px',
-                  borderRadius: 12,
-                  textTransform: 'uppercase',
-                  letterSpacing: 0.5
-                }}>
-                  {currentUser.frequentFlyerTier || 'Member'}
-                </span>
+                {(currentUser?.name || 'Thiru')[0].toUpperCase()}
               </div>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc' }}>
+                👋 Welcome back, <strong style={{ color: '#38bdf8', fontWeight: 800 }}>{currentUser?.name || 'Thiru'}</strong>!
+              </span>
+              <span style={{
+                fontSize: 10,
+                background: 'rgba(245, 175, 25, 0.2)',
+                color: '#f5af19',
+                border: '1px solid rgba(245, 175, 25, 0.4)',
+                fontWeight: 800,
+                padding: '2px 8px',
+                borderRadius: 12,
+                textTransform: 'uppercase',
+                letterSpacing: 0.5
+              }}>
+                {currentUser?.frequentFlyerTier || 'Gold Elite'}
+              </span>
             </div>
-          )}
+          </div>
 
           <h1 className="hero-heading" style={{
             fontSize: 'clamp(28px, 5vw, 54px)',

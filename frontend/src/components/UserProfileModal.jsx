@@ -3,9 +3,9 @@ import { X, User, Award, Shield, CheckCircle2, Star, Save } from 'lucide-react';
 
 export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, onSwitchAccount }) {
   const [formData, setFormData] = useState({
-    name: user?.name || localStorage.getItem('smf_verified_name') || '',
-    email: user?.email || localStorage.getItem('smf_verified_email') || '',
-    phone: user?.phone || '',
+    name: user?.name || localStorage.getItem('smf_verified_name') || 'Thiru',
+    email: user?.email || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com',
+    phone: user?.phone || '+91 98765 43210',
     preferredSeat: user?.preferredSeat || 'Window',
     preferredClass: user?.preferredClass || 'Business',
     preferredMeal: user?.preferredMeal || 'Royal Rajasthani Thali (Veg)',
@@ -17,9 +17,9 @@ export default function UserProfileModal({ isOpen, user, onClose, onUpdateUser, 
   React.useEffect(() => {
     if (user) {
       setFormData({
-        name: user.name || localStorage.getItem('smf_verified_name') || '',
-        email: user.email || localStorage.getItem('smf_verified_email') || '',
-        phone: user.phone || '',
+        name: user.name || localStorage.getItem('smf_verified_name') || 'Thiru',
+        email: user.email || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com',
+        phone: user.phone || '+91 98765 43210',
         preferredSeat: user.preferredSeat || 'Window',
         preferredClass: user.preferredClass || 'Economy',
         preferredMeal: user.preferredMeal || 'Royal Rajasthani Thali (Veg)',

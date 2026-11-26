@@ -74,8 +74,8 @@ export default function HelpDeskModal({ isOpen, onClose, onOpenAiChat }) {
 
   // Ticket Form
   const [ticketData, setTicketData] = useState({
-    name: localStorage.getItem('smf_verified_name') || '',
-    email: localStorage.getItem('smf_verified_email') || '',
+    name: localStorage.getItem('smf_verified_name') || 'Thiru',
+    email: localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com',
     pnr: '',
     category: 'Booking & E-Ticket',
     message: ''
