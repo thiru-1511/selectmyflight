@@ -10,11 +10,11 @@ export default function FareRulesModal({ flight, currency, onClose }) {
   const currencySymbol = currency === 'USD' ? '$' : '₹';
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 580 }}>
+    <div className="modal-overlay" onClick={onClose} style={{ padding: 'clamp(6px, 2vw, 20px)' }}>
+      <div className="modal-content fare-rules-modal-card" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 580, width: '100%', maxHeight: '94vh', overflowY: 'auto' }}>
         {/* Header */}
         <div style={{
-          padding: '20px 24px',
+          padding: 'clamp(14px, 2vw, 20px) clamp(14px, 2.5vw, 24px)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
           alignItems: 'center',
@@ -55,7 +55,7 @@ export default function FareRulesModal({ flight, currency, onClose }) {
             <h4 style={{ fontSize: 14, fontWeight: 700, color: 'var(--accent-cyan, #0284c7)', textTransform: 'uppercase', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
               <Briefcase size={16} /> Baggage Allowances (Included in Fare)
             </h4>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div className="fare-rules-baggage-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
               <div style={{
                 background: 'var(--card-subtle-bg, #f1f5f9)',
                 border: '1px solid var(--card-border, #cbd5e1)',

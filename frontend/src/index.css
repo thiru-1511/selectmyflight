@@ -1847,5 +1847,125 @@ select option {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(212, 175, 55, 0.15) !important;
 }
 
+/* ==========================================================================
+   TICKET BOOKINGS & MODALS MOBILE RESPONSIVENESS
+   ========================================================================== */
+.checkout-modal-card,
+.eticket-modal-card,
+.manage-booking-modal-card,
+.transit-ticket-modal-card,
+.fare-rules-modal-card {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 640px) {
+  /* Checkout Modal */
+  .checkout-modal-card {
+    max-height: 98vh !important;
+    border-radius: 14px !important;
+  }
+  .checkout-modal-header h3 {
+    font-size: 15px !important;
+  }
+  .checkout-pax-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .checkout-pax-grid > div {
+    grid-column: span 1 !important;
+  }
+  .checkout-payment-methods-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .checkout-card-inputs-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .checkout-card-inputs-grid > div:first-child {
+    grid-column: span 2 !important;
+  }
+  .checkout-footer-btns {
+    flex-direction: column !important;
+  }
+  .checkout-footer-btns button {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 46px !important;
+  }
+
+  /* E-Ticket & Boarding Pass Modal */
+  .eticket-modal-card {
+    max-height: 98vh !important;
+    border-radius: 14px !important;
+  }
+  .eticket-specs-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .eticket-invoice-billed-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .eticket-footer-btns {
+    flex-direction: column !important;
+  }
+  .eticket-footer-btns button {
+    width: 100% !important;
+    min-height: 44px !important;
+    justify-content: center !important;
+  }
+
+  /* Manage Booking Modal */
+  .manage-booking-modal-card {
+    max-height: 98vh !important;
+    border-radius: 14px !important;
+  }
+  .manage-booking-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .manage-booking-specs-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .manage-booking-actions-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  /* Transit Ticket Modal */
+  .transit-ticket-modal-card {
+    max-height: 98vh !important;
+    border-radius: 14px !important;
+  }
+  .transit-specs-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .transit-footer-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .transit-footer-actions > div:last-child {
+    display: flex !important;
+    width: 100% !important;
+    gap: 8px !important;
+  }
+  .transit-footer-actions button {
+    flex: 1 !important;
+    min-height: 42px !important;
+    justify-content: center !important;
+  }
+
+  /* Fare Rules Modal */
+  .fare-rules-modal-card {
+    max-height: 98vh !important;
+    border-radius: 14px !important;
+  }
+  .fare-rules-baggage-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
 
 

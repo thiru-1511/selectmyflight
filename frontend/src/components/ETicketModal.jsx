@@ -37,8 +37,8 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose} style={{ zIndex: 1600, padding: 'clamp(10px, 2vw, 20px)' }}>
-      <div className="modal-content booking-3d-backdrop" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 760, maxHeight: '94vh', overflowY: 'auto', position: 'relative' }}>
+    <div className="modal-overlay" onClick={onClose} style={{ zIndex: 1600, padding: 'clamp(6px, 2vw, 20px)' }}>
+      <div className="modal-content booking-3d-backdrop eticket-modal-card" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 760, width: '100%', maxHeight: '96vh', overflowY: 'auto', position: 'relative' }}>
         {/* 3D Horizon Grid Background */}
         <div className="booking-3d-grid" />
 
@@ -53,11 +53,13 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
         </div>
 
         {/* Header */}
-        <div style={{
-          padding: '20px 24px',
+        <div className="eticket-modal-header" style={{
+          padding: 'clamp(14px, 2.5vw, 20px) clamp(14px, 3vw, 24px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: 10,
           borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
           background: 'linear-gradient(135deg, rgba(0, 230, 118, 0.1), rgba(0, 210, 255, 0.05))',
           position: 'sticky',
@@ -122,7 +124,7 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
         </div>
 
         {/* Modal Body */}
-        <div style={{ padding: '24px' }}>
+        <div style={{ padding: 'clamp(14px, 2.5vw, 24px)' }}>
           {!showInvoice ? (
             /* Boarding Pass View */
             <div>
@@ -225,7 +227,7 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
                 </div>
 
                 {/* Specs Grid */}
-                <div style={{ padding: '16px 20px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 12, background: 'rgba(255, 255, 255, 0.02)' }}>
+                <div className="eticket-specs-grid" style={{ padding: '14px clamp(12px, 2vw, 20px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 12, background: 'rgba(255, 255, 255, 0.02)' }}>
                   <div>
                     <div style={{ fontSize: 10, color: '#94a3b8' }}>PASSENGER</div>
                     <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>{activePassenger.title} {activePassenger.firstName} {activePassenger.lastName}</div>
@@ -292,19 +294,19 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
               </div>
 
               {/* Passenger & Billing Details */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18, fontSize: 12 }}>
+              <div className="eticket-invoice-billed-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18, fontSize: 12 }}>
                 <div>
                   <div style={{ color: 'var(--text-muted, #475569)' }}>Billed To:</div>
                   <div style={{ fontWeight: 700, color: 'var(--text-main, #0f172a)' }}>{safePassengers.map(p => `${p.title} ${p.firstName} ${p.lastName} (Seat ${p.seatNumber})`).join(', ')}</div>
                   <div style={{ color: 'var(--text-muted, #475569)' }}>{booking.contactEmail || localStorage.getItem('smf_verified_email') || 'thiru1511@gmail.com'}</div>
                   <div style={{ color: 'var(--text-muted, #475569)' }}>{booking.contactPhone || '+91 98765 43210'}</div>
                 </div>
-                <div style={{ textAlign: 'right' }}>
+                <div>
                   <div style={{ color: 'var(--text-muted, #475569)' }}>Payment Reference:</div>
-                  <div style={{ fontWeight: 700, color: 'var(--accent-green, #059669)', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6 }}>
+                  <div style={{ fontWeight: 700, color: 'var(--accent-green, #059669)', display: 'flex', alignItems: 'center', gap: 6 }}>
                     <RazorpayLogo size={14} /> Status: PAID IN FULL
                   </div>
-                  <div style={{ color: 'var(--text-muted, #475569)', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6, marginTop: 2 }}>
+                  <div style={{ color: 'var(--text-muted, #475569)', display: 'flex', alignItems: 'center', gap: 6, marginTop: 2 }}>
                     {paymentMethod?.includes('Google Pay') ? <GPayLogo size={16} /> : paymentMethod?.includes('PhonePe') ? <PhonePeLogo size={16} /> : paymentMethod?.includes('Paytm') ? <PaytmLogo size={16} /> : <UpiLogo size={16} />}
                     <span>{paymentMethod || 'Razorpay UPI'}</span>
                   </div>
@@ -313,7 +315,8 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
               </div>
 
               {/* Itemized Table */}
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12, marginBottom: 16 }}>
+              <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', marginBottom: 16 }}>
+                <table style={{ width: '100%', minWidth: 420, borderCollapse: 'collapse', fontSize: 12 }}>
                 <thead>
                   <tr style={{ borderBottom: '1px solid var(--card-border, #cbd5e1)', textAlign: 'left', color: 'var(--text-muted, #475569)' }}>
                     <th style={{ padding: '8px 0' }}>Description</th>
@@ -341,6 +344,7 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
                   </tr>
                 </tbody>
               </table>
+              </div>
 
               <div style={{ fontSize: 11, color: 'var(--text-muted, #475569)', borderTop: '1px solid var(--card-border, #cbd5e1)', paddingTop: 10 }}>
                 This is a computer-generated tax invoice. No physical signature is required.
@@ -349,7 +353,7 @@ export default function ETicketModal({ booking, currency, onClose, onViewMyTrips
           )}
 
           {/* Action Buttons */}
-          <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
+          <div className="eticket-footer-btns" style={{ display: 'flex', gap: 10, marginTop: 20 }}>
             <button onClick={handlePrint} className="btn-primary" style={{ flex: 1, padding: '12px', fontSize: 13 }}>
               <Printer size={15} /> {showInvoice ? 'Print / Download Tax Invoice' : `Print / Download Boarding Pass (${activePassenger.firstName} - ${activePassenger.seatNumber})`}
             </button>

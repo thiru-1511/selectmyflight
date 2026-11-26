@@ -174,15 +174,15 @@ export default function ManageBookingModal({
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={onClose} style={{ padding: 'clamp(6px, 2vw, 20px)' }}>
       <div 
-        className="modal-content" 
+        className="modal-content booking-3d-backdrop manage-booking-modal-card" 
         onClick={(e) => e.stopPropagation()} 
-        style={{ maxWidth: 680, maxHeight: '90vh', overflowY: 'auto' }}
+        style={{ maxWidth: 680, width: '100%', maxHeight: '96vh', overflowY: 'auto' }}
       >
         {/* Header */}
         <div style={{
-          padding: '20px 24px',
+          padding: 'clamp(14px, 2.5vw, 20px) clamp(14px, 3vw, 24px)',
           borderBottom: '1px solid var(--card-border, rgba(255, 255, 255, 0.1))',
           display: 'flex',
           alignItems: 'center',
@@ -222,7 +222,7 @@ export default function ManageBookingModal({
           </button>
         </div>
 
-        <div style={{ padding: 24 }}>
+        <div style={{ padding: 'clamp(14px, 2.5vw, 24px)' }}>
           {/* Lookup Box */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.03)',
@@ -232,7 +232,7 @@ export default function ManageBookingModal({
             marginBottom: 20
           }}>
             <form onSubmit={handleLookup}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+              <div className="manage-booking-form-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12, marginBottom: 12 }}>
                 <div>
                   <label style={{ display: 'block', fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>
                     PNR / Booking Reference
@@ -424,7 +424,7 @@ export default function ManageBookingModal({
               </div>
 
               {/* Passenger & Airport Details */}
-              <div style={{
+              <div className="manage-booking-specs-grid" style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(4, 1fr)',
                 gap: 10,
@@ -493,7 +493,7 @@ export default function ManageBookingModal({
               ) : null}
 
               {/* 4 Action Buttons Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 10 }}>
+              <div className="manage-booking-actions-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 10 }}>
                 {/* 1. View E-Ticket */}
                 <button
                   type="button"

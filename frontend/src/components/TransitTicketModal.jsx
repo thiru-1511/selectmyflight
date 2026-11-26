@@ -17,24 +17,26 @@ export default function TransitTicketModal({ booking, onClose, currency = 'INR',
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={onClose} style={{ padding: 'clamp(6px, 2vw, 20px)' }}>
       <div
-        className="modal-content"
+        className="modal-content transit-ticket-modal-card"
         onClick={(e) => e.stopPropagation()}
         style={{
           maxWidth: 680,
+          width: '100%',
+          maxHeight: '96vh',
+          overflowY: 'auto',
           background: 'var(--modal-bg, #ffffff)',
           border: '1px solid var(--card-border, #cbd5e1)',
-          borderRadius: 24,
-          padding: 0,
-          overflow: 'hidden'
+          borderRadius: 20,
+          padding: 0
         }}
       >
         {/* Top Glow bar */}
         <div style={{ height: 6, width: '100%', background: isTrain ? 'linear-gradient(to right, #00e676, #00b0ff)' : 'linear-gradient(to right, #f5af19, #e65c00)' }} />
 
         {/* Modal Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 24px', borderBottom: '1px solid var(--card-border, #cbd5e1)', background: 'var(--card-subtle-bg, #f8fafc)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'clamp(14px, 2vw, 18px) clamp(14px, 2.5vw, 24px)', borderBottom: '1px solid var(--card-border, #cbd5e1)', background: 'var(--card-subtle-bg, #f8fafc)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{
               width: 42,
@@ -66,7 +68,7 @@ export default function TransitTicketModal({ booking, onClose, currency = 'INR',
         </div>
 
         {/* Voucher Body */}
-        <div ref={ticketRef} style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div ref={ticketRef} style={{ padding: 'clamp(14px, 2.5vw, 24px)', display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Main Voucher Card */}
           <div style={{
             background: 'linear-gradient(135deg, rgba(17, 26, 51, 0.95), rgba(9, 15, 29, 0.95))',
@@ -119,7 +121,7 @@ export default function TransitTicketModal({ booking, onClose, currency = 'INR',
             </div>
 
             {/* Passenger & Berth Details */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 14, paddingTop: 16 }}>
+            <div className="transit-specs-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 14, paddingTop: 16 }}>
               <div>
                 <span style={{ fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', display: 'block' }}>Passenger</span>
                 <span style={{ fontSize: 13, fontWeight: 800, color: '#fff', display: 'block', marginTop: 2 }}>{booking.passengerName || 'Primary Traveler'}</span>
@@ -158,7 +160,7 @@ export default function TransitTicketModal({ booking, onClose, currency = 'INR',
         </div>
 
         {/* Actions Footer */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 24px', borderTop: '1px solid rgba(255, 255, 255, 0.08)', background: 'rgba(0,0,0,0.3)' }}>
+        <div className="transit-footer-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px clamp(14px, 2.5vw, 24px)', flexWrap: 'wrap', gap: 10, borderTop: '1px solid rgba(255, 255, 255, 0.08)', background: 'rgba(0,0,0,0.3)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#00e676' }}>
             <CheckCircle2 size={16} /> Digital E-Ticket saved to account
           </div>

@@ -277,8 +277,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose} style={{ zIndex: 1600, padding: 'clamp(10px, 2vw, 20px)' }}>
-      <div className="modal-content booking-3d-backdrop" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 880, maxHeight: '94vh', overflowY: 'auto', position: 'relative' }}>
+    <div className="modal-overlay" onClick={onClose} style={{ zIndex: 1600, padding: 'clamp(6px, 2vw, 20px)' }}>
+      <div className="modal-content booking-3d-backdrop checkout-modal-card" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 880, width: '100%', maxHeight: '96vh', overflowY: 'auto', position: 'relative' }}>
         {/* 3D Horizon Grid Background */}
         <div className="booking-3d-grid" />
 
@@ -293,8 +293,8 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
         </div>
 
         {/* Header */}
-        <div style={{
-          padding: '20px 28px',
+        <div className="checkout-modal-header" style={{
+          padding: 'clamp(14px, 2.5vw, 20px) clamp(14px, 3vw, 28px)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
           alignItems: 'center',
@@ -307,7 +307,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
+              <h3 style={{ fontSize: 'clamp(16px, 2.5vw, 20px)', fontWeight: 800, color: 'var(--text-main, #0f172a)', margin: 0 }}>
                 💳 Passenger Checkout & Razorpay Gateway
               </h3>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -351,7 +351,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} style={{ padding: 'clamp(16px, 3vw, 24px) clamp(14px, 3vw, 28px)', overflowX: 'hidden', position: 'relative', zIndex: 1 }}>
+        <form onSubmit={handleSubmit} style={{ padding: 'clamp(14px, 2.5vw, 24px) clamp(12px, 2.5vw, 24px)', overflowX: 'hidden', position: 'relative', zIndex: 1 }}>
           
           {/* Passenger Information Cards for All Travelers */}
           <div style={{ marginBottom: 24 }}>
@@ -410,7 +410,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
                   </div>
 
                   {/* Name & Title Inputs */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 10, marginBottom: 10 }}>
+                  <div className="checkout-pax-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 10, marginBottom: 10 }}>
                     <div>
                       <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Title</label>
                       <select
@@ -508,7 +508,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 10 }}>
+            <div className="checkout-payment-methods-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 10 }}>
               {/* UPI Tab */}
               <div
                 onClick={() => setPaymentMethod('RAZORPAY_UPI')}
@@ -880,7 +880,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               </div>
 
               {/* Card Inputs Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 10, marginBottom: 12 }}>
+              <div className="checkout-card-inputs-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 10, marginBottom: 12 }}>
                 <div style={{ gridColumn: 'span 2' }}>
                   <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted, #475569)', marginBottom: 4 }}>Card Number</label>
                   <input
@@ -1155,7 +1155,7 @@ export default function CheckoutModal({ bookingDetails, currency, onClose, onBoo
               <span>256-bit RBI Compliant Payment Gateway</span>
             </div>
 
-            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', width: '100%', justifyContent: 'flex-end' }}>
+            <div className="checkout-footer-btns" style={{ display: 'flex', gap: 10, flexWrap: 'wrap', width: '100%', justifyContent: 'flex-end' }}>
               <button
                 type="button"
                 onClick={onClose}
